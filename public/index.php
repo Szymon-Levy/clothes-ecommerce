@@ -2,4 +2,5 @@
 
 include '../src/bootstrap.php';
 
-echo 'coś tam';
+$data['var'] = 'jakiś string';
+echo $twig->render('index.html', $data);

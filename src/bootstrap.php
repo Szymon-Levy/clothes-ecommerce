@@ -11,7 +11,7 @@ $app = new \ClothesEcommerce\App\App($dsn, $db_user, $db_password);
 unset ($dsn, $db_user, $db_password);
 
 // Twig loading
-$twig_settings['cache'] = APP_ROOT . 'var/cache';
+$twig_settings['cache'] = APP_ROOT . '/var/cache';
 $twig_settings['debug'] = DEV;
 $twig_loader = new Twig\Loader\FilesystemLoader(APP_ROOT . '/templates');
 $twig = new Twig\Environment($twig_loader, $twig_settings);

@@ -1,0 +1,35 @@
+{% extends 'base_front.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+  <!--
+  - #HOME
+  -->
+
+  <section class="home-section">
+    <div class="container">
+      <div class="row main-grid">
+        <div class="content-column">
+          <div class="headline">collection 2020</div>
+          <h3 class="section-title title-500" data-heading-slide-from-left>New Arrivals</h4>
+          <p data-text-content-slide-from-bottom>Mattis nisl eu quam elementum vulputate ultrices blandit. Congue molestie et varius risus, tristique fermentum purus nunc sed. Et tristique cursus felis placerat proin aliquam. Faucibus aliquam nam morbi volutpat scelerisque cursus in est. Posuere lacus risus faucibus a morbi aliquam malesuada sed sed.</p>
+          <a href="#" class="text-btn">Shop now</a>
+        </div>
+
+        <div class="video-popup-column">
+          <div class="video-popup-image-wrapper" data-video-popup-image data-popup-video-src="{{doc_root}}/videos/popup-video.mp4">
+            <img class="video-popup-image" src="{{doc_root}}/images/home-section/video-popup-image.webp" alt="video popup image">
+            <button class="video-popup-icon" data-video-popup-open>
+              <img src="{{doc_root}}/images/icons/video-popup-icon.svg" alt="video popup">
+            </button>
+          </div>
+        </div>
+
+        <div class="image-column">
+          <img src="{{doc_root}}/images/home-section/home-image.webp" alt="two models in red outfit" data-image-slide-from-right>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}
