@@ -342,8 +342,8 @@ if ( $openNewsletterSignUpBtn ){
             </div>
 
             <div class="image-column">
-              <img src="/assets/images/logo/logo.svg" class="logo-image" alt="logo">
-              <img src="/assets/images/newsletter-image.webp" class="main-image" alt="woman in white dress">
+              <img src="./images/logo/logo.svg" class="logo-image" alt="logo">
+              <img src="./images/newsletter-image.webp" class="main-image" alt="woman in white dress">
             </div>
           </div>
           <button class="popup-close close-modal" data-newsletter-popup-close></button>

@@ -60,7 +60,7 @@ class __TwigTemplate_9155ee14399609f7339dab27a12aa780 extends Template
   <link rel=\"icon\" href=\"";
         // line 14
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["doc_root"] ?? null), "html", null, true);
-        yield "/images/logo/favicon.svg\" type=\"image/svg+xml\">
+        yield "images/logo/favicon.svg\" type=\"image/svg+xml\">
 
   <!--
     -remix icons
@@ -122,7 +122,7 @@ class __TwigTemplate_9155ee14399609f7339dab27a12aa780 extends Template
             <img src=\"";
         // line 67
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["doc_root"] ?? null), "html", null, true);
-        yield "/images/logo/logo-white.svg\" alt=\"offcanvas logo\">
+        yield "images/logo/logo-white.svg\" alt=\"offcanvas logo\">
           </a>
           
         </div>
@@ -135,7 +135,7 @@ class __TwigTemplate_9155ee14399609f7339dab27a12aa780 extends Template
         <img src=\"";
         // line 77
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["doc_root"] ?? null), "html", null, true);
-        yield "/images/offcanvas-image.webp\" alt=\"offcanvas menu image\">
+        yield "images/offcanvas-image.webp\" alt=\"offcanvas menu image\">
       </div>
 
       <button id=\"menu-close\" class=\"close-modal\" data-offcanvas-close aria-label=\"Close the menu\">
@@ -150,11 +150,11 @@ class __TwigTemplate_9155ee14399609f7339dab27a12aa780 extends Template
       <div class=\"container-full\">
         <div class=\"row\">
           <div class=\"logo\">
-            <a href=\"/\">
+            <a href=\"./\">
               <img src=\"";
         // line 93
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["doc_root"] ?? null), "html", null, true);
-        yield "/images/logo/logo.svg\" alt=\"page logo\">
+        yield "images/logo/logo.svg\" alt=\"page logo\">
             </a>
           </div>
 
@@ -188,7 +188,7 @@ class __TwigTemplate_9155ee14399609f7339dab27a12aa780 extends Template
               <img src=\"";
         // line 121
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["doc_root"] ?? null), "html", null, true);
-        yield "/images/logo/logo.svg\" alt=\"footer logo\">
+        yield "images/logo/logo.svg\" alt=\"footer logo\">
             </a>
           </div>
 
@@ -290,7 +290,7 @@ class __TwigTemplate_9155ee14399609f7339dab27a12aa780 extends Template
   <!--
     - favicon
   -->
-  <link rel=\"icon\" href=\"{{doc_root}}/images/logo/favicon.svg\" type=\"image/svg+xml\">
+  <link rel=\"icon\" href=\"{{doc_root}}images/logo/favicon.svg\" type=\"image/svg+xml\">
 
   <!--
     -remix icons
@@ -343,7 +343,7 @@ class __TwigTemplate_9155ee14399609f7339dab27a12aa780 extends Template
       <div class=\"offcanvas-container\">
         <div class=\"offcanvas-logo\">
           <a href=\"/\">
-            <img src=\"{{doc_root}}/images/logo/logo-white.svg\" alt=\"offcanvas logo\">
+            <img src=\"{{doc_root}}images/logo/logo-white.svg\" alt=\"offcanvas logo\">
           </a>
           
         </div>
@@ -353,7 +353,7 @@ class __TwigTemplate_9155ee14399609f7339dab27a12aa780 extends Template
       </div>
 
       <div class=\"offvanvas-image\" aria-hidden=\"true\">
-        <img src=\"{{doc_root}}/images/offcanvas-image.webp\" alt=\"offcanvas menu image\">
+        <img src=\"{{doc_root}}images/offcanvas-image.webp\" alt=\"offcanvas menu image\">
       </div>
 
       <button id=\"menu-close\" class=\"close-modal\" data-offcanvas-close aria-label=\"Close the menu\">
@@ -368,8 +368,8 @@ class __TwigTemplate_9155ee14399609f7339dab27a12aa780 extends Template
       <div class=\"container-full\">
         <div class=\"row\">
           <div class=\"logo\">
-            <a href=\"/\">
-              <img src=\"{{doc_root}}/images/logo/logo.svg\" alt=\"page logo\">
+            <a href=\"./\">
+              <img src=\"{{doc_root}}images/logo/logo.svg\" alt=\"page logo\">
             </a>
           </div>
 
@@ -397,7 +397,7 @@ class __TwigTemplate_9155ee14399609f7339dab27a12aa780 extends Template
         <div class=\"row main-grid\">
           <div class=\"footer-logo\">
             <a href=\"/\">
-              <img src=\"{{doc_root}}/images/logo/logo.svg\" alt=\"footer logo\">
+              <img src=\"{{doc_root}}images/logo/logo.svg\" alt=\"footer logo\">
             </a>
           </div>
 
