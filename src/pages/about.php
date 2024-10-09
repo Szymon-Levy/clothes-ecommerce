@@ -1,4 +1,4 @@
 <?php
 
-$data['ds'] = 'jakiś string';
+$data['ds'] = 'jakiś';
 echo $twig->render('about.html', $data);
