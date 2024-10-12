@@ -19,3 +19,6 @@ $twig->addGlobal('doc_root', DOC_ROOT);
 if (DEV === true) {
   $twig->addExtension(new \Twig\Extension\DebugExtension());
 }
+
+// Add Twig custom functions
+require APP_ROOT . '/src/twig_functions.php';

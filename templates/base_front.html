@@ -16,17 +16,16 @@
   <!--
     -remix icons
   -->
-  <link href="{{doc_root}}/css/remixicon.css" rel="stylesheet"/>
+  <link href="{{doc_root}}css/remixicon.css" rel="stylesheet"/>
 
   <!--
     -custom css link
   -->
-  <link rel="stylesheet" href="{{doc_root}}/css/style.css">
+  <link rel="stylesheet" href="{{doc_root}}{{ show_file_modification_time('css/style.css') }}">
 
 </head>
 
 <body class="home-page">
-
   <!--
     - #PRELOADER
   -->
@@ -149,11 +148,11 @@
   <!--
     -ScrollReveal
   -->
-  <script src="{{doc_root}}/js/scrollreveal.js"></script>
+  <script src="{{doc_root}}js/scrollreveal.js"></script>
 
   <!--
     -custom js
   -->
-  <script src="{{doc_root}}/js/scripts.js"></script>
+  <script src="{{doc_root}}{{ show_file_modification_time('js/scripts.js') }}"></script>
 </body>
 </html>

@@ -374,28 +374,6 @@ if ( $openNewsletterSignUpBtn ){
   #SHOP
 \*----------------------------------*/
 
-/**
-   * GET PRODUCTS FROM PRODUCTS.JSON
-    */
-
-const xhr = new XMLHttpRequest()
-xhr.open('GET', 'assets/json/products.json', true)
-xhr.send()
-
-xhr.onreadystatechange = function () {
-  if ( this.readyState == 4 && this.status == 200 ) {
-    const response = JSON.parse(this.responseText)
-    getProducts(response)
-  }
-}
-
-const productsJSON = []
-function getProducts(response){
-  response.forEach(item => {
-    productsJSON.push(item)
-  })
-}
-
 
 /**
    * REUSED FUNCTIONS
@@ -562,3 +540,28 @@ if ($productsGrid) {
   })
 
 }
+
+// ---------------------
+const $form = document.querySelector('form')
+
+const sendRequest = async (formData) => {
+  try {
+
+    const request = await fetch('contact', {
+      method: 'POST',
+      body: formData
+    })
+    
+    const data = await request.json()
+    console.log(data);
+  } catch(error) {
+    console.log(error)
+  }
+}
+
+$form.addEventListener('submit', e => {
+  e.preventDefault()
+
+  const formData = new FormData($form)
+  sendRequest(formData)
+})
