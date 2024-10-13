@@ -17,7 +17,7 @@ let animationDelay = 0
 if ($preloader){
   setTimeout(() => {
     $preloader.classList.add('active')
-  }, 300)
+  }, 50)
 }
 
 
