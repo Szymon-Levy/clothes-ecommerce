@@ -6,6 +6,13 @@ require APP_ROOT . '/src/functions.php';
 require APP_ROOT . '/config/config.php';
 require APP_ROOT . '/vendor/autoload.php';
 
+// Errors
+if (DEV === false) {
+  set_exception_handler('exceptions_handling');
+  set_error_handler('error_handling');
+  register_shutdown_function('shutdown_handling');
+}
+
 // App object
 $app = new \ClothesEcommerce\App\App($dsn, $db_user, $db_password);
 unset ($dsn, $db_user, $db_password);
