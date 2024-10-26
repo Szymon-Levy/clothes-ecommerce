@@ -1,7 +1,15 @@
 {% extends 'base.html' %}
 
-{% block title %}Home{% endblock %}
+{% block title %}Page not found{% endblock %}
 
 {% block content %}
-nie znaleziono
+
+  <section class="page-404">
+    <div class="page-404__content">
+      <h1 class="page-404__title section-title title-500">Error 404</h1>
+      <p class="page-404__text">Page not found</p>
+      <a href="./" class="filled-btn">Homepage</a>
+    </div>
+  </section>
+
 {% endblock %}

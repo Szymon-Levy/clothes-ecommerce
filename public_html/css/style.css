@@ -35,14 +35,13 @@
   --ff-body: 'Roboto', sans-serif;
 
   /* font size */
-  --fs-base: 62.5%;
-  --fs-body: 1.3rem;
-  --fs-headline: 1.4rem;
-  --fs-title-300: 1.8rem;
-  --fs-title-400: 3rem;
-  --fs-title-500: 4rem;
-  --fs-text-btn: 1.5rem;
-  --fs-filled-btn: 1.4rem;
+  --fs-body: .8125rem;
+  --fs-headline: .875rem;
+  --fs-title-300: 1.125rem;
+  --fs-title-400: 1.875rem;
+  --fs-title-500: 2.5rem;
+  --fs-text-btn: .9375rem;
+  --fs-filled-btn: .875rem;
 
   /* line height */
   --lh-body: 1.6em;
@@ -66,8 +65,8 @@
   --container-400: 1420px;
   --side-space-fixed: 15px;
   --side-space-dynamic: 0;
-  --block-text-space-400: 5rem;
-  --block-text-space-600: 7.5rem;
+  --block-text-space-400: 3.125rem;
+  --block-text-space-600: 4.6875rem;
 }
 
 
@@ -106,16 +105,15 @@ button{
 }
 
 html {
-  font-size: var(--fs-base);
   scroll-behavior: smooth;
 }
 
 body{
   background-color: var(--color-white);
   color: var(--color-body-text);
-  font-size: var(--fs-body);
   line-height: var(--lh-body);
   font-family: var(--ff-body);
+  font-size: var(--fs-body);
   letter-spacing: var(--ls-body);
 }
 
@@ -151,7 +149,7 @@ body{
   font-size: var(--fs-title-300);
   font-weight: 700;
   line-height: 1.5em;
-  margin-bottom: .7rem;
+  margin-bottom: .4375rem;
 }
 
 .title-400{
@@ -159,8 +157,8 @@ body{
   font-weight: 700;
   line-height: var(--lh-title-400);
   color: var(--color-black);
-  margin-top: 1.5rem;
-  margin-bottom: 2rem;
+  margin-top: .9375rem;
+  margin-bottom: 1.25rem;
 }
 
 .title-500{
@@ -168,8 +166,8 @@ body{
   font-weight: 400;
   line-height: var(--lh-title-500);
   color: var(--color-heading);
-  margin-top: 2.2rem;
-  margin-bottom: 2rem;
+  margin-top: 1.375rem;
+  margin-bottom: 1.25rem;
 }
 
 
@@ -225,7 +223,7 @@ body{
 
 .text-btn {
   display: inline-flex;
-  margin-top: 2.5rem;
+  margin-top: 1.5625rem;
   font-size: var(--fs-text-btn);
   letter-spacing: 0;
   font-weight: 700;
@@ -246,8 +244,8 @@ body{
   font-weight: 700;
   background-color: var(--color-heading);
   color: var(--color-white);
-  line-height: 41px;
-  padding: 0 2.2rem;
+  line-height: 2.5rem;
+  padding: 0 1.375rem;
   transition: transform var(--transition-time-300), background-color var(--transition-time-300);
 }
 
@@ -263,7 +261,7 @@ body{
    */
 
 form .form-row{
-  margin-bottom: 1.5rem;
+  margin-bottom: .9375rem;
 }
 
 form .submit-row{
@@ -272,11 +270,11 @@ form .submit-row{
 
 form input {
   width: 100%;
-  border: 1px solid var(--color-black);
-  height: 35px;
+  border: .0625rem solid var(--color-black);
+  height: 2.1875rem;
   color: var(--color-black);
-  font-size: 1.3rem;
-  padding: 0 2rem;
+  font-size: .8125rem;
+  padding: 0 1.25rem;
   outline: none;
   transition: box-shadow var(--transition-time-300);
 }
@@ -286,13 +284,13 @@ form input::placeholder{
 }
 
 form input:focus-visible{
-  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+  box-shadow: .125rem .1875rem .375rem rgba(0, 0, 0, 0.3);
 }
 
 .form-field-wrapper .input-error{
   display: inline-block;
-  margin-top: .6rem;
-  font-size: 1.2rem;
+  margin-top: .375rem;
+  font-size: .75rem;
   color: var(--color-error);
   line-height: 1.3;
 }
@@ -320,12 +318,12 @@ form input:focus-visible{
   width: 100%;
   position: relative;
   max-width: 1200px;
-  box-shadow: 5px 5px 40px rgb(0 0 0);
+  box-shadow: .3125rem .3125rem 2.5rem rgb(0 0 0);
 }
 
 .close-modal {
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 1.5625rem;
+  height: 1.5625rem;
   position: absolute;
   cursor: pointer;
 }
@@ -337,7 +335,7 @@ form input:focus-visible{
   left: 50%;
   top: 50%;
   width: 100%;
-  height: 1px;
+  height: .0625rem;
   background-color: var(--color-white);
   transition: transform var(--transition-time-300);
 }
@@ -379,9 +377,9 @@ form input:focus-visible{
 }
 
 .video-popup-image-wrapper .video-popup-icon {
-  width: 65px;
-  height: 65px;
-  border: 1px solid white;
+  width: 4.0625rem;
+  height: 4.0625rem;
+  border: .0625rem solid white;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -399,7 +397,7 @@ form input:focus-visible{
   width: 100%;
   height: 100%;
   border-radius: inherit;
-  border: 2px solid white;
+  border: .125rem solid white;
   position: absolute;
   animation: popupIConPulse 1.5s infinite linear;
 }
@@ -429,7 +427,7 @@ form input:focus-visible{
 }
 
 .video-popup-image-wrapper .video-popup-icon img {
-  max-width: 15px;
+  max-width: .9375rem;
 }
 
 .video-popup-wrapper video{
@@ -457,26 +455,26 @@ form input:focus-visible{
 
 .newsletter-popup-wrapper .popup-container{
   background-color: var(--color-white);
-  padding: 5rem 2rem;
+  padding: 3.125rem 1.25rem;
 }
 
 .newsletter-popup-wrapper .content-column .heading .title-300{
-  font-size: 1.5rem;
+  font-size: .9375rem;
 }
 
 .newsletter-popup-wrapper .content-column .heading .title-400{
-  font-size: 2.5rem;
+  font-size: 1.5625rem;
 }
 
 .newsletter-popup-wrapper .content-column form > p {
-  font-size: 1.2rem;
-  margin-bottom: 1rem;
+  font-size: .75rem;
+  margin-bottom: .625rem;
 }
 
 .newsletter-popup-wrapper .content-column .added-email-message {
   display: flex;
   align-items: flex-end;
-  font-size: 15px;
+  font-size: .9375rem;
 }
 
 .newsletter-popup-wrapper .image-column {
@@ -504,8 +502,8 @@ form input:focus-visible{
 }
 
 .newsletter-popup-wrapper .close-modal {
-  top: 1.5rem;
-  right: 1rem;
+  top: .9375rem;
+  right: .9375rem;
   z-index: 2;
 }
 
@@ -565,24 +563,22 @@ form input:focus-visible{
    */
 
 .page-title {
-  margin-top: 5rem;
-  margin-bottom: 7rem;
+  margin-top: 3.125rem;
+  margin-bottom: 4.375rem;
 }
 
 .page-title .breadcrumbs {
   display: flex;
   align-items: center;
-  font-size: 1.4rem;
+  font-size: .875rem;
   font-weight: 300;
   text-transform: uppercase;
 }
 
 .page-title .breadcrumbs .divider {
-  font-size: 2rem;
+  font-size: 1.25rem;
   line-height: 1;
 }
-
-
 
 
 /*----------------------------------*\
@@ -590,7 +586,6 @@ form input:focus-visible{
 \*----------------------------------*/
 
 .lines-wrapper {
-  /* display: none; */
   position: fixed;
   width: 100%;
   height: 100%;
@@ -613,7 +608,7 @@ form input:focus-visible{
 }
 
 .lines-wrapper .line {
-  width: 1px;
+  width: .0625rem;
   background-color: var(--color-lines);
 }
 
@@ -656,7 +651,7 @@ form input:focus-visible{
 \*----------------------------------*/
 
 #header{
-  padding: 15px var(--side-space-fixed);
+  padding: .9375rem var(--side-space-fixed);
 }
 
 #header .container-full{
@@ -675,12 +670,12 @@ form input:focus-visible{
 }
 
 #header .logo img {
-  max-width: 60px;
+  max-width: 3.75rem;
 }
 
 #menu-toggler {
   width: 2.5rem;
-  height: 1.2rem;
+  height: 1rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -690,7 +685,7 @@ form input:focus-visible{
 
 #menu-toggler span{
   width: 100%;
-  height: 1px;
+  height: .0625rem;
   background-color: var(--color-black);
   transition: transform var(--transition-time-400);
   transform-origin: right;
@@ -782,7 +777,7 @@ form input:focus-visible{
 }
 
 .offcanvas-menu .offcanvas-container {
-  padding: 4rem var(--side-space-fixed);
+  padding: 2.5rem var(--side-space-fixed);
   height: 100%;
   position: relative;
   z-index: 2;
@@ -802,11 +797,11 @@ form input:focus-visible{
 }
 
 .offcanvas-menu .offcanvas-logo img{
-  max-width: 60px;
+  max-width: 3.75rem;
 }
 
 .offcanvas-navigation{
-  margin-top: 5rem;
+  margin-top: 3.125rem;
 }
 
 .offcanvas-navigation .nav-list {
@@ -815,7 +810,7 @@ form input:focus-visible{
 }
 
 .offcanvas-navigation .nav-list .nav-list-item {
-  margin-bottom: 2rem;
+  margin-bottom: 1.25rem;
   line-height: 1;
 }
 
@@ -829,7 +824,7 @@ form input:focus-visible{
   color: var(--color-newsletter-bg);
   font-family: var(--ff-title);
   font-weight: 400;
-  font-size: 2.5rem;
+  font-size: 1.5625rem;
   position: relative;
   text-transform: uppercase;
   outline: none;
@@ -839,7 +834,7 @@ form input:focus-visible{
 .offcanvas-navigation .nav-list .nav-list-item .nav-list-link::before{
   content: "";
   width: 0px;
-  height: 1px;
+  height: .0625rem;
   background-color: var(--color-newsletter-bg);
   transition: width var(--transition-time-400), margin-right var(--transition-time-400);
 }
@@ -847,8 +842,8 @@ form input:focus-visible{
 .offcanvas-navigation .nav-list .nav-list-item.active .nav-list-link::before,
 .offcanvas-navigation .nav-list .nav-list-item .nav-list-link:focus-visible:before,
 .offcanvas-navigation .nav-list .nav-list-item .nav-list-link:hover:before{
-  margin-right: 2.8rem;
-  width: 30px;
+  margin-right: 1.75rem;
+  width: 1.875rem;
 }
 
 .offcanvas-menu .offvanvas-image{
@@ -870,11 +865,10 @@ form input:focus-visible{
 }
 
 #menu-close {
-  top: 4rem;
+  top: 2.5rem;
   right: var(--side-space-fixed);
   z-index: 2;
 }
-
 
 .offcanvas-menu.inactive #menu-close{
   visibility: hidden;
@@ -886,7 +880,7 @@ form input:focus-visible{
 \*----------------------------------*/
 
 .home-section .content-column{
-  margin: 5rem 0;
+  margin: 3.125rem 0;
 }
 
 
@@ -896,12 +890,12 @@ form input:focus-visible{
 
 .new-section .row,
 .boho-section .row {
-  padding-top: 7rem;
+  padding-top: 4.375rem;
 }
 
 .new-section .content-column,
 .boho-section .content-column {
-  margin-bottom: 5rem;
+  margin-bottom: 3.125rem;
 }
 
 
@@ -910,16 +904,16 @@ form input:focus-visible{
 \*----------------------------------*/
 
 .newsletter-section{
-  padding: 7rem 0;
+  padding: 4.375rem 0;
 }
 
 .newsletter-section .newsletter-call-to-action{
   background-color: var(--color-newsletter-bg);
-  padding: 2.5rem 3.5rem;
+  padding: 1.5625rem 2.1875rem;
 }
 
 .newsletter-section button{
-  margin-top: 1.5rem;
+  margin-top: .9375rem;
 }
 
 
@@ -929,7 +923,7 @@ form input:focus-visible{
 
 
 .side-images-section .content-column{
-  padding: 7rem 0;
+  padding: 4.375rem 0;
 }
 
 
@@ -939,11 +933,11 @@ form input:focus-visible{
 
 
 .blog-posts-section {
-  padding: 7rem 0;
+  padding: 4.375rem 0;
 }
 
 .blog-posts-section > .container > .row{
-  padding-bottom: 5rem;
+  padding-bottom: 3.125rem;
 }
 
 .blog-posts-section > .container > .row:last-child{
@@ -951,7 +945,7 @@ form input:focus-visible{
 }
 
 .blog-posts-section .blog-post-block .blog-post-content {
-  padding-top: 3rem;
+  padding-top: 1.875rem;
 }
 
 
@@ -961,188 +955,61 @@ form input:focus-visible{
 
 
 #footer{
-  padding: 7rem 0;
+  padding: 4.375rem 0;
   background-color: rgb(0 0 0 / 3%);
 }
 
 #footer .main-grid {
-  row-gap: 3rem;
+  row-gap: 1.875rem;
 }
 
 #footer .footer-logo img {
-  max-width: 90px;
+  max-width: 5.625rem;
 }
 
 #footer a {
   text-decoration: underline;
 }
 
-
 /*----------------------------------*\
-  #SHOP
+  #PAGE 404
 \*----------------------------------*/
-
-/**
-  * PRODUCTS GRID
-   */
-
-.products-grid .row.main-grid {
-  display: grid;
-  row-gap: 5rem;
-  margin: 0 -2.5rem;
-}
-
-.products-grid .row.main-grid .card-column {
-  padding: 0 2.5rem;
-}
-
-.products-grid .products-grid-card .products-grid-card-image {
-  position: relative;
-}
-
-.products-grid .products-grid-card .products-grid-card-image::before{
-  content: "";
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  left: 0;
-  top: 0;
-  background-color: var(--color-black);
-  opacity: .1;
-  transition: opacity .4s;
-}
-
-.products-grid .products-grid-card .products-grid-card-image:hover::before {
-  opacity: .4;
-}
-
-.products-grid .products-grid-card .products-grid-card-add-to-cart-wrapper {
-  position: absolute;
-  right: 5%;
-  top: 5%;
-}
-
-.products-grid .products-grid-card .products-grid-card-sizes-btn {
-  width: 3.5rem;
-  height: 3.5rem;
-  border: 1px solid white;
-  border-radius: 50%;
+.page-404 {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color var(--transition-time-400);
+  min-height: 100vh;
+  background-image: url("../images/404-bg3.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+.page-404::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-black);
+  opacity: .3;
+  z-index: 1;
+}
+
+.page-404__content {
   position: relative;
+  text-align: center;
   z-index: 2;
 }
 
-.products-grid .products-grid-card .products-grid-card-sizes-btn i{
-  font-size: 1.8rem;
+.page-404__title,
+.page-404__text {
   color: var(--color-white);
 }
 
-.products-grid .products-grid-card .products-grid-card-sizes-btn::before,
-.products-grid .products-grid-card .products-grid-card-sizes-btn::after{
-  content: "";
-  width: 100%;
-  height: 100%;
-  border-radius: inherit;
-  border: 1px solid white;
-  position: absolute;
-  animation: addToCartIConPulse 1.5s infinite linear;
-}
-
-.products-grid .products-grid-card .products-grid-card-sizes-btn::after{
-  animation-delay: .4s;
-}
-
-@keyframes addToCartIConPulse {
-  0%{
-    opacity: 1;
-    transform: scale(1.1);
-  }
-  100%{
-    opacity: 0;
-    transform: scale(1.5);
-  }
-}
-
-.products-grid .products-grid-card .products-grid-card-sizes-btn:hover,
-.products-grid .products-grid-card .products-grid-card-sizes-btn:focus-visible{
-  background-color: black;
-}
-
-.products-grid .products-grid-card .products-grid-card-sizes {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  left: 0;
-  top: 100%;
-  padding-top: 2rem;
-  transform: translateY(50px);
-  opacity: 0;
-  visibility: hidden;
-  transition: all .4s;
-}
-
-.products-grid .products-grid-card .products-grid-card-sizes.active{
-  transform: translateY(0);
-  opacity: 1;
-  visibility: visible;
-}
-
-.products-grid .products-grid-card .products-grid-card-sizes ul li {
-  margin-bottom: 1rem;
-}
-
-.products-grid .products-grid-card .products-grid-card-sizes ul li:last-child{
-  margin-bottom: 0;
-}
-
-.products-grid .products-grid-card .products-grid-card-sizes .products-grid-card-size-box {
-  width: 3rem;
-  height: 3rem;
-  font-size: 1.2rem;
-  border: 1px solid var(--color-white);
-  text-transform: uppercase;
-  color: var(--color-white);
-  transition: background-color .4s, color .4s;
-}
-
-.products-grid .products-grid-card .products-grid-card-sizes .products-grid-card-size-box:hover,
-.products-grid .products-grid-card .products-grid-card-sizes .products-grid-card-size-box:focus-visible,
-.products-grid .products-grid-card .products-grid-card-sizes .products-grid-card-size-box.active{
-  background-color: var(--color-white);
-  color: var(--color-black);
-}
-
-.products-grid .products-grid-card .products-grid-card-add-to-cart-btn{
-  width: 4rem;
-  height: 4rem;
-  margin-top: 2rem;
-  border-radius: 50%;
-  font-size: 1.5rem;
-  background-color: var(--color-newsletter-bg);
-  transition: background-color .4s;
-}
-
-.products-grid .products-grid-card .products-grid-card-add-to-cart-btn:hover,
-.products-grid .products-grid-card .products-grid-card-add-to-cart-btn:focus-visible{
-  background-color: var(--color-white);
-}
-
-.products-grid .products-grid-card .products-grid-card-content {
-  margin-top: 2rem;
-}
-
-.products-grid .products-grid-card .products-grid-card-title {
-  font-size: 1.4rem;
-  font-weight: 700;
-}
-
-.products-grid .products-grid-card .products-grid-card-price{
-  margin-top: .5rem;
+.page-404__text {
+  margin-bottom: 1.4em;
+  font-size: 1.875rem;
 }
 
 
@@ -1163,7 +1030,7 @@ form input:focus-visible{
       * CONTAINER
         */
 
-    --side-space-fixed: 30px;
+    --side-space-fixed: 1.875rem;
   }
 
 
@@ -1176,11 +1043,11 @@ form input:focus-visible{
       */
 
   .newsletter-popup-wrapper .popup-container {
-    padding: 6rem 3rem;
+    padding: 3.75rem 1.875rem;
   }
   
   .newsletter-popup-wrapper .content-column{
-    padding: 3rem 3.5rem 3rem 0;
+    padding: 1.875rem 2.1875rem 1.875rem 0;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -1191,8 +1058,8 @@ form input:focus-visible{
   }
 
   .newsletter-popup-wrapper form{
-    margin-top: 4rem;
-    max-width: 280px;
+    margin-top: 2.5rem;
+    max-width: 17.5rem;
   }
   
   .newsletter-popup-wrapper .image-column{
@@ -1211,11 +1078,11 @@ form input:focus-visible{
 
 
   #header {
-      padding: 25px var(--side-space-fixed);
+      padding: 1.5625rem var(--side-space-fixed);
   }
 
   #header .logo img {
-    max-width: 100px;
+    max-width: 6.25rem;
   }
 
 
@@ -1224,22 +1091,22 @@ form input:focus-visible{
   \*----------------------------------*/
 
   .offcanvas-menu .offcanvas-logo img {
-    max-width: 90px;
+    max-width: 5.625rem;
   }
 
   .offcanvas-navigation .nav-list .nav-list-item {
-    margin-bottom: 3rem;
+    margin-bottom: 1.875rem;
   }
 
   .offcanvas-navigation .nav-list .nav-list-item .nav-list-link {
-    font-size: 4.5rem;
+    font-size: 2.8125rem;
   }
 
   .offcanvas-navigation .nav-list .nav-list-item.active .nav-list-link::before, 
   .offcanvas-navigation .nav-list .nav-list-item .nav-list-link:focus-visible:before, 
   .offcanvas-navigation .nav-list .nav-list-item .nav-list-link:hover:before {
-    margin-right: 3.5rem;
-    width: 50px;
+    margin-right: 2.1875rem;
+    width: 3.125rem;
   }
 
 
@@ -1248,7 +1115,7 @@ form input:focus-visible{
   \*----------------------------------*/
 
   .newsletter-section .newsletter-call-to-action{
-    padding: 4.5rem 5.5rem;
+    padding: 2.8125rem 3.4375rem;
   }
 
 
@@ -1285,35 +1152,7 @@ form input:focus-visible{
 
   #footer .footer-about,
   #footer .footer-contact{
-    padding: 0 3rem;
-  }
-
-  /*----------------------------------*\
-    #SHOP
-  \*----------------------------------*/
-
-  /**
-    * PRODUCTS GRID
-    */
-
-  .products-grid .row.main-grid {
-    grid-template-columns: repeat(2, 1fr);
-    row-gap: 7rem;
-  }
-
-  .products-grid .products-grid-card .products-grid-card-content {
-    margin-top: 3rem;
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .products-grid .products-grid-card .products-grid-card-title {
-    padding-right: 1rem;
-  }
-
-  .products-grid .products-grid-card .products-grid-card-price {
-    margin-top: 0;
-    text-wrap: nowrap;
+    padding: 0 1.875rem;
   }
 
 }
@@ -1329,26 +1168,26 @@ form input:focus-visible{
       */
 
   .newsletter-popup-wrapper .popup-container {
-    padding: 6rem;
-    max-width: 850px;
+    padding: 3.75rem;
+    max-width: 53.125rem;
   }
 
   .newsletter-popup-wrapper form {
-    margin-top: 6rem;
-    max-width: 300px;
+    margin-top: 3.75rem;
+    max-width: 18.75rem;
   }
 
   .newsletter-popup-wrapper .close-modal {
-    top: 2rem;
-    right: 2rem;
+    top: 1.25rem;
+    right: 1.25rem;
   }
 
   .newsletter-popup-wrapper .content-column .heading .title-400 {
-    font-size: 3.5rem;
+    font-size: 2.1875rem;
   }
 
   .newsletter-popup-wrapper .content-column {
-    padding: 0 3.5rem 0 0;
+    padding: 0 2.1875rem 0 0;
   }
 
   .newsletter-popup-wrapper .image-column .logo-image {
@@ -1356,7 +1195,7 @@ form input:focus-visible{
     left: 0;
     bottom: 0;
     z-index: 2;
-    max-width: 70px;
+    max-width: 4.375rem;
     transform: translate(-50%, 50%);
   }
 
@@ -1365,7 +1204,7 @@ form input:focus-visible{
      */
 
   .page-title {
-    margin-bottom: 15rem;
+    margin-bottom: 9.375rem;
   }
   
   .page-title .main-grid{
@@ -1377,7 +1216,7 @@ form input:focus-visible{
   }
 
   .page-title .description-column {
-    margin-top: 2.5rem;
+    margin-top: 1.5625rem;
   }
 
 
@@ -1386,7 +1225,7 @@ form input:focus-visible{
   \*----------------------------------*/
 
   .offcanvas-menu .offcanvas-container {
-    padding: 8rem;
+    padding: 5rem;
   }
 
   .offcanvas-navigation {
@@ -1394,24 +1233,24 @@ form input:focus-visible{
   }
 
   .offcanvas-navigation .nav-list .nav-list-item {
-    margin-bottom: 4rem;
+    margin-bottom: 2.5rem;
   }
 
   .offcanvas-navigation .nav-list .nav-list-item .nav-list-link {
-    font-size: 8rem;
+    font-size: 5rem;
   }
 
   .offcanvas-navigation .nav-list .nav-list-item.active .nav-list-link, 
   .offcanvas-navigation .nav-list .nav-list-item .nav-list-link:focus-visible, 
   .offcanvas-navigation .nav-list .nav-list-item .nav-list-link:hover {
-    margin-left: -50px;
+    margin-left: -3.125rem;
   }
 
   .offcanvas-navigation .nav-list .nav-list-item.active .nav-list-link::before, 
   .offcanvas-navigation .nav-list .nav-list-item .nav-list-link:focus-visible:before, 
   .offcanvas-navigation .nav-list .nav-list-item .nav-list-link:hover:before {
-    margin-right: 5rem;
-    width: 130px;
+    margin-right: 3.125rem;
+    width: 8.125rem;
   }
 
   .offcanvas-menu .offvanvas-image {
@@ -1419,8 +1258,8 @@ form input:focus-visible{
   }
 
   #menu-close{
-    top: 8rem;
-    right: 8rem;
+    top: 5rem;
+    right: 5rem;
   }
 
 
@@ -1449,7 +1288,7 @@ form input:focus-visible{
 
   .new-section .row,
   .boho-section .row {
-    padding-top: 15rem;
+    padding-top: 9.375rem;
   }
 
   .text-image-sided .main-grid {
@@ -1487,7 +1326,7 @@ form input:focus-visible{
   \*----------------------------------*/
 
   .newsletter-section{
-    padding: 15rem 0;
+    padding: 9.375rem 0;
   }
 
   .newsletter-section .main-grid{
@@ -1527,11 +1366,11 @@ form input:focus-visible{
   \*----------------------------------*/
 
   .blog-posts-section{
-    padding: 23rem 0;
+    padding: 14.375rem 0;
   }
 
   .blog-posts-section > .container > .row {
-    padding-bottom: 18rem;
+    padding-bottom: 11.25rem;
   }
 
   .blog-posts-section .main-grid {
@@ -1552,29 +1391,12 @@ form input:focus-visible{
   \*----------------------------------*/
 
   #footer{
-    padding: 14.5rem 0;
+    padding: 9.0625rem 0;
   }
 
   #footer .footer-about,
   #footer .footer-contact{
     padding: 0 var(--block-text-space-400);
-  }
-
-  /*----------------------------------*\
-    #SHOP
-  \*----------------------------------*/
-
-  /**
-    * PRODUCTS GRID
-    */
-
-  .products-grid .row.main-grid {
-    grid-template-columns: repeat(3, 1fr);
-    margin: 0 -3.5rem;
-  }
-
-  .products-grid .row.main-grid .card-column {
-    padding: 0 3.5rem;
   }
 
 }
@@ -1593,8 +1415,8 @@ form input:focus-visible{
       */
 
     /* font size */
-    --fs-title-400: 3.8rem;
-    --fs-title-500: 6rem;
+    --fs-title-400: 2.375rem;
+    --fs-title-500: 3.75rem;
   }
 
   /*----------------------------------*\
@@ -1614,7 +1436,7 @@ form input:focus-visible{
     */
 
   .text-btn {
-    margin-top: 3.5rem;
+    margin-top: 2.1875rem;
   }
 
   /**
@@ -1622,12 +1444,12 @@ form input:focus-visible{
      */
 
   form .form-row {
-    margin-bottom: 2.2rem;
+    margin-bottom: 1.375rem;
   }
 
   form input {
-    height: 48px;
-    font-size: 1.5rem;
+    height: 3rem;
+    font-size: .9375rem;
   }
 
 
@@ -1636,31 +1458,31 @@ form input:focus-visible{
       */
 
   .newsletter-popup-wrapper .popup-container {
-    padding: 8rem;
-    max-width: 1000px;
+    padding: 5rem;
+    max-width: 62.5rem;
   }
 
   .newsletter-popup-wrapper .close-modal {
-    top: 3rem;
-    right: 3rem;
+    top: 1.875rem;
+    right: 1.875rem;
   }
 
   .newsletter-popup-wrapper .content-column .heading .title-400 {
-    font-size: 4.5rem;
+    font-size: 2.8125rem;
   }
 
   .newsletter-popup-wrapper form {
-    margin-top: 8rem;
-    max-width: 340px;
+    margin-top: 5rem;
+    max-width: 21.25rem;
   }
 
   .newsletter-popup-wrapper .content-column form > p {
-    font-size: 1.5rem;
-    margin-bottom: 1.5rem;
+    font-size: .9375rem;
+    margin-bottom: .9375rem;
   }
 
   .newsletter-popup-wrapper .image-column .logo-image {
-    max-width: 100px;
+    max-width: 6.25rem;
   }
 
 
@@ -1669,13 +1491,13 @@ form input:focus-visible{
   \*----------------------------------*/
 
   .title-400{
-    margin-top: 2.2rem;
-    margin-bottom: 5.2rem;
+    margin-top: 1.375rem;
+    margin-bottom: 3.25rem;
   }
 
   .title-500{
-    margin-top: 3.2rem;
-    margin-bottom: 2.7rem;
+    margin-top: 2rem;
+    margin-bottom: 1.6875rem;
   }
 
 
@@ -1709,31 +1531,31 @@ form input:focus-visible{
   \*----------------------------------*/
 
   .new-section .row {
-    padding-top: 26rem;
+    padding-top: 16.25rem;
   }
 
   .new-section .content-column{
-    padding-right: 6rem;
+    padding-right: 3.75rem;
   }
 
   .new-section .bg-text {
     display: block;
     left: 0;
-    top: 25px;
+    top: 1.5625rem;
   }
 
   .boho-section .row {
-    padding-top: 29rem;
+    padding-top: 18.125rem;
   }
 
   .boho-section .content-column p {
-    max-width: 420px;
+    max-width: 26.25rem;
   }
 
   .boho-section .bg-text{
     display: block;
     right: 0;
-    top: 25px;
+    top: 1.5625rem;
   }
 
   /*----------------------------------*\
@@ -1745,7 +1567,7 @@ form input:focus-visible{
   }
 
   .newsletter-section .newsletter-call-to-action .content-column{
-    padding-right: 10rem;
+    padding-right: 6.25rem;
   }
 
 
@@ -1769,7 +1591,7 @@ form input:focus-visible{
   }
 
   .side-images-section .image-column {
-    height: 600px;
+    height: 37.5rem;
   }
 
   .side-images-section .image-column img{
@@ -1803,7 +1625,7 @@ form input:focus-visible{
   }
 
   #footer .footer-logo img {
-    max-width: 135px;
+    max-width: 8.4375rem;
   }
 
   #footer .footer-about {
@@ -1816,7 +1638,7 @@ form input:focus-visible{
 
   #footer .footer-about,
   #footer .footer-contact{
-    padding: 0 3rem;
+    padding: 0 1.875rem;
   }
 
 }
@@ -1841,7 +1663,7 @@ form input:focus-visible{
      */
 
   .page-title {
-    margin-bottom: 20rem;
+    margin-bottom: 12.5rem;
   }
   
   .page-title .main-grid {
@@ -1871,8 +1693,8 @@ form input:focus-visible{
       */
 
     /* font size */
-    --fs-title-400: 4.2rem;
-    --fs-title-500: 7rem;
+    --fs-title-400: 2.625rem;
+    --fs-title-500: 4.375rem;
 
     /* line height */
     --lh-title-400: 1.375em;
@@ -1882,8 +1704,8 @@ form input:focus-visible{
     * CONTAINER
       */
     --container-400: 100%;
-    --block-text-space-400: 8rem;
-    --block-text-space-600: 11.5rem;
+    --block-text-space-400: 5rem;
+    --block-text-space-600: 7.1875rem;
   }
 
   /*----------------------------------*\
@@ -1912,7 +1734,7 @@ form input:focus-visible{
   \*----------------------------------*/
 
   #header {
-    padding: 67px 0;
+    padding: 4.1875rem 0;
     width: 100%;
   }
 
@@ -1929,7 +1751,7 @@ form input:focus-visible{
   }
 
   #header .menu-opener {
-    padding-top: 18px;
+    padding-top: 1.125rem;
   }
 
   #header .logo, 
@@ -1944,7 +1766,7 @@ form input:focus-visible{
     #HOME SECTION
   \*----------------------------------*/
   .home-section .image-column img {
-    height: 980px;
+    height: 61.25rem;
   }
 
 
@@ -1953,7 +1775,7 @@ form input:focus-visible{
   \*----------------------------------*/
 
   .boho-section .content-column p {
-    max-width: 500px;
+    max-width: 31.25rem;
   }
 
 
@@ -1970,7 +1792,7 @@ form input:focus-visible{
   }
 
   .side-images-section .image-column {
-    height: 780px;
+    height: 48.75rem;
   }
 
 }
@@ -1989,8 +1811,8 @@ form input:focus-visible{
       */
 
     /* font size */
-    --fs-title-400: 4.8rem;
-    --fs-title-500: 8rem;
+    --fs-title-400: 3rem;
+    --fs-title-500: 5rem;
   }
 
   /*----------------------------------*\
@@ -1998,6 +1820,6 @@ form input:focus-visible{
   \*----------------------------------*/
 
   .boho-section .content-column p {
-    max-width: 550px;
+    max-width: 34.375rem;
   }
 }

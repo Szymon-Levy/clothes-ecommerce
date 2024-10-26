@@ -18,5 +18,6 @@ else {
 
 if (!file_exists($page_php)) {
   $page_php = APP_ROOT . '/src/pages/404.php';
+  $twig->addGlobal('page_404', true);
 }
 include $page_php;

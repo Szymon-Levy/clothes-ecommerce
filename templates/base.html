@@ -26,28 +26,31 @@
 </head>
 
 <body class="home-page">
-  <!--
-    - #PRELOADER
-  -->
 
-  <div id="preloader"></div>
+  {% if not page_404 %}
+    <!--
+      - #PRELOADER
+    -->
 
-  <!--
-    - #BG LINES
-  -->
+    <div id="preloader"></div>
 
-  <div class="lines-wrapper">
-    <div class="container">
-      <div class="row">
-        <span class="line"></span>
-        <span class="line"></span>
-        <span class="line"></span>
-        <span class="line"></span>
-        <span class="line"></span>
-        <span class="line"></span>
+    <!--
+      - #BG LINES
+    -->
+
+    <div class="lines-wrapper">
+      <div class="container">
+        <div class="row">
+          <span class="line"></span>
+          <span class="line"></span>
+          <span class="line"></span>
+          <span class="line"></span>
+          <span class="line"></span>
+          <span class="line"></span>
+        </div>
       </div>
     </div>
-  </div>
+  {% endif %}
 
   <!--
     -page content
@@ -55,93 +58,96 @@
 
   <div class="body-wrapper">
 
-    <!--
-    - #NAV
-    -->
+    {% if not page_404 %}
+      <!--
+      - #NAV
+      -->
 
-    <nav class="offcanvas-menu" data-offcanvas-menu>
-      <div class="offcanvas-container">
-        <div class="offcanvas-logo">
-          <a href="./">
-            <img src="{{doc_root}}images/logo/logo-white.svg" alt="offcanvas logo">
-          </a>
-          
-        </div>
-
-        <div class="offcanvas-navigation" data-navigation>
-          <ul class="nav-list">
-            <li class="nav-list-item active"><a class="nav-list-link" href="/">Home</a></li>
-            <li class="nav-list-item"><a class="nav-list-link" href="/shop.html">Shop</a></li>
-            <li class="nav-list-item"><a class="nav-list-link" href="/cart.html">Cart</a></li>
-            <li class="nav-list-item"><a class="nav-list-link" href="/contact.html">Contact</a></li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="offvanvas-image" aria-hidden="true">
-        <img src="{{doc_root}}images/offcanvas-image.webp" alt="offcanvas menu image">
-      </div>
-
-      <button id="menu-close" class="close-modal" data-offcanvas-close aria-label="Close the menu">
-      </button>
-    </nav>
-
-    <!--
-    - #HEADER
-    -->
-
-    <header id="header" data-header>
-      <div class="container-full">
-        <div class="row">
-          <div class="logo">
+      <nav class="offcanvas-menu" data-offcanvas-menu>
+        <div class="offcanvas-container">
+          <div class="offcanvas-logo">
             <a href="./">
-              <img src="{{doc_root}}images/logo/logo.svg" alt="page logo">
+              <img src="{{doc_root}}images/logo/logo-white.svg" alt="offcanvas logo">
             </a>
+            
           </div>
 
-          <div class="header-spacer container"></div>
-
-          <div class="menu-opener">
-            <button id="menu-toggler" data-offcanvas-open aria-label="Open the menu">
-              <span aria-hidden="true"></span>
-              <span aria-hidden="true"></span>
-              <span aria-hidden="true"></span>
-            </button>
+          <div class="offcanvas-navigation" data-navigation>
+            <ul class="nav-list">
+              <li class="nav-list-item active"><a class="nav-list-link" href="/">Home</a></li>
+              <li class="nav-list-item"><a class="nav-list-link" href="/shop.html">Shop</a></li>
+              <li class="nav-list-item"><a class="nav-list-link" href="/cart.html">Cart</a></li>
+              <li class="nav-list-item"><a class="nav-list-link" href="/contact.html">Contact</a></li>
+            </ul>
           </div>
         </div>
-      </div>
-    </header>
+
+        <div class="offvanvas-image" aria-hidden="true">
+          <img src="{{doc_root}}images/offcanvas-image.webp" alt="offcanvas menu image">
+        </div>
+
+        <button id="menu-close" class="close-modal" data-offcanvas-close aria-label="Close the menu">
+        </button>
+      </nav>
+
+      <!--
+      - #HEADER
+      -->
+
+      <header id="header" data-header>
+        <div class="container-full">
+          <div class="row">
+            <div class="logo">
+              <a href="./">
+                <img src="{{doc_root}}images/logo/logo.svg" alt="page logo">
+              </a>
+            </div>
+
+            <div class="header-spacer container"></div>
+
+            <div class="menu-opener">
+              <button id="menu-toggler" data-offcanvas-open aria-label="Open the menu">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+    {% endif %}
 
     {% block content %}{% endblock %}
 
-    <!--
-    - #FOOTER
-    -->
+    {% if not page_404 %}
+      <!--
+      - #FOOTER
+      -->
 
-    <footer id="footer">
-      <div class="container">
-        <div class="row main-grid">
-          <div class="footer-logo">
-            <a href="/">
-              <img src="{{doc_root}}images/logo/logo.svg" alt="footer logo">
-            </a>
-          </div>
+      <footer id="footer">
+        <div class="container">
+          <div class="row main-grid">
+            <div class="footer-logo">
+              <a href="/">
+                <img src="{{doc_root}}images/logo/logo.svg" alt="footer logo">
+              </a>
+            </div>
 
-          <div class="footer-about">
-            <p>Justo, a quisque in accumsan dignissim volutpat quis. Sit pellentesque faucibus arcu lacinia egestas augue. Sit volutpat vel dui ultricies massa.</p>
-          </div>
+            <div class="footer-about">
+              <p>Justo, a quisque in accumsan dignissim volutpat quis. Sit pellentesque faucibus arcu lacinia egestas augue. Sit volutpat vel dui ultricies massa.</p>
+            </div>
 
-          <div class="footer-contact">
-            <p>
-              <a href="#">hello@templatesjungle.com</a><br>
-              15Th Street Avenue, New York, USA<br>
-              011-554-8798-6556
-            </p>
+            <div class="footer-contact">
+              <p>
+                <a href="#">hello@templatesjungle.com</a><br>
+                15Th Street Avenue, New York, USA<br>
+                011-554-8798-6556
+              </p>
+            </div>
           </div>
         </div>
-      </div>
-    </footer>
-
+      </footer>
+    {% endif %}
 
   </div>
 
