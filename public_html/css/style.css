@@ -978,7 +978,7 @@ form input:focus-visible{
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background-image: url("../images/404-bg3.jpg");
+  background-image: url("../images/404-bg.jpg");
   background-size: cover;
   background-position: center;
 }
