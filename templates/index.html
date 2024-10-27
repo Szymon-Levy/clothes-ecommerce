@@ -3,174 +3,164 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-  <!--
-  - #HOME
-  -->
+  <!-- HOME -->
 
-  <section class="home-section">
+  <section class="home">
     <div class="container">
       <div class="row main-grid">
-        <div class="content-column">
+        <div class="home__content-col">
           <div class="headline">collection 2020</div>
-          <h3 class="section-title title-500" data-heading-slide-from-left>New Arrivals</h4>
+          <h1 class="heading heading--h1 heading--primary" data-heading-slide-from-left>New Arrivals</h1>
           <p data-text-content-slide-from-bottom>Mattis nisl eu quam elementum vulputate ultrices blandit. Congue molestie et varius risus, tristique fermentum purus nunc sed. Et tristique cursus felis placerat proin aliquam. Faucibus aliquam nam morbi volutpat scelerisque cursus in est. Posuere lacus risus faucibus a morbi aliquam malesuada sed sed.</p>
-          <a href="shop" class="text-btn">Shop now</a>
+          <a href="shop" class="link-btn">Shop now</a>
         </div>
 
-        <div class="video-popup-column">
-          <div class="video-popup-image-wrapper" data-video-popup-image data-popup-video-src="{{doc_root}}/videos/popup-video.mp4">
-            <img class="video-popup-image" src="{{doc_root}}images/home-section/video-popup-image.webp" alt="video popup image">
-            <button class="video-popup-icon" data-video-popup-open>
+        <div class="home__video-popup-col">
+          <div class="home__video-popup" data-video-popup-image data-popup-video-src="{{doc_root}}/videos/popup-video.mp4">
+            <img class="home__video-popup__image" src="{{doc_root}}images/home-section/video-popup-image.webp" alt="video popup image">
+            <button class="home__video-popup__icon" data-video-popup-open>
               <img src="{{doc_root}}images/icons/video-popup-icon.svg" alt="video popup">
             </button>
           </div>
         </div>
 
-        <div class="image-column">
+        <div class="home__image-col">
           <img src="{{doc_root}}images/home-section/home-image.webp" alt="two models in red outfit" data-image-slide-from-right>
         </div>
       </div>
     </div>
   </section>
 
-  <!--
-  - #NEW
-  -->
+  <!-- NEW -->
 
-  <section class="new-section text-image-sided">
+  <section class="new text-image-sided">
     <div class="container">
-      <div class="row main-grid has-bg-text">
+      <div class="row main-grid row--bg-text">
         <div class="bg-text">
           <span>new</span>
         </div>
 
-        <div class="content-column">
+        <div class="new__content-col">
           <div class="headline">collection 2020</div>
-          <h3 class="section-title title-500" data-heading-slide-from-right>Black <br>& White</h4>
+          <h2 class="heading heading--h1 heading--primary" data-heading-slide-from-right>Black <br>& White</h2>
           <p data-text-content-slide-from-bottom>Mattis nisl eu quam elementum vulputate ultrices blandit. Congue molestie et varius risus, tristique fermentum purus nunc sed. Et tristique cursus felis placerat proin aliquam. Faucibus aliquam nam morbi volutpat scelerisque cursus in est. Posuere lacus risus faucibus a morbi aliquam malesuada sed sed.</p>
-          <a href="#" class="text-btn">Shop collection</a>
+          <a href="#" class="link-btn">Shop collection</a>
         </div>
 
-        <div class="image-column">
+        <div class="new__image-col">
           <img src="{{doc_root}}images/new-image.webp" alt="two models in black and white outfit" data-image-slide-from-left>
         </div>
       </div>
     </div>
   </section>
 
-  <!--
-  - #BOHO
-  -->
+  <!-- BOHO -->
 
-  <section class="boho-section text-image-sided">
+  <section class="boho text-image-sided">
     <div class="container">
-      <div class="row main-grid has-bg-text">
+      <div class="row main-grid row--bg-text">
         <div class="bg-text">
           <span>boho</span>
         </div>
 
-        <div class="content-column">
+        <div class="boho__content-col">
           <div class="headline">collection 2020</div>
-          <h3 class="section-title title-500" data-heading-slide-from-left>Party <br>Collection</h4>
+          <h2 class="heading heading--h1 heading--primary" data-heading-slide-from-left>Party <br>Collection</h2>
           <p data-text-content-slide-from-bottom>Mattis nisl eu quam elementum vulputate ultrices blandit. Congue molestie et varius risus, tristique fermentum purus nunc sed. Et tristique cursus felis placerat proin aliquam. Faucibus aliquam nam morbi volutpat scelerisque cursus in est. Posuere lacus risus faucibus a morbi aliquam malesuada sed sed.</p>
-          <a href="#" class="text-btn">Shop now</a>
+          <a href="#" class="link-btn">Shop now</a>
         </div>
 
-        <div class="image-column">
+        <div class="boho__image-col">
           <img src="{{doc_root}}images/boho-image.webp" alt="two models in black and white outfit" data-image-slide-from-right>
         </div>
       </div>
     </div>
   </section>
 
-  <!--
-  - #NEWSLETTER
-  -->
+  <!-- NEWSLETTER CALL TO ACTION -->
 
-  <section class="newsletter-section">
+  <section class="newsletter-cta">
     <div class="container">
       <div class="row main-grid">
-        <div class="newsletter-call-to-action" data-newsletter-appear>
-          <div class="content-column">
-            <h5 class="title-300">Subscribe to our newsletter</h5>
+        <div class="newsletter-cta__block" data-newsletter-appear>
+          <div class="newsletter-cta__block__content-col">
+            <h4 class="heading heading--h4">Subscribe to our newsletter</h4>
             <p>Eu, est arcu, vestibulum egestas quam ac sed egestas aliquet. Diam massa magnis mi, tortor, sit. Rhoncus phasellus habitant at turpis proin nibh suspendisse.</p>
           </div>
-          <div class="button-column">
-            <button class="filled-btn" data-newsletter-popup-open >subscribe</button>
+          <div class="newsletter-cta__block__button-col">
+            <button class="newsletter-cta__block__button btn btn--black" data-newsletter-popup-open >subscribe</button>
           </div>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- SIDE IMAGES -->
 
-  <!--
-  - #SIDE IMAGES
-  -->
-
-  <section class="side-images-section">
+  <section class="side-images">
     <div class="container">
       <div class="row main-grid">
-        <div class="image-column left-image">
+        <div class="side-images__image-col side-images__image-col--left">
           <img src="{{doc_root}}images/side-images/side-image-left.webp" alt="model sitting on a chair">
         </div>
 
-        <div class="content-column">
+        <div class="side-images__content-col">
           <div class="headline">lookbooks</div>
-          <h3 class="section-title title-400" data-heading-slide-from-left>Boho wear Lookbook 2021</h4>
+          <h3 class="heading heading--h2 heading--primary" data-heading-slide-from-left>Boho wear Lookbook 2021</h3>
           <p data-text-content-slide-from-bottom>Eu, est arcu, vestibulum egestas quam ac sed egestas aliquet. Diam massa magnis mi, tortor, sit. Rhoncus phasellus habitant at turpis proin nibh suspendisse. Sodales parturient quisque purus pharetra massa et cras nulla commodo. Et condimentum egestas adipiscing nibh.</p>
-          <a href="#" class="text-btn">Read more</a>
+          <a href="#" class="link-btn">Read more</a>
         </div>
 
-        <div class="image-column right-image">
+        <div class="side-images__image-col side-images__image-col--right">
           <img src="{{doc_root}}images/side-images/side-image-right.webp" alt="model standing near the window in abandoned building">
         </div>
       </div>
     </div>
   </section>
 
+  <!-- HOME ARTICLES -->
 
-  <!--
-  - #BLOG POSTS
-  -->
-
-  <section class="blog-posts-section">
+  <section class="home-articles">
     <div class="container">
-      <div class="row main-grid right-side">
-        <div class="blog-post-block">
-          <div class="blog-post-image">
+      <div class="row home-articles__row main-grid">
+        <h2 class="home-articles__heading heading heading--h1 heading--primary" data-heading-slide-from-left>Latest <br>articles</h2>
+      </div>
+
+      <div class="row home-articles__row home-articles__row--right main-grid">
+        <div class="home-articles__block">
+          <div class="home-articles__block__image">
             <img src="{{doc_root}}images/blog-posts/post1.webp" alt="woman in a red dress" data-image-slide-from-left>
           </div>
 
-          <div class="blog-post-content">
-            <div class="blog-post-heading">
+          <div class="home-articles__block__content">
+            <div class="home-articles__block__heading">
               <div class="headline">lookbooks</div>
-              <h3 class="section-title title-400" data-heading-slide-from-left>Boho wear Lookbook 2021</h4>
+              <h3 class="heading heading--h2 heading--primary" data-heading-slide-from-left>Boho wear Lookbook 2021</h3>
             </div>
             
-            <div class="blog-post-intro">
+            <div class="home-articles__block__intro">
               <p data-text-content-slide-from-bottom>Eu, est arcu, vestibulum egestas quam ac sed egestas aliquet. Diam massa magnis mi, tortor, sit. Rhoncus phasellus habitant at turpis proin nibh suspendisse. Sodales parturient quisque purus pharetra massa et cras nulla commodo. Et condimentum egestas adipiscing nibh.</p>
-              <a href="#" class="text-btn">Read more</a>
+              <a href="#" class="link-btn">Read more</a>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="row main-grid left-side">
-        <div class="blog-post-block">
-          <div class="blog-post-image">
+      <div class="row home-articles__row home-articles__row--left main-grid">
+        <div class="home-articles__block">
+          <div class="home-articles__block__image">
             <img src="{{doc_root}}images/blog-posts/post2.webp" alt="women in dark dresses" data-image-slide-from-right>
           </div>
 
-          <div class="blog-post-content">
-            <div class="blog-post-heading">
+          <div class="home-articles__block__content">
+            <div class="home-articles__block__heading">
               <div class="headline">lookbooks</div>
-              <h3 class="section-title title-400" data-heading-slide-from-left>Boho wear Lookbook 2021</h4>
+              <h3 class="heading heading--h2 heading--primary" data-heading-slide-from-left>Boho wear Lookbook 2021</h3>
             </div>
 
-            <div class="blog-post-intro">
+            <div class="home-articles__block__intro">
               <p data-text-content-slide-from-bottom>Eu, est arcu, vestibulum egestas quam ac sed egestas aliquet. Diam massa magnis mi, tortor, sit. Rhoncus phasellus habitant at turpis proin nibh suspendisse. Sodales parturient quisque purus pharetra massa et cras nulla commodo. Et condimentum egestas adipiscing nibh.</p>
-              <a href="#" class="text-btn">Read more</a>
+              <a href="#" class="link-btn">Read more</a>
             </div>
           </div>
         </div>

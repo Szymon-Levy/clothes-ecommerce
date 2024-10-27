@@ -10,7 +10,7 @@ const removeAnimationFromElement = (el) =>{
 /**
    * HIDE PRELOADER
     */
-const $preloader = document.querySelector('#preloader')
+const $preloader = document.querySelector('.js-preloader')
 let isPreloader = true
 let animationDelay = 0
 
@@ -156,9 +156,9 @@ if( offcanvasMenuOpen ){
   offcanvasMenu.classList.add('inactive')
 
   const header = document.querySelector('[data-header]')
-  const offcanvasLogo = document.querySelector('.offcanvas-logo img')
-  const offcanvasNav = document.querySelector('.offcanvas-navigation')
-  const offcanvasImage = document.querySelector('.offvanvas-image')
+  const offcanvasLogo = document.querySelector('.offcanvas__logo img')
+  const offcanvasNav = document.querySelector('.offcanvas__nav')
+  const offcanvasImage = document.querySelector('.offvanvas__image')
 
   offcanvasMenuOpen.addEventListener('click', () =>{
     offcanvasMenu.classList.toggle('active')
@@ -197,11 +197,11 @@ if ( $videoPopupsImagesElements.length ){
 
     const videoPopup = document.createElement('div')
     videoPopup.setAttribute('data-video-popup-wrapper', '')
-    videoPopup.classList.add('popup-wrapper')
+    videoPopup.classList.add('popup')
     videoPopup.classList.add('video-popup-wrapper')
     const newVideoPopupHtml = `
-        <div class="popup-container">
-          <button class="popup-close close-modal" data-video-popup-close></button>
+        <div class="popup__container">
+          <button class="popup-close popup__close" data-video-popup-close></button>
           <video controls muted loop>
             <source src="${videoSrc}" type="video/mp4" />
             Video doesn't work
@@ -226,11 +226,11 @@ if ( $videoPopupsImagesElements.length ){
           bottom: -halfwindowHeight,
         }
       }
-      ScrollReveal().reveal('.popup-container', popupFadeIn);
+      ScrollReveal().reveal('.popup__container', popupFadeIn);
       videoPopup.querySelector('video').load()
       videoPopup.querySelector('video').play()
 
-      const popupContainer = document.querySelector('.popup-container')
+      const popupContainer = document.querySelector('.popup__container')
       const $closePopupButton = document.querySelector('[data-video-popup-close]')
       const $videoPopupWrapper = document.querySelector('[data-video-popup-wrapper]')
       
@@ -279,8 +279,8 @@ if ( $openNewsletterSignUpBtn ){
       if ( submittedValue.match(emailRegex) ){
         const emailsList = localStorage.getItem('emails-list')
         const showSuccesMessage = () =>{
-          const newsletterPopupContent = document.querySelector('.newsletter-popup-wrapper .content-column')
-          const newsletterPopupForm = document.querySelector('.newsletter-popup-wrapper form')
+          const newsletterPopupContent = document.querySelector('.newsletter-popup .content-column')
+          const newsletterPopupForm = document.querySelector('.newsletter-popup form')
           const newsletterPopupFormHeight = newsletterPopupForm.offsetHeight
           console.log(newsletterPopupFormHeight)
           const message = document.createElement('div')
@@ -313,16 +313,16 @@ if ( $openNewsletterSignUpBtn ){
   const openNewsletterSignUpPopup = () => {
     
     const newsletterPopup = document.createElement('div')
-    newsletterPopup.setAttribute('data-newsletter-popup-wrapper', '')
-    newsletterPopup.classList.add('popup-wrapper')
-    newsletterPopup.classList.add('newsletter-popup-wrapper')
+    newsletterPopup.setAttribute('data-newsletter-popup', '')
+    newsletterPopup.classList.add('popup')
+    newsletterPopup.classList.add('newsletter-popup')
     const newsletterPopupHtml = `
-        <div class="popup-container">
-          <div class="newsletter-row">
-            <div class="content-column">
-              <div class="heading">
-                <p class="title-300">We have special offer for You!</p>
-                <h3 class="section-title title-400">
+        <div class="popup__container">
+          <div class="row">
+            <div class="newsletter-popup__content-col">
+              <div class="newsletter-popup__title">
+                <p class="heading heading--h4">We have special offer for You!</p>
+                <h3 class="heading heading--h2 heading--primary">
                 Sign up to our Newsletter and <span>receive 15% off</span>.
                 </h3>
               </div>
@@ -336,17 +336,17 @@ if ( $openNewsletterSignUpBtn ){
                 </div>
 
                 <div class="form-row submit-row">
-                  <button type="submit" class="filled-btn" data-newsletter-button>Sign me up</button>
+                  <button type="submit" class="btn btn--black" data-newsletter-button>Sign me up</button>
                 </div>
               </form>
             </div>
 
-            <div class="image-column">
-              <img src="./images/logo/logo.svg" class="logo-image" alt="logo">
-              <img src="./images/newsletter-image.webp" class="main-image" alt="woman in white dress">
+            <div class="newsletter-popup__image-col">
+              <img src="./images/logo/logo.svg" class="newsletter-popup__logo" alt="logo">
+              <img src="./images/newsletter-image.webp" class="newsletter-popup__image" alt="woman in white dress">
             </div>
           </div>
-          <button class="popup-close close-modal" data-newsletter-popup-close></button>
+          <button class="popup-close popup__close" data-newsletter-popup-close></button>
         </div>
     `
     newsletterPopup.innerHTML = newsletterPopupHtml
@@ -359,7 +359,7 @@ if ( $openNewsletterSignUpBtn ){
     })
     
     newsletterPopup.addEventListener('click', e => {
-      if ( e.target.hasAttribute('data-newsletter-popup-wrapper') || e.target.hasAttribute('data-newsletter-popup-close') ) {
+      if ( e.target.hasAttribute('data-newsletter-popup') || e.target.hasAttribute('data-newsletter-popup-close') ) {
         newsletterPopup.remove()
       }
     })
@@ -370,176 +370,6 @@ if ( $openNewsletterSignUpBtn ){
 }
 
 
-/*----------------------------------*\
-  #SHOP
-\*----------------------------------*/
-
-
-/**
-   * REUSED FUNCTIONS
-    */
-
-const showMessage = (type, message) => {
-
-}
-
-
-/**
-   * UPDATE CART
-    */
-
-  const checkAvailabilityInStock = () => {
-    
-  }
-
-  
-  const updateCart = (id, sizes) => {
-  const inCart = JSON.parse(localStorage.getItem('cart')) || []
-  const obj = { 
-    productId: id,
-    productStock: []
-  }
-
-  if ( inCart.length === 0 ) { 
-    sizes.forEach(size => {
-      console.log(productsJSON);
-      // checkAvailabilityInStock()
-      obj.productStock.push( { size: size, quantity: 1 } )
-    })
-    inCart.push(obj)
-    localStorage.setItem('cart', JSON.stringify(inCart))
-    return false
-  }
-  
-  inCart.forEach(item => {
-    if ( item.productId === id ) {
-      sizes.forEach(size => {
-        item.productStock.forEach(stock =>{
-          if ( stock.size !== size ) {
-            // nie wiem
-          }
-        })
-      })
-    }
-  })
-
-}
-
-
-
-/**
-   * PRODUCTS GRID
-    */
-
-const $productsGrid = document.querySelector('[data-products-grid]')
-
-if ($productsGrid) {
-  
-  const generateGrid = (responseArr) => {
-
-    responseArr.forEach(product => {
-      let cardColumn = document.createElement('div')
-      cardColumn.classList.add('card-column')
-
-      let sizesListItems = '<ul>'
-      product.productStock.forEach(item => {
-           sizesListItems += `
-           <li>
-            <button class="products-grid-card-size-box" data-size-box data-size="${item.size}" aria-label="size: ${item.size}">${item.size}</button>
-           </li>
-           `       
-      })
-      sizesListItems += '</ul>'
-
-      cardColumn.innerHTML = `
-      <div class="products-grid-card" data-id="${product.productId}" data-products-grid-card>
-        <div class="products-grid-card-image">
-          <img src="${product.productImages[0]}" alt="Image of ${product.productName}"> 
-
-          <div class="products-grid-card-add-to-cart-wrapper">
-            <button data-show-sizes-btn class="products-grid-card-sizes-btn" aria-label="choose size of ${product.productName} before adding to cart">
-              <i class="ri-ruler-line" aria-hidden="true"></i>
-            </button>
-          
-            <div class="products-grid-card-sizes" data-sizes>
-              ${sizesListItems}
-
-              <button data-add-to-cart-btn class="products-grid-card-add-to-cart-btn" aria-label="add chosen sizes to cart">
-                <i class="ri-shopping-bag-line" aria-hidden="true"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <div class="products-grid-card-content">
-          <h4 class="products-grid-card-title">
-            <a href="#"> ${product.productName} </a>
-          </h4>
-
-          <div class="products-grid-card-price">
-            $ ${product.productPrice}
-          </div>
-        </div>
-      </div>
-      `
-      $productsGrid.append(cardColumn)
-    })
-  }
-  
-  const xhr = new XMLHttpRequest()
-  xhr.open('GET', 'assets/json/products.json')
-  xhr.send()
-  
-  xhr.onreadystatechange = function () {
-    if ( this.readyState == 4 && this.status == 200 ) {
-      generateGrid(JSON.parse(xhr.responseText))
-    }
-  }
-
-  const showSizesBtns = (target)=> {
-    if ( target.nextElementSibling.classList.contains('active') ) {
-      target.nextElementSibling.classList.remove('active')
-    } else{
-      target.nextElementSibling.classList.add('active')
-    }
-  }
-
-  const chooseSize = (target) => {
-    if ( target.classList.contains('active') ) {
-      target.classList.remove('active')
-      target.removeAttribute('data-chosen')
-    } else {
-      target.setAttribute('data-chosen', '')
-      target.classList.add('active')
-    }
-  }
-
-  const addToCart = (target) => {
-    const productId = target.closest('[data-products-grid-card]').dataset.id
-    const chosenSizes = []
-    const $chosenBoxes = target.closest('[data-sizes]').querySelectorAll('[data-size-box][data-chosen]')
-    if ( !$chosenBoxes.length ) {return false }
-    $chosenBoxes.forEach(sizeBox =>{ chosenSizes.push(sizeBox.dataset.size) })
-    
-    updateCart(productId, chosenSizes)
-  }
-  
-  $productsGrid.addEventListener('click', e => {
-    //show size boxes
-    if( e.target.dataset.hasOwnProperty('showSizesBtn') ) {
-      showSizesBtns(e.target)
-    }
-    //choose size
-    if( e.target.dataset.hasOwnProperty('sizeBox') ) {
-      chooseSize(e.target)
-    }
-    //add to cart
-    if( e.target.dataset.hasOwnProperty('addToCartBtn') || e.target.parentElement.dataset.hasOwnProperty('addToCartBtn') ) {
-      addToCart(e.target)
-    }
-  })
-
-}
 
 // ---------------------
 const $form = document.querySelector('form')
@@ -559,9 +389,9 @@ const sendRequest = async (formData) => {
   }
 }
 
-$form.addEventListener('submit', e => {
-  e.preventDefault()
+// $form.addEventListener('submit', e => {
+//   e.preventDefault()
 
-  const formData = new FormData($form)
-  sendRequest(formData)
-})
+//   const formData = new FormData($form)
+//   sendRequest(formData)
+// })

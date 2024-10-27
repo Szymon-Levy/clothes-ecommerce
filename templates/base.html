@@ -28,85 +28,81 @@
 <body class="home-page">
 
   {% if not page_404 %}
-    <!--
-      - #PRELOADER
-    -->
+    <!-- PRELOADER -->
 
-    <div id="preloader"></div>
+    <div class="preloader js-preloader"></div>
 
-    <!--
-      - #BG LINES
-    -->
+    <!-- LINES -->
 
-    <div class="lines-wrapper">
-      <div class="container">
+    <div class="lines">
+      <div class="lines__container">
         <div class="row">
-          <span class="line"></span>
-          <span class="line"></span>
-          <span class="line"></span>
-          <span class="line"></span>
-          <span class="line"></span>
-          <span class="line"></span>
+          <span class="lines__line"></span>
+          <span class="lines__line"></span>
+          <span class="lines__line"></span>
+          <span class="lines__line"></span>
+          <span class="lines__line"></span>
+          <span class="lines__line"></span>
         </div>
       </div>
     </div>
   {% endif %}
 
-  <!--
-    -page content
-  -->
-
-  <div class="body-wrapper">
+  <main class="body-wrapper">
 
     {% if not page_404 %}
-      <!--
-      - #NAV
-      -->
+      <!-- NAV -->
 
-      <nav class="offcanvas-menu" data-offcanvas-menu>
-        <div class="offcanvas-container">
-          <div class="offcanvas-logo">
+      <nav class="offcanvas" data-offcanvas-menu>
+        <div class="offcanvas__container">
+          <div class="offcanvas__logo">
             <a href="./">
               <img src="{{doc_root}}images/logo/logo-white.svg" alt="offcanvas logo">
             </a>
             
           </div>
 
-          <div class="offcanvas-navigation" data-navigation>
-            <ul class="nav-list">
-              <li class="nav-list-item active"><a class="nav-list-link" href="/">Home</a></li>
-              <li class="nav-list-item"><a class="nav-list-link" href="/shop.html">Shop</a></li>
-              <li class="nav-list-item"><a class="nav-list-link" href="/cart.html">Cart</a></li>
-              <li class="nav-list-item"><a class="nav-list-link" href="/contact.html">Contact</a></li>
+          <div class="offcanvas__nav" data-navigation>
+            <ul class="offcanvas__nav__list">
+              <li class="offcanvas__nav__list__item active">
+                <a class="offcanvas__nav__list__link" href="/">Home</a>
+              </li>
+              <li class="offcanvas__nav__list__item">
+                <a class="offcanvas__nav__list__link" href="/shop.html">Shop</a>
+              </li>
+              <li class="offcanvas__nav__list__item">
+                <a class="offcanvas__nav__list__link" href="/cart.html">Cart</a>
+              </li>
+              <li class="offcanvas__nav__list__item">
+                <a class="offcanvas__nav__list__link" href="/contact.html">Contact</a>
+              </li>
             </ul>
           </div>
         </div>
 
-        <div class="offvanvas-image" aria-hidden="true">
+        <div class="offvanvas__image" aria-hidden="true">
           <img src="{{doc_root}}images/offcanvas-image.webp" alt="offcanvas menu image">
         </div>
 
-        <button id="menu-close" class="close-modal" data-offcanvas-close aria-label="Close the menu">
+        <button class="offvanvas__close" data-offcanvas-close aria-label="Close the menu">
         </button>
       </nav>
 
-      <!--
-      - #HEADER
-      -->
+      <!-- HEADER -->
 
-      <header id="header" data-header>
+      <header class="header" data-header>
         <div class="container-full">
           <div class="row">
-            <div class="logo">
+            <div class="header__logo">
               <a href="./">
                 <img src="{{doc_root}}images/logo/logo.svg" alt="page logo">
               </a>
             </div>
 
-            <div class="header-spacer container"></div>
+            <div class="header__spacer container"></div>
 
-            <div class="menu-opener">
-              <button id="menu-toggler" data-offcanvas-open aria-label="Open the menu">
+            <div class="header__toggler-wrapper">
+              <button class="header__toggler" data-offcanvas-open aria-label="Open the menu">
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
@@ -120,24 +116,22 @@
     {% block content %}{% endblock %}
 
     {% if not page_404 %}
-      <!--
-      - #FOOTER
-      -->
+      <!-- FOOTER -->
 
-      <footer id="footer">
+      <footer class="footer">
         <div class="container">
           <div class="row main-grid">
-            <div class="footer-logo">
-              <a href="/">
+            <div class="footer__logo">
+              <a href="./">
                 <img src="{{doc_root}}images/logo/logo.svg" alt="footer logo">
               </a>
             </div>
 
-            <div class="footer-about">
+            <div class="footer__about">
               <p>Justo, a quisque in accumsan dignissim volutpat quis. Sit pellentesque faucibus arcu lacinia egestas augue. Sit volutpat vel dui ultricies massa.</p>
             </div>
 
-            <div class="footer-contact">
+            <div class="footer__contact">
               <p>
                 <a href="#">hello@templatesjungle.com</a><br>
                 15Th Street Avenue, New York, USA<br>
@@ -149,7 +143,7 @@
       </footer>
     {% endif %}
 
-  </div>
+  </main>
 
   <!--
     -ScrollReveal
