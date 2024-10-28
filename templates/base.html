@@ -53,64 +53,12 @@
     {% if not page_404 %}
       <!-- NAV -->
 
-      <nav class="offcanvas" data-offcanvas-menu>
-        <div class="offcanvas__container">
-          <div class="offcanvas__logo">
-            <a href="./">
-              <img src="{{doc_root}}images/logo/logo-white.svg" alt="offcanvas logo">
-            </a>
-            
-          </div>
-
-          <div class="offcanvas__nav" data-navigation>
-            <ul class="offcanvas__nav__list">
-              <li class="offcanvas__nav__list__item active">
-                <a class="offcanvas__nav__list__link" href="/">Home</a>
-              </li>
-              <li class="offcanvas__nav__list__item">
-                <a class="offcanvas__nav__list__link" href="/shop.html">Shop</a>
-              </li>
-              <li class="offcanvas__nav__list__item">
-                <a class="offcanvas__nav__list__link" href="/cart.html">Cart</a>
-              </li>
-              <li class="offcanvas__nav__list__item">
-                <a class="offcanvas__nav__list__link" href="/contact.html">Contact</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="offvanvas__image" aria-hidden="true">
-          <img src="{{doc_root}}images/offcanvas-image.webp" alt="offcanvas menu image">
-        </div>
-
-        <button class="offvanvas__close" data-offcanvas-close aria-label="Close the menu">
-        </button>
-      </nav>
+      {% include 'includes/offcanvas.html' %}
 
       <!-- HEADER -->
 
-      <header class="header" data-header>
-        <div class="container-full">
-          <div class="row">
-            <div class="header__logo">
-              <a href="./">
-                <img src="{{doc_root}}images/logo/logo.svg" alt="page logo">
-              </a>
-            </div>
+      {% include 'includes/header.html' %}
 
-            <div class="header__spacer container"></div>
-
-            <div class="header__toggler-wrapper">
-              <button class="header__toggler" data-offcanvas-open aria-label="Open the menu">
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </header>
     {% endif %}
 
     {% block content %}{% endblock %}
@@ -118,29 +66,7 @@
     {% if not page_404 %}
       <!-- FOOTER -->
 
-      <footer class="footer">
-        <div class="container">
-          <div class="row main-grid">
-            <div class="footer__logo">
-              <a href="./">
-                <img src="{{doc_root}}images/logo/logo.svg" alt="footer logo">
-              </a>
-            </div>
-
-            <div class="footer__about">
-              <p>Justo, a quisque in accumsan dignissim volutpat quis. Sit pellentesque faucibus arcu lacinia egestas augue. Sit volutpat vel dui ultricies massa.</p>
-            </div>
-
-            <div class="footer__contact">
-              <p>
-                <a href="#">hello@templatesjungle.com</a><br>
-                15Th Street Avenue, New York, USA<br>
-                011-554-8798-6556
-              </p>
-            </div>
-          </div>
-        </div>
-      </footer>
+      {% include 'includes/footer.html' %}
     {% endif %}
 
   </main>
@@ -149,6 +75,16 @@
     -ScrollReveal
   -->
   <script src="{{doc_root}}js/scrollreveal.js"></script>
+
+  <!--
+    -functions
+  -->
+  <script src="{{doc_root}}{{ show_file_modification_time('js/functions.js') }}"></script>
+
+  <!--
+    -animations
+  -->
+  <script src="{{doc_root}}{{ show_file_modification_time('js/animations.js') }}"></script>
 
   <!--
     -custom js
