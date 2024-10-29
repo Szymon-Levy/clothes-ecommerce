@@ -61,7 +61,7 @@ if ($offcanvasMenu && $offcanvasOpen && $offcanvasClose) {
 const $videoPopupButton = document.querySelector('.js-video-popup-button')
 
 const openVideoPopup = async (src) => {
-  const response = await fetch('./templates/video_popup.html')
+  const response = await fetch(docRoot + 'templates/video_popup.html')
   let popupHTML = await response.text()
   popupHTML = popupHTML.replace('videoSrc', src)
   addPopupToDOM(popupHTML, 'video-popup-wrapper')
@@ -82,8 +82,9 @@ if ($videoPopupButton) {
 const $newsletterCtaButton = document.querySelector('.js-newsletter-cta-button')
 
 const openNewsletterPopup = async () => {
-  const response = await fetch('./templates/newsletter_popup.html')
-  const popupHTML = await response.text()
+  const response = await fetch(docRoot + 'templates/newsletter_popup.html?v=001')
+  let popupHTML = await response.text()
+  popupHTML = replaceDocRoot(popupHTML)
   addPopupToDOM(popupHTML, 'newsletter-popup animate')
 }
 

@@ -336,10 +336,12 @@ form input:focus-visible{
 
 .popup__container {
   width: 100%;
+  max-height: 80%;
   position: relative;
   max-width: 1200px;
   box-shadow: .3125rem .3125rem 2.5rem rgba(0, 0, 0, 0.4);
   cursor: auto;
+  overflow: auto;
 }
 
 .popup__close {
@@ -453,7 +455,7 @@ form input:focus-visible{
 @keyframes formAnimation {
   0%{
     opacity: 0;
-    transform: translateY(100px);
+    transform: translateY(50px);
   }
   100%{
     opacity: 1;
