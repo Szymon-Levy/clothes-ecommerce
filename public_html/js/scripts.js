@@ -82,7 +82,7 @@ if ($videoPopupButton) {
 const $newsletterCtaButton = document.querySelector('.js-newsletter-cta-button')
 
 const openNewsletterPopup = async () => {
-  const response = await fetch(docRoot + 'templates/newsletter_popup.html?v=003')
+  const response = await fetch(docRoot + 'templates/newsletter_popup.html?v=004')
   let popupHTML = await response.text()
   popupHTML = replaceDocRoot(popupHTML)
   addPopupToDOM(popupHTML, 'newsletter-popup animate')
@@ -92,14 +92,31 @@ if ($newsletterCtaButton) {
   $newsletterCtaButton.addEventListener('click', openNewsletterPopup)
 }
 
-const sendNewsletterRequest = async (formData) => {
+const handleNewsletterFormResponse = ($form, response) => {
+  clearFormErrors($form)
+
+  console.log(response)
+  if (response.hasOwnProperty('success')) {
+      // showAlert(response.success, 'success')
+      $form.reset()
+  }
+  else if (response.hasOwnProperty('error')) {
+      // showAlert(response.error, 'error')
+      $form.reset()
+  }
+  else {
+    displayFormErrors($form, response)
+  }
+}
+
+const sendNewsletterRequest = async ($form, formData) => {
   try {
     const request = await fetch(docRoot + 'ajax/newsletter', {
       method: 'POST',
       body: formData
     })
     const data = await request.json()
-    console.log(data);
+    handleNewsletterFormResponse($form, data);
   } catch(error) {
     console.log(error)
   }
@@ -125,12 +142,12 @@ const handleNewsletterForm = ($newsletterForm) => {
   const formData = new FormData($newsletterForm)
   const errors = validateNewsletterForm(formData)
 
-  sendNewsletterRequest(formData)
+  sendNewsletterRequest($newsletterForm, formData)
   // if (Object.keys(errors).length === 0) {
-  //   sendNewsletterRequest(formData)
+  //   sendNewsletterRequest($newsletterForm, formData)
   // }
   // else {
-  //   showFormErrors($form, errors)
+  //   displayFormErrors($newsletterForm, errors)
   // }
 
 }

@@ -1,19 +1,27 @@
 <?php
 
+use ClothesEcommerce\Validation\Validation;
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $email = trim($_POST['email']);
   $policy = $_POST['policy'] ?? null;
 
-  $errors = [];
+  $response = [];
 
-  if (empty($email)) {
-    $errors['email'] = 'Email cannot be empty!';
+  if (Validation::email($email, true)) {
+    $response['email'] = Validation::email($email, true);
   }
 
   if (!$policy) {
-    $errors['policy'] = 'Accepting privacy policy is required!';
+    $response['policy'] = 'Accepting privacy policy is required!';
   }
 
-  echo json_encode($errors, JSON_FORCE_OBJECT);
+  if (!empty($response)) {
+    echo json_encode($response);
+    exit();
+  }
+
+  $response['success'] = 'Your email has been added!';
+  echo json_encode($response);
   exit();
 }
