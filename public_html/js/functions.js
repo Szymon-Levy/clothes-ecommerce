@@ -11,6 +11,7 @@ const removePopup = (e) => {
   }
 }
 
+
 /**
  * Creates HTML popup
  */
@@ -30,9 +31,25 @@ const addPopupToDOM = (popupContent = '', additionalCssClasses = '') => {
   document.addEventListener('click', removePopup)
 }
 
+
 /**
  * Replaces doc root in html content loaded dynamically "|doc_root|" => path
  */
 const replaceDocRoot = (string) => {
   return string.replaceAll('|doc_root|', docRoot)
+}
+
+
+/*----------------------------------*\
+  #FORM VALIDATION
+\*----------------------------------*/
+/**
+ * Validates email field
+ */
+const emailValidation = (email, isRequired = false) => {
+  if (isRequired && email == '') {
+    return 'Email cannot be empty!'
+  }
+
+  return false
 }

@@ -5,6 +5,10 @@ include '../src/bootstrap.php';
 // simple routing
 $path = mb_strtolower($_SERVER['REQUEST_URI']);
 $path = substr($path, strlen(DOC_ROOT));
+$question_mark_pos = strpos($path, '?');
+if (!$question_mark_pos === false) {
+  $path = substr($path, 0, $question_mark_pos);
+}
 $url_parts = explode('/', $path);
 
 if (!empty($url_parts[0]) && is_dir(APP_ROOT . '/src/pages/' . $url_parts[0])) {

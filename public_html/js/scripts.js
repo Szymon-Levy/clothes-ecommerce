@@ -82,7 +82,7 @@ if ($videoPopupButton) {
 const $newsletterCtaButton = document.querySelector('.js-newsletter-cta-button')
 
 const openNewsletterPopup = async () => {
-  const response = await fetch(docRoot + 'templates/newsletter_popup.html?v=001')
+  const response = await fetch(docRoot + 'templates/newsletter_popup.html?v=003')
   let popupHTML = await response.text()
   popupHTML = replaceDocRoot(popupHTML)
   addPopupToDOM(popupHTML, 'newsletter-popup animate')
@@ -90,4 +90,52 @@ const openNewsletterPopup = async () => {
 
 if ($newsletterCtaButton) {
   $newsletterCtaButton.addEventListener('click', openNewsletterPopup)
+}
+
+const sendNewsletterRequest = async (formData) => {
+  try {
+    const request = await fetch(docRoot + 'ajax/newsletter', {
+      method: 'POST',
+      body: formData
+    })
+    const data = await request.json()
+    console.log(data);
+  } catch(error) {
+    console.log(error)
+  }
+}
+
+const validateNewsletterForm = (formData) => {
+  const email = formData.get('email').trim()
+  const policy = formData.get('policy')
+  const errors = {}
+
+  if (emailValidation(email, true)) {
+    errors.email = emailValidation(email, true)
+  }
+  
+  if (!policy) {
+    errors.policy = 'Accepting privacy policy is required!'
+  }
+
+  return errors
+}
+
+const handleNewsletterForm = ($newsletterForm) => {
+  const formData = new FormData($newsletterForm)
+  const errors = validateNewsletterForm(formData)
+
+  sendNewsletterRequest(formData)
+  // if (Object.keys(errors).length === 0) {
+  //   sendNewsletterRequest(formData)
+  // }
+  // else {
+  //   showFormErrors($form, errors)
+  // }
+
+}
+
+const newsletterFormSubmit = (e) => {
+  e.preventDefault()
+  handleNewsletterForm(e.target)
 }

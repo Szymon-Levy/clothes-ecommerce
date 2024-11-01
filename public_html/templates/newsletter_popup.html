@@ -7,16 +7,29 @@
       </h3>
     </div>
 
-    <form action="" method="get">
+    <form onsubmit="newsletterFormSubmit(event)" class="form">
       <p>Enter your email for your exclusive offer:</p>
-      <div class="form-row">
-        <div class="form-field-wrapper">
-          <input type="text" name="email" placeholder="Your e-mail" data-email>
+      <div class="form__row">
+        <div class="form__col">
+          <div class="form__field">
+            <input type="text" name="email" placeholder="Your e-mail">
+          </div>
         </div>
       </div>
 
-      <div class="form-row submit-row">
-        <button type="submit" class="btn btn--black" data-newsletter-button>Sign me up</button>
+      <div class="form__row">
+        <div class="form__col">
+          <div class="form__field">
+            <label for="policy">
+              <input type="checkbox" id="policy" name="policy" value="1">
+              <span>I agree to privacy policy</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="form__row form__row--submit">
+        <button type="submit" class="btn btn--black">Sign me up</button>
       </div>
     </form>
   </div>
