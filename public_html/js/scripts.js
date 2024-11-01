@@ -82,7 +82,7 @@ if ($videoPopupButton) {
 const $newsletterCtaButton = document.querySelector('.js-newsletter-cta-button')
 
 const openNewsletterPopup = async () => {
-  const response = await fetch(docRoot + 'templates/newsletter_popup.html?v=004')
+  const response = await fetch(docRoot + 'templates/newsletter_popup.html?v=005')
   let popupHTML = await response.text()
   popupHTML = replaceDocRoot(popupHTML)
   addPopupToDOM(popupHTML, 'newsletter-popup animate')
