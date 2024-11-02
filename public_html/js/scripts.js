@@ -82,7 +82,7 @@ if ($videoPopupButton) {
 const $newsletterCtaButton = document.querySelector('.js-newsletter-cta-button')
 
 const openNewsletterPopup = async () => {
-  const response = await fetch(docRoot + 'templates/newsletter_popup.html?v=005')
+  const response = await fetch(docRoot + 'templates/newsletter_popup.html?v=007')
   let popupHTML = await response.text()
   popupHTML = replaceDocRoot(popupHTML)
   addPopupToDOM(popupHTML, 'newsletter-popup animate')
@@ -97,7 +97,7 @@ const handleNewsletterFormResponse = ($form, response) => {
 
   console.log(response)
   if (response.hasOwnProperty('success')) {
-      // showAlert(response.success, 'success')
+      showAlert(response.success, 'success')
       $form.reset()
   }
   else if (response.hasOwnProperty('error')) {
@@ -123,12 +123,20 @@ const sendNewsletterRequest = async ($form, formData) => {
 }
 
 const validateNewsletterForm = (formData) => {
+  const name = formData.get('name').trim()
   const email = formData.get('email').trim()
   const policy = formData.get('policy')
   const errors = {}
 
-  if (emailValidation(email, true)) {
-    errors.email = emailValidation(email, true)
+  const nameInvalid = lengthValidation(name, 'Name', 2, 50, true)
+  const emailInvalid = emailValidation(email, true)
+
+  if (nameInvalid) {
+    errors.name = nameInvalid
+  }
+
+  if (emailInvalid) {
+    errors.email = emailInvalid
   }
   
   if (!policy) {

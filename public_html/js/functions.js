@@ -26,7 +26,7 @@ const addPopupToDOM = (popupContent = '', additionalCssClasses = '') => {
   `
 
   document.querySelector('.body-wrapper').insertAdjacentHTML('afterend', popupHtml)
-  document.body.style.overflow = 'hidden';
+  document.body.style.overflow = 'hidden'
 
   document.addEventListener('click', removePopup)
 }
@@ -39,6 +39,89 @@ const replaceDocRoot = (string) => {
   return string.replaceAll('|doc_root|', docRoot)
 }
 
+
+/**
+ * Shows alert popup
+ */
+let alertTimeoutId
+
+const showAlert = (message, type) => {
+  let $currentAlert = document.querySelector('.js-alert')
+  let icon = 'ri-information-line'
+  let title = 'Alert'
+
+  if (type == 'success') {
+    icon = 'ri-checkbox-circle-line'
+    title = 'Success :)'
+  }
+  else if (type == 'error') {
+    icon = 'ri-checkbox-circle-line'
+    title = 'Error!'
+  }
+  else if (type == 'info') {
+    icon = 'ri-information-line'
+    title = 'Information...'
+  }
+  else if (type == 'warning') {
+    icon = 'ri-spam-3-line'
+    title = 'Warning!'
+  }
+
+  if ($currentAlert) {
+    $currentAlert.removeAttribute('class')
+    $currentAlert.classList.add('alert', 'alert--' + type, 'js-alert')
+
+    $currentAlert.querySelector('.js-alert-icon i').removeAttribute('class')
+    $currentAlert.querySelector('.js-alert-icon i').classList.add(icon)
+
+    $currentAlert.querySelector('.js-alert-title').innerText = title
+
+    $currentAlert.querySelector('.js-alert-message').innerText = message
+
+    $currentAlert.querySelector('.js-alert-line').classList.remove('shrinking')
+
+    setTimeout(() => {
+      $currentAlert.querySelector('.js-alert-line').classList.add('shrinking')
+    }, 100);
+
+    clearTimeout(alertTimeoutId)
+  }
+  else {
+    const html = `
+      <div class="alert alert--${type} js-alert">
+        <span class="alert__line shrinking js-alert-line"></span>
+  
+        <div class="alert__content">
+          <h5 class="alert__title">
+            <span class="alert__icon js-alert-icon"><i class="${icon}"></i></span>
+            <span class="js-alert-title">${title}</span>
+          </h5>
+  
+          <p class="alert__message js-alert-message">${message}</p>
+        </div>
+  
+        <button class="alert__close" onclick="closeAlert(event)"><i class="ri-close-line"></i></button>
+      </div>
+    `
+  
+    document.querySelector('.body-wrapper').insertAdjacentHTML('afterend', html)
+    $currentAlert = document.querySelector('.js-alert')
+  }
+
+  alertTimeoutId = setTimeout(() => {
+    $currentAlert.remove()
+  }, 5000);
+}
+
+
+/**
+ * Closes alert popup
+ */
+const closeAlert = (e) => {
+  e.target.closest('.js-alert').remove()
+}
+
+showAlert('Message of error. More text of error message.', 'error')
 
 /*----------------------------------*\
   #FORM VALIDATION
@@ -56,6 +139,7 @@ const clearFormErrors = ($form) => {
     })
   }
 }
+
 
 /**
  * Displays form errors
@@ -92,6 +176,22 @@ const emailValidation = (email, isRequired = false) => {
   }
   else if (email.length > 255) {
     return 'E-mail address cannot be longer than 255 characters!'
+  }
+
+  return false
+}
+
+
+/**
+ * Validates lenght
+ */
+const lengthValidation = (string, name, from, to, isRequired = false) => {
+
+  if (isRequired && string === '') {
+    return `${name} is required!`
+  }
+  else if (string.length < from || string.length > to) {
+    return  `${name} cannot be shorter than ${from} and longer than ${to}!`
   }
 
   return false

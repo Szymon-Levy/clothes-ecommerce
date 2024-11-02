@@ -10,8 +10,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   // validation
   $response = [];
 
-  if (Validation::email($email, true)) {
-    $response['email'] = Validation::email($email, true);
+  $emailError = Validation::email($email, true);
+
+  if ($emailError) {
+    $response['email'] = $emailError;
   }
 
   if (!$policy) {
