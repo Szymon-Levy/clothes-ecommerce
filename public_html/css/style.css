@@ -632,7 +632,7 @@ body{
 }
 
 .alert__line.shrinking {
-  animation: shrinkingLine 5s ease-in;
+  animation: shrinkingLine 6s ease-in;
 }
 
 @keyframes shrinkingLine {

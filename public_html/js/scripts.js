@@ -101,7 +101,7 @@ const handleNewsletterFormResponse = ($form, response) => {
       $form.reset()
   }
   else if (response.hasOwnProperty('error')) {
-      // showAlert(response.error, 'error')
+      showAlert(response.error, 'error')
       $form.reset()
   }
   else {
@@ -128,7 +128,7 @@ const validateNewsletterForm = (formData) => {
   const policy = formData.get('policy')
   const errors = {}
 
-  const nameInvalid = lengthValidation(name, 'Name', 2, 50, true)
+  const nameInvalid = lengthValidation(name, 'Name', 2, 50, false)
   const emailInvalid = emailValidation(email, true)
 
   if (nameInvalid) {

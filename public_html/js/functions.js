@@ -110,7 +110,7 @@ const showAlert = (message, type) => {
 
   alertTimeoutId = setTimeout(() => {
     $currentAlert.remove()
-  }, 5000);
+  }, 6000);
 }
 
 
@@ -120,8 +120,6 @@ const showAlert = (message, type) => {
 const closeAlert = (e) => {
   e.target.closest('.js-alert').remove()
 }
-
-showAlert('Message of error. More text of error message.', 'error')
 
 /*----------------------------------*\
   #FORM VALIDATION
@@ -190,8 +188,8 @@ const lengthValidation = (string, name, from, to, isRequired = false) => {
   if (isRequired && string === '') {
     return `${name} is required!`
   }
-  else if (string.length < from || string.length > to) {
-    return  `${name} cannot be shorter than ${from} and longer than ${to}!`
+  else if (string !== '' && (string.length < from || string.length > to)) {
+    return  `${name} cannot be shorter than ${from} and longer than ${to} characters!`
   }
 
   return false

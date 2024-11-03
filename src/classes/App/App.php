@@ -1,24 +1,23 @@
 <?php
 
 namespace ClothesEcommerce\App;
+use ClothesEcommerce\Newsletter\Newsletter;
 
 class App
 {
   protected $database = null;
-  protected $product = null;
-  protected $product_category = null;
-  protected $user = null;
+  protected $newsletter = null;
 
   public function __construct($dsn, $db_user, $db_password) 
   {
     $this->database = new DataBase($dsn, $db_user, $db_password);
   }
 
-  // public function products() 
-  // {
-  //   if ($this->product === null) {
-  //     $this->product = new Product($this->database);
-  //   }
-  //   return $this->product;
-  // }
+  public function newsletter() 
+  {
+    if ($this->newsletter === null) {
+      $this->newsletter = new Newsletter($this->database);
+    }
+    return $this->newsletter;
+  }
 }
