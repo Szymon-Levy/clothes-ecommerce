@@ -20,6 +20,6 @@ class DataBase extends \PDO
     }
     $stmt = $this->prepare($sql);
     $result = $stmt->execute($arguments);
-    return $result;
+    return $stmt;
   }
 }

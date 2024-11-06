@@ -34,7 +34,7 @@ class Email
     $this->phpmailer->isHTML(true);
   }
   
-  public function sendEmail (string $from, string|array $to, string $subject, string $body)
+  public function sendEmail (string $from, string|array $to, string $subject, string $template_name, array $email_data = [])
   {
     $this->phpmailer->setFrom($from, 'Clothes Ecommerce');
 
@@ -48,8 +48,10 @@ class Email
     }
 
     $this->phpmailer->Subject = $subject;
-    $this->phpmailer->Body = '<!DOCTYPE html><html lang="en"><body>'. $body .'</body></html>';
-    $this->phpmailer->AltBody = strip_tags($body);
+    $imie = 'Szymon';
+    ob_start();
+    include(APP_ROOT . '/src/email_templates/' . $template_name . '.php');
+    $this->phpmailer->Body = ob_get_clean();
     $this->phpmailer->send();
     return true;
   }

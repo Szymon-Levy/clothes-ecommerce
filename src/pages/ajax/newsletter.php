@@ -1,6 +1,7 @@
 <?php
 
 use ClothesEcommerce\Validation\Validation;
+use ClothesEcommerce\Email\Email;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   // post data
@@ -32,16 +33,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   }
   
   // try to add email
-  $add_subscriber = $app->newsletter()->addSubscriber($name, $email);
+  $subscriber_id = $app->newsletter()->addSubscriber($name, $email);
 
   //email doesn't exist in db
-  if (!$add_subscriber) {
+  if (!$subscriber_id) {
     $response['error'] = 'This e-mail address is already subscribed to our newsletter!';
     echo json_encode($response);
     exit();
   }
 
-  //send email to new subscriber
+  //assign token and send email to new subscriber
+  $token = $app->newsletter()->assignToken($subscriber_id, 'activation');
+
+  $emailObj = new Email($email_settings);
+  $email_data = [
+    'name' => $name,
+    'token' => $token
+  ];
+  $result = $emailObj->sendEmail($email_settings['admin_username'], $email, 'Welcome to ' . SHOP_NAME . ' - Confirm Your Newsletter Subscription', 'newsletter_subscribtion_confirmation', $email_data);
+
+
   $response['success'] = 'We\'ve added you to our subscriber list. To confirm, please check your email and click the activation link.';
   echo json_encode($response);
   exit();

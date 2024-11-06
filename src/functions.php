@@ -23,3 +23,15 @@ function shutdown_handling()
         exceptions_handling($e);
     }
 }
+
+// Generates token
+function generateToken () {
+    return bin2hex(random_bytes(16));
+}
+
+// Redirects to page
+function redirect (string $page) {
+    $extension = $page === '' ? $page : '.php';
+    header('Location: ' . DOC_ROOT . $page . $extension);
+    die();
+}
