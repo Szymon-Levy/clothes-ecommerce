@@ -24,6 +24,10 @@ $twig_loader = new Twig\Loader\FilesystemLoader(APP_ROOT . '/templates');
 $twig = new Twig\Environment($twig_loader, $twig_settings);
 $twig->addGlobal('doc_root', DOC_ROOT);
 
+// Twig access to session variables
+$session = $app->session();
+$twig->addGlobal('session', $session);
+
 if (DEV === true) {
   $twig->addExtension(new \Twig\Extension\DebugExtension());
 }

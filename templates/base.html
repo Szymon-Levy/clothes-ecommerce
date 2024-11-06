@@ -50,6 +50,13 @@
 
   <main class="body-wrapper">
 
+    <!-- MESSAGES -->
+    {% if session.message %}
+
+    {% include 'includes/message.html' %}
+
+    {% endif %}
+
     {% if not page_404 %}
       <!-- NAV -->
 

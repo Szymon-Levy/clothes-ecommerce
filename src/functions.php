@@ -35,3 +35,8 @@ function redirect (string $page) {
     header('Location: ' . DOC_ROOT . $page . $extension);
     die();
 }
+
+// Creates message in session
+function createUserMessageInSession (string $content, string $type) {
+    $_SESSION['message'] = ['content' => $content, 'type' => $type];
+}

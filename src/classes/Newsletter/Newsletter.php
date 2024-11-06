@@ -49,22 +49,21 @@ class Newsletter
     } while ($loop);
   }
 
-  public function confirmSubscribtion ($token, $role) 
+  public function getActivityStatusByToken ($token) 
   {
-    $arguments['token'] = $token;
-    $arguments['token_role'] = $role;
-    $sql = 'SELECT subscriber_id FROM newsletter_tokens
-            WHERE token = :token AND token_role = :token_role';
-    $subscriber = $this->database->SQL($sql, $arguments)->fetch();
+    $sql = 'SELECT id, is_active 
+            FROM newsletter_subscribers
+            WHERE id = (SELECT subscriber_id
+                        FROM newsletter_tokens
+                        WHERE token = :token AND token_role = "activation")';
+    return $this->database->SQL($sql, ['token' => $token])->fetch();
+  }
 
-    if (!$subscriber) {
-      return false;
-    }
-
+  public function activateSubscribtion ($subscriber_id) 
+  {
     $sql = 'UPDATE newsletter_subscribers 
             SET is_active = 1
             WHERE id = :subscriber_id';
-    $this->database->SQL($sql, ['subscriber_id' => $subscriber['subscriber_id']]);
-    return true;
+    $this->database->SQL($sql, ['subscriber_id' => $subscriber_id]);
   }
 }
