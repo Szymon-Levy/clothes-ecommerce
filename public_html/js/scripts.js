@@ -56,6 +56,22 @@ if ($offcanvasMenu && $offcanvasOpen && $offcanvasClose) {
 
 
 /*----------------------------------*\
+  #CLOSE MESSAGE BAR
+\*----------------------------------*/
+const $messageBarClose = document.querySelector('.js-message-close')
+
+const closeMessageBar = (e) => {
+  e.target.closest('.js-message').remove()
+}
+
+if ($messageBarClose) {
+  $messageBarClose.addEventListener('click', e => {
+    closeMessageBar(e)
+  })
+}
+
+
+/*----------------------------------*\
   #VIDEO POPUP
 \*----------------------------------*/
 const $videoPopupButton = document.querySelector('.js-video-popup-button')

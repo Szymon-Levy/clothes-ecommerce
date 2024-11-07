@@ -710,29 +710,44 @@ body{
 
 /* == USER MESSAGE == */
 .message {
-  padding: 1rem;
+  position: relative;
+  padding: 1rem 2rem;
   border-bottom: .0625rem solid;
+  border-left: .3125rem solid;
   text-align: center;
   font-weight: 700;
-  font-size: .9rem;
+  font-size: .8rem;
 }
 
 .message--error {
   background-color: var(--color-error-bg);
-  border-color: var(--color-error-border);
+  border-color: unset unset var(--color-error-border) var(--color-error);
   color: var(--color-error);
 }
 
 .message--success {
   background-color: var(--color-success-bg);
-  border-color: var(--color-success-border);
+  border-color: unset unset var(--color-success-border) var(--color-success);
   color: var(--color-success);
 }
 
 .message--info {
   background-color: var(--color-info-bg);
-  border-color: var(--color-info-border);
+  border-color: unset unset var(--color-info-border) var(--color-info);
   color: var(--color-info);
+}
+
+.message__close {
+  position: absolute;
+  top: .5rem;
+  right: .5rem;
+  font-size: 1rem;
+  transition: color .3s;
+}
+
+.message__close:hover,
+.message__close:focus-visible {
+  color: var(--color-accent);
 }
 
 /*----------------------------------*\
