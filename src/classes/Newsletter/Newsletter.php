@@ -49,9 +49,9 @@ class Newsletter
     } while ($loop);
   }
 
-  public function getActivityStatusByToken ($token) 
+  public function getSubscriberByToken ($token) 
   {
-    $sql = 'SELECT id, is_active 
+    $sql = 'SELECT * 
             FROM newsletter_subscribers
             WHERE id = (SELECT subscriber_id
                         FROM newsletter_tokens

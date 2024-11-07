@@ -14,7 +14,7 @@
   <p>To start receiving our updates, please confirm your subscription by clicking the link below:</p>
 
   <p>
-    <a style="display: inline-block; padding: 6px 15px; background-color: black; color: white; text-decoration: none; font-weight: 700;" href="<?= (IS_LOCAL ? 'http://localhost' : 'https://') . DOC_ROOT ?>newsletter-confirmation?token=<?= $email_data['token'] ?>">Activate Subscription</a>
+    <a style="display: inline-block; padding: 6px 15px; background-color: black; color: white; text-decoration: none; font-weight: 700;" href="<?= (IS_LOCAL ? 'http://localhost' .DOC_ROOT : 'https://' . DOMAIN . '/') ?>newsletter-confirmation?token=<?= $email_data['token'] ?>">Activate Subscription</a>
   </p>
 
   <p>Once confirmed, you’ll be the first to know about our exciting new arrivals and member-only perks! If you have any questions, feel free to reach out to our support team.</p>
