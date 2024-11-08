@@ -1,6 +1,7 @@
 <?php
 
 namespace ClothesEcommerce\App;
+use ClothesEcommerce\Session\Session;
 use ClothesEcommerce\Newsletter\Newsletter;
 
 class App
@@ -14,19 +15,19 @@ class App
     $this->database = new DataBase($dsn, $db_user, $db_password);
   }
 
-  public function newsletter() 
-  {
-    if ($this->newsletter === null) {
-      $this->newsletter = new Newsletter($this->database);
-    }
-    return $this->newsletter;
-  }
-
   public function session() 
   {
     if ($this->session === null) {
       $this->session = new Session();
     }
     return $this->session;
+  }
+
+  public function newsletter() 
+  {
+    if ($this->newsletter === null) {
+      $this->newsletter = new Newsletter($this->database);
+    }
+    return $this->newsletter;
   }
 }

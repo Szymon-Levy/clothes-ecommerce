@@ -111,7 +111,6 @@ if ($newsletterCtaButton) {
 const handleNewsletterFormResponse = ($form, response) => {
   clearFormErrors($form)
 
-  console.log(response)
   if (response.hasOwnProperty('success')) {
       showAlert(response.success, 'success')
       $form.reset()
@@ -144,7 +143,7 @@ const validateNewsletterForm = (formData) => {
   const policy = formData.get('policy')
   const errors = {}
 
-  const nameInvalid = lengthValidation(name, 'Name', 2, 50, false)
+  const nameInvalid = lengthValidation(name, 'Name', 2, 50, true)
   const emailInvalid = emailValidation(email, true)
 
   if (nameInvalid) {
@@ -166,14 +165,12 @@ const handleNewsletterForm = ($newsletterForm) => {
   const formData = new FormData($newsletterForm)
   const errors = validateNewsletterForm(formData)
 
-  sendNewsletterRequest($newsletterForm, formData)
-  // if (Object.keys(errors).length === 0) {
-  //   sendNewsletterRequest($newsletterForm, formData)
-  // }
-  // else {
-  //   displayFormErrors($newsletterForm, errors)
-  // }
-
+  if (Object.keys(errors).length === 0) {
+    sendNewsletterRequest($newsletterForm, formData)
+  }
+  else {
+    displayFormErrors($newsletterForm, errors)
+  }
 }
 
 const newsletterFormSubmit = (e) => {

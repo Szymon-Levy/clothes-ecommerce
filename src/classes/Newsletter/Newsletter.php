@@ -7,11 +7,13 @@ class Newsletter
 {
   protected $database;
 
-  public function __construct (DataBase $database) {
+  public function __construct (DataBase $database) 
+  {
     $this->database = $database;
   }
 
-  public function addSubscriber (string $name, string $email) {
+  public function addSubscriber (string $name, string $email) 
+  {
     $arguments['subscriber_name'] = $name;
     $arguments['email'] = $email;
     $sql = 'INSERT INTO newsletter_subscribers (subscriber_name, email)
@@ -28,14 +30,21 @@ class Newsletter
     }
   }
 
-  public function assignToken (string $subscriber_id, string $role) 
+  public function deleteSubscriber (int $id) 
+  {
+    $sql = 'DELETE FROM newsletter_subscribers
+            WHERE id = :id';
+    $this->database->SQL($sql, ['id' => $id]);
+  }
+
+  public function assignToken (string $subscriber_id, int $token_role_id) 
   {
     $loop = false;
     $arguments['subscriber_id'] = $subscriber_id;
     $arguments['token'] = generateToken();
-    $arguments['token_role'] = $role;
-    $sql = 'INSERT INTO newsletter_tokens (subscriber_id, token, token_role)
-            VALUES (:subscriber_id, :token, :token_role)';
+    $arguments['token_role_id'] = $token_role_id;
+    $sql = 'INSERT INTO newsletter_tokens (subscriber_id, token, token_role_id)
+            VALUES (:subscriber_id, :token, :token_role_id)';
 
     do {
       try {
@@ -49,14 +58,16 @@ class Newsletter
     } while ($loop);
   }
 
-  public function getSubscriberByToken ($token) 
+  public function getSubscriberByToken ($token, $token_role_id) 
   {
+    $arguments['token'] = $token;
+    $arguments['token_role_id'] = $token_role_id;
     $sql = 'SELECT * 
             FROM newsletter_subscribers
             WHERE id = (SELECT subscriber_id
                         FROM newsletter_tokens
-                        WHERE token = :token AND token_role = "activation")';
-    return $this->database->SQL($sql, ['token' => $token])->fetch();
+                        WHERE token = :token AND token_role_id = :token_role_id)';
+    return $this->database->SQL($sql, $arguments)->fetch();
   }
 
   public function activateSubscribtion ($subscriber_id) 

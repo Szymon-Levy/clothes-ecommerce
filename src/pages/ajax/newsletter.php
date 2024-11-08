@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   }
 
   //assign token and send email to new subscriber
-  $token = $app->newsletter()->assignToken($subscriber_id, 'activation');
+  $token = $app->newsletter()->assignToken($subscriber_id, 1);
 
   $emailObj = new Email($email_settings);
   $email_data = [

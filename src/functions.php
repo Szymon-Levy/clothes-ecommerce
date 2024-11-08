@@ -1,7 +1,7 @@
 <?php
 
 // Errors and exceptions
-function error_handling($type, $message, $file, $line)
+function error_handling($type, $message, $file, $line) 
 {
     throw new ErrorException($message, 0, $type, $file, $line);
 }
@@ -25,18 +25,22 @@ function shutdown_handling()
 }
 
 // Generates token
-function generateToken () {
+function generateToken () 
+{
     return bin2hex(random_bytes(16));
 }
 
 // Redirects to page
-function redirect (string $page) {
+function redirect (string $page) 
+{
     $extension = $page === '' ? $page : '.php';
     header('Location: ' . DOC_ROOT . $page . $extension);
     die();
 }
 
 // Creates message in session
-function createUserMessageInSession (string $content, string $type) {
+function createUserMessageInSession (string $content, string $type) 
+{
+    if(session_status() !== PHP_SESSION_ACTIVE) session_start();
     $_SESSION['message'] = ['content' => $content, 'type' => $type];
 }

@@ -9,10 +9,10 @@ if (!$token) {
   redirect('404');
 }
 
-$subscriber = $app->newsletter()->getSubscriberByToken($token);
+$subscriber = $app->newsletter()->getSubscriberByToken($token, 1);
 
 // If subscriber object not returned
-if (!isset($subscriber['is_active'])) {
+if (!isset($subscriber['id'])) {
   createUserMessageInSession('Invalid token. Try again.', 'error');
   redirect('');
 }
@@ -24,7 +24,7 @@ if ($subscriber['is_active'] === 0) {
   $app->newsletter()->activateSubscribtion($subscriber_id);
 
   // Send welcome email with deletion link
-  $deletion_token = $app->newsletter()->assignToken($subscriber_id, 'deletion');
+  $deletion_token = $app->newsletter()->assignToken($subscriber_id, 2);
   $emailObj = new Email($email_settings);
   $email_data = [
     'name' => $subscriber['subscriber_name'],
