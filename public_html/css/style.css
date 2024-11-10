@@ -71,7 +71,70 @@
   --side-space-dynamic: 0;
   --block-text-space-400: 3.125rem;
   --block-text-space-600: 4.6875rem;
-  --section-block-space-400: 2rem;
+  --section-block-space-400: 3.5rem;
+}
+
+@media screen and (min-width: 768px) {
+  :root {
+    /* == CONTAINER == */
+
+    --side-space-fixed: 1.875rem;
+    --section-block-space-400: 5rem;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  :root {
+    /* == CONTAINER == */
+
+    --section-block-space-400: 7rem;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  :root {
+
+    /* == TYPOGRAPHY == */
+
+    /* font size */
+    --fs-heading-h1: 3.75rem;
+    --fs-heading-h2: 2.375rem;
+
+    /* == CONTAINER == */
+
+    --section-block-space-400: 9rem;
+  }
+}
+
+@media screen and (min-width: 1530px) {
+
+}
+
+@media screen and (min-width: 1600px) {
+  :root {
+
+    /* == TYPOGRAPHY == */
+
+    /* font size */
+    --fs-heading-h1: 4.375rem;
+    --fs-heading-h2: 2.625rem;
+
+    /* == CONTAINER == */
+    --container-400: 100%;
+    --block-text-space-400: 5rem;
+    --block-text-space-600: 7.1875rem;
+  }
+}
+
+@media screen and (min-width: 1800px) {
+  :root {
+
+    /* == TYPOGRAPHY == */
+
+    /* font size */
+    --fs-heading-h1: 5rem;
+    --fs-heading-h2: 3rem;
+  }
 }
 
 
@@ -211,10 +274,6 @@ body{
   width: 100%;
   margin: 0 auto;
   padding: 0 var(--side-space-fixed);
-}
-
-.row--text {
-  padding: 0 var(--block-text-space-400);
 }
 
 .main-grid{
@@ -823,7 +882,16 @@ body{
 \*----------------------------------*/
 
 .header{
+  position: relative;
   padding: .9375rem var(--side-space-fixed);
+  background-color: var(--color-white);
+  box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.08);
+  z-index: 2;
+}
+
+.home-page .header {
+  background-color: unset;
+  box-shadow: none;
 }
 
 .header .container-full{
@@ -1263,6 +1331,7 @@ body{
 /*----------------------------------*\
   #PAGE 404
 \*----------------------------------*/
+
 .page-404 {
   display: flex;
   align-items: center;
@@ -1308,6 +1377,11 @@ body{
 /*----------------------------------*\
   #TERMS PAGES
 \*----------------------------------*/
+
+.terms-page {
+  padding: var(--section-block-space-400) 0;
+}
+
 .terms-page p {
   margin-bottom: 1rem;
 }
@@ -1316,6 +1390,10 @@ body{
   padding-left: 2rem;
   margin-bottom: 1rem;
   list-style: disc;
+}
+
+.terms-page ul ul {
+  padding-left: 1rem;
 }
 
 
@@ -1328,13 +1406,11 @@ body{
 @media screen and (min-width: 768px) {
 
   /*----------------------------------*\
-    #VARIABLES
+    #REUSED STYLES
   \*----------------------------------*/
 
-  :root {
-    /* == CONTAINER == */
-
-    --side-space-fixed: 1.875rem;
+  .row--text {
+    padding: 0 var(--block-text-space-400);
   }
 
   /*----------------------------------*\
@@ -1668,21 +1744,7 @@ body{
 
 }
 
-
 @media screen and (min-width: 1200px) {
-
-  /*----------------------------------*\
-    #VARIABLES
-  \*----------------------------------*/
-
-  :root {
-
-    /* == TYPOGRAPHY == */
-
-    /* font size */
-    --fs-heading-h1: 3.75rem;
-    --fs-heading-h2: 2.375rem;
-  }
 
   /*----------------------------------*\
     #REUSED STYLES
@@ -1893,26 +1955,7 @@ body{
   }
 }
 
-
 @media screen and (min-width: 1600px) {
-
-  /*----------------------------------*\
-    #VARIABLES
-  \*----------------------------------*/
-
-  :root {
-
-    /* == TYPOGRAPHY == */
-
-    /* font size */
-    --fs-heading-h1: 4.375rem;
-    --fs-heading-h2: 2.625rem;
-
-    /* == CONTAINER == */
-    --container-400: 100%;
-    --block-text-space-400: 5rem;
-    --block-text-space-600: 7.1875rem;
-  }
 
   /*----------------------------------*\
     #REUSED STYLES
@@ -1956,19 +1999,21 @@ body{
   \*----------------------------------*/
 
   .header {
-    padding: 4.1875rem 0;
+    padding-left: 0;
+    padding-right: 0;
     width: 100%;
   }
-
+  
   .home-page .header {
     position: absolute;
+    padding: 4.1875rem 0;
   }
 
   .header .container-full {
     padding: 0;
   }
 
-  .header .row {
+  .home-page .header .row {
     align-items: flex-start;
   }
 
@@ -2016,19 +2061,6 @@ body{
 }
 
 @media screen and (min-width: 1800px) {
-
-  /*----------------------------------*\
-    #VARIABLES
-  \*----------------------------------*/
-
-  :root {
-
-    /* == TYPOGRAPHY == */
-
-    /* font size */
-    --fs-heading-h1: 5rem;
-    --fs-heading-h2: 3rem;
-  }
 
   /*----------------------------------*\
     #HOME PAGE
