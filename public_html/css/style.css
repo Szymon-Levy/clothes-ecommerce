@@ -19,7 +19,7 @@
   --color-heading: #111111;
   --color-newsletter-bg: #ffe8f1;
   --color-bg-text: #EFF1F3;
-  --color-lines: #D8D8D8;
+  --color-lines: #e8e8e8;
   --color-placeholder: rgb(145, 145, 145);
   --color-accent: rgb(218 99 1);
   --color-accent-hover: rgb(146, 66, 0);
@@ -71,6 +71,7 @@
   --side-space-dynamic: 0;
   --block-text-space-400: 3.125rem;
   --block-text-space-600: 4.6875rem;
+  --section-block-space-400: 2rem;
 }
 
 
@@ -210,6 +211,10 @@ body{
   width: 100%;
   margin: 0 auto;
   padding: 0 var(--side-space-fixed);
+}
+
+.row--text {
+  padding: 0 var(--block-text-space-400);
 }
 
 .main-grid{
@@ -1298,6 +1303,19 @@ body{
 .page-404__text {
   margin-bottom: 1.4em;
   font-size: 1.4rem;
+}
+
+/*----------------------------------*\
+  #TERMS PAGES
+\*----------------------------------*/
+.terms-page p {
+  margin-bottom: 1rem;
+}
+
+.terms-page ul {
+  padding-left: 2rem;
+  margin-bottom: 1rem;
+  list-style: disc;
 }
 
 

@@ -1,4 +1,4 @@
 <?php
 
-$data['var'] = 'jakiś string';
+$data['home_page'] = true;
 echo $twig->render('index.html', $data);

@@ -48,7 +48,6 @@ class Email
     }
 
     $this->phpmailer->Subject = $subject;
-    $imie = 'Szymon';
     ob_start();
     include(APP_ROOT . '/src/email_templates/' . $template_name . '.php');
     $this->phpmailer->Body = ob_get_clean();

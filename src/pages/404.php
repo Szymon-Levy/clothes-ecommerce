@@ -1,3 +1,4 @@
 <?php
 
-echo $twig->render('404.html');
+$data['page_404'] = true;
+echo $twig->render('404.html', $data);

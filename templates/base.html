@@ -25,7 +25,7 @@
 
 </head>
 
-<body class="home-page">
+<body {% if home_page %}class="home-page"{% endif %}>
 
   {% if not page_404 %}
     <!-- PRELOADER -->
