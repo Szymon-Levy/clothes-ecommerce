@@ -53,7 +53,7 @@
     <!-- MESSAGES -->
     {% if session.message %}
 
-    {% include 'includes/message.html' %}
+      {% include 'includes/message.html' %}
 
     {% endif %}
 
@@ -65,6 +65,13 @@
       <!-- HEADER -->
 
       {% include 'includes/header.html' %}
+
+    {% endif %}
+
+    <!-- PAGE TITLE -->
+    {% if page_title %}
+
+      {% include 'includes/page_title.html' %}
 
     {% endif %}
 

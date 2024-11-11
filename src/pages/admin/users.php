@@ -1,4 +1,3 @@
 <?php
 
-$data['user_id'] = '';
-echo $twig->render('admin/users.html', $data);
+echo $twig->render('admin/users.html');

@@ -814,6 +814,50 @@ body{
   color: var(--color-accent);
 }
 
+/* == PAGE TITLE == */
+.page-title {
+  padding: 2rem 0;
+}
+
+.page-title .row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.breadcrumbs {
+  display: flex;
+  margin-bottom: .625rem;
+}
+
+.breadcrumbs a {
+  display: inline-flex;
+  color: var(--color-black);
+  font-size: .875rem;
+  text-transform: uppercase;
+}
+
+.breadcrumbs a::after {
+  content: ">";
+  margin: 0 8px;
+}
+
+.breadcrumbs li:last-child a::after {
+  content: "";
+}
+
+.breadcrumbs a:hover,
+.breadcrumbs a:focus-visible,
+.breadcrumbs a.active {
+  color: var(--color-accent);
+}
+
+.breadcrumbs__heading {
+  margin: 0;
+}
+
+
 /*----------------------------------*\
   #LINES
 \*----------------------------------*/
@@ -1068,7 +1112,7 @@ body{
   position: relative;
   text-transform: uppercase;
   outline: none;
-  transition: margin-left var(--transition-time-400);
+  transition: margin-left .3s, color .3s;
 }
 
 .offcanvas__nav__list__link::before{
@@ -1077,6 +1121,10 @@ body{
   height: .0625rem;
   background-color: var(--color-newsletter-bg);
   transition: width var(--transition-time-400), margin-right var(--transition-time-400);
+}
+
+.offcanvas__nav__list__item.active .offcanvas__nav__list__link {
+  color: var(--color-accent);
 }
 
 .offcanvas__nav__list__item.active .offcanvas__nav__list__link::before,
@@ -1451,6 +1499,11 @@ body{
     max-width: 25rem;
   }
 
+  /* == PAGE TITLE == */
+  .page-title {
+    padding: 4rem 0;
+  }
+
   /*----------------------------------*\
     #HEADER
   \*----------------------------------*/
@@ -1477,13 +1530,6 @@ body{
 
   .offcanvas__nav__list__link {
     font-size: 2.8125rem;
-  }
-
-  .offcanvas__nav__list__item.active .offcanvas__nav__list__link::before, 
-  .offcanvas__nav__list__link:focus-visible:before, 
-  .offcanvas__nav__list__link:hover:before {
-    margin-right: 2.1875rem;
-    width: 3.125rem;
   }
 
   /*----------------------------------*\
@@ -1585,19 +1631,6 @@ body{
 
   .offcanvas__nav__list__link {
     font-size: 3rem;
-  }
-
-  .offcanvas__nav__list__item.active .offcanvas__nav__list__link, 
-  .offcanvas__nav__list__link:focus-visible, 
-  .offcanvas__nav__list__link:hover {
-    margin-left: -3.125rem;
-  }
-
-  .offcanvas__nav__list__item.active .offcanvas__nav__list__link::before, 
-  .offcanvas__nav__list__link:focus-visible:before, 
-  .offcanvas__nav__list__link:hover:before {
-    margin-right: 3.125rem;
-    width: 8.125rem;
   }
 
   .offvanvas__image {
@@ -1793,6 +1826,15 @@ body{
 
   .newsletter-popup__logo {
     max-width: 6.25rem;
+  }
+
+  /* == PAGE TITLE == */
+  .page-title {
+    padding: 6rem 0;
+  }
+
+  .breadcrumbs {
+    margin-bottom: 2rem;
   }
 
   /*----------------------------------*\

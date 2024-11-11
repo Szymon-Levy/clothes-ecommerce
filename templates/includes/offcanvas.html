@@ -8,7 +8,7 @@
 
     <div class="offcanvas__nav">
       <ul class="offcanvas__nav__list">
-        <li class="offcanvas__nav__list__item active">
+        <li class="offcanvas__nav__list__item {{ page_active_status('', url_parts[0]) }}">
           <a class="offcanvas__nav__list__link" href="{{doc_root}}">Home</a>
         </li>
         <li class="offcanvas__nav__list__item">
@@ -17,8 +17,8 @@
         <li class="offcanvas__nav__list__item">
           <a class="offcanvas__nav__list__link" href="{{doc_root}}#">Cart</a>
         </li>
-        <li class="offcanvas__nav__list__item">
-          <a class="offcanvas__nav__list__link" href="{{doc_root}}#">Contact</a>
+        <li class="offcanvas__nav__list__item {{ page_active_status('contact', url_parts[0]) }}">
+          <a class="offcanvas__nav__list__link" href="{{doc_root}}contact">Contact</a>
         </li>
       </ul>
     </div>

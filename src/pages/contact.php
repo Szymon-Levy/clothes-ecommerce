@@ -1,20 +1,4 @@
 <?php
 
-if ($_POST) {
-  $name = $_POST['name'];
-  $image = $_FILES['image']['name'];
-
-  $name .= ' Lewandowski';
-
-  $response = [
-    'success' => true,
-    'name'    => $name,
-    'file'    => $image
-  ];
-
-  echo json_encode($response);
-  exit();
-}
-
-$data['ds'] = 'dsadsa';
+$data['page_title'] = 'Contact';
 echo $twig->render('contact.html', $data);
