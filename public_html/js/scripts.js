@@ -177,3 +177,50 @@ const newsletterFormSubmit = (e) => {
   e.preventDefault()
   handleNewsletterForm(e.target)
 }
+
+/*----------------------------------*\
+  #CONTACT FORM
+\*----------------------------------*/
+const $contactForm = document.querySelector('.js-contact-form')
+
+const validateContactForm = (formData) => {
+  const name = formData.get('name').trim()
+  const email = formData.get('email').trim()
+  const policy = formData.get('policy')
+  const errors = {}
+
+  const nameError = lengthValidation(name, 'Name', 2, 50, true)
+  const emailError = emailValidation(email, true)
+
+  if (nameError) {
+    errors.name = nameError
+  }
+
+  if (emailError) {
+    errors.email = emailError
+  }
+  
+  if (!policy) {
+    errors.policy = 'Accepting privacy policy is required!'
+  }
+
+  return errors
+}
+
+const handleContactForm = ($contactForm) => {
+  const formData = new FormData($contactForm)
+  const errors = validateContactForm(formData)
+
+  if (Object.keys(errors).length === 0) {
+    sendNewsletterRequest($contactForm, formData)
+  }
+  else {
+    displayFormErrors($contactForm, errors)
+  }
+}
+
+if ($contactForm) {
+  $contactForm.addEventListener('submit', e => {
+    e.preventDefault()
+  })
+}

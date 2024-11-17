@@ -5,9 +5,106 @@
 {% block content %}
   <section class="contact-page">
     <div class="container">
-      <div class="row">
+      <div class="row main-grid">
         <div class="contact-page__data-col">
           <h2 class="heading heading--h2 heading--primary">Get in touch!</h2>
+
+          <div class="contact-page__info">
+            <p>
+              <strong>{{shop_name}}</strong> <br>
+              {{shop_address}}<br>
+              Email: <a href="mailto:{{shop_email}}">{{shop_email}}</a><br>
+              Phone: {{shop_phone}}
+            </p>
+
+            <ul class="contact-page__info__icons">
+              <li>
+                <a href="https://www.facebook.com">
+                  <i class="ri-facebook-fill" aria-hidden="true"></i>
+                </a>
+              </li>
+
+              <li>
+                <a href="https://www.instagram.com">
+                  <i class="ri-instagram-fill" aria-hidden="true"></i>
+                </a>
+              </li>
+
+              <li>
+                <a href="https://www.linkedin.com">
+                  <i class="ri-linkedin-fill" aria-hidden="true"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <form class="contact-page__form form js-contact-form">
+            <div class="form__row">
+              <div class="form__col">
+                <div class="form__field js-form-field">
+                  <input type="text" name="name" placeholder="Your name">
+                </div>
+              </div>
+            </div>
+      
+            <div class="form__row">
+              <div class="form__col">
+                <div class="form__field js-form-field">
+                  <input type="text" name="email" placeholder="Your e-mail">
+                </div>
+              </div>
+            </div>
+      
+            <div class="form__row">
+              <div class="form__col">
+                <div class="form__field js-form-field">
+                  <input type="text" name="subject" placeholder="Subject">
+                </div>
+              </div>
+            </div>
+      
+            <div class="form__row">
+              <div class="form__col">
+                <div class="form__field js-form-field">
+                  <div class="form__select">
+                    <select name="subject" id="">
+                      <option value="">Choose subject</option>
+                      <option value="Shipping & Delivery">Shipping & Delivery</option>
+                      <option value="Returns & Exchanges">Returns & Exchanges</option>
+                      <option value="Payment Issues">Payment Issues</option>
+                      <option value="Technical Support">Technical Support</option>
+                      <option value="Account Management">Account Management</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+      
+            <div class="form__row">
+              <div class="form__col">
+                <div class="form__field js-form-field">
+                  <textarea name="message" placeholder="Content of message"></textarea>
+                </div>
+              </div>
+            </div>
+      
+            <div class="form__row">
+              <div class="form__col">
+                <div class="form__field js-form-field">
+                  <div class="form__checkbox">
+                    <input class="form__checkbox__input" type="checkbox" name="policy" id="policy" value="1">
+                    <label for="policy"><span>I agree with the <a href="{{doc_root}}privacy-policy"> privacy policy</a>.</span></label>
+                  </div>
+                </div>
+              </div>
+            </div>
+      
+            <div class="form__row form__row--submit">
+              <button type="submit" class="btn btn--black">Sign me up</button>
+            </div>
+          </form>
+
         </div>
 
         <div class="contact-page__map-col">

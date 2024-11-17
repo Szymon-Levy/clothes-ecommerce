@@ -7,6 +7,9 @@ $path = mb_strtolower(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
 $path = substr($path, strlen(DOC_ROOT));
 $url_parts = explode('/', $path);
 $twig->addGlobal('url_parts', $url_parts);
+// echo '<pre>';
+// var_dump($url_parts);
+// var_dump($path);
 
 $pages_dir = APP_ROOT . '/src/pages/';
 
