@@ -143,15 +143,15 @@ const validateNewsletterForm = (formData) => {
   const policy = formData.get('policy')
   const errors = {}
 
-  const nameInvalid = lengthValidation(name, 'Name', 2, 50, true)
-  const emailInvalid = emailValidation(email, true)
+  const nameError = lengthValidation(name, 'Name', 2, 50, true)
+  const emailError = emailValidation(email, true)
 
-  if (nameInvalid) {
-    errors.name = nameInvalid
+  if (nameError) {
+    errors.name = nameError
   }
 
-  if (emailInvalid) {
-    errors.email = emailInvalid
+  if (emailError) {
+    errors.email = emailError
   }
   
   if (!policy) {
@@ -183,21 +183,70 @@ const newsletterFormSubmit = (e) => {
 \*----------------------------------*/
 const $contactForm = document.querySelector('.js-contact-form')
 
+const handleContactFormResponse = ($form, response) => {
+  clearFormErrors($form)
+
+  if (response.hasOwnProperty('success')) {
+      showAlert(response.success, 'success')
+      $form.reset()
+  }
+  else if (response.hasOwnProperty('error')) {
+      showAlert(response.error, 'error')
+      $form.reset()
+  }
+  else {
+    displayFormErrors($form, response)
+  }
+}
+
+const sendContactRequest = async ($form, formData) => {
+  try {
+    const request = await fetch(docRoot + 'ajax/contact', {
+      method: 'POST',
+      body: formData
+    })
+    const data = await request.json()
+    handleContactFormResponse($form, data);
+  } catch(error) {
+    console.log(error)
+  }
+}
+
 const validateContactForm = (formData) => {
   const name = formData.get('name').trim()
   const email = formData.get('email').trim()
+  const subject = formData.get('subject')
+  const message = formData.get('message')
   const policy = formData.get('policy')
   const errors = {}
 
   const nameError = lengthValidation(name, 'Name', 2, 50, true)
+  const subjectValues = [
+    'Shipping & Delivery',
+    'Returns & Exchanges',
+    'Payment Issues',
+    'Technical Support',
+    'Account Management',
+    'Other'
+  ]
+  const subjectError = multiValuesValidation(subject, 'Subject', subjectValues, true)
   const emailError = emailValidation(email, true)
+  const messageError = lengthValidation(message, 'Message', 15, 200, true)
 
   if (nameError) {
     errors.name = nameError
   }
 
+  if (subjectError) {
+    errors.subject = subjectError
+  }
+
   if (emailError) {
     errors.email = emailError
+  }
+
+  if (messageError) {
+    errors.message = messageError
   }
   
   if (!policy) {
@@ -211,16 +260,19 @@ const handleContactForm = ($contactForm) => {
   const formData = new FormData($contactForm)
   const errors = validateContactForm(formData)
 
-  if (Object.keys(errors).length === 0) {
-    sendNewsletterRequest($contactForm, formData)
-  }
-  else {
-    displayFormErrors($contactForm, errors)
-  }
+  sendContactRequest($contactForm, formData)
+  // if (Object.keys(errors).length === 0) {
+  //   sendContactRequest($contactForm, formData)
+  // }
+  // else {
+  //   displayFormErrors($contactForm, errors)
+  // }
 }
 
 if ($contactForm) {
   $contactForm.addEventListener('submit', e => {
     e.preventDefault()
+
+    handleContactForm(e.target)
   })
 }

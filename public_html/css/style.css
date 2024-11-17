@@ -416,7 +416,7 @@ body{
 .form__error {
   margin-top: .5em;
   display: block;
-  font-size: .6875rem;
+  font-size: .75rem;
   color: var(--color-error);
 }
 

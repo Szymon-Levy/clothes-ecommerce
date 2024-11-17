@@ -183,13 +183,26 @@ const emailValidation = (email, isRequired = false) => {
 /**
  * Validates lenght
  */
-const lengthValidation = (string, name, from, to, isRequired = false) => {
-
-  if (isRequired && string === '') {
+const lengthValidation = (value, name, from, to, isRequired = false) => {
+  if (isRequired && value === '') {
     return `${name} is required!`
   }
-  else if (string !== '' && (string.length < from || string.length > to)) {
+  else if (value !== '' && (value.length < from || value.length > to)) {
     return  `${name} cannot be shorter than ${from} and longer than ${to} characters!`
+  }
+
+  return false
+}
+
+/**
+ * Validates select
+ */
+const multiValuesValidation = (value, name, checkValuesSet, isRequired = false) => {
+  if (isRequired && value === '') {
+    return `${name} is required!`
+  }
+  else if (!checkValuesSet.includes(value) && !(value == '')) {
+    return  `${name} value is incorrect!`
   }
 
   return false
