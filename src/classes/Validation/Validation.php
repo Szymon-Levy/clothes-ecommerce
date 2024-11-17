@@ -19,13 +19,25 @@ class Validation
     return false;
   }
 
-  public static function length (string $string, string $name, int $from, int $to, bool $isRequired = false): string|bool
+  public static function length (string $value, string $name, int $from, int $to, bool $is_required = false): string|bool
   {
-    if ($isRequired && $string === '') {
+    if ($is_required && $value === '') {
       return $name . ' is required!';
     }
-    else if ($string !== '' && (strlen($string) < $from || strlen($string) > $to)) {
+    else if ($value !== '' && (strlen($value) < $from || strlen($value) > $to)) {
       return  $name . ' cannot be shorter than ' . $from . ' and longer than ' . $to . ' characters!';
+    }
+  
+    return false;
+  }
+
+  public static function multiValues (string $value, string $name, array $check_values_set, bool $is_required = false): string|bool 
+  {
+    if ($is_required && $value === '') {
+      return $name . ' is required!';
+    }
+    else if (!in_array($value, $check_values_set) && !($value == '')) {
+      return  $name . ' value is incorrect!';
     }
   
     return false;

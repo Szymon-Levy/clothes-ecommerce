@@ -508,6 +508,7 @@ body{
   position: absolute;
   right: 1rem;
   top: 50%;
+  font-size: 1rem;
   transform: translateY(-50%);
   font-family: 'remixicon' !important;
   font-style: normal;
@@ -517,23 +518,10 @@ body{
   z-index: 2;
 }
 
-/* .form__select::before {
-  content: "";
-  position: absolute;
-  right: 1rem;
-  top: 50%;
-  transform: translateY(-50%);
-  border-left: 0.4rem solid transparent;
-  border-right: 0.4rem solid transparent;
-  border-top: 0.4rem solid black;
-  pointer-events: none;
-  z-index: 2;
-} */
-
 .form__select select {
   appearance: none;
   -webkit-appearance: none;
-  padding: 0.675em 6em 0.675em 1em;
+  padding-right: 3em;
   cursor: pointer;
 }
 
