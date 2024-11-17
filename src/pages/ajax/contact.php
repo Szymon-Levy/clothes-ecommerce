@@ -53,26 +53,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     exit();
   }
   
-  // // try to add email
-  // $subscriber_id = $app->newsletter()->addSubscriber($name, $email);
+  // save email data in database
+  $app->contact()->saveMessage($name, $email, $subject, $message);
 
-  // //email doesn't exist in db
-  // if (!$subscriber_id) {
-  //   $response['error'] = 'This e-mail address is already subscribed to our newsletter!';
-  //   echo json_encode($response);
-  //   exit();
-  // }
-
-  // //assign token and send email to new subscriber
-  // $token = $app->newsletter()->assignToken($subscriber_id, 1);
-
-  // $emailObj = new Email($email_settings);
-  // $email_data = [
-  //   'name' => $name,
-  //   'token' => $token
-  // ];
-  // $emailObj->sendEmail($email_settings['admin_username'], $email, 'Welcome to ' . SHOP_NAME . ' - Confirm Your Newsletter Subscription', 'newsletter_subscribtion_confirmation', $email_data);
-
+  //send copy of informations to sender
+  $emailObj = new Email($email_settings);
+  $email_data = [
+    'name' => $name,
+    'email' => $email,
+    'subject' => $subject,
+    'message' => replaceWhitespaces($message)
+  ];
+  $emailObj->sendEmail($email_settings['admin_username'], 
+                       $email, 
+                       'Copy of message sent to ' . SHOP_NAME . ' administrator.', 
+                       'contact_message_copy', 
+                       $email_data);
 
   $response['success'] = 'Your message has been successfully sent to the administrator. We have sent a copy of your message to your email.';
   echo json_encode($response);

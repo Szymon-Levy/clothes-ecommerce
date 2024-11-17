@@ -44,3 +44,10 @@ function createUserMessageInSession (string $content, string $type)
     if(session_status() !== PHP_SESSION_ACTIVE) session_start();
     $_SESSION['message'] = ['content' => $content, 'type' => $type];
 }
+
+//Replaces all white space to html tags
+function replaceWhitespaces (string $text)
+{
+    $new_text = str_replace(' ', '&nbsp;', $text);
+    return nl2br($new_text);
+}
