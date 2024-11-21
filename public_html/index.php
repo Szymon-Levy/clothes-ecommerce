@@ -23,6 +23,7 @@ else {
 }
 
 if (!file_exists($page_php)) {
+  http_response_code(404);
   $page_php = $pages_dir . '404.php';
 }
 include $page_php;
