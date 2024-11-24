@@ -14,7 +14,7 @@ if (DEV === false) {
 }
 
 // App object
-$app = new \ClothesEcommerce\App\App($dsn, $db_user, $db_password);
+$app = new ClothesEcommerce\App\App($dsn, $db_user, $db_password);
 unset ($dsn, $db_user, $db_password);
 
 // Twig loading
@@ -25,7 +25,7 @@ $twig = new Twig\Environment($twig_loader, $twig_settings);
 $twig->addGlobal('doc_root', DOC_ROOT);
 
 // Twig access to session variables
-$session = new \ClothesEcommerce\Session\Session();
+$session = new ClothesEcommerce\Session\Session();
 $twig->addGlobal('session', $session);
 
 // Add footer info to twig
@@ -38,7 +38,7 @@ $footer_info = [
 $twig->addGlobal('footer_info', $footer_info);
 
 if (DEV === true) {
-  $twig->addExtension(new \Twig\Extension\DebugExtension());
+  $twig->addExtension(new Twig\Extension\DebugExtension());
 }
 
 // Add Twig custom functions
