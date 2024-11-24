@@ -13,7 +13,7 @@ class DataBase extends \PDO
     parent::__construct($dsn, $db_user, $db_password);
   }
 
-  public function SQL(string $sql, array $arguments = null)
+  public function SQL(string $sql, array|null $arguments = null)
   {
     if (!$arguments) {
       return $this->query($sql);

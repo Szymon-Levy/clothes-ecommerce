@@ -133,6 +133,7 @@ const sendNewsletterRequest = async ($form, formData) => {
     const data = await request.json()
     handleNewsletterFormResponse($form, data);
   } catch(error) {
+    showAlert('Server error. The administrator has been informed of the error.', 'error')
     console.log(error)
   }
 }
@@ -208,6 +209,7 @@ const sendContactRequest = async ($form, formData) => {
     const data = await request.json()
     handleContactFormResponse($form, data);
   } catch(error) {
+    showAlert('Server error. The administrator has been informed of the error.', 'error')
     console.log(error)
   }
 }

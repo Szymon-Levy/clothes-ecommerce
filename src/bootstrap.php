@@ -25,7 +25,7 @@ $twig = new Twig\Environment($twig_loader, $twig_settings);
 $twig->addGlobal('doc_root', DOC_ROOT);
 
 // Twig access to session variables
-$session = $app->session();
+$session = new \ClothesEcommerce\Session\Session();
 $twig->addGlobal('session', $session);
 
 if (DEV === true) {

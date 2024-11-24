@@ -15,9 +15,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   // validation
   $response = [];
 
-  $nameError = Validation::length($name, 'Name', 2, 50, true);
-  $emailError = Validation::email($email, true);
-  $subjectValues = [
+  $name_error = Validation::length($name, 'Name', 2, 50, true);
+  $email_error = Validation::email($email, true);
+  $subject_allowed_values = [
     'Shipping & Delivery',
     'Returns & Exchanges',
     'Payment Issues',
@@ -25,23 +25,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     'Account Management',
     'Other'
   ];
-  $subjectError = Validation::multiValues($subject, 'Subject', $subjectValues, true);
-  $messageError = Validation::length($message, 'Message', 15, 200, true);
+  $subject_error = Validation::multiValues($subject, 'Subject', $subject_allowed_values, true);
+  $message_error = Validation::length($message, 'Message', 15, 200, true);
   
-  if ($nameError) {
-    $response['name'] = $nameError;
+  if ($name_error) {
+    $response['name'] = $name_error;
   }
   
-  if ($emailError) {
-    $response['email'] = $emailError;
+  if ($email_error) {
+    $response['email'] = $email_error;
   }
   
-  if ($subjectError) {
-    $response['subject'] = $subjectError;
+  if ($subject_error) {
+    $response['subject'] = $subject_error;
   }
   
-  if ($messageError) {
-    $response['message'] = $messageError;
+  if ($message_error) {
+    $response['message'] = $message_error;
   }
 
   if (!$policy) {
@@ -57,18 +57,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $app->contact()->saveMessage($name, $email, $subject, $message);
 
   //send copy of informations to sender
-  $emailObj = new Email($email_settings);
+  $email_sender = new Email($email_settings);
   $email_data = [
     'name' => $name,
     'email' => $email,
     'subject' => $subject,
     'message' => replaceWhitespaces($message)
   ];
-  $emailObj->sendEmail($email_settings['admin_username'], 
-                       $email, 
-                       'Copy of message sent to ' . SHOP_NAME . ' administrator.', 
-                       'contact_message_copy', 
-                       $email_data);
+  
+  $email_sender->sendEmail(
+    $email_settings['admin_username'], 
+    $email, 
+    'Copy of message sent to ' . SHOP_NAME . ' administrator.', 
+    'contact_message_copy', 
+    $email_data
+  );
 
   $response['success'] = 'Your message has been successfully sent to the administrator. We have sent a copy of your message to your email.';
   echo json_encode($response);

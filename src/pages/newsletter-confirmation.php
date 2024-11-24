@@ -25,12 +25,19 @@ if ($subscriber['is_active'] === 0) {
 
   // Send welcome email with deletion link
   $deletion_token = $app->newsletter()->assignToken($subscriber_id, 2);
-  $emailObj = new Email($email_settings);
+  $email_sender = new Email($email_settings);
   $email_data = [
     'name' => $subscriber['subscriber_name'],
     'token' => $deletion_token
   ];
-  $emailObj->sendEmail($email_settings['admin_username'], $subscriber['email'], 'Your newsletter subscribtion at ' . SHOP_NAME . ' is active.', 'newsletter_welcome', $email_data);
+  
+  $email_sender->sendEmail(
+    $email_settings['admin_username'], 
+    $subscriber['email'], 
+    'Your newsletter subscribtion at ' . SHOP_NAME . ' is active.', 
+    'newsletter_welcome', 
+    $email_data
+  );
 
   createUserMessageInSession('Your subscription has been activated. Please check your inbox for further information.', 'success');
 }

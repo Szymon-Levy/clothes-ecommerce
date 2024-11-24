@@ -12,15 +12,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   // validation
   $response = [];
 
-  $nameError = Validation::length($name, 'Name', 2, 50, true);
-  $emailError = Validation::email($email, true);
+  $name_error = Validation::length($name, 'Name', 2, 50, true);
+  $email_error = Validation::email($email, true);
   
-  if ($nameError) {
-    $response['name'] = $nameError;
+  if ($name_error) {
+    $response['name'] = $name_error;
   }
   
-  if ($emailError) {
-    $response['email'] = $emailError;
+  if ($email_error) {
+    $response['email'] = $email_error;
   }
 
   if (!$policy) {
@@ -45,12 +45,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   //assign token and send email to new subscriber
   $token = $app->newsletter()->assignToken($subscriber_id, 1);
 
-  $emailObj = new Email($email_settings);
+  $email_sender = new Email($email_settings);
   $email_data = [
     'name' => $name,
     'token' => $token
   ];
-  $emailObj->sendEmail($email_settings['admin_username'], $email, 'Welcome to ' . SHOP_NAME . ' - Confirm Your Newsletter Subscription', 'newsletter_subscribtion_confirmation', $email_data);
+
+  $email_sender->sendEmail(
+    $email_settings['admin_username'], 
+    $email, 
+    'Welcome to ' . SHOP_NAME . ' - Confirm Your Newsletter Subscription', 
+    'newsletter_subscribtion_confirmation', 
+    $email_data
+  );
 
 
   $response['success'] = 'We\'ve added you to our subscriber list. To confirm, please check your email and click the activation link.';

@@ -58,7 +58,7 @@ class Newsletter
     } while ($loop);
   }
 
-  public function getSubscriberByToken ($token, $token_role_id) 
+  public function getSubscriberByToken (string $token, int $token_role_id) 
   {
     $arguments['token'] = $token;
     $arguments['token_role_id'] = $token_role_id;
@@ -70,7 +70,7 @@ class Newsletter
     return $this->database->SQL($sql, $arguments)->fetch();
   }
 
-  public function activateSubscribtion ($subscriber_id) 
+  public function activateSubscribtion (int $subscriber_id) 
   {
     $sql = 'UPDATE newsletter_subscribers 
             SET is_active = 1
