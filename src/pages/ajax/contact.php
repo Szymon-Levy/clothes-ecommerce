@@ -5,6 +5,13 @@ use ClothesEcommerce\Email\Email;
 use ClothesEcommerce\Contact\Contact;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+  // anti bot validation
+  if (formFilledByBot()) {
+    $response['error'] = 'You are not allowed to send this form!';
+    echo json_encode($response);
+    exit();
+  }
+
   // post data
   $name = trim($_POST['name']);
   $email = trim($_POST['email']);

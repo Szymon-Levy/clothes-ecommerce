@@ -98,7 +98,7 @@ if ($videoPopupButton) {
 const $newsletterCtaButton = document.querySelector('.js-newsletter-cta-button')
 
 const openNewsletterPopup = async () => {
-  const response = await fetch(docRoot + 'templates/newsletter_popup.html?v=007')
+  const response = await fetch(docRoot + 'templates/newsletter_popup.html?v=008')
   let popupHTML = await response.text()
   popupHTML = replaceDocRoot(popupHTML)
   addPopupToDOM(popupHTML, 'newsletter-popup animate')
@@ -176,7 +176,10 @@ const handleNewsletterForm = ($newsletterForm) => {
 
 const newsletterFormSubmit = (e) => {
   e.preventDefault()
-  handleNewsletterForm(e.target)
+  const $form = e.target
+  if (formFilledByBot($form)) return false
+
+  handleNewsletterForm($form)
 }
 
 /*----------------------------------*\
@@ -274,7 +277,9 @@ const handleContactForm = ($contactForm) => {
 if ($contactForm) {
   $contactForm.addEventListener('submit', e => {
     e.preventDefault()
+    const $form = e.target
+    if (formFilledByBot($form)) return false
 
-    handleContactForm(e.target)
+    handleContactForm($form)
   })
 }

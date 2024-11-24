@@ -195,7 +195,7 @@ const lengthValidation = (value, name, from, to, isRequired = false) => {
 }
 
 /**
- * Validates select
+ * Validates multi values
  */
 const multiValuesValidation = (value, name, checkValuesSet, isRequired = false) => {
   if (isRequired && value === '') {
@@ -206,4 +206,15 @@ const multiValuesValidation = (value, name, checkValuesSet, isRequired = false) 
   }
 
   return false
+}
+
+/**
+ * Checks if bot filled form
+ */
+
+const formFilledByBot = ($form) => {
+  $honeypotInput = $form.querySelector('[name="website"]')
+  if (!$honeypotInput) return true
+
+  return !$honeypotInput.value == ''
 }

@@ -9,6 +9,14 @@
 
     <form onsubmit="newsletterFormSubmit(event)" class="form">
       <p>Enter your email for your exclusive offer:</p>
+
+      <div style="opacity: 0; position: absolute; top: 0; left: 0; height: 0; width: 0; z-index: -1;">
+        <label>
+            leave this field blank to prove your humanity
+            <input type="text" name="website" value="" autocomplete="off" tabindex="-1" />
+        </label>
+      </div>
+      
       <div class="form__row">
         <div class="form__col">
           <div class="form__field js-form-field">

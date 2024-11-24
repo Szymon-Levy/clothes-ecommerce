@@ -51,3 +51,9 @@ function replaceWhitespaces (string $text)
     $new_text = str_replace(' ', '&nbsp;', $text);
     return nl2br($new_text);
 }
+
+// Checks if bot filled form
+function formFilledByBot() {
+    if (!isset($_POST['website'])) return true;
+    return !$_POST['website'] == '';
+}
