@@ -28,6 +28,15 @@ $twig->addGlobal('doc_root', DOC_ROOT);
 $session = new \ClothesEcommerce\Session\Session();
 $twig->addGlobal('session', $session);
 
+// Add footer info to twig
+$footer_info = [
+  'shop_name' => SHOP_NAME,
+  'shop_email' => SHOP_EMAIL,
+  'shop_address' => SHOP_ADDRESS,
+  'shop_phone' => SHOP_PHONE,
+];
+$twig->addGlobal('footer_info', $footer_info);
+
 if (DEV === true) {
   $twig->addExtension(new \Twig\Extension\DebugExtension());
 }
