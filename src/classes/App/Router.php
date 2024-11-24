@@ -4,12 +4,19 @@ namespace ClothesEcommerce\App;
 
 class Router 
 {
-  public static function route(string $url, \Twig\Environment $twig):string
+  private string $url;
+  private \Twig\Environment $twig;
+
+  public function __construct(string $url, \Twig\Environment $twig)
   {
-    $path = mb_strtolower(parse_url($url, PHP_URL_PATH));
-    $path = substr($path, strlen(DOC_ROOT));
-    $url_parts = explode('/', $path);
-    $twig->addGlobal('url_parts', $url_parts);
+    $this->url = $url;
+    $this->twig = $twig;
+  }
+
+  public function route():string
+  {
+    $url_parts = $this->getUrlParts();
+    $this->addUrlPartsToTwig($url_parts);
 
     $pages_dir = APP_ROOT . '/src/pages/';
 
@@ -27,5 +34,17 @@ class Router
       $page_php = $pages_dir . '404.php';
     }
     return $page_php;
+  }
+
+  public function getUrlParts():array 
+  {
+    $path = mb_strtolower(parse_url($this->url, PHP_URL_PATH));
+    $path = substr($path, strlen(DOC_ROOT));
+    return explode('/', $path);
+  }
+
+  private function addUrlPartsToTwig(array $url_parts)
+  {
+    $this->twig->addGlobal('url_parts', $url_parts);
   }
 }
