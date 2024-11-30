@@ -1173,6 +1173,21 @@ body{
   width: 1.875rem;
 }
 
+@keyframes offcanvasNav {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.offcanvas.active .offcanvas__nav {
+  animation: offcanvasNav .8s ease .2s backwards;
+}
+
 .offvanvas__image{
   position: absolute;
   right: 0;
@@ -1186,6 +1201,7 @@ body{
   animation: imageAnimation .6s ease .4s backwards;
 }
 
+.offcanvas.inactive .offcanvas__nav,
 .offcanvas.inactive .offvanvas__image {
   display: none;
 }
