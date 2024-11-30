@@ -39,10 +39,9 @@ function redirect (string $page)
 }
 
 // Creates message in session
-function createUserMessageInSession (string $content, string $type) 
+function createUserMessageInSession (string $content, string $type, ClothesEcommerce\Session\Session $session) 
 {
-    if(session_status() !== PHP_SESSION_ACTIVE) session_start();
-    $_SESSION['message'] = ['content' => $content, 'type' => $type];
+    $session->setSessionVariable('message', ['content' => $content, 'type' => $type]);
 }
 
 //Replaces all white space to html tags
@@ -53,7 +52,23 @@ function replaceWhitespaces (string $text)
 }
 
 // Checks if bot filled form
-function formFilledByBot() {
-    if (!isset($_POST['website'])) return true;
-    return !$_POST['website'] == '';
+function isFormFilledByBot() {
+    if (!isset($_POST['website']) || !$_POST['website'] == '') {
+        return 'You are not allowed to send this form!';
+    }
+    return false;
+}
+
+// Checks if csrf token is correct
+function isCsrfIncorrect(ClothesEcommerce\Session\Session $session) {
+    if (!isset($_POST['csrf']) || $_POST['csrf'] != $session->csrf) {
+        return 'Operation not allowed, refresh the page and try again!';
+    }
+    return false;
+}
+
+// Generates csrf token
+function generateCSRF () 
+{
+    return bin2hex(random_bytes(32));
 }

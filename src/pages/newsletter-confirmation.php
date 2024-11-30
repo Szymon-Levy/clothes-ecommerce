@@ -13,7 +13,7 @@ $subscriber = $app->newsletter()->getSubscriberByToken($token, 1);
 
 // If subscriber object not returned
 if (!isset($subscriber['id'])) {
-  createUserMessageInSession('Invalid token. Try again.', 'error');
+  createUserMessageInSession('Invalid token. Try again.', 'error', $session);
   redirect('');
 }
 
@@ -39,10 +39,10 @@ if ($subscriber['is_active'] === 0) {
     $email_data
   );
 
-  createUserMessageInSession('Your subscription has been activated. Please check your inbox for further information.', 'success');
+  createUserMessageInSession('Your subscription has been activated. Please check your inbox for further information.', 'success', $session);
 }
 else {
-  createUserMessageInSession('Your subscription has already been activated.', 'info');
+  createUserMessageInSession('Your subscription has already been activated.', 'info', $session);
 }
 
 redirect('');

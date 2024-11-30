@@ -4,9 +4,18 @@ use ClothesEcommerce\Validation\Validation;
 use ClothesEcommerce\Email\Email;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+  //csrf validation
+  $csrf_error = isCsrfIncorrect($session);
+  if ($csrf_error) {
+    $response['error'] = $csrf_error;
+    echo json_encode($response);
+    exit();
+  }
+
   // anti bot validation
-  if (formFilledByBot()) {
-    $response['error'] = 'You are not allowed to send this form!';
+  $bot_error = isFormFilledByBot();
+  if ($bot_error) {
+    $response['error'] = $bot_error;
     echo json_encode($response);
     exit();
   }

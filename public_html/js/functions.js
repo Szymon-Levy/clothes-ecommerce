@@ -122,7 +122,7 @@ const closeAlert = (e) => {
 }
 
 /*----------------------------------*\
-  #FORM VALIDATION
+  #FORM HELPERS
 \*----------------------------------*/
 
 /**
@@ -136,6 +136,13 @@ const clearFormErrors = ($form) => {
       $error.remove()
     })
   }
+}
+
+/**
+ * Adds csrf token to formData
+ */
+const addCsrfToFormData = (formData) => {
+  formData.append('csrf', csrf)
 }
 
 

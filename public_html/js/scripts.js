@@ -164,6 +164,7 @@ const validateNewsletterForm = (formData) => {
 
 const handleNewsletterForm = ($newsletterForm) => {
   const formData = new FormData($newsletterForm)
+  addCsrfToFormData(formData)
   const errors = validateNewsletterForm(formData)
 
   if (Object.keys(errors).length === 0) {
@@ -263,15 +264,15 @@ const validateContactForm = (formData) => {
 
 const handleContactForm = ($contactForm) => {
   const formData = new FormData($contactForm)
+  addCsrfToFormData(formData)
   const errors = validateContactForm(formData)
 
-  sendContactRequest($contactForm, formData)
-  // if (Object.keys(errors).length === 0) {
-  //   sendContactRequest($contactForm, formData)
-  // }
-  // else {
-  //   displayFormErrors($contactForm, errors)
-  // }
+  if (Object.keys(errors).length === 0) {
+    sendContactRequest($contactForm, formData)
+  }
+  else {
+    displayFormErrors($contactForm, errors)
+  }
 }
 
 if ($contactForm) {
