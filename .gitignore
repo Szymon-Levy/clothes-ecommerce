@@ -3,4 +3,5 @@ config
 vendor
 composer.phar
 icons
+uikit
 sql_schema.sql

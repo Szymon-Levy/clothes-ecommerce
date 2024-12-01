@@ -1026,6 +1026,7 @@ body{
 
 .offcanvas {
   position: fixed;
+  padding: 2.5rem var(--side-space-fixed);
   left: 0;
   top: 0;
   width: 100%;
@@ -1100,7 +1101,6 @@ body{
 }
 
 .offcanvas__container {
-  padding: 2.5rem var(--side-space-fixed);
   height: 100%;
   position: relative;
   z-index: 2;
@@ -1711,8 +1711,20 @@ body{
     #OFFCANVAS MENU
   \*----------------------------------*/
 
-  .offcanvas__container {
+  .offcanvas {
     padding: 5rem;
+  }
+
+  .offcanvas__container {
+    display: flex;
+    align-items: center;
+  }
+
+  .offcanvas__logo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 5;
   }
 
   .offcanvas__nav {

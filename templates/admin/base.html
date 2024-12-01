@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>
   {% block title %} {% endblock %}
-  - Clothes Fashion Store
+  - Admin
   </title>
 
   <!--
     - favicon
   -->
-  <link rel="icon" href="{{doc_root}}images/logo/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="{{doc_root}}images/admin/favicon.png" type="image/png">
 
   <!--
     -remix icons
@@ -19,140 +19,58 @@
   <link href="{{doc_root}}css/remixicon.css" rel="stylesheet"/>
 
   <!--
-    -custom css link
+    -UIkit css
   -->
-  <link rel="stylesheet" href="{{doc_root}}{{ showFileModificationTime('css/style.css') }}">
+  <link rel="stylesheet" href="{{doc_root}}{{ showFileModificationTime('uikit/css/uikit.css') }}">
+
+  <!--
+    -custom css
+  -->
+  <link rel="stylesheet" href="{{doc_root}}{{ showFileModificationTime('css/admin/style.css') }}">
 
 </head>
 
-<body class="home-page">
-  <!--
-    - #PRELOADER
-  -->
+<body>
 
-  <div id="preloader"></div>
+  {% if session.message %}
+    <!-- MESSAGES -->
+    {% include 'includes/message.html' %}
+  {% endif %}
 
-  <!--
-    - #BG LINES
-  -->
+  <!-- MAIN CONTENT -->
+  {% if not authentication_page %}
+    <!-- ASIDE -->
+    {% include 'admin/includes/aside.html' %}
 
-  <div class="lines-wrapper">
-    <div class="container">
-      <div class="row">
-        <span class="line"></span>
-        <span class="line"></span>
-        <span class="line"></span>
-        <span class="line"></span>
-        <span class="line"></span>
-        <span class="line"></span>
-      </div>
-    </div>
-  </div>
+    <main>
+      {% block content %}{% endblock %}
+    </main>
+  {% else %}
+    {{ block('content') }}
+  {% endif %}
 
   <!--
-    -page content
+    -Global variables js
   -->
-
-  <div class="body-wrapper">
-
-    <!--
-    - #NAV
-    -->
-
-    <nav class="offcanvas-menu" data-offcanvas-menu>
-      <div class="offcanvas-container">
-        <div class="offcanvas-logo">
-          <a href="./">
-            <img src="{{doc_root}}images/logo/logo-white.svg" alt="offcanvas logo">
-          </a>
-          
-        </div>
-
-        <div class="offcanvas-navigation" data-navigation>
-          <ul class="nav-list">
-            <li class="nav-list-item active"><a class="nav-list-link" href="/">Home</a></li>
-            <li class="nav-list-item"><a class="nav-list-link" href="/shop.html">Shop</a></li>
-            <li class="nav-list-item"><a class="nav-list-link" href="/cart.html">Cart</a></li>
-            <li class="nav-list-item"><a class="nav-list-link" href="/contact.html">Contact</a></li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="offvanvas-image" aria-hidden="true">
-        <img src="{{doc_root}}images/offcanvas-image.webp" alt="offcanvas menu image">
-      </div>
-
-      <button id="menu-close" class="close-modal" data-offcanvas-close aria-label="Close the menu">
-      </button>
-    </nav>
-
-    <!--
-    - #HEADER
-    -->
-
-    <header id="header" data-header>
-      <div class="container-full">
-        <div class="row">
-          <div class="logo">
-            <a href="./">
-              <img src="{{doc_root}}images/logo/logo.svg" alt="page logo">
-            </a>
-          </div>
-
-          <div class="header-spacer container"></div>
-
-          <div class="menu-opener">
-            <button id="menu-toggler" data-offcanvas-open aria-label="Open the menu">
-              <span aria-hidden="true"></span>
-              <span aria-hidden="true"></span>
-              <span aria-hidden="true"></span>
-            </button>
-          </div>
-        </div>
-      </div>
-    </header>
-
-    {% block content %}{% endblock %}
-
-    <!--
-    - #FOOTER
-    -->
-
-    <footer id="footer">
-      <div class="container">
-        <div class="row main-grid">
-          <div class="footer-logo">
-            <a href="/">
-              <img src="{{doc_root}}images/logo/logo.svg" alt="footer logo">
-            </a>
-          </div>
-
-          <div class="footer-about">
-            <p>Justo, a quisque in accumsan dignissim volutpat quis. Sit pellentesque faucibus arcu lacinia egestas augue. Sit volutpat vel dui ultricies massa.</p>
-          </div>
-
-          <div class="footer-contact">
-            <p>
-              <a href="#">hello@templatesjungle.com</a><br>
-              15Th Street Avenue, New York, USA<br>
-              011-554-8798-6556
-            </p>
-          </div>
-        </div>
-      </div>
-    </footer>
-
-
-  </div>
+  <script>
+    const docRoot = '{{doc_root}}';
+    const csrf = '{{session.csrf}}';
+  </script>
 
   <!--
-    -ScrollReveal
+    -functions
   -->
-  <script src="{{doc_root}}js/scrollreveal.js"></script>
+  <script src="{{doc_root}}{{ showFileModificationTime('js/admin/functions.js') }}"></script>
+
+  <!--
+    -UIkit js
+  -->
+  <script src="{{doc_root}}{{ showFileModificationTime('uikit/js/uikit.js') }}"></script>
+  <script src="{{doc_root}}{{ showFileModificationTime('uikit/js/uikit-icons.js') }}"></script>
 
   <!--
     -custom js
   -->
-  <script src="{{doc_root}}{{ showFileModificationTime('js/scripts.js') }}"></script>
+  <script src="{{doc_root}}{{ showFileModificationTime('js/admin/scripts.js') }}"></script>
 </body>
 </html>
