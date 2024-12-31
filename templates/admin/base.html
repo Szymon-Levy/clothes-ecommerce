@@ -19,11 +19,6 @@
   <link href="{{doc_root}}css/remixicon.css" rel="stylesheet"/>
 
   <!--
-    -UIkit css
-  -->
-  <link rel="stylesheet" href="{{doc_root}}{{ showFileModificationTime('uikit/css/uikit.css') }}">
-
-  <!--
     -custom css
   -->
   <link rel="stylesheet" href="{{doc_root}}{{ showFileModificationTime('css/admin/style.css') }}">
@@ -43,6 +38,9 @@
     {% include 'admin/includes/aside.html' %}
 
     <main>
+      <!-- HEADER -->
+      {% include 'admin/includes/header.html' %}
+
       {% block content %}{% endblock %}
     </main>
   {% else %}
@@ -61,12 +59,6 @@
     -functions
   -->
   <script src="{{doc_root}}{{ showFileModificationTime('js/admin/functions.js') }}"></script>
-
-  <!--
-    -UIkit js
-  -->
-  <script src="{{doc_root}}{{ showFileModificationTime('uikit/js/uikit.js') }}"></script>
-  <script src="{{doc_root}}{{ showFileModificationTime('uikit/js/uikit-icons.js') }}"></script>
 
   <!--
     -custom js

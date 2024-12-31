@@ -1,1 +1,85 @@
-aside code
+<aside class="aside js-aside">
+  <div class="aside__top">
+    <a href="{{doc_root}}admin" class="aside__logo">
+      <img src="{{doc_root}}images/admin/logo/logo.png" alt="Simonic logo">
+      Simonic
+    </a>
+
+    <button class="aside__toggler js-aside-toggler">
+      <i class="ri-menu-fold-fill" aria-hidden="true"></i>
+    </button>
+  </div>
+
+  <nav class="aside__nav">
+    <!-- dashboard -->
+    <ul class="aside__nav__menu">
+      <li class="aside__nav__menu__item">
+          <a href="{{doc_root}}admin" class="aside__nav__menu__item__title {{ pageActiveStatus('', url_parts[1]) }}">
+            <i class="ri-dashboard-3-line" aria-hidden="true"></i>
+            Dashboard
+          </a>
+      </li>
+    </ul>
+
+    <!-- blog -->
+    <div class="aside__nav__category">Blog</div>
+    <ul class="aside__nav__menu">
+      <li class="aside__nav__menu__item">
+          <div class="aside__nav__menu__item__title">
+            <i class="ri-article-line" aria-hidden="true"></i>
+            Articles
+          </div>
+      </li>
+
+      <li class="aside__nav__menu__item">
+          <div class="aside__nav__menu__item__title">
+            <i class="ri-bookmark-line" aria-hidden="true"></i>
+            Tags
+          </div>
+      </li>
+
+      <li class="aside__nav__menu__item">
+          <div class="aside__nav__menu__item__title">
+            <i class="ri-book-3-line" aria-hidden="true"></i>
+            Categories
+          </div>
+      </li>
+    </ul>
+
+    <!-- other -->
+    <div class="aside__nav__category">Other</div>
+    <ul class="aside__nav__menu">
+      <li class="aside__nav__menu__item">
+          <div class="aside__nav__menu__item__title">
+            <i class="ri-message-2-line" aria-hidden="true"></i>
+            Messages
+          </div>
+      </li>
+
+      <li class="aside__nav__menu__item">
+          <div class="aside__nav__menu__item__title aside__nav__menu__item__title--arrow js-aside-nav-menu-item-title">
+            <i class="ri-mail-send-line" aria-hidden="true"></i>
+            Newsletter
+          </div>
+
+          <ul class="aside__nav__menu__item__links">
+            <li>
+              <a href="" class="aside__nav__menu__item__links__item">Subscribers list</a>
+            </li>
+
+            <li>
+              <a href="" class="aside__nav__menu__item__links__item">Add subscriber</a>
+            </li>
+
+            <li>
+              <a href="" class="aside__nav__menu__item__links__item">Campaigns</a>
+            </li>
+
+            <li>
+              <a href="" class="aside__nav__menu__item__links__item">Set campaign</a>
+            </li>
+          </ul>
+      </li>
+    </ul>
+  </nav>
+</aside>

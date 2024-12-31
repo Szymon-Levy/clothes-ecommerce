@@ -32,6 +32,8 @@ class Router
     if (!file_exists($page_php)) {
       http_response_code(404);
       $page_php = $pages_dir . '404.php';
+      return $page_php;
+      exit;
     }
     return $page_php;
   }

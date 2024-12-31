@@ -4,7 +4,6 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&family=Roboto:ital,wght@0,300;0,700;1,300&display=swap');
 
-
 /*----------------------------------*\
   #VARIABLES
 \*----------------------------------*/
@@ -101,10 +100,6 @@
 
     --section-block-space-400: 9rem;
   }
-}
-
-@media screen and (min-width: 1530px) {
-
 }
 
 @media screen and (min-width: 1600px) {
