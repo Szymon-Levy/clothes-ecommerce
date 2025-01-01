@@ -27,25 +27,29 @@
 
 <body>
 
-  {% if session.message %}
-    <!-- MESSAGES -->
-    {% include 'includes/message.html' %}
-  {% endif %}
+  <div class="app">
 
-  <!-- MAIN CONTENT -->
-  {% if not authentication_page %}
-    <!-- ASIDE -->
-    {% include 'admin/includes/aside.html' %}
+    {% if session.message %}
+      <!-- MESSAGES -->
+      {% include 'includes/message.html' %}
+    {% endif %}
 
-    <main>
-      <!-- HEADER -->
-      {% include 'admin/includes/header.html' %}
+    <!-- MAIN CONTENT -->
+    {% if not authentication_page %}
+      <!-- ASIDE -->
+      {% include 'admin/includes/aside.html' %}
 
-      {% block content %}{% endblock %}
-    </main>
-  {% else %}
-    {{ block('content') }}
-  {% endif %}
+      <main>
+        <!-- HEADER -->
+        {% include 'admin/includes/header.html' %}
+
+        {% block content %}{% endblock %}
+      </main>
+    {% else %}
+      {{ block('content') }}
+    {% endif %}
+
+  </div>
 
   <!--
     -Global variables js

@@ -3,6 +3,8 @@
 \*----------------------------------*/
 
 const $aside = document.querySelector('.js-aside')
+const $showAsideBtn = document.querySelector('.js-show-aside')
+const $hideAsideBtn = document.querySelector('.js-hide-aside')
 
 if ($aside) {
   $aside.addEventListener('click', e => {
@@ -14,5 +16,15 @@ if ($aside) {
       }
       $navItem.classList.toggle('show-links')
     }
+  })
+}
+
+if ($showAsideBtn && $hideAsideBtn && $aside) {
+  $showAsideBtn.addEventListener('click', () => {
+    $aside.classList.add('show')
+  })
+
+  $hideAsideBtn.addEventListener('click', () => {
+    $aside.classList.remove('show')
   })
 }

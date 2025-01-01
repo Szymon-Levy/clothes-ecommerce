@@ -39,6 +39,7 @@
   --color-warning-border: #FCD28C;
 
   --color-border-300: rgb(240, 240, 240);
+  --color-border-400: rgb(228, 228, 228);
 
   /* == TYPOGRAPHY == */
 
@@ -178,6 +179,7 @@ body{
   font-family: var(--ff-body);
   font-size: var(--fs-body);
   font-weight: 300;
+  overflow-y: hidden;
 }
 
 /*----------------------------------*\
@@ -195,12 +197,142 @@ body{
 }
 
 /*----------------------------------*\
+  #APP STRUCTURE
+\*----------------------------------*/
+.app {
+  display: flex;
+}
+
+main {
+  flex-grow: 1;
+}
+
+/*----------------------------------*\
+  #HEADER
+\*----------------------------------*/
+.header {
+  padding: 0 var(--gap-300);
+  display: flex;
+  align-items: center;
+  height: var(--header-height);
+  box-shadow: 0px 0px 24px 2px rgba(20, 25, 38, 0.07);
+}
+
+.header__aside-show {
+  font-size: 1.6rem;
+  color: var(--color-primary1);
+  transition: color .3s;
+}
+
+.header__aside-show:hover,
+.header__aside-show:focus-visible {
+  color: var(--color-primary1-hover);
+}
+
+.header__right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+
+.header__functions {
+  margin-right: 1.6rem;
+}
+
+.header__functions__btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  background-color: var(--color-light-bg);
+  transition: background-color .3s;
+}
+
+.header__functions__btn:hover,
+.header__functions__btn:focus-visible {
+  background-color: var(--color-primary1);
+}
+
+.header__functions__btn i {
+  font-size: 1.1rem;
+  color: var(--color-black);
+  transition: color .3s;
+}
+
+.header__functions__btn:hover i,
+.header__functions__btn:focus-visible i {
+  color: var(--color-white);
+}
+
+.header__functions__btn__counter {
+  position: absolute;
+  top: -20%;
+  right: -20%;
+  width: 1.2rem;
+  height: 1.2rem;
+  line-height: 1.2rem;
+  font-size: .7rem;
+  border-radius: 50%;
+  background-color: var(--color-primary1-hover);
+  color: var(--color-white);
+  font-weight: 500;
+}
+
+.header__user {
+  display: flex;
+  align-items: center;
+}
+
+.header__user__avatar {
+  flex: 0 0 2.25rem;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  margin-right: 1rem;
+  object-fit: cover;
+}
+
+.header__user__data h5 {
+  font-size: .9rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.header__user__data span {
+  color: var(--color-gray);
+  text-transform: capitalize;
+  font-size: .8rem;
+}
+
+.header__logout {
+  margin-left: 1rem;
+  padding-left: .8rem;
+  font-size: 1.3rem;
+  color: var(--color-gray);
+  border-left: .0625rem solid var(--color-border-400);
+}
+
+/*----------------------------------*\
   #ASIDE
 \*----------------------------------*/
 .aside {
+  position: fixed;
+  left: 0;
+  top: 0;
   width: 17.5rem;
   height: 100vh;
+  z-index: 5;
+  background-color: var(--color-white);
+  transform: translateX(-100%);
+  transition: transform .3s;
   box-shadow: 0px 0px 24px 2px rgba(20, 25, 38, 0.05);
+}
+
+.aside.show {
+  transform: translateX(0);
 }
 
 .aside__top {
@@ -243,6 +375,14 @@ body{
 
 .aside__nav {
   padding: var(--gap-300) var(--gap-400);
+  overflow-y: auto;
+  height: calc(100% - var(--header-height));
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.aside__nav::-webkit-scrollbar {
+  display: none;
 }
 
 .aside__nav__menu {
@@ -357,4 +497,36 @@ body{
   background-color: var(--color-gray);
   border-radius: 50%;
   opacity: .6;
+}
+
+/* ANCHOR Breakpoints */
+
+/*----------------------------------*\
+  #BREAKPOINTS
+\*----------------------------------*/
+
+@media screen and (min-width: 1024px) {
+  /*----------------------------------*\
+    #HEADER
+  \*----------------------------------*/
+  .header {
+    padding: 0 var(--gap-400);
+  }
+
+  .header__aside-show {
+    display: none;
+  }
+
+  /*----------------------------------*\
+    #ASIDE
+  \*----------------------------------*/
+  .aside {
+    position: static;
+    transform: unset;
+    transition: unset;
+  }
+
+  .aside__toggler {
+    display: none;
+  }
 }
