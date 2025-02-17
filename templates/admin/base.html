@@ -43,7 +43,14 @@
         <!-- HEADER -->
         {% include 'admin/includes/header.html' %}
 
-        {% block content %}{% endblock %}
+        <div class="app-content">
+          <!-- PAGE TITLE -->
+          {% include 'admin/includes/page_title.html' %}
+
+          <div class="app-content__panel">
+            {% block content %}{% endblock %}
+          </div>
+        </div>
       </main>
     {% else %}
       {{ block('content') }}

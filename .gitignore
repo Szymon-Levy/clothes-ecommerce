@@ -4,3 +4,4 @@ vendor
 composer.phar
 icons
 sql_schema.sql
+tests.xlsx

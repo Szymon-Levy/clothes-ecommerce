@@ -1,3 +1,5 @@
 <?php
 
-echo $twig->render('admin/users.html');
+$data['page_title'] = 'Users';
+
+echo $twig->render('admin/users.html', $data);

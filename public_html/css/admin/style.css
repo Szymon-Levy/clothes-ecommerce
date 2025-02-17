@@ -15,7 +15,8 @@
   --color-primary1: #1251c3;
   --color-primary1-hover: #052f7e;
   --color-primary2: #3d7bec;
-  --color-light-bg: #e0eaff;
+  --color-light-bg-300: #eaf1fe;
+  --color-light-bg-400: #e0eaff;
   --color-black: #000;
   --color-gray: #424242;
   --color-white: #fff;
@@ -173,13 +174,12 @@ html {
 }
 
 body{
-  background-color: var(--color-white);
+  background-color: var(--color-light-bg-300);
   color: var(--color-black);
   line-height: 1.6;
   font-family: var(--ff-body);
   font-size: var(--fs-body);
   font-weight: 300;
-  overflow-y: hidden;
 }
 
 /*----------------------------------*\
@@ -197,6 +197,40 @@ body{
 }
 
 /*----------------------------------*\
+  #COMPONENTS
+\*----------------------------------*/
+
+/* == BUTTONS == */
+.btn {
+  padding: 0 2em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 2.6em;
+  font-weight: 600;
+  font-size: .9rem;
+  border: .0625rem solid var(--color-primary1);
+  border-radius: var(--radius-400);
+  text-transform: capitalize;
+  transition: color .3s, background-color .3s;
+}
+
+.btn i {
+  margin-right: .4em;
+}
+
+.btn--full {
+  background-color: var(--color-primary1);
+  color: var(--color-white);
+}
+
+.btn--full:hover,
+.btn--full:focus-visible {
+  background-color: var(--color-white);
+  color: var(--color-primary1);
+}
+
+/*----------------------------------*\
   #APP STRUCTURE
 \*----------------------------------*/
 .app {
@@ -207,6 +241,17 @@ main {
   flex-grow: 1;
 }
 
+.app-content {
+  padding: var(--gap-500) var(--gap-300);
+  overflow: auto;
+}
+
+.app-content__panel {
+  padding: var(--gap-300);
+  background-color: var(--color-white);
+  border-radius: var(--radius-400);
+}
+
 /*----------------------------------*\
   #HEADER
 \*----------------------------------*/
@@ -215,6 +260,7 @@ main {
   display: flex;
   align-items: center;
   height: var(--header-height);
+  background-color: var(--color-white);
   box-shadow: 0px 0px 24px 2px rgba(20, 25, 38, 0.07);
 }
 
@@ -247,7 +293,7 @@ main {
   width: 2.25rem;
   height: 2.25rem;
   border-radius: 50%;
-  background-color: var(--color-light-bg);
+  background-color: var(--color-light-bg-400);
   transition: background-color .3s;
 }
 
@@ -316,10 +362,47 @@ main {
 }
 
 /*----------------------------------*\
+  #PAGE TITLE
+\*----------------------------------*/
+.page-title {
+  margin-bottom: 1rem;
+}
+
+.page-title__heading {
+  margin-bottom: .3em;
+}
+
+.breadcrumbs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.breadcrumbs li + li::before {
+  content: "\ea6e";
+  margin: 0 .2rem 0 .4rem;
+  font-family: 'remixicon' !important;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+}
+
+.breadcrumbs li a {
+  color: var(--color-gray);
+  font-weight: 600;
+  font-size: .8125rem;
+}
+
+.breadcrumbs li a:hover,
+.breadcrumbs li a:focus-visible {
+  color: var(--color-primary1-hover);
+}
+
+/*----------------------------------*\
   #ASIDE
 \*----------------------------------*/
 .aside {
   position: fixed;
+  padding-bottom: 7rem;
   left: 0;
   top: 0;
   width: 17.5rem;
@@ -425,7 +508,7 @@ main {
 
 .aside__nav__menu__item__title.active,
 .aside__nav__menu__item__title.show-links {
-  background-color: var(--color-light-bg);
+  background-color: var(--color-light-bg-400);
   color: var(--color-primary1);
 }
 
@@ -499,6 +582,14 @@ main {
   opacity: .6;
 }
 
+.aside__frontpage-btn {
+  position: absolute;
+  left: 50%;
+  bottom: 2rem;
+  min-width: max-content;
+  transform: translateX(-50%);
+}
+
 /* ANCHOR Breakpoints */
 
 /*----------------------------------*\
@@ -506,6 +597,22 @@ main {
 \*----------------------------------*/
 
 @media screen and (min-width: 1024px) {
+
+  /*----------------------------------*\
+    #RESET
+  \*----------------------------------*/
+  body {
+    overflow-y: hidden;
+  }
+
+  /*----------------------------------*\
+    #APP STRUCTURE
+  \*----------------------------------*/
+  .app-content {
+    padding: var(--gap-500) var(--gap-600);
+    max-height: 100vh;
+  }
+
   /*----------------------------------*\
     #HEADER
   \*----------------------------------*/
@@ -518,10 +625,27 @@ main {
   }
 
   /*----------------------------------*\
+    #PAGE TITLE
+  \*----------------------------------*/
+  .page-title {
+    margin-bottom: 1.6rem;
+  }
+
+  .page-title .row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .page-title__heading {
+    margin-bottom: 0;
+  }
+
+  /*----------------------------------*\
     #ASIDE
   \*----------------------------------*/
   .aside {
-    position: static;
+    position: relative;
     transform: unset;
     transition: unset;
   }
