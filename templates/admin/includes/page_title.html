@@ -2,23 +2,23 @@
   <div class="container">
     <div class="row">
       <h1 class="page-title__heading heading heading--h1 heading--primary">{{page_title}}</h1>
-
+      
       <ul class="breadcrumbs">
         <li>
-          <a href="{{doc_root}}admin">Dashboard</a>
+          <a href="{{doc_root}}admin" {% if url_parts|length == 1 %}class="active disabled"{% endif %}>Dashboard</a>
         </li>
+        {% set count = 1 %}
         {% for page in url_parts %}
-          {% if page == 'admin' %}
-            
-          {% elseif not loop.first %}
-            <li>
-              <a href="{{doc_root}}{% for page2 in url_parts %}{{page2}}{% if not loop.last %}/{% endif %}{% endfor %}" {% if loop.last %}class="active"{% endif %}>{{page|replace({'-': ' '})|capitalize}}</a>
-            </li>
-          {% else %}
-            <li>
-              <a href="{{doc_root}}{{page}}" {% if loop.last %}class="active"{% endif %}>{{page|replace({'-': ' '})|capitalize}}</a>
-            </li>
+
+          {% if page != 'admin' %}
+
+          <li>
+            <a href="{{doc_root}}{% for page2 in url_parts %}{% if loop.index0 <= count %}{{page2}}{% endif %}{% if not loop.last %}/{% endif %}{% endfor %}" {% if loop.last %}class="active"{% endif %}>{{page|replace({'-': ' '})|capitalize}}</a>
+          </li>
+
+            {% set count = count + 1 %}
           {% endif %}
+
         {% endfor %}
       </ul>
     </div>

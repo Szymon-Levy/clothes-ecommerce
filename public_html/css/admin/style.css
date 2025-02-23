@@ -393,7 +393,8 @@ main {
 }
 
 .breadcrumbs li a:hover,
-.breadcrumbs li a:focus-visible {
+.breadcrumbs li a:focus-visible,
+.breadcrumbs li a.active {
   color: var(--color-primary1-hover);
 }
 
