@@ -386,7 +386,8 @@ main {
   -webkit-font-smoothing: antialiased;
 }
 
-.breadcrumbs li a {
+.breadcrumbs li a,
+.breadcrumbs li span {
   color: var(--color-gray);
   font-weight: 600;
   font-size: .8125rem;
@@ -394,7 +395,7 @@ main {
 
 .breadcrumbs li a:hover,
 .breadcrumbs li a:focus-visible,
-.breadcrumbs li a.active {
+.breadcrumbs li span {
   color: var(--color-primary1-hover);
 }
 
