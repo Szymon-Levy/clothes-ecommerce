@@ -3,7 +3,6 @@ config
 vendor
 composer.phar
 icons
-sql_schema.sql
 tests.xlsx
 scrollreveal.js
 remixicon.css

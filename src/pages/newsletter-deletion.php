@@ -7,7 +7,7 @@ if (!$token) {
   redirect('404');
 }
 
-$subscriber = $app->newsletter()->getSubscriberByToken($token, 2);
+$subscriber = $app->newsletter()->getSubscriberByToken($token, 'ND');
 
 // If subscriber object not returned
 if (!isset($subscriber['id'])) {

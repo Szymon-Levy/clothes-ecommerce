@@ -3,5 +3,44 @@
 {% block title %}{{page_title}}{% endblock %}
 
 {% block content %}
- <h4>Content</h4>
+
+  <div class="app-content__panel__top">
+    <form class="app-content__panel__top__search-form">
+      <input class="app-content__panel__top__search-form__input" type="text" name="keyword">
+      <button class="app-content__panel__top__search-form__button">
+        <i class="ri-search-line" aria-hidden="true"></i>
+        <span class="visually-hidden">Search by name</span>
+      </button>
+    </form>
+
+    <div class="app-content__panel__top__buttons">
+      <a href="{{doc_root}}admin/newsletter/add-subscriber" class="btn app-content__panel__top__buttons__date">
+        <i class="ri-calendar-2-line" aria-hidden="true"></i>
+        Date asc
+        <i class="ri-arrow-up-down-line" aria-hidden="true"></i>
+      </a>
+
+      <a href="{{doc_root}}admin/newsletter/add-subscriber" class="btn">
+        <i class="ri-add-line" aria-hidden="true"></i>
+        Add new
+      </a>
+
+      <a href="{{doc_root}}admin/export?data=newsletter-subscribers" class="btn btn--full excel" target="_blank">
+        <i class="ri-file-excel-2-line" aria-hidden="true"></i>
+        Export to Excel
+      </a>
+    </div>
+  </div>
+
+  {% if subscribers %}
+
+    {% for subscriber in subscribers %}
+      {{subscriber.id}}, {{subscriber.subscriber_name}}, {{subscriber.email}}, {{subscriber.is_active}} <br>
+    {% endfor %}
+
+  {% else %}
+    Subscribers not found
+  {% endif %}
+
+
 {% endblock %}

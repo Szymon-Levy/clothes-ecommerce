@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   }
 
   //assign token and send email to new subscriber
-  $token = $app->newsletter()->assignToken($subscriber_id, 1);
+  $token = $app->newsletter()->assignToken($subscriber_id, 'NA');
 
   $email_sender = new Email($email_settings);
   $email_data = [
@@ -76,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   );
 
 
-  $response['success'] = 'We\'ve added you to our subscriber list. To confirm, please check your email and click the activation link.';
+  $response['success'] = 'We\'ve added you to our subscriber list. To confirm, please check your email and click the activation link. Link will expire after 5 minutes';
   echo json_encode($response);
   exit();
 }

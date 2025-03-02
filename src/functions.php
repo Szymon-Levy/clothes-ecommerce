@@ -33,8 +33,7 @@ function generateToken ()
 // Redirects to page
 function redirect (string $page) 
 {
-    $extension = $page === '' ? $page : '.php';
-    header('Location: ' . DOC_ROOT . $page . $extension);
+    header('Location: ' . DOC_ROOT . $page);
     die();
 }
 

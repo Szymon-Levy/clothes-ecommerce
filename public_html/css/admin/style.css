@@ -217,6 +217,7 @@ body{
 
 .btn i {
   margin-right: .4em;
+  font-weight: 400;
 }
 
 .btn--full {
@@ -224,11 +225,22 @@ body{
   color: var(--color-white);
 }
 
+.btn--full.excel {
+  background-color: #1D6F42;
+  border-color: #1D6F42;
+}
+
+.btn--full.excel:hover,
+.btn--full.excel:focus-visible {
+  color: #1D6F42;
+}
+
 .btn--full:hover,
 .btn--full:focus-visible {
   background-color: var(--color-white);
   color: var(--color-primary1);
 }
+
 
 /*----------------------------------*\
   #APP STRUCTURE
@@ -432,7 +444,7 @@ main {
 .aside__logo {
   display: flex;
   align-items: center;
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   font-weight: 700;
   color: var(--color-black);
 }
@@ -444,7 +456,7 @@ main {
 
 .aside__logo img {
   margin-right: .6rem;
-  width: 3.125rem;
+  width: 2.8rem;
 }
 
 .aside__toggler {
@@ -591,6 +603,13 @@ main {
   min-width: max-content;
   transform: translateX(-50%);
 }
+
+/*----------------------------------*\
+  #APP CONTENT
+\*----------------------------------*/
+
+/* == TOP PANEL == */
+
 
 /* ANCHOR Breakpoints */
 

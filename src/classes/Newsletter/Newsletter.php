@@ -6,6 +6,7 @@ use ClothesEcommerce\App\DataBase;
 class Newsletter 
 {
   protected $database;
+  private $allowed_filter_columns = ['id', 'subscriber_name', 'email', 'is_active'];
 
   public function __construct (DataBase $database) 
   {
@@ -37,7 +38,7 @@ class Newsletter
     $this->database->SQL($sql, ['id' => $id]);
   }
 
-  public function assignToken (string $subscriber_id, int $token_role_id) 
+  public function assignToken (string $subscriber_id, string $token_role_id) 
   {
     $loop = false;
     $arguments['subscriber_id'] = $subscriber_id;
@@ -58,15 +59,21 @@ class Newsletter
     } while ($loop);
   }
 
-  public function getSubscriberByToken (string $token, int $token_role_id) 
+  public function getSubscriberByToken (string $token, string $token_role_id) 
   {
     $arguments['token'] = $token;
     $arguments['token_role_id'] = $token_role_id;
-    $sql = 'SELECT * 
+    $sql = 'SELECT
+              newsletter_subscribers.id,
+              newsletter_subscribers.subscriber_name,
+              newsletter_subscribers.email,
+              newsletter_subscribers.is_active,
+              UNIX_TIMESTAMP(newsletter_tokens.created_at) AS token_timestamp
             FROM newsletter_subscribers
-            WHERE id = (SELECT subscriber_id
-                        FROM newsletter_tokens
-                        WHERE token = :token AND token_role_id = :token_role_id)';
+            INNER JOIN newsletter_tokens ON newsletter_subscribers.id = newsletter_tokens.subscriber_id
+            WHERE 
+              newsletter_tokens.token = :token AND
+              newsletter_tokens.token_role_id = :token_role_id';
     return $this->database->SQL($sql, $arguments)->fetch();
   }
 
@@ -76,5 +83,45 @@ class Newsletter
             SET is_active = 1
             WHERE id = :subscriber_id';
     $this->database->SQL($sql, ['subscriber_id' => $subscriber_id]);
+  }
+
+  public function getSubscribersTable (string|null $keyword, string|null $order_by)
+  {
+    $arguments = [];
+    $sql = 'SELECT *
+            FROM newsletter_subscribers ';
+    
+    if ($keyword) {
+      $arguments['keyword'] = '%' . $keyword . '%';
+      $sql .= 'WHERE subscriber_name LIKE :keyword ';
+    }
+
+    if ($order_by && in_array($order_by, $this->allowed_filter_columns)) {
+      $sql .= 'ORDER BY ' . $order_by;
+    }
+    $sql .= ';';
+
+    return $this->database->SQL($sql, $arguments)->fetchAll();
+  }
+
+  public function getExportSubscribersData ()
+  {
+    $data['file_name'] = 'newsletter-subscribers';
+    $data['headings'] = ['ID', 'SUBSCRIBER NAME', 'EMAIL', 'ACTIVITY STATUS'];
+    $data['db_columns'] = ['id', 'subscriber_name', 'email', 'activity_status'];
+
+    $sql = 'SELECT
+              id,
+              subscriber_name,
+              email,
+              is_active,
+              CASE
+                WHEN is_active = "1" THEN "Active"
+                ELSE "Inactive"
+              END AS activity_status
+            FROM newsletter_subscribers
+            ORDER BY id;';
+    $data['db_data'] = $this->database->SQL($sql)->fetchAll();
+    return $data;
   }
 }

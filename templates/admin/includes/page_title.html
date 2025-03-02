@@ -5,18 +5,24 @@
       
       <ul class="breadcrumbs">
         <li>
-          <a href="{{doc_root}}admin" {% if url_parts|length == 1 %}class="active"{% endif %}>Dashboard</a>
+          {% if url_parts|length == 1 %}
+            <span>Dashboard</span>
+          {% else %}
+            <a href="{{doc_root}}admin">Dashboard</a>
+          {% endif %}
         </li>
+
         {% set count = 1 %}
         {% for page in url_parts %}
 
           {% if page != 'admin' %}
 
+            {% set title = page|replace({'-': ' '})|capitalize %}
             <li>
               {% if not loop.last %}
-                <a href="{{doc_root}}{% for page2 in url_parts %}{% if loop.index0 <= count %}{{page2}}{% endif %}{% if not loop.last %}/{% endif %}{% endfor %}" {% if loop.last %}class="active"{% endif %}>{{page|replace({'-': ' '})|capitalize}}</a>
+                <a href="{{doc_root}}{% for page2 in url_parts %}{% if loop.index0 <= count %}{{page2}}{% endif %}{% if not loop.last %}/{% endif %}{% endfor %}" {% if loop.last %}class="active"{% endif %}>{{title}}</a>
               {% else %}
-                <span>{{page|replace({'-': ' '})|capitalize}}</span>
+                <span>{{title}}</span>
               {% endif %}
             </li>
 
