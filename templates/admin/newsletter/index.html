@@ -5,8 +5,8 @@
 {% block content %}
 
   <div class="app-content__panel__top">
-    <form class="app-content__panel__top__search-form">
-      <input class="app-content__panel__top__search-form__input" type="text" name="keyword">
+    <form class="app-content__panel__top__search-form form">
+      <input class="app-content__panel__top__search-form__input" type="text" name="keyword" placeholder="Search by name">
       <button class="app-content__panel__top__search-form__button">
         <i class="ri-search-line" aria-hidden="true"></i>
         <span class="visually-hidden">Search by name</span>
@@ -28,6 +28,11 @@
       <a href="{{doc_root}}admin/export?data=newsletter-subscribers" class="btn btn--full excel" target="_blank">
         <i class="ri-file-excel-2-line" aria-hidden="true"></i>
         Export to Excel
+      </a>
+
+      <a href="{{doc_root}}admin/newsletter" class="btn app-content__panel__top__buttons__refresh">
+        <i class="ri-refresh-line" aria-hidden="true"></i>
+        <span class="visually-hidden">Refresh</span>
       </a>
     </div>
   </div>
