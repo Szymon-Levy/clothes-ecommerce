@@ -149,6 +149,20 @@ a:focus-visible {
   color: var(--color-primary1-hover);
 }
 
+.visually-hidden {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  position: absolute !important;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px 1px 1px 1px);
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
 img{
   max-width: 100%;
   display: block;
@@ -202,13 +216,13 @@ body{
 
 /* == BUTTONS == */
 .btn {
-  padding: 0 2em;
+  padding: 0 1em;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  line-height: 2.6em;
+  line-height: 2.2em;
   font-weight: 600;
-  font-size: .9rem;
+  font-size: .7rem;
   border: .0625rem solid var(--color-primary1);
   border-radius: var(--radius-400);
   text-transform: capitalize;
@@ -218,6 +232,12 @@ body{
 .btn i {
   margin-right: .4em;
   font-weight: 400;
+}
+
+.btn:hover,
+.btn:focus-visible {
+  background-color: var(--color-primary1);
+  color: var(--color-white);
 }
 
 .btn--full {
@@ -262,6 +282,11 @@ main {
   padding: var(--gap-300);
   background-color: var(--color-white);
   border-radius: var(--radius-400);
+}
+
+.copyright {
+  margin-top: .6rem;
+  text-align: center;
 }
 
 /*----------------------------------*\
@@ -609,6 +634,18 @@ main {
 \*----------------------------------*/
 
 /* == TOP PANEL == */
+.app-content__panel__top {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.app-content__panel__top__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+}
 
 
 /* ANCHOR Breakpoints */
@@ -627,11 +664,26 @@ main {
   }
 
   /*----------------------------------*\
+    #COMPONENTS
+  \*----------------------------------*/
+
+  /* == BUTTONS == */
+  .btn {
+    padding: 0 2em;
+    line-height: 2.6em;
+    font-size: .9rem;
+  }
+
+  /*----------------------------------*\
     #APP STRUCTURE
   \*----------------------------------*/
   .app-content {
     padding: var(--gap-500) var(--gap-600);
-    max-height: 100vh;
+    max-height: calc(100vh - var(--header-height));
+  }
+
+  .app-content__panel {
+    padding: var(--gap-500);
   }
 
   /*----------------------------------*\
@@ -673,5 +725,14 @@ main {
 
   .aside__toggler {
     display: none;
+  }
+
+  /*----------------------------------*\
+    #APP CONTENT
+  \*----------------------------------*/
+
+  /* == TOP PANEL == */
+  .app-content__panel__top__buttons {
+    gap: .8rem;
   }
 }
