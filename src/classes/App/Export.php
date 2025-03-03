@@ -29,7 +29,7 @@ class Export
 
     if (!$this->data) return false;
 
-    $file_name = $this->data['file_name'] .'_' . date('d-m-Y') . ".xlsx";
+    $file_name = $this->data['file_name'] .'_' . date('d-m-Y-H-i-s') . ".xlsx";
     $excel_data[] = $this->data['headings'];
 
     if ($this->data['db_data']) {

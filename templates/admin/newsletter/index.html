@@ -6,7 +6,7 @@
 
   <div class="app-content__panel__top">
     <form class="app-content__panel__top__search-form form">
-      <input class="app-content__panel__top__search-form__input" type="text" name="keyword" placeholder="Search by name">
+      <input class="app-content__panel__top__search-form__input" type="text" name="keyword" placeholder="Search by name" value="{% if keyword%}{{keyword|e}}{% endif %}">
       <button class="app-content__panel__top__search-form__button">
         <i class="ri-search-line" aria-hidden="true"></i>
         <span class="visually-hidden">Search by name</span>
@@ -38,10 +38,47 @@
   </div>
 
   {% if subscribers %}
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Activity</th>
+          <th class="actions">Actions</th>
+        </tr>
+      </thead>
 
-    {% for subscriber in subscribers %}
-      {{subscriber.id}}, {{subscriber.subscriber_name}}, {{subscriber.email}}, {{subscriber.is_active}} <br>
-    {% endfor %}
+      <tbody>
+        {% for subscriber in subscribers %}
+        <tr>
+          <td data-label="Id">{{subscriber.id}}</td>
+          <td data-label="Name">{{subscriber.subscriber_name}}</td>
+          <td data-label="Email">{{subscriber.email}}</td>
+          <td data-label="Activity">
+            {% if subscriber.is_active %}
+              <span class="table__status table__status--active"></span>
+            {% else %}
+            <span class="table__status table__status--inactive"></span>
+            {% endif %}
+          </td>
+          <td data-label="Actions">
+            <div class="table__actions">
+              <a class="table__actions__btn table__actions__btn--edit" href="">
+                <i class="ri-edit-line" aria-hidden="true"></i>
+                <span class="visually-hidden">Edit item</span>
+              </a>
+
+              <a class="table__actions__btn table__actions__btn--delete" href="">
+                <i class="ri-delete-bin-line" aria-hidden="true"></i>
+                <span class="visually-hidden">Delete item</span>
+              </a>
+            </div>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
 
   {% else %}
     Subscribers not found

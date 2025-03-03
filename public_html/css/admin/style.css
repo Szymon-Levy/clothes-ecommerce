@@ -39,6 +39,9 @@
   --color-warning-bg: #FFFBED;
   --color-warning-border: #FCD28C;
 
+  --color-green: rgb(17, 139, 17);
+  --color-red: rgb(182, 21, 21);
+
   --color-border-300: rgb(240, 240, 240);
   --color-border-400: rgb(228, 228, 228);
 
@@ -59,6 +62,7 @@
   --gap-500: 1.5rem;
   --gap-600: 2rem;
 
+  --radius-300: .375rem;
   --radius-400: .625rem;
 }
 
@@ -464,7 +468,7 @@ main {
   left: 0;
   top: 0;
   width: 17.5rem;
-  height: 100vh;
+  height: 100dvh;
   z-index: 5;
   background-color: var(--color-white);
   transform: translateX(-100%);
@@ -699,6 +703,93 @@ main {
   margin: 0;
 }
 
+/* == TABLE == */
+.table{
+  width: 100%;
+}
+
+.table thead {
+  display: none;
+}
+
+.table thead th {
+  color: var(--color-primary1);
+}
+
+.table tbody {
+  display: grid;
+  row-gap: 1.4rem;
+}
+
+.table tbody tr {
+  display: grid;
+  padding: 1rem;
+  border: 1px solid var(--color-border-400);
+}
+
+.table tbody tr td {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--color-border-400);
+}
+
+.table tbody tr td:last-child {
+  border: none;
+}
+
+.table tbody tr td::before {
+  content: attr(data-label);
+  font-weight: 600;
+  color: var(--color-primary1);
+}
+
+.table__actions {
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: end;
+  column-gap: .6rem;
+}
+
+.table__actions__btn {
+  padding: .1em .4em;
+  font-size: 1.2rem;
+  border-radius: var(--radius-300);
+  color: var(--color-white);
+  transition: background-color .3s, color .3s;
+}
+
+.table__actions__btn--edit {
+  background-color: var(--color-primary2);
+}
+
+.table__actions__btn--delete {
+  background-color: var(--color-red);
+}
+
+.table__actions__btn:hover,
+.table__actions__btn:focus-visible {
+  background-color: var(--color-primary1-hover);
+  color: var(--color-white);
+}
+
+.table__status {
+  display: inline-block;
+  width: .8rem;
+  height: .8rem;
+  border-radius: 50%;
+}
+
+.table__status--active {
+  background-color: var(--color-green);
+}
+
+.table__status--inactive {
+  background-color: var(--color-red);
+}
+
 
 /* ANCHOR Breakpoints */
 
@@ -789,5 +880,44 @@ main {
 
   .app-content__panel__top__buttons {
     gap: .8rem;
+  }
+
+  /* == TABLE == */
+  .table {
+    border-spacing: 0 .625rem;
+  }
+
+  .table thead {
+    display: table-header-group;
+  }
+
+  .table thead th {
+    padding: .3rem 0;
+    text-align: left;
+    font-weight: 600;
+  }
+
+  .table thead th.actions {
+    text-align: right;
+  }
+
+  .table tbody {
+    display: table-row-group;
+  }
+
+  .table tbody tr {
+    display: table-row;
+  }
+
+  .table tbody tr td {
+    display: table-cell;
+    padding: .625rem .4rem 0 0;
+    text-align: left;
+    border: none;
+    border-top: 1px solid var(--color-border-400) !important;
+  }
+
+  .table tbody tr td::before {
+    display: none;
   }
 }
