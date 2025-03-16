@@ -44,6 +44,7 @@
 
   --color-border-300: rgb(240, 240, 240);
   --color-border-400: rgb(228, 228, 228);
+  --color-border-500: rgb(198, 198, 198);
 
   /* == TYPOGRAPHY == */
 
@@ -282,6 +283,83 @@ body{
 .form textarea:focus,
 .form__select select:focus {
   border-color: var(--color-primary1);
+}
+
+/* custom checkbox & radio */
+.form__checkbox__input,
+.form__radio__input {
+  position: absolute;
+  margin: 0 !important;
+  padding: 0 !important;
+  opacity: 0;
+  height: 0 !important;
+  width: 0 !important;
+  pointer-events: none;
+}
+
+.form__radio__input + label,
+.form__checkbox__input + label { 
+  position: relative;
+  user-select: none;
+  cursor: pointer;
+  line-height: 1.4;
+  display: inline-flex;
+  align-items: flex-start;
+}
+
+.form__radio__input + label::before,
+.form__checkbox__input + label::before { 
+  content: '';
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  background-color: var(--color-white);
+  border: .0625rem solid var(--color-border-500);
+  margin-right: .6em;
+  transition: border-color .2s;
+  flex-shrink: 0;
+  position: relative;
+  top: calc((1em * 1.4 - 1em) / 2);
+}
+
+.form__radio__input + label::after,
+.form__checkbox__input + label::after {
+  content: '';
+  position: absolute;
+  width: 1em;
+  height: 1em;
+  background-color: var(--color-primary1-hover);
+  top: calc((1em * 1.4 - 1em) / 2);
+  left: 0;
+  transition: opacity .3s;
+  opacity: 0;
+  transform: scale(50%);
+}
+
+.form__radio__input + label:hover::before,
+.form__checkbox__input + label:hover::before {
+  border-color: var(--color-primary1);
+}
+
+.form__radio__input:focus + label::before,
+.form__checkbox__input:focus + label::before {
+  border-color: var(--color-primary1);
+  box-shadow: 0 0 0 .1em rgba(85, 85, 85, 20%);
+}
+
+.form__radio__input + label::before,
+.form__radio__input + label::after {
+  border-radius: 50%; 
+}
+
+.form__radio__input:checked + label::before,
+.form__checkbox__input:checked + label::before {
+  border-color: var(--color-primary1-hover);
+}
+
+.form__radio__input:checked + label::after,
+.form__checkbox__input:checked + label::after {
+  opacity: 1;
 }
 
 

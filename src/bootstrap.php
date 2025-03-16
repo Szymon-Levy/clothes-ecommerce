@@ -23,6 +23,7 @@ $twig_settings['debug'] = DEV;
 $twig_loader = new Twig\Loader\FilesystemLoader(APP_ROOT . '/templates');
 $twig = new Twig\Environment($twig_loader, $twig_settings);
 $twig->addGlobal('doc_root', DOC_ROOT);
+$twig->addGlobal('admin_pagination', ADMIN_PAGINATION);
 
 // Access to session
 $session = new ClothesEcommerce\Session\Session();

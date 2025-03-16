@@ -28,3 +28,37 @@ if ($showAsideBtn && $hideAsideBtn && $aside) {
     $aside.classList.remove('show')
   })
 }
+
+/*----------------------------------*\
+  #TABLE
+\*----------------------------------*/
+
+const $selectAllItems = document.querySelector('.js-select-all-items')
+
+const toggleItemsSelection = (toggler) => {
+  const $selectItems = document.querySelectorAll('.js-select-item')
+  if (!$selectItems) { return false }
+
+  const state = toggler.checked
+
+  if (state) {
+    $selectItems.forEach(item => {
+      if (!item.checked) {
+        item.checked = true
+      }
+    })
+  }
+  else {
+    $selectItems.forEach(item => {
+      if (item.checked) {
+        item.checked = false
+      }
+    })
+  }
+}
+
+if ($selectAllItems) {
+  $selectAllItems.addEventListener('change', (e) => {
+    toggleItemsSelection(e.target)
+  })
+}
