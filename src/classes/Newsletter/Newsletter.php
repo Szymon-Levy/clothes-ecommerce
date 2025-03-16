@@ -60,6 +60,18 @@ class Newsletter
     } while ($loop);
   }
 
+  public function getSubscriberById (int $id) 
+  {
+    $arguments['id'] = $id;
+    $sql = 'SELECT
+              id,
+              subscriber_name,
+              email
+            FROM newsletter_subscribers
+            WHERE id = :id';
+    return $this->database->SQL($sql, $arguments)->fetch();
+  }
+
   public function getSubscriberByToken (string $token, string $token_role_id) 
   {
     $arguments['token'] = $token;
@@ -125,7 +137,7 @@ class Newsletter
     $built_where 
     $order_clause 
     $limit_clause;";
-    error_log(print_r($sql, TRUE));
+
     return $this->database->SQL($sql, $arguments)->fetchAll();
   }
 

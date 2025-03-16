@@ -4,15 +4,19 @@ namespace ClothesEcommerce\Session;
 
 class Session 
 {
-  public $message;
+  public $user_message;
+  public $admin_message;
   public $csrf;
 
   public function __construct ()
   {
     session_start();
-    // set message
-    $this->message = $_SESSION['message'] ?? null;
-    if ($this->message != null) unset($_SESSION['message']);
+    // set messages
+    $this->user_message = $_SESSION['user_message'] ?? null;
+    if ($this->user_message != null) unset($_SESSION['user_message']);
+
+    $this->admin_message = $_SESSION['admin_message'] ?? null;
+    if ($this->admin_message != null) unset($_SESSION['admin_message']);
 
     // set csrf token
     if (isset($_SESSION['csrf'])) {

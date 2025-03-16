@@ -142,7 +142,7 @@
           <td data-label="Created at">{{subscriber.created_at|date()}}</td>
           <td data-label="Actions">
             <div class="table__actions">
-              <a class="table__actions__btn table__actions__btn--edit" href="">
+              <a class="table__actions__btn table__actions__btn--edit" href="{{doc_root}}admin/newsletter/edit-subscriber?id={{subscriber.id}}">
                 <i class="ri-edit-line" aria-hidden="true"></i>
                 <span class="visually-hidden">Edit item</span>
               </a>

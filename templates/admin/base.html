@@ -29,11 +29,6 @@
 
   <div class="app">
 
-    {% if session.message %}
-      <!-- MESSAGES -->
-      {% include 'includes/message.html' %}
-    {% endif %}
-
     <!-- MAIN CONTENT -->
     {% if not authentication_page %}
       <!-- ASIDE -->
@@ -44,6 +39,11 @@
         {% include 'admin/includes/header.html' %}
 
         <div class="app-content">
+          {% if session.admin_message %}
+            <!-- MESSAGES -->
+            {% include 'admin/includes/message.html' %}
+          {% endif %}
+
           <!-- PAGE TITLE -->
           {% include 'admin/includes/page_title.html' %}
 

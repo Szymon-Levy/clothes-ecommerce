@@ -362,6 +362,45 @@ body{
   opacity: 1;
 }
 
+/* == MESSAGES == */
+.message {
+  position: relative;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  text-align: center;
+  font-weight: 600;
+  font-size: .8rem;
+  border-radius: var(--radius-400);
+}
+
+.message--error {
+  background-color: var(--color-error-bg);
+  color: var(--color-error);
+}
+
+.message--success {
+  background-color: var(--color-success-bg);
+  color: var(--color-success);
+}
+
+.message--info {
+  background-color: var(--color-info-bg);
+  color: var(--color-info);
+}
+
+.message__close {
+  position: absolute;
+  top: .3rem;
+  right: .5rem;
+  font-size: 1rem;
+  transition: color .3s;
+}
+
+.message__close:hover,
+.message__close:focus-visible {
+  color: var(--color-primary1-hover);
+}
+
 
 /*----------------------------------*\
   #APP STRUCTURE
@@ -394,6 +433,7 @@ main {
   #HEADER
 \*----------------------------------*/
 .header {
+  position: relative;
   padding: 0 var(--gap-300);
   display: flex;
   align-items: center;

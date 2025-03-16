@@ -37,10 +37,16 @@ function redirect (string $page)
     die();
 }
 
-// Creates message in session
+// Creates user message in session
 function createUserMessageInSession (string $content, string $type, ClothesEcommerce\Session\Session $session) 
 {
-    $session->setSessionVariable('message', ['content' => $content, 'type' => $type]);
+    $session->setSessionVariable('user_message', ['content' => $content, 'type' => $type]);
+}
+
+// Creates admin message in session
+function createAdminMessageInSession (string $content, string $type, ClothesEcommerce\Session\Session $session) 
+{
+    $session->setSessionVariable('admin_message', ['content' => $content, 'type' => $type]);
 }
 
 //Replaces all white space to html tags
