@@ -159,13 +159,14 @@ class Newsletter
   public function getExportSubscribersData ()
   {
     $data['file_name'] = 'newsletter-subscribers';
-    $data['headings'] = ['ID', 'SUBSCRIBER NAME', 'EMAIL', 'ACTIVITY STATUS'];
-    $data['db_columns'] = ['id', 'subscriber_name', 'email', 'activity_status'];
+    $data['headings'] = ['ID', 'SUBSCRIBER NAME', 'EMAIL', 'CREATED DATE', 'ACTIVITY STATUS'];
+    $data['db_columns'] = ['id', 'subscriber_name', 'email', 'created_at', 'activity_status'];
 
     $sql = 'SELECT
               id,
               subscriber_name,
               email,
+              created_at,
               is_active,
               CASE
                 WHEN is_active = "1" THEN "Active"

@@ -43,7 +43,8 @@ class Export
         $excel_data[] = $line_data;
       }
     }
-
+    
+    include APP_ROOT . '/src/lib/PhpXlsxGenerator.php';
     $xlsx = PhpXlsxGenerator::fromArray($excel_data); 
     $xlsx->downloadAs($file_name);
     return true;
