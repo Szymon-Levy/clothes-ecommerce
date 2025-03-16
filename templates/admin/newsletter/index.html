@@ -5,7 +5,14 @@
 {% block content %}
 
   <div class="app-content__panel__top">
-    <form class="app-content__panel__top__search-form form">
+    <form class="app-content__panel__top__search-form form" action="{{doc_root}}admin/newsletter">
+      <!-- {% if sort == 'd' %}
+          <input type="hidden" name="sort" value="d">
+      {% endif %}
+
+      {% if order_by %}
+          <input type="hidden" name="order_by" value="{{order_by}}">
+      {% endif %} -->
       <input class="app-content__panel__top__search-form__input" type="text" name="keyword" placeholder="Search by name" value="{% if keyword%}{{keyword|e}}{% endif %}">
       <button class="app-content__panel__top__search-form__button">
         <i class="ri-search-line" aria-hidden="true"></i>
@@ -14,16 +21,26 @@
     </form>
 
     <div class="app-content__panel__top__buttons">
-      <a href="{{doc_root}}admin/newsletter/add-subscriber" class="btn app-content__panel__top__buttons__date">
-        <i class="ri-calendar-2-line" aria-hidden="true"></i>
-        Date asc
-        <i class="ri-arrow-up-down-line" aria-hidden="true"></i>
+      <a href="{{doc_root}}admin/newsletter?orderby=created_at{% if keyword %}&keyword={{keyword}}{% endif %}{% if order_by == 'created_at' and sort != 'd' %}&sort=d{% endif %}" class="btn app-content__panel__top__buttons__date">
+        <i class="ri-calendar-2-line" aria-hidden="true"></i> Date 
+        {% if order_by == 'created_at' and sort == 'a' %}
+          desc
+          <i class="ri-arrow-down-line app-content__panel__top__buttons__date__arrow" aria-hidden="true"></i>
+        {% else %}
+          asc
+          <i class="ri-arrow-up-line app-content__panel__top__buttons__date__arrow" aria-hidden="true"></i>
+        {% endif %}
       </a>
 
       <a href="{{doc_root}}admin/newsletter/add-subscriber" class="btn btn--full">
         <i class="ri-add-line" aria-hidden="true"></i>
         Add new
       </a>
+
+      <button href="{{doc_root}}admin/newsletter" class="btn btn--full app-content__panel__top__buttons__delete">
+        <i class="ri-delete-bin-line" aria-hidden="true"></i>
+        Delete selected
+      </button>
 
       <a href="{{doc_root}}admin/export?data=newsletter-subscribers" class="btn btn--full excel" target="_blank">
         <i class="ri-file-excel-2-line" aria-hidden="true"></i>
@@ -41,10 +58,58 @@
     <table class="table">
       <thead>
         <tr>
-          <th>Id</th>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Activity</th>
+          <th><input type="checkbox" name="" id=""></th>
+
+          <th>
+            <a href="{{doc_root}}admin/newsletter{% if keyword %}?keyword={{keyword}}{% endif %}{% if order_by == '' and sort != 'd' %}{% if keyword %}&{% else %}?{% endif %}sort=d{% endif %}" class="order {% if order_by == '' %}order--selected{% endif %}">Id 
+
+              <span class="order__icons">
+                <i class="ri-arrow-up-s-fill {% if order_by == '' and sort == 'a' %}active{% endif %}" aria-hidden="true"></i>
+                <i class="ri-arrow-down-s-fill {% if order_by == '' and sort == 'd' %}active{% endif %}" aria-hidden="true"></i>
+              </span>
+            </a>
+          </th>
+
+          <th>
+            <a href="{{doc_root}}admin/newsletter?orderby=subscriber_name{% if keyword %}&keyword={{keyword}}{% endif %}{% if order_by == 'subscriber_name' and sort != 'd' %}&sort=d{% endif %}" class="order {% if order_by == 'subscriber_name' %}order--selected{% endif %}">Name 
+
+              <span class="order__icons">
+                <i class="ri-arrow-up-s-fill {% if order_by == 'subscriber_name' and sort == 'a' %}active{% endif %}" aria-hidden="true"></i>
+                <i class="ri-arrow-down-s-fill {% if order_by == 'subscriber_name' and sort == 'd' %}active{% endif %}" aria-hidden="true"></i>
+              </span>
+            </a>
+          </th>
+
+          <th>
+            <a href="{{doc_root}}admin/newsletter?orderby=email{% if keyword %}&keyword={{keyword}}{% endif %}{% if order_by == 'email' and sort != 'd' %}&sort=d{% endif %}" class="order {% if order_by == 'email' %}order--selected{% endif %}">Email 
+              
+              <span class="order__icons">
+                <i class="ri-arrow-up-s-fill {% if order_by == 'email' and sort == 'a' %}active{% endif %}" aria-hidden="true"></i>
+                <i class="ri-arrow-down-s-fill {% if order_by == 'email' and sort == 'd' %}active{% endif %}" aria-hidden="true"></i>
+              </span>
+            </a>
+          </th>
+
+          <th>
+            <a href="{{doc_root}}admin/newsletter?orderby=is_active{% if keyword %}&keyword={{keyword}}{% endif %}{% if order_by == 'is_active' and sort != 'd' %}&sort=d{% endif %}" class="order {% if order_by == 'is_active' %}order--selected{% endif %}">Activity 
+              
+              <span class="order__icons">
+                <i class="ri-arrow-up-s-fill {% if order_by == 'is_active' and sort == 'a' %}active{% endif %}" aria-hidden="true"></i>
+                <i class="ri-arrow-down-s-fill {% if order_by == 'is_active' and sort == 'd' %}active{% endif %}" aria-hidden="true"></i>
+              </span>
+            </a>
+          </th>
+
+          <th>
+
+            <a href="{{doc_root}}admin/newsletter?orderby=created_at{% if keyword %}&keyword={{keyword}}{% endif %}{% if order_by == 'created_at' and sort != 'd' %}&sort=d{% endif %}" class="order {% if order_by == 'created_at' %}order--selected{% endif %}">Created at 
+              
+              <span class="order__icons">
+                <i class="ri-arrow-up-s-fill {% if order_by == 'created_at' and sort == 'a' %}active{% endif %}" aria-hidden="true"></i>
+                <i class="ri-arrow-down-s-fill {% if order_by == 'created_at' and sort == 'd' %}active{% endif %}" aria-hidden="true"></i>
+              </span>
+            </a>
+          </th>
           <th class="actions">Actions</th>
         </tr>
       </thead>
@@ -52,6 +117,7 @@
       <tbody>
         {% for subscriber in subscribers %}
         <tr>
+          <td data-label="Selection"><input type="checkbox" value="{{subscriber.id}}" name="list-item"></td>
           <td data-label="Id">{{subscriber.id}}</td>
           <td data-label="Name">{{subscriber.subscriber_name}}</td>
           <td data-label="Email">{{subscriber.email}}</td>
@@ -62,6 +128,7 @@
             <span class="table__status table__status--inactive"></span>
             {% endif %}
           </td>
+          <td data-label="Created at">{{subscriber.created_at|date()}}</td>
           <td data-label="Actions">
             <div class="table__actions">
               <a class="table__actions__btn table__actions__btn--edit" href="">
@@ -79,6 +146,45 @@
         {% endfor %}
       </tbody>
     </table>
+
+    <div class="app-content__panel__bottom">
+      <span>{{(page - 1) * 10 + 1}} - {{(page -1) * 10 + subscribers|length}} of {{count}}</span>
+
+      {% if count > 10 %}
+      {% set pages = (count / 10)|round(0, 'ceil') %}
+      <ul class="app-content__panel__bottom__pagination">
+        {% if page > 1 %}
+        <li>
+          <a class="app-content__panel__bottom__pagination__button app-content__panel__bottom__pagination__button--first" href="{{doc_root}}admin/newsletter{%  if pagination_string_params %}?{% endif %}{{pagination_string_params}}">
+            <i class="ri-skip-left-line" aria-hidden="true"></i>
+          </a>
+        </li>
+        {% endif %}
+
+        {% if (page - 1) > 1 %}
+
+        {% elseif (page + 1) > pages %}
+
+        {% endif %}
+
+        {% for i in 1..pages %}
+
+          <li>
+            <a class="app-content__panel__bottom__pagination__button {% if page == i %}active{% endif %}" href="{{doc_root}}admin/newsletter?page={{i}}{%  if pagination_string_params %}&{% endif %}{{pagination_string_params}}">{{i}}</a>
+          </li>
+
+        {% endfor %}
+
+        {% if page < pages %}
+        <li>
+          <a class="app-content__panel__bottom__pagination__button app-content__panel__bottom__pagination__button--last" href="{{doc_root}}admin/newsletter?page={{pages}}{%  if pagination_string_params %}&{% endif %}{{pagination_string_params}}">
+            <i class="ri-skip-right-line" aria-hidden="true"></i>
+          </a>
+        </li>
+        {% endif %}
+        </ul>
+      {% endif %}
+    </div>
 
   {% else %}
     Subscribers not found

@@ -52,7 +52,7 @@
 
   /* font size */
   --fs-body: .875rem;
-  --fs-heading-h1: 2rem;
+  --fs-heading-h1: 1.6rem;
   
   /* == CONTAINER == */
 
@@ -691,7 +691,17 @@ main {
 }
 
 .app-content__panel__top__buttons__date i:last-child{
-  margin: 0 0 0 .4em;
+  margin: 0 0 0 .3em;
+}
+
+.app-content__panel__top__buttons__delete {
+  background-color: var(--color-red);
+  border-color: var(--color-red);
+}
+
+.app-content__panel__top__buttons__delete:hover,
+.app-content__panel__top__buttons__delete:focus-visible {
+  color: var(--color-red);
 }
 
 .app-content__panel__top__buttons__refresh {
@@ -714,6 +724,47 @@ main {
 
 .table thead th {
   color: var(--color-primary1);
+}
+
+.table thead th .order {
+  position: relative;
+  padding: 0 .2em;
+  display: inline-flex;
+  align-items: center;
+}
+
+.table thead th .order--selected {
+  color: var(--color-green);
+}
+
+.table thead th .order__icons {
+  position: relative;
+  width: 2rem;
+  height: 1.4rem;
+}
+
+.table thead th .order__icons i {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: var(--color-gray);
+  opacity: .5;
+}
+
+.table thead th .order__icons i.active {
+  opacity: 1;
+  color: var(--color-green);
+}
+
+.table thead th .order__icons i:nth-child(1) {
+  margin-top: -0.2em;
+}
+
+.table thead th .order__icons i:nth-child(2) {
+  margin-top: 0.2em;
 }
 
 .table tbody {
@@ -788,6 +839,75 @@ main {
 
 .table__status--inactive {
   background-color: var(--color-red);
+}
+
+/* == BOTTOM PANEL == */
+.app-content__panel__bottom {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.app-content__panel__bottom__pagination {
+  margin-top: .8rem;
+  display: flex;
+  align-items: center;
+  border: .0625rem solid var(--color-border-400);
+  border-radius: var(--radius-400);
+  overflow: hidden;
+}
+
+.app-content__panel__bottom__pagination li + li {
+  border-left: .0625rem solid var(--color-border-400);
+}
+
+.app-content__panel__bottom__pagination__button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.2em;
+  height: 2.2em;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: background-color .3s, color .3s;
+}
+
+.app-content__panel__bottom__pagination__button:hover,
+.app-content__panel__bottom__pagination__button:focus-visible {
+  background-color: var(--color-primary1);
+  color: var(--color-white);
+}
+
+.app-content__panel__bottom__pagination__button.active {
+  background-color: var(--color-primary1-hover);
+  color: var(--color-white);
+}
+
+.app-content__panel__bottom__pagination__button i {
+  font-weight: 400;
+}
+
+.app-content__panel__bottom__pagination__button--first,
+.app-content__panel__bottom__pagination__button--last {
+  background-color: var(--color-primary2);
+  color: var(--color-white);
+  opacity: .8;
+  transition: background-color .3s, color .3s;
+}
+
+.app-content__panel__bottom__pagination__button--first:hover,
+.app-content__panel__bottom__pagination__button--first:focus-visible,
+.app-content__panel__bottom__pagination__button--last:hover,
+.app-content__panel__bottom__pagination__button--last:focus-visible {
+  background-color: var(--color-primary1-hover);
+  color: var(--color-white);
+  opacity: 1;
+}
+
+.app-content__panel__bottom__pagination__button--first i,
+.app-content__panel__bottom__pagination__button--last i {
+  font-size: 1.2rem;
 }
 
 
@@ -919,5 +1039,24 @@ main {
 
   .table tbody tr td::before {
     display: none;
+  }
+
+  /* == BOTTOM PANEL == */
+  .app-content__panel__bottom {
+    margin-top: 1rem;
+    padding-top: 2rem;
+    flex-direction: row;
+    justify-content: space-between;
+    border-top: .0625rem solid var(--color-border-400);
+  }
+
+  .app-content__panel__bottom__pagination {
+    margin: 0;
+  }
+
+  .app-content__panel__bottom__pagination__button {
+    width: 2.4em;
+    height: 2.4em;
+    font-size: 1rem;
   }
 }

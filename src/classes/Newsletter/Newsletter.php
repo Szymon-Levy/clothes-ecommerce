@@ -6,7 +6,8 @@ use ClothesEcommerce\App\DataBase;
 class Newsletter 
 {
   protected $database;
-  private $allowed_filter_columns = ['id', 'subscriber_name', 'email', 'is_active'];
+  private $allowed_filter_columns = ['id', 'subscriber_name', 'email', 'is_active', 'created_at'];
+  private $results_count = 0;
 
   public function __construct (DataBase $database) 
   {
@@ -85,24 +86,75 @@ class Newsletter
     $this->database->SQL($sql, ['subscriber_id' => $subscriber_id]);
   }
 
-  public function getSubscribersTable (string|null $keyword, string|null $order_by)
+  public function getSubscribersResultsCount ()
+  {
+
+    return $this->results_count;
+  }
+
+  public function getSubscribersTable (string $keyword, string $order_by, int $page, string $sort)
   {
     $arguments = [];
-    $sql = 'SELECT *
-            FROM newsletter_subscribers ';
-    
+    $where_clauses = [];
+    $from_source = 'FROM newsletter_subscribers';
+
     if ($keyword) {
-      $arguments['keyword'] = '%' . $keyword . '%';
-      $sql .= 'WHERE subscriber_name LIKE :keyword ';
+        $arguments['keyword'] = '%' . $keyword . '%';
+        $where_clauses[] = 'subscriber_name LIKE :keyword';
     }
 
-    if ($order_by && in_array($order_by, $this->allowed_filter_columns)) {
-      $sql .= 'ORDER BY ' . $order_by;
-    }
-    $sql .= ';';
+    $built_where = $where_clauses ? ' WHERE ' . implode(' AND ', $where_clauses) : '';
 
+    // Get count of results to pagination
+    $sql = "SELECT COUNT(id) AS count $from_source $built_where;";
+    $this->results_count = $this->database->SQL($sql, $arguments)->fetch()['count'];
+
+    $order_clause = ' ORDER BY ';
+    $order_clause .= ($order_by && in_array($order_by, $this->allowed_filter_columns)) ? "$order_by " : 'id ';
+    $order_clause .= ($sort == 'd') ? 'DESC' : 'ASC';
+
+    $limit_clause = sprintf(' LIMIT %d OFFSET %d', ADMIN_PAGINATION, ($page - 1) * ADMIN_PAGINATION);
+
+    $sql = "SELECT 
+      id,
+      subscriber_name,
+      email,
+      is_active,
+      created_at
+    $from_source 
+    $built_where 
+    $order_clause 
+    $limit_clause;";
+    error_log(print_r($sql, TRUE));
     return $this->database->SQL($sql, $arguments)->fetchAll();
   }
+
+  // public function getSubscribersTable (string|null $keyword, string|null $order_by, int $page)
+  // {
+  //   $arguments = [];
+  //   $sql = 'SELECT *
+  //           FROM newsletter_subscribers ';
+  //   $sql_results_count = 'SELECT COUNT(id) AS count
+  //           FROM newsletter_subscribers ';
+    
+  //   if ($keyword) {
+  //     $arguments['keyword'] = '%' . $keyword . '%';
+  //     $sql .= 'WHERE subscriber_name LIKE :keyword ';
+  //     $sql_results_count .= 'WHERE subscriber_name LIKE :keyword ';
+  //   }
+
+  //   $this->results_count = $this->database->SQL($sql_results_count . ';', $arguments)->fetch()['count'];
+
+  //   if ($order_by && in_array($order_by, $this->allowed_filter_columns)) {
+  //     $sql .= 'ORDER BY ' . $order_by;
+  //   }
+
+  //   $sql .= 'LIMIT ' . ADMIN_PAGINATION . ' OFFSET ' . ($page -1) * ADMIN_PAGINATION;
+
+  //   $sql .= ';';
+
+  //   return $this->database->SQL($sql, $arguments)->fetchAll();
+  // }
 
   public function getExportSubscribersData ()
   {

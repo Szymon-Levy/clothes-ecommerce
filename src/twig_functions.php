@@ -28,3 +28,6 @@ $honeypot = new \Twig\TwigFunction('honeypot', function () {
   ';
 });
 $twig->addFunction($honeypot);
+
+// deafult date format
+$twig->getExtension(\Twig\Extension\CoreExtension::class)->setDateFormat('d/m/Y H:i', '%d days');
