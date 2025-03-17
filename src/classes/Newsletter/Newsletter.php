@@ -141,33 +141,6 @@ class Newsletter
     return $this->database->SQL($sql, $arguments)->fetchAll();
   }
 
-  // public function getSubscribersTable (string|null $keyword, string|null $order_by, int $page)
-  // {
-  //   $arguments = [];
-  //   $sql = 'SELECT *
-  //           FROM newsletter_subscribers ';
-  //   $sql_results_count = 'SELECT COUNT(id) AS count
-  //           FROM newsletter_subscribers ';
-    
-  //   if ($keyword) {
-  //     $arguments['keyword'] = '%' . $keyword . '%';
-  //     $sql .= 'WHERE subscriber_name LIKE :keyword ';
-  //     $sql_results_count .= 'WHERE subscriber_name LIKE :keyword ';
-  //   }
-
-  //   $this->results_count = $this->database->SQL($sql_results_count . ';', $arguments)->fetch()['count'];
-
-  //   if ($order_by && in_array($order_by, $this->allowed_filter_columns)) {
-  //     $sql .= 'ORDER BY ' . $order_by;
-  //   }
-
-  //   $sql .= 'LIMIT ' . ADMIN_PAGINATION . ' OFFSET ' . ($page -1) * ADMIN_PAGINATION;
-
-  //   $sql .= ';';
-
-  //   return $this->database->SQL($sql, $arguments)->fetchAll();
-  // }
-
   public function getExportSubscribersData ()
   {
     $data['file_name'] = 'newsletter-subscribers';

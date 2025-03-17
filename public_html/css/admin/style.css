@@ -289,6 +289,8 @@ body{
 .form__checkbox__input,
 .form__radio__input {
   position: absolute;
+  left: 0;
+  top: 0;
   margin: 0 !important;
   padding: 0 !important;
   opacity: 0;
@@ -733,8 +735,13 @@ main {
   row-gap: .1875rem;
 }
 
-.aside__nav__menu__item__title.show-links + .aside__nav__menu__item__links {
+.aside__nav__menu__item__title.show-links + .aside__nav__menu__item__links,
+.aside__nav__menu__item__title.active + .aside__nav__menu__item__links {
   display: grid;
+}
+
+.aside__nav__menu__item__title.active.aside__nav__menu__item__title--arrow::after {
+  display: none;
 }
 
 .aside__nav__menu__item__title.show-links.aside__nav__menu__item__title--arrow::after {
@@ -752,6 +759,12 @@ main {
   transition: color .3s;
 }
 
+.aside__nav__menu__item__links__item:hover,
+.aside__nav__menu__item__links__item:focus-visible,
+.aside__nav__menu__item__links__item.active {
+  color: var(--color-primary1-hover);
+}
+
 .aside__nav__menu__item__links__item::before {
   content: "";
   margin-right: .5em;
@@ -760,6 +773,11 @@ main {
   background-color: var(--color-gray);
   border-radius: 50%;
   opacity: .6;
+}
+
+.aside__nav__menu__item__links__item.active::before {
+  background-color: var(--color-primary1-hover);
+  opacity: 1;
 }
 
 .aside__frontpage-btn {
