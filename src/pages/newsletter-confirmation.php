@@ -19,7 +19,7 @@ if (!isset($subscriber['id'])) {
 
 // If token expired after 5 minutes
 if ((time() - $subscriber['token_timestamp']) / 60 > 5) {
-  $app->newsletter()->deleteSubscriber($subscriber['id']);
+  $app->newsletter()->deleteSubscribers([$subscriber['id']]);
   createUserMessageInSession('Your activation token has expired and Your subscribtion has been deleted. Join us again and hurry up with the activation!', 'error', $session);
   redirect('');
 }
@@ -34,7 +34,7 @@ if ($subscriber['is_active'] === 0) {
   $deletion_token = $app->newsletter()->assignToken($subscriber_id, 'ND');
   $email_sender = new Email($email_settings);
   $email_data = [
-    'name' => $subscriber['subscriber_name'],
+    'name' => $subscriber['name'],
     'token' => $deletion_token
   ];
   

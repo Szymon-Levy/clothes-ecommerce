@@ -5,6 +5,17 @@
 const $aside = document.querySelector('.js-aside')
 const $showAsideBtn = document.querySelector('.js-show-aside')
 const $hideAsideBtn = document.querySelector('.js-hide-aside')
+const $mobileOverlay = document.querySelector('.js-mobile-overlay')
+
+const showAside = () => {
+  $aside.classList.add('show')
+  $mobileOverlay.classList.add('active')
+}
+
+const hideAside = () => {
+  $aside.classList.remove('show')
+  $mobileOverlay.classList.remove('active')
+}
 
 if ($aside) {
   $aside.addEventListener('click', e => {
@@ -17,16 +28,10 @@ if ($aside) {
       $navItem.classList.toggle('show-links')
     }
   })
-}
 
-if ($showAsideBtn && $hideAsideBtn && $aside) {
-  $showAsideBtn.addEventListener('click', () => {
-    $aside.classList.add('show')
-  })
-
-  $hideAsideBtn.addEventListener('click', () => {
-    $aside.classList.remove('show')
-  })
+  $showAsideBtn.addEventListener('click', showAside)
+  $hideAsideBtn.addEventListener('click', hideAside)
+  $mobileOverlay.addEventListener('click', hideAside)
 }
 
 /*----------------------------------*\
@@ -66,6 +71,7 @@ if ($selectAllItems) {
 /*----------------------------------*\
   #CLOSE MESSAGE BAR
 \*----------------------------------*/
+
 const $messageBarClose = document.querySelector('.js-message-close')
 
 const closeMessageBar = (e) => {
@@ -75,5 +81,98 @@ const closeMessageBar = (e) => {
 if ($messageBarClose) {
   $messageBarClose.addEventListener('click', e => {
     closeMessageBar(e)
+  })
+}
+
+/*----------------------------------*\
+  #NEWSLETTER
+\*----------------------------------*/
+
+const handleDeleteNewsletterItemsResponse = (response, ids) => {
+  if (response.hasOwnProperty('success')) {
+      showAlert(response.success, 'success')
+      removeRowsFromTable(ids)
+      updateTableNumbers(response.count)
+  }
+  else if (response.hasOwnProperty('error')) {
+      showAlert(response.error, 'error')
+  }
+  else if (response.hasOwnProperty('info')) {
+      showAlert(response.info, 'info')
+  }
+}
+
+const sendDeleteNewsletterItemsRequest = async (formData, ids) => {
+  try {
+    const request = await fetch(docRoot + 'admin/ajax/newsletter-delete-subscribers', {
+      method: 'POST',
+      body: formData
+    })
+    const data = await request.json()
+    handleDeleteNewsletterItemsResponse(data, ids);
+  } catch(error) {
+    showAlert('Server error. The administrator has been informed of the error.', 'error')
+    console.log(error)
+  }
+}
+
+/* == DELETE SELECTED ITEMS == */
+$deleteSelectedBtn = document.querySelector('.js-delete-selected')
+
+const handleDeleteNewsletterSelected = () => {
+  const $selectItems = document.querySelectorAll('.js-select-item')
+
+  if (!$selectItems.length) {
+    showAlert('Items to select don\'t exists!', 'error')
+    return false;
+  }
+
+  const isAnyChecked = [...$selectItems].some(checkbox => checkbox.checked)
+
+  if (!isAnyChecked) {
+    showAlert('None of the items are selected!', 'error')
+    return false;
+  }
+
+  const ids = []
+  $selectItems.forEach(checkbox => {
+    if (checkbox.checked) {
+      ids.push(checkbox.value)
+    }
+  })
+
+  const formData = new FormData()
+  addCsrfToFormData(formData)
+  formData.append('ids', JSON.stringify(ids))
+  sendDeleteNewsletterItemsRequest(formData, ids)
+}
+
+if ($deleteSelectedBtn) {
+  $deleteSelectedBtn.addEventListener('click', handleDeleteNewsletterSelected)
+}
+
+/* == DELETE SINGLE ITEM == */
+$table = document.querySelector('.js-table')
+
+const handleDeleteNewsletterSingle = ($btn) => {
+  id = $btn.closest('.js-table-row')?.dataset.id
+  if (id) {
+    const formData = new FormData()
+    addCsrfToFormData(formData)
+    formData.append('ids', JSON.stringify([id]))
+    sendDeleteNewsletterItemsRequest(formData, [id])
+  }
+  else {
+    showAlert('Subscriber deletion failed.', 'error')
+  }
+}
+
+if ($table) {
+  $table.addEventListener('click', e => {
+    $btn = e.target.closest('.js-newsletter-subscriber-delete')
+
+    if ($btn) {
+      handleDeleteNewsletterSingle($btn)
+    }
   })
 }

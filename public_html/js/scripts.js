@@ -126,7 +126,7 @@ const handleNewsletterFormResponse = ($form, response) => {
 
 const sendNewsletterRequest = async ($form, formData) => {
   try {
-    const request = await fetch(docRoot + 'ajax/newsletter', {
+    const request = await fetch(docRoot + 'ajax/newsletter-subscribe', {
       method: 'POST',
       body: formData
     })
@@ -206,7 +206,7 @@ const handleContactFormResponse = ($form, response) => {
 
 const sendContactRequest = async ($form, formData) => {
   try {
-    const request = await fetch(docRoot + 'ajax/contact', {
+    const request = await fetch(docRoot + 'ajax/contact-send-message', {
       method: 'POST',
       body: formData
     })

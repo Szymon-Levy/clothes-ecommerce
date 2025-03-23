@@ -2,7 +2,6 @@
 
 use ClothesEcommerce\Validation\Validation;
 use ClothesEcommerce\Email\Email;
-use ClothesEcommerce\Contact\Contact;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   //csrf validation

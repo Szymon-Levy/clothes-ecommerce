@@ -16,6 +16,6 @@ if (!isset($subscriber['id'])) {
 }
 
 // Delete subscriber
-$app->newsletter()->deleteSubscriber($subscriber['id']);
+$app->newsletter()->deleteSubscribers($subscriber['id']);
 createUserMessageInSession('We’re reaching out to confirm that you have successfully unsubscribed from our newsletter. If this was a mistake or you change your mind, you can always re-subscribe.', 'info', $session);
 redirect('');

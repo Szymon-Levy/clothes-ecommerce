@@ -6,7 +6,7 @@ use ClothesEcommerce\App\DataBase;
 class Newsletter 
 {
   protected $database;
-  private $allowed_filter_columns = ['id', 'subscriber_name', 'email', 'is_active', 'created_at'];
+  private $allowed_filter_columns = ['id', 'name', 'email', 'is_active', 'created_at'];
   private $results_count = 0;
 
   public function __construct (DataBase $database) 
@@ -16,10 +16,10 @@ class Newsletter
 
   public function addSubscriber (string $name, string $email) 
   {
-    $arguments['subscriber_name'] = $name;
+    $arguments['name'] = $name;
     $arguments['email'] = $email;
-    $sql = 'INSERT INTO newsletter_subscribers (subscriber_name, email)
-            VALUES (:subscriber_name, :email)';
+    $sql = 'INSERT INTO newsletter_subscribers (name, email)
+            VALUES (:name, :email)';
 
     try {
       $this->database->SQL($sql, $arguments);
@@ -32,11 +32,14 @@ class Newsletter
     }
   }
 
-  public function deleteSubscriber (int $id) 
+  public function deleteSubscribers (array $ids) 
   {
-    $sql = 'DELETE FROM newsletter_subscribers
-            WHERE id = :id';
-    $this->database->SQL($sql, ['id' => $id]);
+    $in_string = str_repeat('?,', count($ids) - 1) . '?';
+    $sql = "DELETE FROM newsletter_subscribers
+            WHERE id IN ($in_string)";
+    $stmt = $this->database->SQL($sql, $ids);
+    $deleted_count = $stmt->rowCount();
+    return $deleted_count;
   }
 
   public function assignToken (string $subscriber_id, string $token_role_id) 
@@ -65,7 +68,7 @@ class Newsletter
     $arguments['id'] = $id;
     $sql = 'SELECT
               id,
-              subscriber_name,
+              name,
               email
             FROM newsletter_subscribers
             WHERE id = :id';
@@ -78,7 +81,7 @@ class Newsletter
     $arguments['token_role_id'] = $token_role_id;
     $sql = 'SELECT
               newsletter_subscribers.id,
-              newsletter_subscribers.subscriber_name,
+              newsletter_subscribers.name,
               newsletter_subscribers.email,
               newsletter_subscribers.is_active,
               UNIX_TIMESTAMP(newsletter_tokens.created_at) AS token_timestamp
@@ -112,7 +115,7 @@ class Newsletter
 
     if ($keyword) {
         $arguments['keyword'] = '%' . $keyword . '%';
-        $where_clauses[] = 'subscriber_name LIKE :keyword';
+        $where_clauses[] = 'email LIKE :keyword';
     }
 
     $built_where = $where_clauses ? ' WHERE ' . implode(' AND ', $where_clauses) : '';
@@ -123,13 +126,14 @@ class Newsletter
 
     $order_clause = ' ORDER BY ';
     $order_clause .= ($order_by && in_array($order_by, $this->allowed_filter_columns)) ? "$order_by " : 'id ';
+    $order_clause .= ($order_by && in_array($order_by, ['name', 'email'])) ? ' COLLATE utf8mb4_polish_ci ' : '';
     $order_clause .= ($sort == 'd') ? 'DESC' : 'ASC';
 
     $limit_clause = sprintf(' LIMIT %d OFFSET %d', ADMIN_PAGINATION, ($page - 1) * ADMIN_PAGINATION);
 
     $sql = "SELECT 
       id,
-      subscriber_name,
+      name,
       email,
       is_active,
       created_at
@@ -145,11 +149,11 @@ class Newsletter
   {
     $data['file_name'] = 'newsletter-subscribers';
     $data['headings'] = ['ID', 'SUBSCRIBER NAME', 'EMAIL', 'CREATED DATE', 'ACTIVITY STATUS'];
-    $data['db_columns'] = ['id', 'subscriber_name', 'email', 'created_at', 'activity_status'];
+    $data['db_columns'] = ['id', 'name', 'email', 'created_at', 'activity_status'];
 
     $sql = 'SELECT
               id,
-              subscriber_name,
+              name,
               email,
               created_at,
               is_active,
