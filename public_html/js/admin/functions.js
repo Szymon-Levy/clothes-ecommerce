@@ -87,54 +87,72 @@ const addCsrfToFormData = (formData) => {
 }
 
 /**
- * Updated bottom table numbers
+ * Updates table numbers and rows after removing its items
  */
-const updateTableNumbers = (count) => {
-  const $numbersWrapper = document.querySelector('.js-table-numbers')
-  if (!$numbersWrapper) { return false }
 
-  const $from = $numbersWrapper.querySelector('.js-table-number-from')
-  const $to = $numbersWrapper.querySelector('.js-table-number-to')
-  const $of = $numbersWrapper.querySelector('.js-table-number-of')
+const updateTableAfterRomoveItems = (ids, count) => {
+  const callback = () => {
+    $totalRows = document.querySelectorAll('.js-table-row')
+    if (!$totalRows.length) {
+      const params = new URLSearchParams(location.search);
+      const page = +params.get('page');
+      if (page && page > 1) {
+        let newUrl = new URL(location.href)
+        newUrl.searchParams.set('page', page - 1)
+        location.href = newUrl.toString()
+      }
+      else {
+        const $to = document.querySelector('.js-table-number-to')
+        const $of = document.querySelector('.js-table-number-of')
+        let to = +$to.innerText
+        let of = +$of.innerText
+        if (of > to) {
+          location.reload()
+        }
+        else {
+          document.querySelector('.js-panel-bottom').remove()
+          document.querySelector('.js-table').innerHTML = 'No items found to display'
+        }
+      }
+    }
 
-  let from = +$from.innerText
-  let to = +$to.innerText - count
-  let of = +$of.innerText - count
+    const $numbersWrapper = document.querySelector('.js-table-numbers')
+    if (!$numbersWrapper) { return false }
 
-  $to.innerHTML = to >= 0 ? to : 0
-  $of.innerHTML = of >= 0 ? of : 0
+    const $from = $numbersWrapper.querySelector('.js-table-number-from')
+    const $to = $numbersWrapper.querySelector('.js-table-number-to')
+    const $of = $numbersWrapper.querySelector('.js-table-number-of')
 
-  if ((from - count) == of || (from - 1) == of) {
-    $from.innerHTML = 0
-    $to.innerHTML = 0
+    let from = +$from.innerText
+    let to = +$to.innerText - count
+    let of = +$of.innerText - count
+
+    $to.innerHTML = to >= 0 ? to : 0
+    $of.innerHTML = of >= 0 ? of : 0
+
+    // if ((from - count) == of || (from - 1) == of || (from == 1 && to < 1 && of > to)) {
+    if ((from - count) == of || (from - 1) == of) {
+      $from.innerHTML = 0
+      $to.innerHTML = 0
+    }
   }
-}
 
-/**
- * Removes items from table
- */
-const removeRowsFromTable = (ids) => {
+  rowsToRemove = []
   ids.forEach(id => {
     $row = document.querySelector(`[data-id="${id}"]`)
     if ($row) {
-      $row.remove()
+      rowsToRemove.push($row)
+      $row.classList.add('removed')
     }
   })
-  
-  $totalRows = document.querySelectorAll('.js-table-row')
-  if (!$totalRows.length) {
-    const params = new URLSearchParams(location.search);
-    const page = +params.get('page');
-    if (page && page > 1) {
-      let newUrl = new URL(location.href)
-      newUrl.searchParams.set('page', page - 1)
-      setTimeout(() => {
-        location.href = newUrl.toString()
-      }, 3000)
+
+  setTimeout(() => {
+    if (rowsToRemove.length) {
+      rowsToRemove.forEach($row => {
+        $row.remove()
+      })
     }
-    else {
-      document.querySelector('.js-panel-bottom').remove()
-      document.querySelector('.js-table').innerHTML = 'No items found to display'
-    }
-  }
+
+    callback()
+  }, 3000)
 }

@@ -91,8 +91,7 @@ if ($messageBarClose) {
 const handleDeleteNewsletterItemsResponse = (response, ids) => {
   if (response.hasOwnProperty('success')) {
       showAlert(response.success, 'success')
-      removeRowsFromTable(ids)
-      updateTableNumbers(response.count)
+      updateTableAfterRomoveItems(ids, response.count)
   }
   else if (response.hasOwnProperty('error')) {
       showAlert(response.error, 'error')
@@ -134,6 +133,8 @@ const handleDeleteNewsletterSelected = () => {
     return false;
   }
 
+  if (!confirm('Are you sure you want to remove selected subscribers?')) { return }
+
   const ids = []
   $selectItems.forEach(checkbox => {
     if (checkbox.checked) {
@@ -172,7 +173,9 @@ if ($table) {
     $btn = e.target.closest('.js-newsletter-subscriber-delete')
 
     if ($btn) {
-      handleDeleteNewsletterSingle($btn)
+      if (confirm('Are you sure you want to remove this subscriber?')) {
+        handleDeleteNewsletterSingle($btn)
+      }
     }
   })
 }

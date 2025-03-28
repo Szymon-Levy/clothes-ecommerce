@@ -1064,6 +1064,10 @@ main {
   border: 1px solid var(--color-border-400);
 }
 
+.table tbody tr.removed {
+  background-color: #ffe3e3;
+}
+
 .table tbody tr td {
   display: flex;
   flex-wrap: wrap;
@@ -1300,7 +1304,7 @@ main {
 
   /* == TABLE == */
   .table {
-    border-spacing: 0 .625rem;
+    border-spacing: 0;
   }
 
   .table thead {
@@ -1308,9 +1312,13 @@ main {
   }
 
   .table thead th {
-    padding: .3rem 0;
+    padding: .5rem .5rem .5rem 0;
     text-align: left;
     font-weight: 600;
+  }
+
+  .table thead th:first-child {
+    padding-left: .5rem;
   }
 
   .table thead th.actions {
@@ -1327,10 +1335,14 @@ main {
 
   .table tbody tr td {
     display: table-cell;
-    padding: .625rem .4rem 0 0;
+    padding: .5rem .5rem .5rem 0;
     text-align: left;
     border: none;
     border-top: 1px solid var(--color-border-400) !important;
+  }
+
+  .table tbody tr td:first-child {
+    padding-left: .5rem;
   }
 
   .table tbody tr td::before {
@@ -1339,7 +1351,7 @@ main {
 
   /* == BOTTOM PANEL == */
   .app-content__panel__bottom {
-    margin-top: 1rem;
+    margin-top: 0;
     padding-top: 2rem;
     flex-direction: row;
     justify-content: space-between;
