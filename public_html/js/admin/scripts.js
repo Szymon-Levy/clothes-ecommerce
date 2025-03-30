@@ -129,7 +129,7 @@ const handleDeleteNewsletterSelected = () => {
   const isAnyChecked = [...$selectItems].some(checkbox => checkbox.checked)
 
   if (!isAnyChecked) {
-    showAlert('None of the items are selected!', 'error')
+    showAlert('None of the items are selected!', 'info')
     return false;
   }
 

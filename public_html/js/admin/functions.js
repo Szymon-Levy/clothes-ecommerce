@@ -89,6 +89,7 @@ const addCsrfToFormData = (formData) => {
 /**
  * Updates table numbers and rows after removing its items
  */
+rowsToRemove = []
 
 const updateTableAfterRomoveItems = (ids, count) => {
   const callback = () => {
@@ -130,14 +131,12 @@ const updateTableAfterRomoveItems = (ids, count) => {
     $to.innerHTML = to >= 0 ? to : 0
     $of.innerHTML = of >= 0 ? of : 0
 
-    // if ((from - count) == of || (from - 1) == of || (from == 1 && to < 1 && of > to)) {
     if ((from - count) == of || (from - 1) == of) {
       $from.innerHTML = 0
       $to.innerHTML = 0
     }
   }
 
-  rowsToRemove = []
   ids.forEach(id => {
     $row = document.querySelector(`[data-id="${id}"]`)
     if ($row) {
@@ -148,9 +147,8 @@ const updateTableAfterRomoveItems = (ids, count) => {
 
   setTimeout(() => {
     if (rowsToRemove.length) {
-      rowsToRemove.forEach($row => {
-        $row.remove()
-      })
+      rowsToRemove.forEach($row => $row.remove())
+      rowsToRemove = []
     }
 
     callback()

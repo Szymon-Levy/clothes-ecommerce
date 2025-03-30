@@ -1065,6 +1065,7 @@ main {
 }
 
 .table tbody tr.removed {
+  pointer-events: none;
   background-color: #ffe3e3;
 }
 
