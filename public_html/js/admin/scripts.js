@@ -38,13 +38,16 @@ if ($aside) {
   #TABLE
 \*----------------------------------*/
 
-const $selectAllItems = document.querySelector('.js-select-all-items')
+const $selectAllItems = document.querySelectorAll('.js-select-all-items')
 
 const toggleItemsSelection = (toggler) => {
   const $selectItems = document.querySelectorAll('.js-select-item')
   if (!$selectItems) { return false }
 
   const state = toggler.checked
+  $selectAllItems.forEach(select => {
+    if (select != toggler) select.checked = state
+  })
 
   if (state) {
     $selectItems.forEach(item => {
@@ -62,9 +65,11 @@ const toggleItemsSelection = (toggler) => {
   }
 }
 
-if ($selectAllItems) {
-  $selectAllItems.addEventListener('change', (e) => {
-    toggleItemsSelection(e.target)
+if ($selectAllItems.length) {
+  $selectAllItems.forEach(select => {
+    select.addEventListener('change', (e) => {
+      toggleItemsSelection(e.target)
+    })
   })
 }
 

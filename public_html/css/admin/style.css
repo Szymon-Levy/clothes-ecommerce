@@ -363,6 +363,34 @@ body{
   opacity: 1;
 }
 
+/* custom select */
+.form__select {
+  position: relative;
+  width: 100%;
+}
+
+.form__select::before {
+  content: "\ea4e";
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  font-size: 1rem;
+  transform: translateY(-50%);
+  font-family: 'remixicon' !important;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.form__select select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 3em;
+  cursor: pointer;
+}
+
 /* == MESSAGES == */
 .message {
   position: relative;
@@ -737,7 +765,7 @@ main {
   padding-bottom: 7rem;
   left: 0;
   top: 0;
-  width: 17.5rem;
+  flex: 0 0 17.5rem;
   height: 100dvh;
   z-index: 5;
   background-color: var(--color-white);
@@ -1132,6 +1160,37 @@ main {
   background-color: var(--color-red);
 }
 
+.select-all-items-mobile {
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.select-all-items-mobile .form__checkbox label {
+  line-height: .5;
+}
+
+.select-all-items-mobile .form__checkbox label::before {
+  margin: 0;
+}
+
+.select-all-items-mobile .form__checkbox label span {
+  position: absolute;
+  top: 50%;
+  right: calc(1em + .6em);
+  width: max-content;
+  transform: translateY(-50%);
+}
+
+.sort-columns-mobile {
+  margin-bottom: 1rem;
+}
+
+.sort-columns-mobile__title {
+  margin-bottom: .6em;
+  font-size: .9rem;
+}
+
 /* == BOTTOM PANEL == */
 .app-content__panel__bottom {
   margin-top: 1rem;
@@ -1347,6 +1406,14 @@ main {
   }
 
   .table tbody tr td::before {
+    display: none;
+  }
+
+  .select-all-items-mobile {
+    display: none;
+  }
+
+  .sort-columns-mobile {
     display: none;
   }
 

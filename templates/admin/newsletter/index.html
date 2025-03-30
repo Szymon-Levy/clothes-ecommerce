@@ -57,6 +57,43 @@
   {% if subscribers %}
 
     <div class="js-table">
+      <div class="select-all-items-mobile">
+        <div class="form__checkbox">
+          <input class="form__checkbox__input js-select-all-items" type="checkbox" name="selectall" id="selectall-mobile">
+          <label for="selectall-mobile"><span>Select all items</span></label>
+        </div>
+      </div>
+
+      <form action="{{doc_root}}admin/newsletter" class="sort-columns-mobile">
+        {% if keyword %}
+            <input type="hidden" name="keyword" value="{{keyword}}">
+        {% endif %}
+    
+        <input type="hidden" name="orderby" value="{{order_by}}">
+        <input type="hidden" name="sort" value="{{sort}}">
+    
+        <h4 class="sort-columns-mobile__title">Sorting options</h4>
+    
+        <div class="form__select">
+            <select class="js-sort-columns-select" id="sort-columns-select" onchange="updateSortTableParams(this.form)">
+                <option value="id-a" {% if (order_by == 'id' or order_by == '') and sort == 'a' %}selected hidden{% endif %}>Id (Ascending)</option>
+                <option value="id-d" {% if (order_by == 'id' or order_by == '') and sort == 'd' %}selected hidden{% endif %}>Id (Descending)</option>
+    
+                <option value="name-a" {% if order_by == 'name' and sort == 'a' %}selected hidden{% endif %}>Name (Ascending)</option>
+                <option value="name-d" {% if order_by == 'name' and sort == 'd' %}selected hidden{% endif %}>Name (Descending)</option>
+    
+                <option value="email-a" {% if order_by == 'email' and sort == 'a' %}selected hidden{% endif %}>Email (Ascending)</option>
+                <option value="email-d" {% if order_by == 'email' and sort == 'd' %}selected hidden{% endif %}>Email (Descending)</option>
+    
+                <option value="is_active-a" {% if order_by == 'is_active' and sort == 'a' %}selected hidden{% endif %}>Activity (Ascending)</option>
+                <option value="is_active-d" {% if order_by == 'is_active' and sort == 'd' %}selected hidden{% endif %}>Activity (Descending)</option>
+    
+                <option value="created_at-a" {% if order_by == 'created_at' and sort == 'a' %}selected hidden{% endif %}>Created at (Ascending)</option>
+                <option value="created_at-d" {% if order_by == 'created_at' and sort == 'd' %}selected hidden{% endif %}>Created at (Descending)</option>
+            </select>
+        </div>
+    </form>
+
       <table class="table">
         <thead>
           <tr>
@@ -68,11 +105,11 @@
             </th>
 
             <th>
-              <a href="{{doc_root}}admin/newsletter{% if keyword %}?keyword={{keyword}}{% endif %}{% if order_by == '' and sort != 'd' %}{% if keyword %}&{% else %}?{% endif %}sort=d{% endif %}" class="order {% if order_by == '' %}order--selected{% endif %}">Id 
+              <a href="{{doc_root}}admin/newsletter{% if keyword %}?keyword={{keyword}}{% endif %}{% if (order_by == '' or order_by == 'id') and sort != 'd' %}{% if keyword %}&{% else %}?{% endif %}sort=d{% endif %}" class="order {% if order_by == '' or order_by == 'id' %}order--selected{% endif %}">Id 
 
                 <span class="order__icons">
-                  <i class="ri-arrow-up-s-fill {% if order_by == '' and sort == 'a' %}active{% endif %}" aria-hidden="true"></i>
-                  <i class="ri-arrow-down-s-fill {% if order_by == '' and sort == 'd' %}active{% endif %}" aria-hidden="true"></i>
+                  <i class="ri-arrow-up-s-fill {% if (order_by == '' or order_by == 'id') and sort == 'a' %}active{% endif %}" aria-hidden="true"></i>
+                  <i class="ri-arrow-down-s-fill {% if (order_by == '' or order_by == 'id') and sort == 'd' %}active{% endif %}" aria-hidden="true"></i>
                 </span>
               </a>
             </th>
@@ -209,5 +246,8 @@
     No items found to display
   {% endif %}
 
+{% endblock %}
+
+{% block page_js %}
 
 {% endblock %}

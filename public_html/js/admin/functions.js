@@ -154,3 +154,15 @@ const updateTableAfterRomoveItems = (ids, count) => {
     callback()
   }, 3000)
 }
+
+/**
+ * Updates mobile sorting form hidden inputs values
+ */
+const updateSortTableParams = ($form) => {
+  console.log($form)
+  const $select = $form.querySelector('.js-sort-columns-select')
+  const selectedValue = $select.value.split("-")
+  $form.querySelector('[name="orderby"]').value = selectedValue[0]
+  $form.querySelector('[name="sort"]').value = selectedValue[1]
+  $form.submit()
+}
