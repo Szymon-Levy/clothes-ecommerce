@@ -44,3 +44,10 @@ if (DEV === true) {
 
 // Add Twig custom functions
 require APP_ROOT . '/src/twig_functions.php';
+
+// Create container for variables
+$globals_container = new ClothesEcommerce\App\GlobalsContainer();
+$globals_container->set('app', $app);
+$globals_container->set('twig', $twig);
+$globals_container->set('session', $session);
+$globals_container->set('email_settings', $email_settings);

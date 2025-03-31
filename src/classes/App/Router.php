@@ -6,17 +6,25 @@ class Router
 {
   private string $url;
   private \Twig\Environment $twig;
+  private GlobalsContainer $globals_container;
 
-  public function __construct(string $url, \Twig\Environment $twig)
+  public function __construct(string $url, GlobalsContainer $globals_container)
   {
     $this->url = $url;
-    $this->twig = $twig;
+    $this->globals_container = $globals_container;
+    $this->twig = $this->globals_container->get('twig');
   }
 
-  public function route():string
+  public function route():void
   {
+    // Get global variables to pass to pages scope
+    $app = $this->globals_container->get('app');
+    $twig = $this->twig;
+    $session = $this->globals_container->get('session');
+    $email_settings = $this->globals_container->get('email_settings');
+
     $url_parts = $this->getUrlParts();
-    $this->addUrlPartsToTwig($url_parts);
+    $this->passUrlPartsToTwig($url_parts);
     
     $pages_dir = APP_ROOT . '/src/pages/';
     $path = $this->getUrlStringPath();
@@ -39,10 +47,17 @@ class Router
     if (!file_exists($page_php)) {
       http_response_code(404);
       $page_php = $pages_dir . '404.php';
-      return $page_php;
-      exit;
     }
-    return $page_php;
+
+    // If admin page check if admin logged in
+    // if ($url_parts[0] === 'admin') {
+    //   if ($this->checkIfNotAdmin() && $url_parts[1] != 'login') {
+    //     redirect('admin/login');
+    //     exit;
+    //   }
+    // }
+
+    require_once $page_php;
   }
 
   public function getUrlParts():array 
@@ -58,8 +73,13 @@ class Router
     return $path;
   }
 
-  private function addUrlPartsToTwig(array $url_parts):void
+  private function passUrlPartsToTwig(array $url_parts):void
   {
     $this->twig->addGlobal('url_parts', $url_parts);
   }
+
+  // private function checkIfNotAdmin(): bool
+  // {
+  //   return true;
+  // }
 }
