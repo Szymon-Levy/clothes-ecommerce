@@ -49,11 +49,10 @@ class Router
       $page_php = $pages_dir . '404.php';
     }
 
-    // If admin page check if admin logged in
-    // if ($url_parts[0] === 'admin') {
-    //   if ($this->checkIfNotAdmin() && $url_parts[1] != 'login') {
-    //     redirect('admin/login');
-    //     exit;
+    // if (!empty($url_parts) && $url_parts[0] === 'admin') {
+    //   if ($this->checkIfNotAdmin() && (!isset($url_parts[1]) || $url_parts[1] !== 'login')) {
+    //       header('Location: /admin/login');
+    //       exit;
     //   }
     // }
 
@@ -80,6 +79,7 @@ class Router
 
   // private function checkIfNotAdmin(): bool
   // {
-  //   return true;
+  //   $session = $this->globals_container->get('session');
+  //   return !isset($session['user']) || $session['user']['role'] !== 'admin';
   // }
 }

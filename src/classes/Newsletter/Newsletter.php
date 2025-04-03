@@ -2,6 +2,7 @@
 
 namespace ClothesEcommerce\Newsletter;
 use ClothesEcommerce\App\DataBase;
+use ClothesEcommerce\Email\Email;
 
 class Newsletter 
 {
@@ -14,21 +15,38 @@ class Newsletter
     $this->database = $database;
   }
 
-  public function addSubscriber (string $name, string $email) 
+  public function addSubscriber (string $name, string $email, array $email_settings) 
   {
     $arguments['name'] = $name;
     $arguments['email'] = $email;
-    $sql = 'INSERT INTO newsletter_subscribers (name, email)
+    $sql = 'INSERT INTO newsletter_subscriberss (name, email)
             VALUES (:name, :email)';
 
     try {
       $this->database->SQL($sql, $arguments);
-      return $this->database->lastInsertId();
+      $new_id = $this->database->lastInsertId();
+
+      $token = $this->assignToken($new_id, 'NA');
+
+      $email_sender = new Email($email_settings);
+      $email_data = [
+        'name' => $name,
+        'token' => $token
+      ];
+      $email_sender->sendEmail(
+        $email_settings['admin_username'], 
+        $email, 
+        'Welcome to ' . SHOP_NAME . ' - Confirm Your Newsletter Subscription', 
+        'newsletter_subscribtion_confirmation', 
+        $email_data
+      );
+
+      return '200';
     } catch (\PDOException $e) {
       if ($e->errorInfo[1] === 1062) {
-        return false;
+        return '1062';
       }
-      throw $e; 
+      throw $e;
     }
   }
 
