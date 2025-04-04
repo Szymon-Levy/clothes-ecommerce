@@ -11,7 +11,6 @@ const removePopup = (e) => {
   }
 }
 
-
 /**
  * Creates HTML popup
  */
@@ -31,14 +30,12 @@ const addPopupToDOM = (popupContent = '', additionalCssClasses = '') => {
   document.addEventListener('click', removePopup)
 }
 
-
 /**
  * Replaces doc root in html content loaded dynamically "|doc_root|" => path
  */
 const replaceDocRoot = (string) => {
   return string.replaceAll('|doc_root|', docRoot)
 }
-
 
 /**
  * Shows alert popup
@@ -112,7 +109,6 @@ const showAlert = (message, type) => {
     $currentAlert.remove()
   }, 6000);
 }
-
 
 /**
  * Closes alert popup

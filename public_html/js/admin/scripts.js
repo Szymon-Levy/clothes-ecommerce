@@ -184,3 +184,153 @@ if ($table) {
     }
   })
 }
+
+/* == ADD SUBSCRIBER == */
+const $addSubscriberForm = document.querySelector('.js-add-subscriber-form')
+
+const handleaddSubscriberFormResponse = ($form, response) => {
+  clearFormErrors($form)
+
+  if (response.hasOwnProperty('success')) {
+      location.href = docRoot + response.path
+  }
+  else if (response.hasOwnProperty('error')) {
+      showAlert(response.error, 'error')
+      $form.reset()
+  }
+  else {
+    displayFormErrors($form, response)
+  }
+}
+
+const sendAddSubscriberRequest = async ($form, formData) => {
+  try {
+    const request = await fetch(docRoot + 'admin/ajax/newsletter-add-subscriber', {
+      method: 'POST',
+      body: formData
+    })
+    const data = await request.json()
+    handleaddSubscriberFormResponse($form, data);
+  } catch(error) {
+    showAlert('Server error. The administrator has been informed of the error.', 'error')
+    console.log(error)
+  }
+}
+
+const validateaddSubscriberForm = (formData) => {
+  const name = formData.get('name').trim()
+  const email = formData.get('email').trim()
+  const errors = {}
+
+  const nameError = lengthValidation(name, 'Name', 2, 50, true)
+  const emailError = emailValidation(email, true)
+
+  if (nameError) {
+    errors.name = nameError
+  }
+
+  if (emailError) {
+    errors.email = emailError
+  }
+
+  return errors
+}
+
+const handleaddSubscriberForm = ($addSubscriberForm) => {
+  const formData = new FormData($addSubscriberForm)
+  addCsrfToFormData(formData)
+  const errors = validateaddSubscriberForm(formData)
+
+  // sendAddSubscriberRequest($addSubscriberForm, formData)
+  if (Object.keys(errors).length === 0) {
+    sendAddSubscriberRequest($addSubscriberForm, formData)
+  }
+  else {
+    displayFormErrors($addSubscriberForm, errors)
+  }
+}
+
+if ($addSubscriberForm) {
+  $addSubscriberForm.addEventListener('submit', e => {
+    e.preventDefault()
+    const $form = e.target
+    if (formFilledByBot($form)) return false
+
+    handleaddSubscriberForm($form)
+  })
+}
+
+/* == EDIT SUBSCRIBER == */
+const $addSubscriberForm = document.querySelector('.js-add-subscriber-form')
+
+const handleaddSubscriberFormResponse = ($form, response) => {
+  clearFormErrors($form)
+
+  if (response.hasOwnProperty('success')) {
+      location.href = docRoot + response.path
+  }
+  else if (response.hasOwnProperty('error')) {
+      showAlert(response.error, 'error')
+      $form.reset()
+  }
+  else {
+    displayFormErrors($form, response)
+  }
+}
+
+const sendAddSubscriberRequest = async ($form, formData) => {
+  try {
+    const request = await fetch(docRoot + 'admin/ajax/newsletter-add-subscriber', {
+      method: 'POST',
+      body: formData
+    })
+    const data = await request.json()
+    handleaddSubscriberFormResponse($form, data);
+  } catch(error) {
+    showAlert('Server error. The administrator has been informed of the error.', 'error')
+    console.log(error)
+  }
+}
+
+const validateaddSubscriberForm = (formData) => {
+  const name = formData.get('name').trim()
+  const email = formData.get('email').trim()
+  const errors = {}
+
+  const nameError = lengthValidation(name, 'Name', 2, 50, true)
+  const emailError = emailValidation(email, true)
+
+  if (nameError) {
+    errors.name = nameError
+  }
+
+  if (emailError) {
+    errors.email = emailError
+  }
+
+  return errors
+}
+
+const handleaddSubscriberForm = ($addSubscriberForm) => {
+  const formData = new FormData($addSubscriberForm)
+  addCsrfToFormData(formData)
+  const errors = validateaddSubscriberForm(formData)
+
+  // sendAddSubscriberRequest($addSubscriberForm, formData)
+  if (Object.keys(errors).length === 0) {
+    sendAddSubscriberRequest($addSubscriberForm, formData)
+  }
+  else {
+    displayFormErrors($addSubscriberForm, errors)
+  }
+}
+
+if ($addSubscriberForm) {
+  $addSubscriberForm.addEventListener('submit', e => {
+    e.preventDefault()
+    const $form = e.target
+    if (formFilledByBot($form)) return false
+
+    handleaddSubscriberForm($form)
+  })
+}

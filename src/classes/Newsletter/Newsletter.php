@@ -19,7 +19,7 @@ class Newsletter
   {
     $arguments['name'] = $name;
     $arguments['email'] = $email;
-    $sql = 'INSERT INTO newsletter_subscriberss (name, email)
+    $sql = 'INSERT INTO newsletter_subscribers (name, email)
             VALUES (:name, :email)';
 
     try {

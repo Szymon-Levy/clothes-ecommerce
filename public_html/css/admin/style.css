@@ -267,6 +267,18 @@ body{
 }
 
 /* == FORMS == */
+.form__row {
+  display: flex;
+}
+
+.form__row + .form__row {
+  margin-top: 1rem;
+}
+
+.form__col {
+  flex: 1;
+}
+
 .form input[type="text"],
 .form textarea,
 .form__select select {
@@ -279,10 +291,28 @@ body{
   transition: border-color .3s;
 }
 
+.form textarea {
+  padding-top: 1rem;
+  min-height: 6.25rem;
+}
+
 .form input:focus,
 .form textarea:focus,
 .form__select select:focus {
   border-color: var(--color-primary1);
+}
+
+.form input::placeholder,
+.form textarea::placeholder,
+.form__select select {
+  color: var(--color-placeholder);
+}
+
+.form__error {
+  margin-top: .5em;
+  display: block;
+  font-size: .75rem;
+  color: var(--color-error);
 }
 
 /* custom checkbox & radio */
@@ -589,7 +619,8 @@ main {
 }
 
 .copyright {
-  margin-top: .6rem;
+  margin-top: auto;
+  padding-top: .6rem;
   text-align: center;
 }
 
@@ -987,6 +1018,7 @@ main {
 
 .app-content__panel__top__search-form__input {
   padding-right: 2rem !important;
+  height: 2.4rem !important;
 }
 
 .app-content__panel__top__search-form__button {
@@ -1286,17 +1318,37 @@ main {
     font-size: .9rem;
   }
 
+  .btn--form {
+    line-height: 3rem;
+  }
+
   /* == ALERT == */
   .alert {
     bottom: var(--gap-500);
     left: calc(17.5rem + var(--gap-500) + var(--gap-600));
   }
 
+  /* == FORMS == */
+  .form input[type="text"], 
+  .form textarea, 
+  .form__select select {
+    padding: 0 1.6rem;
+    height: 3rem;
+  }
+
   /*----------------------------------*\
     #APP STRUCTURE
   \*----------------------------------*/
+  main {
+    display: flex;
+    flex-direction: column;
+  }
+
   .app-content {
     padding: var(--gap-500) var(--gap-600);
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
     max-height: calc(100vh - var(--header-height));
   }
 
