@@ -23,6 +23,7 @@ class Newsletter
             VALUES (:name, :email)';
 
     try {
+      $this->database->beginTransaction();
       $this->database->SQL($sql, $arguments);
       $new_id = $this->database->lastInsertId();
 
@@ -33,7 +34,7 @@ class Newsletter
         'name' => $name,
         'token' => $token
       ];
-      $email_sender->sendEmail(
+      $send_email = $email_sender->sendEmail(
         $email_settings['admin_username'], 
         $email, 
         'Welcome to ' . SHOP_NAME . ' - Confirm Your Newsletter Subscription', 
@@ -41,7 +42,15 @@ class Newsletter
         $email_data
       );
 
-      return '200';
+      if ($send_email) {
+        $this->database->commit();
+        return '200';
+      }
+      else {
+        $this->database->rollBack();
+        return 'email_error';
+      }
+
     } catch (\PDOException $e) {
       if ($e->errorInfo[1] === 1062) {
         return '1062';

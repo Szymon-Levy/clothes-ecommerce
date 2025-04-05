@@ -53,6 +53,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   else if ($db_response == '1062') {
     $response['error'] = 'This e-mail address has already been taken!';
   }
+  else if ($db_response == 'email_error') {
+    $response['error'] = 'A problem with sending the message to the specified email occured, check if the email address is correct and try again!';
+  }
 
   echo json_encode($response);
   exit();

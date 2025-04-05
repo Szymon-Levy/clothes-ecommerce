@@ -196,7 +196,6 @@ const handleaddSubscriberFormResponse = ($form, response) => {
   }
   else if (response.hasOwnProperty('error')) {
       showAlert(response.error, 'error')
-      $form.reset()
   }
   else {
     displayFormErrors($form, response)
@@ -241,7 +240,6 @@ const handleaddSubscriberForm = ($addSubscriberForm) => {
   addCsrfToFormData(formData)
   const errors = validateaddSubscriberForm(formData)
 
-  // sendAddSubscriberRequest($addSubscriberForm, formData)
   if (Object.keys(errors).length === 0) {
     sendAddSubscriberRequest($addSubscriberForm, formData)
   }
@@ -261,9 +259,9 @@ if ($addSubscriberForm) {
 }
 
 /* == EDIT SUBSCRIBER == */
-const $addSubscriberForm = document.querySelector('.js-add-subscriber-form')
+const $editSubscriberForm = document.querySelector('.js-edit-subscriber-form')
 
-const handleaddSubscriberFormResponse = ($form, response) => {
+const handleeditSubscriberFormResponse = ($form, response) => {
   clearFormErrors($form)
 
   if (response.hasOwnProperty('success')) {
@@ -271,66 +269,65 @@ const handleaddSubscriberFormResponse = ($form, response) => {
   }
   else if (response.hasOwnProperty('error')) {
       showAlert(response.error, 'error')
-      $form.reset()
   }
   else {
     displayFormErrors($form, response)
   }
 }
 
-const sendAddSubscriberRequest = async ($form, formData) => {
+const sendEditSubscriberRequest = async ($form, formData) => {
   try {
-    const request = await fetch(docRoot + 'admin/ajax/newsletter-add-subscriber', {
+    const request = await fetch(docRoot + 'admin/ajax/newsletter-edit-subscriber', {
       method: 'POST',
       body: formData
     })
     const data = await request.json()
-    handleaddSubscriberFormResponse($form, data);
+    handleeditSubscriberFormResponse($form, data);
   } catch(error) {
     showAlert('Server error. The administrator has been informed of the error.', 'error')
     console.log(error)
   }
 }
 
-const validateaddSubscriberForm = (formData) => {
+const validateeditSubscriberForm = (formData) => {
+  const id = formData.get('id').trim()
   const name = formData.get('name').trim()
-  const email = formData.get('email').trim()
   const errors = {}
 
   const nameError = lengthValidation(name, 'Name', 2, 50, true)
-  const emailError = emailValidation(email, true)
+
+  if (id == '') {
+    return false
+  }
 
   if (nameError) {
     errors.name = nameError
   }
 
-  if (emailError) {
-    errors.email = emailError
-  }
-
   return errors
 }
 
-const handleaddSubscriberForm = ($addSubscriberForm) => {
-  const formData = new FormData($addSubscriberForm)
+const handleeditSubscriberForm = ($editSubscriberForm) => {
+  const formData = new FormData($editSubscriberForm)
   addCsrfToFormData(formData)
-  const errors = validateaddSubscriberForm(formData)
+  const errors = validateeditSubscriberForm(formData)
+  if (errors === false) return false
 
-  // sendAddSubscriberRequest($addSubscriberForm, formData)
-  if (Object.keys(errors).length === 0) {
-    sendAddSubscriberRequest($addSubscriberForm, formData)
-  }
-  else {
-    displayFormErrors($addSubscriberForm, errors)
-  }
+  sendEditSubscriberRequest($editSubscriberForm, formData)
+  // if (Object.keys(errors).length === 0) {
+  //   sendEditSubscriberRequest($editSubscriberForm, formData)
+  // }
+  // else {
+  //   displayFormErrors($editSubscriberForm, errors)
+  // }
 }
 
-if ($addSubscriberForm) {
-  $addSubscriberForm.addEventListener('submit', e => {
+if ($editSubscriberForm) {
+  $editSubscriberForm.addEventListener('submit', e => {
     e.preventDefault()
     const $form = e.target
     if (formFilledByBot($form)) return false
 
-    handleaddSubscriberForm($form)
+    handleeditSubscriberForm($form)
   })
 }

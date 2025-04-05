@@ -51,7 +51,11 @@ class Email
     ob_start();
     include(APP_ROOT . '/src/email_templates/' . $template_name . '.php');
     $this->phpmailer->Body = ob_get_clean();
-    $this->phpmailer->send();
-    return true;
+    try {
+      $this->phpmailer->send();
+      return true;
+    } catch (Exception $e) {
+      return false;
+    }
   }
 }
