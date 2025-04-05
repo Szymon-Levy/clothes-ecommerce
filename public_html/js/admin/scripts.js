@@ -289,12 +289,14 @@ const sendEditSubscriberRequest = async ($form, formData) => {
   }
 }
 
-const validateeditSubscriberForm = (formData) => {
+const validateEditSubscriberForm = (formData) => {
   const id = formData.get('id').trim()
+  const email = formData.get('email').trim()
   const name = formData.get('name').trim()
   const errors = {}
 
   const nameError = lengthValidation(name, 'Name', 2, 50, true)
+  const emailError = emailValidation(email, true)
 
   if (id == '') {
     return false
@@ -304,22 +306,25 @@ const validateeditSubscriberForm = (formData) => {
     errors.name = nameError
   }
 
+  if (emailError) {
+    errors.email = emailError
+  }
+
   return errors
 }
 
 const handleeditSubscriberForm = ($editSubscriberForm) => {
   const formData = new FormData($editSubscriberForm)
   addCsrfToFormData(formData)
-  const errors = validateeditSubscriberForm(formData)
+  const errors = validateEditSubscriberForm(formData)
   if (errors === false) return false
 
-  sendEditSubscriberRequest($editSubscriberForm, formData)
-  // if (Object.keys(errors).length === 0) {
-  //   sendEditSubscriberRequest($editSubscriberForm, formData)
-  // }
-  // else {
-  //   displayFormErrors($editSubscriberForm, errors)
-  // }
+  if (Object.keys(errors).length === 0) {
+    sendEditSubscriberRequest($editSubscriberForm, formData)
+  }
+  else {
+    displayFormErrors($editSubscriberForm, errors)
+  }
 }
 
 if ($editSubscriberForm) {

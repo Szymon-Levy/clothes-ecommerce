@@ -22,11 +22,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   // post data
   $id = trim($_POST['id']);
   $name = trim($_POST['name']);
+  $email = trim($_POST['email']);
 
   // validation
   $response = [];
 
   $name_error = Validation::length($name, 'Name', 2, 50, true);
+  $email_error = Validation::email($email, true);
 
   if (empty($id)) {
     $response['error'] = 'Id cannot be empty!';
@@ -38,23 +40,33 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $response['name'] = $name_error;
   }
 
+  if ($email_error) {
+    $response['email'] = $email_error;
+  }
+
   if (!empty($response)) {
     echo json_encode($response);
     exit();
   }
   
   // edit subscriber
-  // $db_response = $app->newsletter()->addSubscriber($name, $email, $email_settings);
+  $db_response = $app->newsletter()->editSubscriber($id, $name, $email, $email_settings);
 
-  // if ($db_response == '200') {
-  //   createAdminMessageInSession (htmlspecialchars($name) . ' has been successfully added to the subscriber list.', 'success', $session);
-  //   $response['success'] = true;
-  //   $response['path'] = 'admin/newsletter';
-  // }
-  // else if ($db_response == '1062') {
-  //   $response['error'] = 'This e-mail address has already been taken!';
-  // }
+  if ($db_response == '200') {
+    createAdminMessageInSession (htmlspecialchars($name) . ' has been successfully updated.', 'success', $session);
+    $response['success'] = true;
+    $response['path'] = 'admin/newsletter';
+  }
+  else if ($db_response == 'subscriber_not_found') {
+    $response['error'] = 'Subscriber with given id doesn\'t exist!';
+  }
+  else if ($db_response == '1062') {
+    $response['error'] = 'This e-mail address has already been taken!';
+  }
+  else if ($db_response == 'email_error') {
+    $response['error'] = 'A problem with sending the message to the specified email occured, check if the email address is correct and try again!';
+  }
 
-  // echo json_encode($response);
-  // exit();
+  echo json_encode($response);
+  exit();
 }

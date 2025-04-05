@@ -59,6 +59,58 @@ class Newsletter
     }
   }
 
+  public function editSubscriber (string $id, string $name, string $email, array $email_settings) 
+  {
+    $existing_subscriber = $this->getSubscriberById($id);
+    if (!$existing_subscriber) return 'subscriber_not_found';
+    
+    $arguments['id'] = $id;
+    $arguments['name'] = $name;
+    $arguments['email'] = $email;
+    $sql = 'UPDATE newsletter_subscribers 
+            SET 
+              name = :name,
+              email = :email
+            WHERE id = :id';
+
+    try {
+      $this->database->beginTransaction();
+      $this->database->SQL($sql, $arguments);
+
+      if ($existing_subscriber['email'] != $email) {
+        $this->desactivateSubscribtion($id);
+        $this->deleteTokens($id);
+
+        $token = $this->assignToken($id, 'NA');
+        $email_sender = new Email($email_settings);
+        $email_data = [
+          'name' => $name,
+          'token' => $token
+        ];
+        $send_email = $email_sender->sendEmail(
+          $email_settings['admin_username'], 
+          $email, 
+          'Welcome to ' . SHOP_NAME . ' - Confirm Your Newsletter Subscription', 
+          'newsletter_subscribtion_confirmation', 
+          $email_data
+        );
+
+        if (!$send_email) {
+          $this->database->rollBack();
+          return 'email_error';
+        }
+      }
+      
+      $this->database->commit();
+      return '200';
+    } catch (\PDOException $e) {
+      if ($e->errorInfo[1] === 1062) {
+        return '1062';
+      }
+      throw $e;
+    }
+  }
+
   public function deleteSubscribers (array $ids) 
   {
     $in_string = str_repeat('?,', count($ids) - 1) . '?';
@@ -90,7 +142,15 @@ class Newsletter
     } while ($loop);
   }
 
-  public function getSubscriberById (int $id) 
+  public function deleteTokens (string $subscriber_id) 
+  {
+    $arguments['subscriber_id'] = $subscriber_id;
+    $sql = 'DELETE FROM newsletter_tokens 
+            WHERE subscriber_id = :subscriber_id';
+    $this->database->SQL($sql, $arguments);
+  }
+
+  public function getSubscriberById (int|string $id) 
   {
     $arguments['id'] = $id;
     $sql = 'SELECT
@@ -120,10 +180,18 @@ class Newsletter
     return $this->database->SQL($sql, $arguments)->fetch();
   }
 
-  public function activateSubscribtion (int $subscriber_id) 
+  public function activateSubscribtion (int|string $subscriber_id) 
   {
     $sql = 'UPDATE newsletter_subscribers 
             SET is_active = 1
+            WHERE id = :subscriber_id';
+    $this->database->SQL($sql, ['subscriber_id' => $subscriber_id]);
+  }
+
+  public function desactivateSubscribtion (int|string $subscriber_id) 
+  {
+    $sql = 'UPDATE newsletter_subscribers 
+            SET is_active = 0
             WHERE id = :subscriber_id';
     $this->database->SQL($sql, ['subscriber_id' => $subscriber_id]);
   }
