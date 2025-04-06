@@ -309,7 +309,7 @@ const validateEditSubscriberForm = (formData) => {
   if (emailError) {
     errors.email = emailError
   }
-
+  
   return errors
 }
 

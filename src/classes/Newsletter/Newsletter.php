@@ -196,6 +196,50 @@ class Newsletter
     $this->database->SQL($sql, ['subscriber_id' => $subscriber_id]);
   }
 
+  public function confirmSubscribtion (string $token, array $email_settings)
+  {
+    $subscriber = $this->getSubscriberByToken($token, 'NA');
+    if (!$subscriber) {
+      return 'subscriber_not_found';
+    }
+
+    if ($subscriber['is_active'] === 1) {
+      return 'already_confirmed';
+    }
+
+    if ((time() - $subscriber['token_timestamp']) / 60 > 5) {
+      $this->deleteSubscribers([$subscriber['id']]);
+      return 'token_expired';
+    }
+
+    $subscriber_id = $subscriber['id'];
+    $this->database->beginTransaction();
+    $this->activateSubscribtion($subscriber_id);
+
+    $deletion_token = $this->assignToken($subscriber_id, 'ND');
+    $email_sender = new Email($email_settings);
+    $email_data = [
+      'name' => $subscriber['name'],
+      'token' => $deletion_token
+    ];
+    
+    $send_email = $email_sender->sendEmail(
+      $email_settings['admin_username'], 
+      $subscriber['email'], 
+      'Your newsletter subscribtion at ' . SHOP_NAME . ' is active.', 
+      'newsletter_welcome', 
+      $email_data
+    );
+
+    if (!$send_email) {
+      $this->database->rollBack();
+      return 'email_error';
+    }
+
+    $this->database->commit();
+    return '200';
+  }
+
   public function getSubscribersResultsCount ()
   {
 
