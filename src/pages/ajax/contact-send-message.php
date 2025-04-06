@@ -1,7 +1,6 @@
 <?php
 
 use ClothesEcommerce\Validation\Validation;
-use ClothesEcommerce\Email\Email;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   //csrf validation
@@ -71,27 +70,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   //remove csrf session variable
   $session->removeSessionVariable('csrf');
   
-  // save email data in database
-  $app->contact()->saveMessage($name, $email, $subject, $message);
+  // save email data in database and send copy
+  $db_response = $app->contact()->sendUserMessage($name, $email, $subject, $message, $email_settings);
 
-  //send copy of informations to sender
-  $email_sender = new Email($email_settings);
-  $email_data = [
-    'name' => $name,
-    'email' => $email,
-    'subject' => $subject,
-    'message' => replaceWhitespaces($message)
-  ];
-  
-  $email_sender->sendEmail(
-    $email_settings['admin_username'], 
-    $email, 
-    'Copy of message sent to ' . SHOP_NAME . ' administrator.', 
-    'contact_message_copy', 
-    $email_data
-  );
+  if ($db_response == '200') {
+    $response['success'] = 'Your message has been successfully sent to the administrator. We have sent a copy of your message to your email.';
+  }
+  else if ($db_response == 'email_error') {
+    $response['error'] = 'A problem with sending the message to the specified email occured, check if the email address is correct and try again!';
+  }
 
-  $response['success'] = 'Your message has been successfully sent to the administrator. We have sent a copy of your message to your email.';
   echo json_encode($response);
   exit();
 }
