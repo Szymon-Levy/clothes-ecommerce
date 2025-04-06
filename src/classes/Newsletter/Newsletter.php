@@ -240,6 +240,17 @@ class Newsletter
     return '200';
   }
 
+  public function deleteSubscribtion (string $token)
+  {
+    $subscriber = $this->getSubscriberByToken($token, 'ND');
+    if (!$subscriber) {
+      return 'subscriber_not_found';
+    }
+
+    $this->deleteSubscribers([$subscriber['id']]);
+    return '200';
+  }
+
   public function getSubscribersResultsCount ()
   {
 
