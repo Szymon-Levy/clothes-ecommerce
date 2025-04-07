@@ -90,8 +90,8 @@ class Newsletter
         $send_email = $email_sender->sendEmail(
           $email_settings['admin_username'], 
           $email, 
-          'Welcome to ' . SHOP_NAME . ' - Confirm Your Newsletter Subscription', 
-          'newsletter_subscribtion_confirmation', 
+          'Confirm Your new email address in ' . SHOP_NAME . ' Newsletter', 
+          'newsletter_email_update_confirmation', 
           $email_data
         );
 

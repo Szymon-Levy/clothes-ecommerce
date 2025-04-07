@@ -379,7 +379,7 @@ body{
   flex: 1;
 }
 
-.form input[type="text"],
+.form__input-field,
 .form textarea,
 .form__select select {
   padding: 0 1rem;
@@ -1919,7 +1919,7 @@ body{
     margin-top: 2rem;
   }
 
-  .form input[type="text"],
+  .form__input-field,
   .form__select select {
     min-height: 3.5rem;
   }

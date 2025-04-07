@@ -279,7 +279,7 @@ body{
   flex: 1;
 }
 
-.form input[type="text"],
+.form__input-field,
 .form textarea,
 .form__select select {
   padding: 0 1rem;
@@ -1329,7 +1329,7 @@ main {
   }
 
   /* == FORMS == */
-  .form input[type="text"], 
+  .form__input-field, 
   .form textarea, 
   .form__select select {
     padding: 0 1.6rem;
