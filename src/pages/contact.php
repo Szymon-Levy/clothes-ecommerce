@@ -6,4 +6,5 @@ $data['shop_email'] = SHOP_EMAIL;
 $data['shop_phone'] = SHOP_PHONE;
 
 $data['page_title'] = 'Contact';
-echo $twig->render('contact.html', $data);
+
+echo $twig->render('contact.html.twig', $data);

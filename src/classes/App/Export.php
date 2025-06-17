@@ -8,9 +8,9 @@ class Export
   private null|array $data = null;
   private \ClothesEcommerce\App\App $app;
 
-  public function __construct (string $data, \ClothesEcommerce\App\App $app)
+  public function __construct (string $data_source, \ClothesEcommerce\App\App $app)
   {
-    $this->data_source = $data;
+    $this->data_source = $data_source;
     $this->app = $app;
   }
 

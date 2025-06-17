@@ -1,5 +1,7 @@
 <?php
 
+use ClothesEcommerce\App\DataBase;
+
 class Product 
 {
   protected $database;

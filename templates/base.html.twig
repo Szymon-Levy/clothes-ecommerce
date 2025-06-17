@@ -53,25 +53,25 @@
     <!-- MESSAGES -->
     {% if session.user_message %}
 
-      {% include 'includes/message.html' %}
+      {% include 'includes/message.html.twig' %}
 
     {% endif %}
 
     {% if not page_404 %}
       <!-- NAV -->
 
-      {% include 'includes/offcanvas.html' %}
+      {% include 'includes/offcanvas.html.twig' %}
 
       <!-- HEADER -->
 
-      {% include 'includes/header.html' %}
+      {% include 'includes/header.html.twig' %}
 
     {% endif %}
 
     <!-- PAGE TITLE -->
     {% if page_title %}
 
-      {% include 'includes/page_title.html' %}
+      {% include 'includes/page_title.html.twig' %}
 
     {% endif %}
 
@@ -80,7 +80,7 @@
     {% if not page_404 %}
       <!-- FOOTER -->
 
-      {% include 'includes/footer.html' %}
+      {% include 'includes/footer.html.twig' %}
     {% endif %}
 
   </main>
@@ -90,7 +90,7 @@
   -->
   <script>
     const docRoot = '{{doc_root}}';
-    const csrf = '{{session.csrf}}';
+    const csrf = '{{session.csrf|e("js")}}';
   </script>
 
   <!--

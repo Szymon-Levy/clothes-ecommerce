@@ -1,6 +1,6 @@
 <?php
 
-$data_source = isset($_GET['data']) ? strip_tags($_GET['data']) : null;
+$data_source = trim($_GET['data'] ?? '');
 
 if ($data_source) {
   $export = new ClothesEcommerce\App\Export($data_source, $app);

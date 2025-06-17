@@ -1,9 +1,9 @@
 <?php
 
 // get data
-$keyword = isset($_GET['keyword']) ? strtolower(htmlspecialchars($_GET['keyword'])) : '';
-$order_by = isset($_GET['orderby']) ? strtolower(htmlspecialchars($_GET['orderby'])) : '';
-$sort = isset($_GET['sort']) ? strtolower(htmlspecialchars($_GET['sort'])) : 'a';
+$keyword = trim($_GET['keyword'] ?? '');
+$order_by = trim($_GET['orderby'] ?? '');
+$sort = trim($_GET['sort'] ?? 'a');
 $page = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?? 1;
 
 
@@ -31,4 +31,4 @@ foreach ($pagination_link_params as $key => $value) {
 
 $data['pagination_string_params'] = implode('&', $joined_pagination_params);
 
-echo $twig->render('admin/newsletter/index.html', $data);
+echo $twig->render('admin/newsletter/index.html.twig', $data);

@@ -7,4 +7,5 @@ $data['shop_phone'] = SHOP_PHONE;
 $data['domain'] = FIXED_DOMAIN;
 
 $data['page_title'] = 'Terms and conditions';
-echo $twig->render('terms-and-conditions.html', $data);
+
+echo $twig->render('terms-and-conditions.html.twig', $data);

@@ -20,9 +20,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   }
   
   // post data
-  $id = trim($_POST['id']);
-  $name = trim($_POST['name']);
-  $email = trim($_POST['email']);
+  $id = trim($_POST['id'] ?? '');
+  $name = trim($_POST['name'] ?? '');
+  $email = trim($_POST['email'] ?? '');
 
   // validation
   $response = [];

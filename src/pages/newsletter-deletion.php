@@ -1,6 +1,6 @@
 <?php
 
-$token = $_GET['token'] ?? null;
+$token = trim($_GET['token'] ?? '');
 
 // If token not found
 if (!$token) {

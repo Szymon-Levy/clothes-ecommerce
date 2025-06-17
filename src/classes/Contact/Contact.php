@@ -13,7 +13,7 @@ class Contact
     $this->database = $database;
   }
 
-  public function saveMessage (string $name, string $email, string $subject, string $message) 
+  private function saveMessage (string $name, string $email, string $subject, string $message) 
   {
     $arguments['sender_name'] = $name;
     $arguments['email'] = $email;
@@ -31,11 +31,12 @@ class Contact
 
     $email_sender = new Email($email_settings);
     $email_data = [
-      'name' => $name,
-      'email' => $email,
-      'subject' => $subject,
-      'message' => replaceWhitespaces($message)
+      'name' => htmlspecialchars($name),
+      'email' => htmlspecialchars($email),
+      'subject' => htmlspecialchars($subject),
+      'message' => replaceWhitespaces(htmlspecialchars($message))
     ];
+
     $send_email = $email_sender->sendEmail(
       $email_settings['admin_username'], 
       $email, 

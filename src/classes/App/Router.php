@@ -10,7 +10,7 @@ class Router
 
   public function __construct(string $url, GlobalsContainer $globals_container)
   {
-    $this->url = $url;
+    $this->url = mb_strtolower($url);
     $this->globals_container = $globals_container;
     $this->twig = $this->globals_container->get('twig');
   }
@@ -67,7 +67,7 @@ class Router
 
   private function getUrlStringPath():string
   {
-    $path = mb_strtolower(parse_url($this->url, PHP_URL_PATH));
+    $path = parse_url($this->url, PHP_URL_PATH);
     $path = substr($path, strlen(DOC_ROOT));
     return $path;
   }

@@ -20,11 +20,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   }
 
   // post data
-  $name = trim($_POST['name']);
-  $email = trim($_POST['email']);
-  $subject = $_POST['subject'];
-  $message = trim($_POST['message']);
-  $policy = $_POST['policy'] ?? null;
+  $name = trim($_POST['name'] ?? '');
+  $email = trim($_POST['email'] ?? '');
+  $subject = trim($_POST['subject'] ?? '');
+  $message = trim($_POST['message'] ?? '');
+  $policy = isset($_POST['policy']) ? trim($_POST['policy']) : null;
 
   // validation
   $response = [];

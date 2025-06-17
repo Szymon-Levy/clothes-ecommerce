@@ -31,8 +31,8 @@ class Newsletter
 
       $email_sender = new Email($email_settings);
       $email_data = [
-        'name' => $name,
-        'token' => $token
+        'name' => htmlspecialchars($name),
+        'token' => htmlspecialchars($token)
       ];
       $send_email = $email_sender->sendEmail(
         $email_settings['admin_username'], 
@@ -84,8 +84,8 @@ class Newsletter
         $token = $this->assignToken($id, 'NA');
         $email_sender = new Email($email_settings);
         $email_data = [
-          'name' => $name,
-          'token' => $token
+          'name' => htmlspecialchars($name),
+          'token' => htmlspecialchars($token)
         ];
         $send_email = $email_sender->sendEmail(
           $email_settings['admin_username'], 
@@ -121,7 +121,7 @@ class Newsletter
     return $deleted_count;
   }
 
-  public function assignToken (string $subscriber_id, string $token_role_id) 
+  private function assignToken (string $subscriber_id, string $token_role_id) 
   {
     $loop = false;
     $arguments['subscriber_id'] = $subscriber_id;
@@ -142,7 +142,7 @@ class Newsletter
     } while ($loop);
   }
 
-  public function deleteTokens (string $subscriber_id) 
+  private function deleteTokens (string $subscriber_id) 
   {
     $arguments['subscriber_id'] = $subscriber_id;
     $sql = 'DELETE FROM newsletter_tokens 
@@ -162,7 +162,7 @@ class Newsletter
     return $this->database->SQL($sql, $arguments)->fetch();
   }
 
-  public function getSubscriberByToken (string $token, string $token_role_id) 
+  private function getSubscriberByToken (string $token, string $token_role_id) 
   {
     $arguments['token'] = $token;
     $arguments['token_role_id'] = $token_role_id;
@@ -180,7 +180,7 @@ class Newsletter
     return $this->database->SQL($sql, $arguments)->fetch();
   }
 
-  public function activateSubscribtion (int|string $subscriber_id) 
+  private function activateSubscribtion (int|string $subscriber_id) 
   {
     $sql = 'UPDATE newsletter_subscribers 
             SET is_active = 1
@@ -188,7 +188,7 @@ class Newsletter
     $this->database->SQL($sql, ['subscriber_id' => $subscriber_id]);
   }
 
-  public function desactivateSubscribtion (int|string $subscriber_id) 
+  private function desactivateSubscribtion (int|string $subscriber_id) 
   {
     $sql = 'UPDATE newsletter_subscribers 
             SET is_active = 0
@@ -219,7 +219,7 @@ class Newsletter
     $deletion_token = $this->assignToken($subscriber_id, 'ND');
     $email_sender = new Email($email_settings);
     $email_data = [
-      'name' => $subscriber['name'],
+      'name' => htmlspecialchars($subscriber['name']),
       'token' => $deletion_token
     ];
     
@@ -261,23 +261,23 @@ class Newsletter
   {
     $arguments = [];
     $where_clauses = [];
-    $from_source = 'FROM newsletter_subscribers';
+    $from = 'FROM newsletter_subscribers';
 
     if ($keyword) {
         $arguments['keyword'] = '%' . $keyword . '%';
         $where_clauses[] = 'email LIKE :keyword';
     }
 
-    $built_where = $where_clauses ? ' WHERE ' . implode(' AND ', $where_clauses) : '';
+    $where = $where_clauses ? ' WHERE ' . implode(' AND ', $where_clauses) : '';
 
     // Get count of results to pagination
-    $sql = "SELECT COUNT(id) AS count $from_source $built_where;";
+    $sql = "SELECT COUNT(id) AS count $from $where;";
     $this->results_count = $this->database->SQL($sql, $arguments)->fetch()['count'];
 
-    $order_clause = ' ORDER BY ';
-    $order_clause .= ($order_by && in_array($order_by, $this->allowed_filter_columns)) ? "$order_by " : 'id ';
-    $order_clause .= ($order_by && in_array($order_by, ['name', 'email'])) ? ' COLLATE utf8mb4_polish_ci ' : '';
-    $order_clause .= ($sort == 'd') ? 'DESC' : 'ASC';
+    $order = ' ORDER BY ';
+    $order .= ($order_by && in_array($order_by, $this->allowed_filter_columns)) ? "$order_by " : 'id ';
+    $order .= ($order_by && in_array($order_by, ['name', 'email'])) ? ' COLLATE utf8mb4_polish_ci ' : '';
+    $order .= ($sort == 'd') ? 'DESC' : 'ASC';
 
     $limit_clause = sprintf(' LIMIT %d OFFSET %d', ADMIN_PAGINATION, ($page - 1) * ADMIN_PAGINATION);
 
@@ -287,9 +287,9 @@ class Newsletter
       email,
       is_active,
       created_at
-    $from_source 
-    $built_where 
-    $order_clause 
+    $from 
+    $where 
+    $order 
     $limit_clause;";
 
     return $this->database->SQL($sql, $arguments)->fetchAll();

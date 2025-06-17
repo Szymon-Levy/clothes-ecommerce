@@ -2,4 +2,4 @@
 
 $data['page_title'] = 'Users';
 
-echo $twig->render('admin/users.html', $data);
+echo $twig->render('admin/users.html.twig', $data);

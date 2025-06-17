@@ -57,7 +57,8 @@ function replaceWhitespaces (string $text)
 }
 
 // Checks if bot filled form
-function isFormFilledByBot() {
+function isFormFilledByBot() 
+{
     if (!isset($_POST['website']) || !$_POST['website'] == '') {
         return 'You are not allowed to send this form!';
     }
@@ -65,7 +66,8 @@ function isFormFilledByBot() {
 }
 
 // Checks if csrf token is correct
-function isCsrfIncorrect(ClothesEcommerce\Session\Session $session) {
+function isCsrfIncorrect(ClothesEcommerce\Session\Session $session) 
+{
     if (!isset($_POST['csrf']) || $_POST['csrf'] != $session->csrf) {
         return 'Operation not allowed, refresh the page and try again!';
     }

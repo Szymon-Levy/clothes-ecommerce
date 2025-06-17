@@ -33,20 +33,20 @@
     <!-- MAIN CONTENT -->
     {% if not authentication_page %}
       <!-- ASIDE -->
-      {% include 'admin/includes/aside.html' %}
+      {% include 'admin/includes/aside.html.twig' %}
 
       <main>
         <!-- HEADER -->
-        {% include 'admin/includes/header.html' %}
+        {% include 'admin/includes/header.html.twig' %}
 
         <div class="app-content">
           {% if session.admin_message %}
             <!-- MESSAGES -->
-            {% include 'admin/includes/message.html' %}
+            {% include 'admin/includes/message.html.twig' %}
           {% endif %}
 
           <!-- PAGE TITLE -->
-          {% include 'admin/includes/page_title.html' %}
+          {% include 'admin/includes/page_title.html.twig' %}
 
           <div class="app-content__panel">
             {% block content %}{% endblock %}
@@ -66,7 +66,7 @@
   -->
   <script>
     const docRoot = '{{doc_root}}';
-    const csrf = '{{session.csrf}}';
+    const csrf = '{{session.csrf|e("js")}}';
   </script>
 
   <!--
