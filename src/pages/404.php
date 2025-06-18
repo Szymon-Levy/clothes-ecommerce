@@ -2,4 +2,4 @@
 
 $data['page_404'] = true;
 
-echo $twig->render('404.html.twig', $data);
+echo $twig->render('front/404.html.twig', $data);

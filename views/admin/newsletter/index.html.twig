@@ -1,20 +1,20 @@
 {% extends 'admin/base.html.twig' %}
 
-{% block title %}{{page_title}}{% endblock %}
+{% block title %}{{ page_title }}{% endblock %}
 
 {% block content %}
 
   <div class="app-content__panel__top">
-    <form class="app-content__panel__top__search-form form" action="{{doc_root}}admin/newsletter">
+    <form class="app-content__panel__top__search-form form" action="{{ doc_root }}admin/newsletter">
       {% if sort == 'd' %}
           <input type="hidden" name="sort" value="d">
       {% endif %}
 
       {% if order_by %}
-          <input type="hidden" name="orderby" value="{{order_by|e}}">
+          <input type="hidden" name="orderby" value="{{ order_by|e }}">
       {% endif %}
 
-      <input class="app-content__panel__top__search-form__input form__input-field" type="text" name="keyword" placeholder="Search by email" value="{% if keyword%}{{keyword|e}}{% endif %}">
+      <input class="app-content__panel__top__search-form__input form__input-field" type="text" name="keyword" placeholder="Search by email" value="{% if keyword %}{{ keyword|e }}{% endif %}">
       <button class="app-content__panel__top__search-form__button">
         <i class="ri-search-line" aria-hidden="true"></i>
         <span class="visually-hidden">Search by email</span>
@@ -46,22 +46,22 @@
         {% endif %}
       </a>
 
-      <a href="{{doc_root}}admin/newsletter/add-subscriber" class="btn btn--full">
+      <a href="{{ doc_root }}admin/newsletter/add-subscriber" class="btn btn--full">
         <i class="ri-add-line" aria-hidden="true"></i>
         Add new
       </a>
 
-      <button href="{{doc_root}}admin/newsletter" class="btn btn--full app-content__panel__top__buttons__delete js-delete-selected">
+      <button href="{{ doc_root }}admin/newsletter" class="btn btn--full app-content__panel__top__buttons__delete js-delete-selected">
         <i class="ri-delete-bin-line" aria-hidden="true"></i>
         Delete selected
       </button>
 
-      <a href="{{doc_root}}admin/export?data=newsletter-subscribers" class="btn btn--full excel" target="_blank">
+      <a href="{{ doc_root }}admin/export?data=newsletter-subscribers" class="btn btn--full excel" target="_blank">
         <i class="ri-file-excel-2-line" aria-hidden="true"></i>
         Export to Excel
       </a>
 
-      <a href="{{doc_root}}admin/newsletter" class="btn app-content__panel__top__buttons__refresh">
+      <a href="{{ doc_root }}admin/newsletter" class="btn app-content__panel__top__buttons__refresh">
         <i class="ri-refresh-line" aria-hidden="true"></i>
         <span class="visually-hidden">Refresh</span>
       </a>
@@ -78,13 +78,13 @@
         </div>
       </div>
 
-      <form action="{{doc_root}}admin/newsletter" class="sort-columns-mobile">
+      <form action="{{ doc_root }}admin/newsletter" class="sort-columns-mobile">
         {% if keyword %}
-            <input type="hidden" name="keyword" value="{{keyword|e}}">
+            <input type="hidden" name="keyword" value="{{ keyword|e }}">
         {% endif %}
     
-        <input type="hidden" name="orderby" value="{{order_by|e}}">
-        <input type="hidden" name="sort" value="{{sort|e}}">
+        <input type="hidden" name="orderby" value="{{ order_by|e }}">
+        <input type="hidden" name="sort" value="{{ sort|e }}">
     
         <h4 class="sort-columns-mobile__title">Sorting options</h4>
     
@@ -237,16 +237,16 @@
 
         <tbody>
           {% for subscriber in subscribers %}
-            <tr class="js-table-row" data-id="{{subscriber.id}}">
+            <tr class="js-table-row" data-id="{{ subscriber.id }}">
               <td data-label="Selection">
                 <div class="form__checkbox">
-                  <input class="form__checkbox__input js-select-item" type="checkbox" value="{{subscriber.id}}" name="selection-item" id="{{subscriber.id}}">
-                  <label for="{{subscriber.id}}"></label>
+                  <input class="form__checkbox__input js-select-item" type="checkbox" value="{{ subscriber.id }}" name="selection-item" id="{{ subscriber.id }}">
+                  <label for="{{ subscriber.id }}"></label>
                 </div>
               </td>
-              <td data-label="Id">{{subscriber.id}}</td>
-              <td data-label="Name">{{subscriber.name|e}}</td>
-              <td data-label="Email">{{subscriber.email|e}}</td>
+              <td data-label="Id">{{ subscriber.id }}</td>
+              <td data-label="Name">{{ subscriber.name|e }}</td>
+              <td data-label="Email">{{ subscriber.email|e }}</td>
               <td data-label="Activity">
                 {% if subscriber.is_active %}
                   <span class="table__status table__status--active"></span>
@@ -254,10 +254,10 @@
                 <span class="table__status table__status--inactive"></span>
                 {% endif %}
               </td>
-              <td data-label="Created at">{{subscriber.created_at|date()}}</td>
+              <td data-label="Created at">{{ subscriber.created_at|date() }}</td>
               <td data-label="Actions">
                 <div class="table__actions">
-                  <a class="table__actions__btn table__actions__btn--edit" href="{{doc_root}}admin/newsletter/edit-subscriber?id={{subscriber.id}}">
+                  <a class="table__actions__btn table__actions__btn--edit" href="{{ doc_root }}admin/newsletter/edit-subscriber?id={{ subscriber.id }}">
                     <i class="ri-edit-line" aria-hidden="true"></i>
                     <span class="visually-hidden">Edit item</span>
                   </a>
@@ -276,19 +276,40 @@
 
     <div class="app-content__panel__bottom js-panel-bottom">
       <span class="app-content__panel__bottom__numbers js-table-numbers">
-        <span class="js-table-number-from">{{(page - 1) * admin_pagination + 1}}</span>
+        <span class="js-table-number-from">{{ (page - 1) * admin_pagination + 1 }}</span>
          - 
-        <span class="js-table-number-to">{{(page -1) * admin_pagination + subscribers|length}} </span>
+        <span class="js-table-number-to">{{ (page -1) * admin_pagination + subscribers|length }} </span>
          of 
-        <span class="js-table-number-of">{{count}}</span>
+        <span class="js-table-number-of">{{ count }}</span>
       </span>
 
       {% if count > admin_pagination %}
         {% set pages = (count / admin_pagination)|round(0, 'ceil') %}
+
+        {% set query_params = {} %}
+
+        {% if keyword %}
+          {% set query_params = query_params | merge({ keyword: keyword }) %}
+        {% endif %}
+
+        {% if order_by %}
+          {% set query_params = query_params | merge({ orderby: order_by }) %}
+        {% endif %}
+
+        {% if sort == 'd' %}
+          {% set query_params = query_params | merge({ sort: 'd' }) %}
+        {% endif %}
+
+        {% if query_params|length > 0 %}
+          {% set pagination_params = query_params | url_encode %}
+        {% else %}
+          {% set pagination_params = '' %}
+        {% endif %}
+
         <ul class="app-content__panel__bottom__pagination">
           {% if page > 1 %}
             <li>
-              <a class="app-content__panel__bottom__pagination__button app-content__panel__bottom__pagination__button--first" href="{{doc_root}}admin/newsletter{% if pagination_string_params %}?{% endif %}{{pagination_string_params|e}}">
+              <a class="app-content__panel__bottom__pagination__button app-content__panel__bottom__pagination__button--first" href="{{ doc_root }}admin/newsletter{% if pagination_params %}?{% endif %}{{ pagination_params|e }}">
                 <i class="ri-skip-left-line" aria-hidden="true"></i>
               </a>
             </li>
@@ -297,14 +318,14 @@
           {% for i in 1..pages %}
 
             <li>
-              <a class="app-content__panel__bottom__pagination__button {% if page == i %}active{% endif %}" href="{{doc_root}}admin/newsletter?page={{i}}{% if pagination_string_params %}&{% endif %}{{pagination_string_params|e}}">{{i}}</a>
+              <a class="app-content__panel__bottom__pagination__button {% if page == i %}active{% endif %}" href="{{ doc_root }}admin/newsletter?page={{ i }}{% if pagination_params %}&{% endif %}{{ pagination_params|e }}">{{ i }}</a>
             </li>
 
           {% endfor %}
 
           {% if page < pages %}
             <li>
-              <a class="app-content__panel__bottom__pagination__button app-content__panel__bottom__pagination__button--last" href="{{doc_root}}admin/newsletter?page={{pages}}{% if pagination_string_params %}&{% endif %}{{pagination_string_params|e}}">
+              <a class="app-content__panel__bottom__pagination__button app-content__panel__bottom__pagination__button--last" href="{{ doc_root }}admin/newsletter?page={{ pages }}{% if pagination_params %}&{% endif %}{{ pagination_params|e }}">
                 <i class="ri-skip-right-line" aria-hidden="true"></i>
               </a>
             </li>
@@ -312,9 +333,8 @@
         </ul>
       {% endif %}
     </div>
-
-  {% else %}
-    No items found to display
+    {% else %}
+      No items found to display
   {% endif %}
 
 {% endblock %}

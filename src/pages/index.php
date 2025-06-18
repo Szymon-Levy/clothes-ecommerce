@@ -2,4 +2,4 @@
 
 $data['home_page'] = true;
 
-echo $twig->render('index.html.twig', $data);
+echo $twig->render('front/index.html.twig', $data);

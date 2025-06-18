@@ -7,4 +7,4 @@ $data['shop_phone'] = SHOP_PHONE;
 
 $data['page_title'] = 'Contact';
 
-echo $twig->render('contact.html.twig', $data);
+echo $twig->render('front/contact.html.twig', $data);

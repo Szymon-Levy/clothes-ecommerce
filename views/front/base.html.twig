@@ -11,17 +11,17 @@
   <!--
     - favicon
   -->
-  <link rel="icon" href="{{doc_root}}images/logo/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="{{ doc_root }}images/logo/favicon.svg" type="image/svg+xml">
 
   <!--
     -remix icons
   -->
-  <link href="{{doc_root}}{{ showFileModificationTime('css/remixicon.css') }}" rel="stylesheet"/>
+  <link href="{{ doc_root }}{{ showFileModificationTime('css/front/remixicon.css') }}" rel="stylesheet"/>
 
   <!--
     -custom css link
   -->
-  <link rel="stylesheet" href="{{doc_root}}{{ showFileModificationTime('css/style.css') }}">
+  <link rel="stylesheet" href="{{ doc_root }}{{ showFileModificationTime('css/front/style.css') }}">
 
 </head>
 
@@ -53,25 +53,25 @@
     <!-- MESSAGES -->
     {% if session.user_message %}
 
-      {% include 'includes/message.html.twig' %}
+      {% include 'front/includes/message.html.twig' %}
 
     {% endif %}
 
     {% if not page_404 %}
       <!-- NAV -->
 
-      {% include 'includes/offcanvas.html.twig' %}
+      {% include 'front/includes/offcanvas.html.twig' %}
 
       <!-- HEADER -->
 
-      {% include 'includes/header.html.twig' %}
+      {% include 'front/includes/header.html.twig' %}
 
     {% endif %}
 
     <!-- PAGE TITLE -->
     {% if page_title %}
 
-      {% include 'includes/page_title.html.twig' %}
+      {% include 'front/includes/page_title.html.twig' %}
 
     {% endif %}
 
@@ -80,7 +80,7 @@
     {% if not page_404 %}
       <!-- FOOTER -->
 
-      {% include 'includes/footer.html.twig' %}
+      {% include 'front/includes/footer.html.twig' %}
     {% endif %}
 
   </main>
@@ -89,29 +89,29 @@
     -Global variables js
   -->
   <script>
-    const docRoot = '{{doc_root}}';
-    const csrf = '{{session.csrf|e("js")}}';
+    const docRoot = '{{ doc_root }}';
+    const csrf = '{{ session.csrf|e("js") }}';
   </script>
 
   <!--
     -ScrollReveal
   -->
-  <script src="{{doc_root}}js/scrollreveal.js"></script>
+  <script src="{{ doc_root }}js/front/scrollreveal.js"></script>
 
   <!--
     -functions
   -->
-  <script src="{{doc_root}}{{ showFileModificationTime('js/functions.js') }}"></script>
+  <script src="{{ doc_root }}{{ showFileModificationTime('js/front/functions.js') }}"></script>
 
   <!--
     -animations
   -->
-  <script src="{{doc_root}}{{ showFileModificationTime('js/animations.js') }}"></script>
+  <script src="{{ doc_root }}{{ showFileModificationTime('js/front/animations.js') }}"></script>
 
   <!--
     -custom js
   -->
-  <script src="{{doc_root}}{{ showFileModificationTime('js/scripts.js') }}"></script>
+  <script src="{{ doc_root }}{{ showFileModificationTime('js/front/scripts.js') }}"></script>
 
   <!--
     -js block on single page

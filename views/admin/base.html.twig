@@ -11,17 +11,17 @@
   <!--
     - favicon
   -->
-  <link rel="icon" href="{{doc_root}}images/admin/favicon.png" type="image/png">
+  <link rel="icon" href="{{ doc_root }}images/admin/favicon.png" type="image/png">
 
   <!--
     -remix icons
   -->
-  <link href="{{doc_root}}{{ showFileModificationTime('css/remixicon.css') }}" rel="stylesheet"/>
+  <link href="{{ doc_root }}{{ showFileModificationTime('css/remixicon.css') }}" rel="stylesheet"/>
 
   <!--
     -custom css
   -->
-  <link rel="stylesheet" href="{{doc_root}}{{ showFileModificationTime('css/admin/style.css') }}">
+  <link rel="stylesheet" href="{{ doc_root }}{{ showFileModificationTime('css/admin/style.css') }}">
 
 </head>
 
@@ -65,19 +65,19 @@
     -Global variables js
   -->
   <script>
-    const docRoot = '{{doc_root}}';
-    const csrf = '{{session.csrf|e("js")}}';
+    const docRoot = '{{ doc_root }}';
+    const csrf = '{{ session.csrf|e("js") }}';
   </script>
 
   <!--
     -functions
   -->
-  <script src="{{doc_root}}{{ showFileModificationTime('js/admin/functions.js') }}"></script>
+  <script src="{{ doc_root }}{{ showFileModificationTime('js/admin/functions.js') }}"></script>
 
   <!--
     -custom js
   -->
-  <script src="{{doc_root}}{{ showFileModificationTime('js/admin/scripts.js') }}"></script>
+  <script src="{{ doc_root }}{{ showFileModificationTime('js/admin/scripts.js') }}"></script>
 
   <!--
     -js block on single page

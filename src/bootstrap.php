@@ -20,7 +20,7 @@ unset ($dsn, $db_user, $db_password);
 // Twig loading
 $twig_settings['cache'] = APP_ROOT . '/var/cache';
 $twig_settings['debug'] = DEV;
-$twig_loader = new Twig\Loader\FilesystemLoader(APP_ROOT . '/templates');
+$twig_loader = new Twig\Loader\FilesystemLoader(APP_ROOT . '/views');
 $twig = new Twig\Environment($twig_loader, $twig_settings);
 $twig->addGlobal('doc_root', DOC_ROOT);
 $twig->addGlobal('admin_pagination', ADMIN_PAGINATION);

@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'front/base.html.twig' %}
 
 {% block title %}Contact{% endblock %}
 
@@ -11,10 +11,10 @@
 
           <div class="contact-page__info">
             <p>
-              <strong>{{shop_name}}</strong> <br>
-              {{shop_address}}<br>
-              Email: <a href="mailto:{{shop_email}}">{{shop_email}}</a><br>
-              Phone: {{shop_phone}}
+              <strong>{{ shop_name }}</strong> <br>
+              {{ shop_address }}<br>
+              Email: <a href="mailto:{{ shop_email }}">{{ shop_email }}</a><br>
+              Phone: {{ shop_phone }}
             </p>
 
             <ul class="contact-page__info__icons">
@@ -39,7 +39,7 @@
           </div>
 
           <form class="contact-page__form form js-contact-form">
-            {{honeypot()}}
+            {{ honeypot() }}
 
             <div class="form__row">
               <div class="form__col">
@@ -88,7 +88,7 @@
                 <div class="form__field js-form-field">
                   <div class="form__checkbox">
                     <input class="form__checkbox__input" type="checkbox" name="policy" id="policy" value="1">
-                    <label for="policy"><span>I agree with the <a href="{{doc_root}}privacy-policy"> privacy policy</a>.</span></label>
+                    <label for="policy"><span>I agree with the <a href="{{ doc_root }}privacy-policy"> privacy policy</a>.</span></label>
                   </div>
                 </div>
               </div>

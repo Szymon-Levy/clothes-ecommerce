@@ -8,4 +8,4 @@ $data['domain'] = FIXED_DOMAIN;
 
 $data['page_title'] = 'Terms and conditions';
 
-echo $twig->render('terms-and-conditions.html.twig', $data);
+echo $twig->render('front/terms-and-conditions.html.twig', $data);

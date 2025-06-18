@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'front/base.html.twig' %}
 
 {% block title %}Page not found{% endblock %}
 
@@ -8,7 +8,7 @@
     <div class="page-404__content">
       <h1 class="page-404__title heading heading--primary heading--h1">Error 404</h1>
       <p class="page-404__text">Page not found</p>
-      <a href="{{doc_root}}" class="btn btn--white">Homepage</a>
+      <a href="{{ doc_root }}" class="btn btn--white">Homepage</a>
     </div>
   </section>
 

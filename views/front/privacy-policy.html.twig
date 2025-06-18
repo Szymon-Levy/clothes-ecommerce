@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'front/base.html.twig' %}
 
 {% block title %}Privacy policy{% endblock %}
 
@@ -7,7 +7,7 @@
   <section class="terms-page">
     <div class="container">
       <div class="row row--text">
-        <p>Welcome to {{shop_name}}. Your privacy is important to us, and we are committed to protecting your personal data. This Privacy Policy explains how we collect, use, and share information about you when you visit or make a purchase from our website.</p>
+        <p>Welcome to {{ shop_name }}. Your privacy is important to us, and we are committed to protecting your personal data. This Privacy Policy explains how we collect, use, and share information about you when you visit or make a purchase from our website.</p>
 
         <h4 class="heading heading--h4">1. Information We Collect</h4>
 
@@ -77,7 +77,7 @@
 
         <h4 class="heading heading--h4">8. Children's Privacy</h4>
 
-        <p>{{shop_name}} is not intended for individuals under the age of 16. We do not knowingly collect personal information from children under 16. If you believe we have inadvertently collected such data, please contact us, and we will delete it.</p>
+        <p>{{ shop_name }} is not intended for individuals under the age of 16. We do not knowingly collect personal information from children under 16. If you believe we have inadvertently collected such data, please contact us, and we will delete it.</p>
 
         <h4 class="heading heading--h4">9. Changes to This Privacy Policy</h4>
 
@@ -88,10 +88,10 @@
         <p>If you have any questions or concerns about our Privacy Policy or the way we handle your personal information, please contact us at:</p>
 
         <p>
-          <strong>{{shop_name}}</strong><br>
-          {{shop_address}}<br>
-          Email: <a href="mailto:{{shop_email}}">{{shop_email}}</a><br>
-          Phone: {{shop_phone}}
+          <strong>{{ shop_name }}</strong><br>
+          {{ shop_address }}<br>
+          Email: <a href="mailto:{{ shop_email }}">{{ shop_email }}</a><br>
+          Phone: {{ shop_phone }}
         </p>
       </div>
     </div>

@@ -7,4 +7,4 @@ $data['shop_phone'] = SHOP_PHONE;
 
 $data['page_title'] = 'Privacy policy';
 
-echo $twig->render('privacy-policy.html.twig', $data);
+echo $twig->render('front/privacy-policy.html.twig', $data);
