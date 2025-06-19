@@ -99,6 +99,16 @@
   <script src="{{ doc_root }}js/front/scrollreveal.js"></script>
 
   <!--
+    -pre js block on single page
+  -->
+  {% block page_js_pre %} {% endblock %}
+
+  <!--
+    -UiGenerator
+  -->
+  <script src="{{ doc_root }}{{ showFileModificationTime('js/classes/UiGenerator.js') }}"></script>
+
+  <!--
     -functions
   -->
   <script src="{{ doc_root }}{{ showFileModificationTime('js/front/functions.js') }}"></script>
@@ -114,8 +124,8 @@
   <script src="{{ doc_root }}{{ showFileModificationTime('js/front/scripts.js') }}"></script>
 
   <!--
-    -js block on single page
+    -post js block on single page
   -->
-  {% block page_js %} {% endblock %}
+  {% block page_js_post %} {% endblock %}
 </body>
 </html>

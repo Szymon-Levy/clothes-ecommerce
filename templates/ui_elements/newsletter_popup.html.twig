@@ -1,21 +1,18 @@
-<div class="row">
+{% extends 'ui_elements/base/popup.html.twig' %}
+
+{% block content %}
   <div class="newsletter-popup__content-col">
     <div class="newsletter-popup__title">
       <p class="heading heading--h4">We have special offer for You!</p>
       <h3 class="newsletter-popup__heading heading heading--h2 heading--primary">
-      Sign up to our Newsletter and <span>receive 15% off</span>.
+        Sign up to our Newsletter and <span>receive 15% off</span>.
       </h3>
     </div>
 
     <form onsubmit="newsletterFormSubmit(event)" class="form">
       <p>Enter your email for your exclusive offer:</p>
 
-      <div style="opacity: 0; position: absolute; top: 0; left: 0; height: 0; width: 0; z-index: -1;">
-        <label>
-            leave this field blank to prove your humanity
-            <input type="text" name="website" value="" autocomplete="off" tabindex="-1" />
-        </label>
-      </div>
+      {{ honeypot() }}
       
       <div class="form__row">
         <div class="form__col">
@@ -38,7 +35,7 @@
           <div class="form__field js-form-field">
             <div class="form__checkbox">
               <input class="form__checkbox__input" type="checkbox" name="policy" id="policy" value="1">
-              <label for="policy"><span>I agree with the <a href="|doc_root|privacy-policy"> privacy policy</a>.</span></label>
+              <label for="policy"><span>I agree with the <a href="{{ doc_root }}privacy-policy"> privacy policy</a>.</span></label>
             </div>
           </div>
         </div>
@@ -51,7 +48,7 @@
   </div>
 
   <div class="newsletter-popup__image-col">
-    <img src="|doc_root|images/logo/logo.svg" class="newsletter-popup__logo" alt="logo">
-    <img src="|doc_root|images/newsletter-image.webp" class="newsletter-popup__image" alt="woman in white dress">
+    <img src="{{ doc_root }}images/logo/logo.svg" class="newsletter-popup__logo" alt="logo">
+    <img src="{{ doc_root }}images/newsletter-image.webp" class="newsletter-popup__image" alt="woman in white dress">
   </div>
-</div>
+{% endblock %}

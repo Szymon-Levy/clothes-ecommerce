@@ -1,0 +1,9 @@
+<div class="popup {% if wrapper_class %} {{ wrapper_class }} {% endif %} js-popup">
+  <div class="popup__container">
+    <div class="row">
+      {% block content %}{% endblock %}
+    </div>
+
+    <div class="popup__close js-popup-close"></div>
+  </div>
+</div>

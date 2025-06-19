@@ -111,42 +111,10 @@ window.addEventListener('scroll', ()=> {
   handleScrollSticky()
 })
 
-/*----------------------------------*\
-  #VIDEO POPUP
-\*----------------------------------*/
-const $videoPopupButton = document.querySelector('.js-video-popup-button')
-
-const openVideoPopup = async (src) => {
-  const response = await fetch(docRoot + 'templates/video_popup.html')
-  let popupHTML = await response.text()
-  popupHTML = popupHTML.replace('videoSrc', src)
-  addPopupToDOM(popupHTML, 'video-popup-wrapper')
-}
-
-if ($videoPopupButton) {
-  const src = $videoPopupButton.dataset.src
-
-  $videoPopupButton.addEventListener('click', () => {
-    openVideoPopup(src)
-  })
-}
-
 
 /*----------------------------------*\
-  #NEWSLETTER POPUP
+  #NEWSLETTER FORM
 \*----------------------------------*/
-const $newsletterCtaButton = document.querySelector('.js-newsletter-cta-button')
-
-const openNewsletterPopup = async () => {
-  const response = await fetch(docRoot + 'templates/newsletter_popup.html?v=' + Date.now())
-  let popupHTML = await response.text()
-  popupHTML = replaceDocRoot(popupHTML)
-  addPopupToDOM(popupHTML, 'newsletter-popup animate')
-}
-
-if ($newsletterCtaButton) {
-  $newsletterCtaButton.addEventListener('click', openNewsletterPopup)
-}
 
 const handleNewsletterFormResponse = ($form, response) => {
   clearFormErrors($form)
