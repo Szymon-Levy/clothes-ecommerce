@@ -10,8 +10,10 @@ function setSideSpace (){
 
 setSideSpace()
 
+const handleResizeSideSpace = throttleFunction(setSideSpace, 200)
+
 window.addEventListener('resize', function(){
-  setSideSpace()
+  handleResizeSideSpace()
 })
 
 
@@ -19,8 +21,6 @@ window.addEventListener('resize', function(){
   #HIDE PRELOADER
 \*----------------------------------*/
 const $preloader = document.querySelector('.js-preloader')
-const isPreloader = true
-let animationDelay = 0
 
 if ($preloader){
   setTimeout(() => {
@@ -70,6 +70,46 @@ if ($messageBarClose) {
   })
 }
 
+/*----------------------------------*\
+  #STICKY HEADER
+\*----------------------------------*/
+
+const createStickyHeaderHandler = () => {
+  const $header = document.querySelector('.js-header')
+  let stickyHeaderState = false
+
+  return () => {
+    const Y = window.scrollY
+    const viewportHeight = window.innerHeight
+    const stickynessDistance = viewportHeight * 1.5
+  
+    if (Y > stickynessDistance) {
+      $header.classList.add('sticky')
+      $header.classList.remove('unsticky')
+  
+      stickyHeaderState = true
+    }
+    else if (stickyHeaderState) {
+      $header.classList.remove('sticky')
+      $header.classList.add('unsticky')
+  
+      $header.addEventListener('animationend', () => {
+        stickyHeaderState = false
+        $header.classList.remove('unsticky');
+      }, { once: true });
+    }
+  }
+}
+
+const stickyHeader = createStickyHeaderHandler()
+
+const handleScrollSticky = throttleFunction(stickyHeader, 150)
+
+stickyHeader()
+
+window.addEventListener('scroll', ()=> {
+  handleScrollSticky()
+})
 
 /*----------------------------------*\
   #VIDEO POPUP
