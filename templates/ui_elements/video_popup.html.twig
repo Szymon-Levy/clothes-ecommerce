@@ -3,7 +3,7 @@
 {% block content %}
   <div class="popup--video__video-wrapper">
     <video autoplay controls muted>
-      <source src="{{ doc_root }}videos/{{ video_name }}" type="{% if video_type %}{{ video_type }}{% else %}video/mp4{% endif %}">
+      <source src="{{ assets('videos/' ~ video_name) }}" type="{% if video_type %}{{ video_type }}{% else %}video/mp4{% endif %}">
       Video doesn't work
     </video>
   </div>

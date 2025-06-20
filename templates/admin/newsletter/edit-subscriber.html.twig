@@ -6,12 +6,12 @@
   <form class="form js-edit-subscriber-form">
     {{ honeypot() }}
 
-    <input type="hidden" name="id" value="{{ subscriber.id|e }}">
+    <input type="hidden" name="id" value="{{ subscriber.id }}">
     
     <div class="form__row">
       <div class="form__col">
         <div class="form__field js-form-field">
-          <input class="form__input-field" type="text" name="name" placeholder="Subscriber name" value="{{ subscriber.name|e }}">
+          <input class="form__input-field" type="text" name="name" placeholder="Subscriber name" value="{{ subscriber.name }}">
         </div>
       </div>
     </div>
@@ -19,7 +19,7 @@
     <div class="form__row">
       <div class="form__col">
         <div class="form__field js-form-field">
-          <input class="form__input-field" type="text" name="email" placeholder="Subscriber e-mail" value="{{ subscriber.email|e }}">
+          <input class="form__input-field" type="text" name="email" placeholder="Subscriber e-mail" value="{{ subscriber.email }}">
         </div>
       </div>
     </div>

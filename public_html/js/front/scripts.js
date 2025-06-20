@@ -103,7 +103,7 @@ const createStickyHeaderHandler = () => {
 
 const stickyHeader = createStickyHeaderHandler()
 
-const handleScrollSticky = throttleFunction(stickyHeader, 150)
+const handleScrollSticky = throttleFunction(stickyHeader, 100)
 
 stickyHeader()
 

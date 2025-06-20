@@ -42,8 +42,8 @@ if (DEV === true) {
   $twig->addExtension(new Twig\Extension\DebugExtension());
 }
 
-// Add Twig custom functions
-require APP_ROOT . '/src/twig_functions.php';
+// Add Twig custom functions and modifications
+require APP_ROOT . '/src/twig_customs.php';
 
 // Create container for variables
 $globals_container = new ClothesEcommerce\App\GlobalsContainer();

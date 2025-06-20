@@ -11,10 +11,10 @@
       {% endif %}
 
       {% if order_by %}
-          <input type="hidden" name="orderby" value="{{ order_by|e }}">
+          <input type="hidden" name="orderby" value="{{ order_by }}">
       {% endif %}
 
-      <input class="app-content__panel__top__search-form__input form__input-field" type="text" name="keyword" placeholder="Search by email" value="{% if keyword %}{{ keyword|e }}{% endif %}">
+      <input class="app-content__panel__top__search-form__input form__input-field" type="text" name="keyword" placeholder="Search by email" value="{% if keyword %}{{ keyword }}{% endif %}">
       <button class="app-content__panel__top__search-form__button">
         <i class="ri-search-line" aria-hidden="true"></i>
         <span class="visually-hidden">Search by email</span>
@@ -34,7 +34,7 @@
 
       {% set url = doc_root ~ 'admin/newsletter?' ~ query_params | url_encode %}
 
-      <a href="{{ url|e }}" class="btn app-content__panel__top__buttons__date"
+      <a href="{{ url }}" class="btn app-content__panel__top__buttons__date"
       >
         <i class="ri-calendar-2-line" aria-hidden="true"></i> Date 
         {% if order_by == 'created_at' and sort == 'a' %}
@@ -80,11 +80,11 @@
 
       <form action="{{ doc_root }}admin/newsletter" class="sort-columns-mobile">
         {% if keyword %}
-            <input type="hidden" name="keyword" value="{{ keyword|e }}">
+            <input type="hidden" name="keyword" value="{{ keyword }}">
         {% endif %}
     
-        <input type="hidden" name="orderby" value="{{ order_by|e }}">
-        <input type="hidden" name="sort" value="{{ sort|e }}">
+        <input type="hidden" name="orderby" value="{{ order_by }}">
+        <input type="hidden" name="sort" value="{{ sort }}">
     
         <h4 class="sort-columns-mobile__title">Sorting options</h4>
     
@@ -135,7 +135,7 @@
                 {% set url = doc_root ~ 'admin/newsletter' %}
               {% endif %}
 
-              <a href="{{ url|e }}" class="order {% if order_by == '' or order_by == 'id' %}order--selected{% endif %}">Id 
+              <a href="{{ url }}" class="order {% if order_by == '' or order_by == 'id' %}order--selected{% endif %}">Id 
 
                 <span class="order__icons">
                   <i class="ri-arrow-up-s-fill {% if (order_by == '' or order_by == 'id') and sort == 'a' %}active{% endif %}" aria-hidden="true"></i>
@@ -157,7 +157,7 @@
   
               {% set url = doc_root ~ 'admin/newsletter?' ~ query_params | url_encode %}
 
-              <a href="{{ url|e }}" class="order {% if order_by == 'name' %}order--selected{% endif %}">Name 
+              <a href="{{ url }}" class="order {% if order_by == 'name' %}order--selected{% endif %}">Name 
 
                 <span class="order__icons">
                   <i class="ri-arrow-up-s-fill {% if order_by == 'name' and sort == 'a' %}active{% endif %}" aria-hidden="true"></i>
@@ -179,7 +179,7 @@
 
               {% set url = doc_root ~ 'admin/newsletter?' ~ query_params | url_encode %}
 
-              <a href="{{ url|e }}" class="order {% if order_by == 'email' %}order--selected{% endif %}">Email 
+              <a href="{{ url }}" class="order {% if order_by == 'email' %}order--selected{% endif %}">Email 
                 
                 <span class="order__icons">
                   <i class="ri-arrow-up-s-fill {% if order_by == 'email' and sort == 'a' %}active{% endif %}" aria-hidden="true"></i>
@@ -201,7 +201,7 @@
 
               {% set url = doc_root ~ 'admin/newsletter?' ~ query_params | url_encode %}
 
-              <a href="{{ url|e }}" class="order {% if order_by == 'is_active' %}order--selected{% endif %}">Activity 
+              <a href="{{ url }}" class="order {% if order_by == 'is_active' %}order--selected{% endif %}">Activity 
                 
                 <span class="order__icons">
                   <i class="ri-arrow-up-s-fill {% if order_by == 'is_active' and sort == 'a' %}active{% endif %}" aria-hidden="true"></i>
@@ -223,7 +223,7 @@
 
               {% set url = doc_root ~ 'admin/newsletter?' ~ query_params | url_encode %}
 
-              <a href="{{ url|e }}" class="order {% if order_by == 'created_at' %}order--selected{% endif %}">Created at 
+              <a href="{{ url }}" class="order {% if order_by == 'created_at' %}order--selected{% endif %}">Created at 
                 
                 <span class="order__icons">
                   <i class="ri-arrow-up-s-fill {% if order_by == 'created_at' and sort == 'a' %}active{% endif %}" aria-hidden="true"></i>
@@ -245,8 +245,8 @@
                 </div>
               </td>
               <td data-label="Id">{{ subscriber.id }}</td>
-              <td data-label="Name">{{ subscriber.name|e }}</td>
-              <td data-label="Email">{{ subscriber.email|e }}</td>
+              <td data-label="Name">{{ subscriber.name }}</td>
+              <td data-label="Email">{{ subscriber.email }}</td>
               <td data-label="Activity">
                 {% if subscriber.is_active %}
                   <span class="table__status table__status--active"></span>
@@ -309,7 +309,7 @@
         <ul class="app-content__panel__bottom__pagination">
           {% if page > 1 %}
             <li>
-              <a class="app-content__panel__bottom__pagination__button app-content__panel__bottom__pagination__button--first" href="{{ doc_root }}admin/newsletter{% if pagination_params %}?{% endif %}{{ pagination_params|e }}">
+              <a class="app-content__panel__bottom__pagination__button app-content__panel__bottom__pagination__button--first" href="{{ doc_root }}admin/newsletter{% if pagination_params %}?{% endif %}{{ pagination_params }}">
                 <i class="ri-skip-left-line" aria-hidden="true"></i>
               </a>
             </li>
@@ -318,14 +318,14 @@
           {% for i in 1..pages %}
 
             <li>
-              <a class="app-content__panel__bottom__pagination__button {% if page == i %}active{% endif %}" href="{{ doc_root }}admin/newsletter?page={{ i }}{% if pagination_params %}&{% endif %}{{ pagination_params|e }}">{{ i }}</a>
+              <a class="app-content__panel__bottom__pagination__button {% if page == i %}active{% endif %}" href="{{ doc_root }}admin/newsletter?page={{ i }}{% if pagination_params %}&{% endif %}{{ pagination_params }}">{{ i }}</a>
             </li>
 
           {% endfor %}
 
           {% if page < pages %}
             <li>
-              <a class="app-content__panel__bottom__pagination__button app-content__panel__bottom__pagination__button--last" href="{{ doc_root }}admin/newsletter?page={{ pages }}{% if pagination_params %}&{% endif %}{{ pagination_params|e }}">
+              <a class="app-content__panel__bottom__pagination__button app-content__panel__bottom__pagination__button--last" href="{{ doc_root }}admin/newsletter?page={{ pages }}{% if pagination_params %}&{% endif %}{{ pagination_params }}">
                 <i class="ri-skip-right-line" aria-hidden="true"></i>
               </a>
             </li>

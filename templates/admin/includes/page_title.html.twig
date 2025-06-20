@@ -17,7 +17,7 @@
 
           {% if page != 'admin' %}
 
-            {% set title = page|replace({'-': ' '})|capitalize|e %}
+            {% set title = page|replace({'-': ' '})|capitalize %}
             <li>
               {% if not loop.last %}
                 <a href="{{ doc_root }}{% for page2 in url_parts %}{% if loop.index0 <= count %}{{ page2|e('url') }}{% endif %}{% if not loop.last %}/{% endif %}{% endfor %}" {% if loop.last %}class="active"{% endif %}>{{ title }}</a>

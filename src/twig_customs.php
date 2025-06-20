@@ -1,13 +1,17 @@
 <?php
 
-$showFileModificationTime = new \Twig\TwigFunction('showFileModificationTime', function (string $path) {
-  $new_path = $path;
-  if(file_exists($path)) {
-    $new_path = $new_path . '?v=' . filemtime($path);
+/**
+ * Returns static asset's link with file modification time as a parameter of url
+ * @param string $file_path - path to static asset from public folder
+ * @return string - full asset url with cache busting method
+ */
+$assets = new \Twig\TwigFunction('assets', function (string $file_path) {
+  if(file_exists($file_path)) {
+    $file_path .= '?v=' . filemtime($file_path);
   }
-  return $new_path;
+  return DOC_ROOT . $file_path;
 });
-$twig->addFunction($showFileModificationTime);
+$twig->addFunction($assets);
 
 $pageActiveStatus = new \Twig\TwigFunction('pageActiveStatus', function (string $current_page, string|null $url_part) {
   if($current_page == $url_part) {

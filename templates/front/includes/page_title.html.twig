@@ -8,11 +8,11 @@
         {% for page in url_parts %}
           {% if not loop.first %}
             <li>
-              <a href="{{ doc_root }}{% for page2 in url_parts %}{{ page2|e('url') }}{% if not loop.last %}/{% endif %}{% endfor %}" {% if loop.last %}class="active"{% endif %}>{{ page|replace({'-': ' '})|e }}</a>
+              <a href="{{ doc_root }}{% for page2 in url_parts %}{{ page2|e('url') }}{% if not loop.last %}/{% endif %}{% endfor %}" {% if loop.last %}class="active"{% endif %}>{{ page|replace({'-': ' '}) }}</a>
             </li>
           {% else %}
             <li>
-              <a href="{{ doc_root }}{{ page|e('url') }}" {% if loop.last %}class="active"{% endif %}>{{ page|replace({'-': ' '})|e }}</a>
+              <a href="{{ doc_root }}{{ page|e('url') }}" {% if loop.last %}class="active"{% endif %}>{{ page|replace({'-': ' '}) }}</a>
             </li>
           {% endif %}
         {% endfor %}
