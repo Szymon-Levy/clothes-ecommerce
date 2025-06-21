@@ -1,20 +1,30 @@
 /*----------------------------------*\
-  #SET SIDE SPACE
+  #HOME
 \*----------------------------------*/
-function setSideSpace (){
-  const sideSpace = Math.floor(document.body.clientWidth / 8)
 
-  const $root = document.documentElement
-  $root.style.setProperty('--side-space-dynamic', sideSpace + 'px')
+// Video popup create
+const $videoPopupButton = document.querySelector('.js-video-popup-button')
+
+if ($videoPopupButton) {
+  const videoPopup = new App.UiGenerator('video_popup', {
+    video_name: 'popup-video.mp4'
+  })
+
+  $videoPopupButton.addEventListener('click', () => {
+    videoPopup.render()
+  })
 }
 
-setSideSpace()
+// Newsletter popup create
+const $newsletterCtaButton = document.querySelector('.js-newsletter-cta-button')
 
-const handleResizeSideSpace = throttleFunction(setSideSpace, 200)
+if ($newsletterCtaButton) {
+  const newsletterPopup = new App.UiGenerator('newsletter_popup')
 
-window.addEventListener('resize', function(){
-  handleResizeSideSpace()
-})
+  $newsletterCtaButton.addEventListener('click', () => {
+    newsletterPopup.render()
+  })
+}
 
 
 /*----------------------------------*\

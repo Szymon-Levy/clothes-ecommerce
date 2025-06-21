@@ -72,3 +72,5 @@ UiGenerator.prototype.removePopup = function(e) {
     document.removeEventListener('click', this.removePopup)
   }
 }
+
+export { UiGenerator }

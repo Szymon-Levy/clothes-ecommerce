@@ -104,9 +104,10 @@
   {% block page_js_pre %} {% endblock %}
 
   <!--
-    -UiGenerator
+    -load helepers
   -->
-  <script src="{{ assets('js/classes/UiGenerator.js') }}"></script>
+  
+  <script type="module" src="{{ assets('js/helpersLoader.js') }}"></script>
 
   <!--
     -functions
@@ -121,7 +122,12 @@
   <!--
     -custom js
   -->
-  <script src="{{ assets('js/front/scripts.js') }}"></script>
+  <script defer src="{{ assets('js/front/scripts.js') }}"></script>
+
+  <!--
+    -main js
+  -->
+  <script defer src="{{ assets('js/front/main.js') }}"></script>
 
   <!--
     -post js block on single page
