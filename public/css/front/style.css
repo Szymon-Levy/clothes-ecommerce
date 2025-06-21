@@ -939,6 +939,10 @@ body{
   #PRELOADER
 \*----------------------------------*/
 
+.preloader {
+  display: none;
+}
+
 .preloader::before,
 .preloader::after{
   position: fixed;
