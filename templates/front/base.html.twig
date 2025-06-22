@@ -130,6 +130,13 @@
   <script defer src="{{ assets('js/front/main.js') }}"></script>
 
   <!--
+    -page js
+  -->
+  {% if page_js %}
+    {{ loadPageJs(page_js, 'front') }}
+  {% endif %}
+
+  <!--
     -post js block on single page
   -->
   {% block page_js_post %} {% endblock %}

@@ -13,6 +13,28 @@ $assets = new \Twig\TwigFunction('assets', function (string $file_path) {
 });
 $twig->addFunction($assets);
 
+/**
+ * Creates linking to scripts loaded on specific pages taken from js page folder
+ * @param array|string $file_names - names of files as array or one file as string
+ * @param string $source - front/admin source of files
+ * @return string - script tags with linked files
+ */
+$loadPageJs = new \Twig\TwigFunction('loadPageJs', function (array|string $file_names, string $source) {
+  if (is_string($file_names)) {
+    $file_names = explode(' ', $file_names);
+  }
+  foreach($file_names as $file_name) {
+    $file_path = 'js/' . $source . '/pages/' . $file_name . '.js';
+
+    if(file_exists($file_path)) {
+      $file_path .= '?v=' . filemtime($file_path);
+      $full_path = DOC_ROOT . $file_path;
+      echo '<script src="' . $full_path . '" defer type="module"></script>';
+    }
+  }
+});
+$twig->addFunction($loadPageJs);
+
 $pageActiveStatus = new \Twig\TwigFunction('pageActiveStatus', function (string $current_page, string|null $url_part) {
   if($current_page == $url_part) {
     return 'active';
