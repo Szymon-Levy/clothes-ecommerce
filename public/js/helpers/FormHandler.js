@@ -1,13 +1,13 @@
 import { InputValidator } from "./InputValidator.js"
 
-const FormHelper = function($form) {
+const FormHandler = function($form) {
   this.$form = $form
 }
 
 // Inheritance from InputValidator
-FormHelper.prototype = Object.create(InputValidator.prototype)
+FormHandler.prototype = Object.create(InputValidator.prototype)
 
-FormHelper.prototype.clearFormErrors = function() {
+FormHandler.prototype.clearFormErrors = function() {
   const $errors = this.$form.querySelectorAll('.js-form-error')
 
   if ($errors.length) {
@@ -17,11 +17,11 @@ FormHelper.prototype.clearFormErrors = function() {
   }
 }
 
-FormHelper.prototype.addCsrfToFormData = function(formData) {
-  formData.append('csrf', csrf)
+FormHandler.prototype.addCsrfToFormData = function() {
+  this.formData.append('csrf', csrf)
 }
 
-FormHelper.prototype.displayFormErrors = function(errors) {
+FormHandler.prototype.displayFormErrors = function(errors) {
   this.clearFormErrors()
 
   for (const [name, message] of Object.entries(errors)) {
@@ -39,11 +39,11 @@ FormHelper.prototype.displayFormErrors = function(errors) {
   }
 }
 
-FormHelper.prototype.formFilledByBot = () => {
-  $honeypotInput = this.$form.querySelector('[name="website"]')
+FormHandler.prototype.formFilledByBot = function() {
+  const $honeypotInput = this.$form.querySelector('[name="website"]')
   if (!$honeypotInput) return true
 
   return !$honeypotInput.value == ''
 }
 
-export { FormHelper }
+export { FormHandler }

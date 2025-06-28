@@ -1,4 +1,2 @@
-// init ui controller
-
-const UiController = new App.UiController()
-UiController.init()
+// import UiController instance
+import { uiController } from "./classes/UiController.js"

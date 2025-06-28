@@ -96,18 +96,12 @@
   <!--
     -ScrollReveal
   -->
-  <script src="js/front/scrollreveal.js"></script>
+  <script src="js/front/general/scrollreveal.js"></script>
 
   <!--
     -pre js block on single page
   -->
   {% block page_js_pre %} {% endblock %}
-
-  <!--
-    -load helepers
-  -->
-  
-  <script type="module" src="{{ assets('js/helpersLoader.js') }}"></script>
 
   <!--
     -functions
@@ -117,7 +111,7 @@
   <!--
     -animations
   -->
-  <script src="{{ assets('js/front/animations.js') }}"></script>
+  <script src="{{ assets('js/front/general/animations.js') }}"></script>
 
   <!--
     -custom js
@@ -127,7 +121,7 @@
   <!--
     -main js
   -->
-  <script defer src="{{ assets('js/front/main.js') }}"></script>
+  <script type="module" defer src="{{ assets('js/front/main.js') }}"></script>
 
   <!--
     -page js

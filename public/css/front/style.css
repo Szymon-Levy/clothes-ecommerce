@@ -700,6 +700,9 @@ body{
   border: .0625rem solid;
   background-color: var(--color-white);
   z-index: 77;
+}
+
+.alert--show {
   animation: showAlert .7s forwards;
 }
 
@@ -742,11 +745,14 @@ body{
 }
 
 .alert__line.shrinking {
-  animation: shrinkingLine 6s ease-in;
+  animation: shrinkingLine 6s ease-in forwards;
 }
 
 @keyframes shrinkingLine {
-  100% {
+  from {
+    transform: scaleY(1);
+  }
+  to {
     transform: scaleY(0);
   }
 }

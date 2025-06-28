@@ -1,8 +1,10 @@
+import { UiGenerator } from "../../helpers/UiGenerator.js"
+
 // Video popup create
 const $videoPopupButton = document.querySelector('.js-video-popup-button')
 
 if ($videoPopupButton) {
-  const videoPopup = new App.UiGenerator('video_popup', {
+  const videoPopup = new UiGenerator('video_popup', {
     video_name: 'popup-video.mp4'
   })
 
@@ -15,7 +17,7 @@ if ($videoPopupButton) {
 const $newsletterCtaButton = document.querySelector('.js-newsletter-cta-button')
 
 if ($newsletterCtaButton) {
-  const newsletterPopup = new App.UiGenerator('newsletter_popup')
+  const newsletterPopup = new UiGenerator('newsletter_popup')
 
   $newsletterCtaButton.addEventListener('click', () => {
     newsletterPopup.render()
