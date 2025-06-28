@@ -1,19 +1,7 @@
 import { FormHandler } from "../../helpers/FormHandler.js"
 import { uiController } from '../classes/UiController.js'
 
-const Contact = function() {
-  const init = () => {
-    this.declareInitialVariables()
-    this.initContactFormEvents()
-  }
-
-  init()
-}
-
-Contact.prototype.declareInitialVariables = function() {
-  const $contactForm = document.querySelector('.js-contact-form')
-  this.contactForm = $contactForm ? new FormHandler($contactForm) : null
-}
+const Contact = function() {}
 
 Contact.prototype.handleContactFormResponse = function () {
   this.clearFormErrors()
@@ -105,10 +93,13 @@ Contact.prototype.handleContactForm = async function() {
   }
 }
 
-Contact.prototype.initContactFormEvents = function() {
-  if (!this.contactForm) return 
+Contact.prototype.initContactForm = function() {
+  const $contactForm = document.querySelector('.js-contact-form')
+  if (!$contactForm) return
 
-  this.contactForm.$form.addEventListener('submit', e => {
+  this.contactForm = new FormHandler($contactForm)
+
+  $contactForm.addEventListener('submit', e => {
     e.preventDefault()
 
     if (this.contactForm.formFilledByBot()) return

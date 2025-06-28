@@ -124,7 +124,7 @@ UiController.prototype.showAlert = function(message, type) {
   this.$currentAlert = document.querySelector('.js-alert')
 
   const alertTypes = {
-    success: {icon: 'ri-checkbox-circle-line', title: 'Success :'},
+    success: {icon: 'ri-checkbox-circle-line', title: 'Success :)'},
     error: {icon: 'ri-checkbox-circle-line', title: 'Error!'},
     info: {icon: 'ri-information-line', title: 'Information...'},
     warning: {icon: 'ri-spam-3-line', title: 'Warning!'}
