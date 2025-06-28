@@ -21,10 +21,10 @@ FormHandler.prototype.addCsrfToFormData = function() {
   this.formData.append('csrf', csrf)
 }
 
-FormHandler.prototype.displayFormErrors = function(errors) {
+FormHandler.prototype.displayFormErrors = function() {
   this.clearFormErrors()
 
-  for (const [name, message] of Object.entries(errors)) {
+  for (const [name, message] of Object.entries(this.errors)) {
     const $input = this.$form.querySelector(`[name="${name}"]`)
     if (!$input) continue
 
