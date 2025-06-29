@@ -83,7 +83,7 @@ Contact.prototype.sendContactRequest = async function () {
     this.response = await request.json()
     return true
   } catch(error) {
-    showAlert('Server error. The administrator has been informed of the error.', 'error')
+    showAlert('Server error. Try again and if the problem persists please notify the administrator: admin@clothes-ecommerce.com.pl.', 'error')
     return false
   }
 }

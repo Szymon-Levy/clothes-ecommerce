@@ -307,6 +307,36 @@ body{
   #COMPONENTS
 \*----------------------------------*/
 
+/* == AJAX LOADER == */
+
+.ajax-loader {
+  position: relative;
+}
+
+.ajax-loader__bg {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+
+.ajax-loader__icon {
+  width: 2.4em;
+  height: 2.4em;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: .3em solid;
+  border-color: #000 #0000;
+  animation: l1 .5s infinite linear;
+}
+
+@keyframes l1 {to{transform: rotate(.5turn)}}
+
 /* == BUTTONS == */
 
 .link-btn {
@@ -339,6 +369,11 @@ body{
   transition: all .3s;
 }
 
+.btn.ajax-loader {
+  align-items: center;
+  justify-content: center;
+}
+
 .btn--black {
   background-color: var(--color-heading);
   color: var(--color-white);
@@ -350,6 +385,14 @@ body{
   background-color: var(--color-white);
   color: var(--color-black);
   border-color: var(--color-black);
+}
+
+.btn--black .ajax-loader__bg {
+  background-color: var(--color-heading);
+}
+
+.btn--black .ajax-loader__icon {
+  border-color: var(--color-white) #0000;;
 }
 
 .btn--white {
@@ -365,6 +408,11 @@ body{
   border-color: var(--color-black);
 }
 
+.btn .ajax-loader__icon {
+  width: 1.8em;
+  height: 1.8em;
+  border-width: .2em;
+}
 
 /* == FORMS == */
 .form__row {
@@ -1387,6 +1435,14 @@ body{
 
 .home__video-popup__icon img {
   max-width: .9375rem;
+}
+
+.home__video-popup__icon.ajax-loader img {
+  opacity: 0;
+}
+
+.home__video-popup__icon .ajax-loader__icon {
+  border-color: var(--color-white) #0000;
 }
 
 

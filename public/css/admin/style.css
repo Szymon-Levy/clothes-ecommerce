@@ -15,6 +15,7 @@
   --color-primary1: #1251c3;
   --color-primary1-hover: #052f7e;
   --color-primary2: #3d7bec;
+  --color-light-bg-200: #f0f7ff;
   --color-light-bg-300: #eaf1fe;
   --color-light-bg-400: #e0eaff;
   --color-black: #000;
@@ -1122,6 +1123,15 @@ main {
   display: grid;
   padding: 1rem;
   border: 1px solid var(--color-border-400);
+  transition: background-color .3s;
+}
+
+.table tbody tr:nth-child(even) {
+  background-color: var(--color-light-bg-200);
+}
+
+.table tbody tr:hover {
+  background-color: var(--color-light-bg-400);
 }
 
 .table tbody tr.removed {

@@ -112,7 +112,7 @@ UiController.prototype.stickyHeader = function() {
 UiController.prototype.initStickyHeader = function() {
   this.stickyHeader()
 
-  const handleStickyHeaderScroll = throttleFunction(this.stickyHeader.bind(this), 100)
+  const handleStickyHeaderScroll = throttleFunction(this.stickyHeader.bind(this), 30)
   window.addEventListener('scroll', handleStickyHeaderScroll)
 }
 
