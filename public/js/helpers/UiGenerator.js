@@ -7,9 +7,16 @@ const UiGenerator = function(type, parameters = {}, trigger = null) {
 }
 
 UiGenerator.prototype.render = async function() {
-  const successfullyGotHtml = await this.getElementHtml()
-  if(!successfullyGotHtml) return
+  if(this.inUseState) return
+  this.changeInUseState()
+
+  const receivedHtml = await this.getElementHtml()
+  if(!receivedHtml) return
   this.executeElementInsertMethod()
+}
+
+UiGenerator.prototype.changeInUseState = function() {
+  this.inUseState = !this.inUseState
 }
 
 UiGenerator.prototype.getElementHtml = async function () {
@@ -31,7 +38,6 @@ UiGenerator.prototype.getElementHtml = async function () {
     await this.waitForLoadingHtmlAssets()
     return true
   } catch(error) {
-    console.log(error)
     uiController.showAlert('Server error. Try again and if the problem persists please notify the administrator: admin@clothes-ecommerce.com.pl.', 'error')
     return false
   } finally {
@@ -98,7 +104,7 @@ UiGenerator.prototype.hanldeLoadDelay = async function() {
 UiGenerator.prototype.addPopupToDOM = function() {
   document.querySelector('.body-wrapper').insertAdjacentHTML('afterend', this.elementHtml)
   document.body.style.overflow = 'hidden'
-  document.addEventListener('click', this.removePopup)
+  document.addEventListener('click', this.removePopup.bind(this), {once: true})
 }
 
 UiGenerator.prototype.removePopup = function(e) {
@@ -107,7 +113,7 @@ UiGenerator.prototype.removePopup = function(e) {
   if ($target.classList.contains('js-popup-close') || $target.classList.contains('js-popup')) {
     document.querySelector('.js-popup').remove()
     document.body.style.overflow = '';
-    document.removeEventListener('click', this.removePopup)
+    this.changeInUseState()
   }
 }
 
