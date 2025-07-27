@@ -70,18 +70,30 @@
   </script>
 
   <!--
+    -pre js block on single page
+  -->
+  {% block page_js_pre %} {% endblock %}
+
+  <!--
     -functions
   -->
-  <script src="{{ assets('js/admin/functions.js') }}"></script>
+  <script src="{{ assets('js/functions.js') }}"></script>
 
   <!--
-    -custom js
+    -main js
   -->
-  <script src="{{ assets('js/admin/scripts.js') }}"></script>
+  <script type="module" defer src="{{ assets('js/admin/main.js') }}"></script>
 
   <!--
-    -js block on single page
+    -page js
   -->
-  {% block page_js %} {% endblock %}
+  {% if page_js %}
+    {{ loadPageJs(page_js, 'admin') }}
+  {% endif %}
+
+  <!--
+    -post js block on single page
+  -->
+  {% block page_js_post %} {% endblock %}
 </body>
 </html>

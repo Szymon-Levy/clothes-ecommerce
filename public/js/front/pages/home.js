@@ -1,4 +1,4 @@
-import { UiGenerator } from "../../helpers/UiGenerator.js"
+import { UiGenerator } from "../classes/UiGenerator.js"
 import { Newsletter } from "../classes/Newsletter.js"
 
 // VIDEO GENERATE POPUP

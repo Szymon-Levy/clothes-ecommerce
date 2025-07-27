@@ -20,5 +20,6 @@ if (!$subscriber) {
 //template data
 $data['subscriber'] = $subscriber;
 $data['page_title'] = 'Edit Subscriber';
+$data['page_js'] = 'newsletter';
 
 echo $twig->render('admin/newsletter/edit-subscriber.html.twig', $data);

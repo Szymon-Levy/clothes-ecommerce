@@ -1,6 +1,6 @@
 import { InputValidator } from "./InputValidator.js"
 
-const FormHandler = function($form) {
+const FormHandler = function($form = null) {
   this.$form = $form
 }
 

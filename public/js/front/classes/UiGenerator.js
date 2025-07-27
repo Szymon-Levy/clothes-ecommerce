@@ -1,4 +1,4 @@
-import { uiController } from '../front/classes/UiController.js'
+import { uiController } from './UiController.js'
 
 const UiGenerator = function(type, parameters = {}, trigger = null) {
   this.type = type

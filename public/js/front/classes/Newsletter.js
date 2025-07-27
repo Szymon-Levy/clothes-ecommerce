@@ -70,7 +70,7 @@ Newsletter.prototype = {
       this.response = await request.json()
       return true
     } catch(error) {
-      showAlert('Server error. Try again and if the problem persists please notify the administrator: admin@clothes-ecommerce.com.pl.', 'error')
+      uiController.showAlert('Server error. Try again and if the problem persists please notify the administrator: admin@clothes-ecommerce.com.pl.', 'error')
       return false
     }
   },

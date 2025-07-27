@@ -51,7 +51,7 @@
         Add new
       </a>
 
-      <button href="{{ doc_root }}admin/newsletter" class="btn btn--full app-content__panel__top__buttons__delete js-delete-selected">
+      <button href="{{ doc_root }}admin/newsletter" class="btn btn--full app-content__panel__top__buttons__delete js-delete-selected" data-deletion-content="subscriber">
         <i class="ri-delete-bin-line" aria-hidden="true"></i>
         Delete selected
       </button>
@@ -78,7 +78,7 @@
         </div>
       </div>
 
-      <form action="{{ doc_root }}admin/newsletter" class="sort-columns-mobile">
+      <form action="{{ doc_root }}admin/newsletter" class="sort-columns-mobile js-sort-columns-mobile-form">
         {% if keyword %}
             <input type="hidden" name="keyword" value="{{ keyword }}">
         {% endif %}
@@ -89,7 +89,7 @@
         <h4 class="sort-columns-mobile__title">Sorting options</h4>
     
         <div class="form__select">
-            <select class="js-sort-columns-select" id="sort-columns-select" onchange="updateSortTableParams(this.form)">
+            <select class="js-sort-columns-select" id="sort-columns-select">
                 <option value="id-a" {% if (order_by == 'id' or order_by == '') and sort == 'a' %}selected hidden{% endif %}>Id (Ascending)</option>
                 <option value="id-d" {% if (order_by == 'id' or order_by == '') and sort == 'd' %}selected hidden{% endif %}>Id (Descending)</option>
     
@@ -262,7 +262,7 @@
                     <span class="visually-hidden">Edit item</span>
                   </a>
 
-                  <button class="table__actions__btn table__actions__btn--delete js-newsletter-subscriber-delete">
+                  <button class="table__actions__btn table__actions__btn--delete js-table-delete-item" data-deletion-content="subscriber">
                     <i class="ri-delete-bin-line" aria-hidden="true"></i>
                     <span class="visually-hidden">Delete item</span>
                   </button>

@@ -474,7 +474,10 @@ body{
   background-color: var(--color-white);
   overflow: hidden;
   z-index: 10;
-  animation: showAlert .4s forwards;
+}
+
+.alert--show {
+  animation: showAlert .3s forwards;
 }
 
 @keyframes showAlert {
@@ -786,6 +789,7 @@ main {
   background-color: var(--color-primary1-hover);
   opacity: .4;
   z-index: 2;
+  cursor: pointer;
 }
 
 .mobile-overlay.active {
@@ -798,6 +802,7 @@ main {
   left: 0;
   top: 0;
   flex: 0 0 17.5rem;
+  min-width: 18.75rem;
   height: 100dvh;
   z-index: 5;
   background-color: var(--color-white);
@@ -1403,6 +1408,7 @@ main {
 
   .aside {
     position: relative;
+    min-width: unset;
     transform: unset;
     transition: unset;
   }

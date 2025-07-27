@@ -1,0 +1,1 @@
+import { newsletter } from "../classes/Newsletter.js"

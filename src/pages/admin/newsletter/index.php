@@ -16,4 +16,6 @@ $data['page'] = $page;
 $data['order_by'] = $order_by;
 $data['sort'] = ($sort == 'd') ? $sort : 'a';
 
+$data['page_js'] = 'newsletter';
+
 echo $twig->render('admin/newsletter/index.html.twig', $data);

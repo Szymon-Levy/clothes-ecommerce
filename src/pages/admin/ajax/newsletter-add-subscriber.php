@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $db_response = $app->newsletter()->addSubscriber($name, $email, $email_settings);
 
   if ($db_response == '200') {
-    createAdminMessageInSession (htmlspecialchars($name) . ' has been successfully added to the subscriber list.', 'success', $session);
+    createAdminMessageInSession ($name . ' has been successfully added to the subscriber list.', 'success', $session);
     $response['success'] = true;
     $response['path'] = 'admin/newsletter';
   }
