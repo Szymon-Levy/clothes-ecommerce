@@ -1,4 +1,2 @@
-import { Contact } from "../classes/Contact.js"
-
-const contact = new Contact()
-contact.initContactForm()
+// Contact instance
+import { contact } from "../classes/Contact.js"

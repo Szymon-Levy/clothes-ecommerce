@@ -1,5 +1,7 @@
 import { UiGenerator } from "../classes/UiGenerator.js"
-import { Newsletter } from "../classes/Newsletter.js"
+
+// Newsletter instance
+import { newsletter } from "../classes/Newsletter.js"
 
 // VIDEO GENERATE POPUP
 const $videoPopupButton = document.querySelector('.js-video-popup-button')
@@ -24,7 +26,3 @@ if ($newsletterCtaButton) {
     newsletterPopup.render()
   })
 }
-
-// HANDLE NEWSLETTER FORM
-const newsletter = new Newsletter()
-newsletter.initNewsletterForm()

@@ -1,10 +1,18 @@
 import { FormHandler } from "../../helpers/FormHandler.js"
 import { uiController } from '../classes/UiController.js'
 
-const Contact = function() {}
+const Contact = function() {
+  const init = () => {
+    this.initContactForm()
+  }
+
+  init()
+}
 
 Contact.prototype = {
   constructor: Contact,
+
+  // SEND MESSAGE FROM CONTACT FORM
 
   initContactForm: function() {
     const $contactForm = document.querySelector('.js-contact-form')
@@ -107,4 +115,4 @@ Contact.prototype = {
   }
 }
 
-export { Contact }
+export const contact = new Contact()

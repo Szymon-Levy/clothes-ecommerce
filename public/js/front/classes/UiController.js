@@ -1,12 +1,11 @@
 const UiController = function() {
   const init = ()=> {
-    this.declareInitialVariables()
     this.initSettingSideSpace()
-    this.handlePreloader()
+    this.initPreloader()
     this.initOffcanvas()
-    this.initCloseMessageBox()
-    this.initStickyHeader()
-    this.initClosingAlert()
+    this.initMessageBox()
+    this.initHeader()
+    this.initAlert()
   }
 
   init()
@@ -15,25 +14,7 @@ const UiController = function() {
 UiController.prototype = {
   constructor: UiController,
 
-  declareInitialVariables: function() {
-    this.$htmlElement = document.documentElement
-    this.$preloader = document.querySelector('.js-preloader')
-    this.$offcanvasMenu = document.querySelector('.js-offcanvas')
-    this.$offcanvasOpen = document.querySelector('.js-offcanvas-open')
-    this.$offcanvasClose = document.querySelector('.js-offcanvas-close')
-    this.$messageClose = document.querySelector('.js-message-close')
-    this.$header = document.querySelector('.js-header')
-    this.isHeaderSticky = false
-    this.alertTimeoutId
-  },
-
   // SET SIDE SPACE
-
-  setSideSpace: function() {
-    const sideSpace = Math.floor(document.body.clientWidth / 8)
-
-    this.$htmlElement.style.setProperty('--side-space-dynamic', sideSpace + 'px')
-  },
 
   initSettingSideSpace: function() {
     this.setSideSpace()
@@ -42,11 +23,22 @@ UiController.prototype = {
     window.addEventListener('resize', setSideSpaceHandler)
   },
 
+  setSideSpace: function() {
+    const sideSpace = Math.floor(document.body.clientWidth / 8)
+
+    document.documentElement.style.setProperty('--side-space-dynamic', sideSpace + 'px')
+  },
+
   // PRELOADER ANIMATION
 
-  handlePreloader: function() {
+  initPreloader: function() {
+    this.$preloader = document.querySelector('.js-preloader')
     if(!this.$preloader) return
 
+    this.showPreloader()
+  },
+
+  showPreloader: function() {
     this.$preloader.style.display = 'block'
 
     setTimeout(() => {
@@ -55,6 +47,18 @@ UiController.prototype = {
   },
 
   // OFFCANVAS
+
+  initOffcanvas: function() {
+    this.$offcanvasMenu = document.querySelector('.js-offcanvas')
+    this.$offcanvasOpen = document.querySelector('.js-offcanvas-open')
+    this.$offcanvasClose = document.querySelector('.js-offcanvas-close')
+
+    if(!this.$offcanvasMenu || !this.$offcanvasOpen || !this.$offcanvasClose) return
+
+    this.$offcanvasMenu.classList.add('inactive')
+    this.$offcanvasOpen.addEventListener('click', this.openOffcanvas.bind(this))
+    this.$offcanvasClose.addEventListener('click', this.closeOffcanvas.bind(this))
+  },
 
   openOffcanvas: function() {
     this.$offcanvasMenu.classList.toggle('active')
@@ -68,25 +72,35 @@ UiController.prototype = {
     document.body.style.overflow = ''
   },
 
-  initOffcanvas: function() {
-    this.$offcanvasMenu.classList.add('inactive')
-    this.$offcanvasOpen.addEventListener('click', this.openOffcanvas.bind(this))
-    this.$offcanvasClose.addEventListener('click', this.closeOffcanvas.bind(this))
-  },
-
   // CLOSE MESSAGE BOX
 
-  closeMessageBox: function(e) {
-    e.target.closest('.js-message').remove()
+  initMessageBox: function() {
+    this.$messageBox = document.querySelector('.js-message')
+    if (!this.$messageBox) return
+
+    this.$messageBox.addEventListener('click', e => {
+      const $messageClose = e.target.closest('.js-message-close')
+      if (!$messageClose) return
+
+      this.closeMessageBox()
+    })
   },
 
-  initCloseMessageBox: function() {
-    if (!this.$messageClose) return
-
-    this.$messageClose.addEventListener('click', this.closeMessageBox)
+  closeMessageBox: function() {
+    this.$messageBox.remove()
   },
 
   // STICKY HEADER
+
+  initHeader: function() {
+    this.$header = document.querySelector('.js-header')
+    this.isHeaderSticky = false
+
+    this.stickyHeader()
+
+    const handleStickyHeaderScroll = throttleFunction(this.stickyHeader.bind(this), 30)
+    window.addEventListener('scroll', handleStickyHeaderScroll)
+  },
 
   stickyHeader: function() {
     const Y = window.scrollY
@@ -112,14 +126,17 @@ UiController.prototype = {
     }
   },
 
-  initStickyHeader: function() {
-    this.stickyHeader()
-
-    const handleStickyHeaderScroll = throttleFunction(this.stickyHeader.bind(this), 30)
-    window.addEventListener('scroll', handleStickyHeaderScroll)
-  },
-
   // ALERTS
+
+  initAlert: function() {
+    this.alertTimeoutId
+
+    document.addEventListener('click', e => {
+      if (e.target.closest('.js-alert-close')) {
+        this.closeAlert()
+      }
+    })
+  },
 
   showAlert: function(message, type) {
     this.alertMessage = message
@@ -188,14 +205,6 @@ UiController.prototype = {
 
   closeAlert: function(e) {
     this.$currentAlert.remove()
-  },
-
-  initClosingAlert: function() {
-    document.addEventListener('click', e => {
-      if (e.target.closest('.js-alert-close')) {
-        this.closeAlert()
-      }
-    })
   }
 }
 

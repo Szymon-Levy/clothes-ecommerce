@@ -1056,6 +1056,13 @@ main {
   color: var(--color-red);
 }
 
+.app-content__panel__top__buttons__delete[disabled] {
+  background-color: var(--color-gray);
+  border-color: var(--color-gray);
+  cursor: none;
+  pointer-events: none;
+}
+
 .app-content__panel__top__buttons__refresh {
   padding: 0 1em !important;
 }

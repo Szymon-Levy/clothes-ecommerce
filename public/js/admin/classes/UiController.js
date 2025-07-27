@@ -60,6 +60,7 @@ UiController.prototype = {
     this.$messageBox.addEventListener('click', e => {
       const $messageClose = e.target.closest('.js-message-close')
       if (!$messageClose) return
+      
       this.closeMessageBox()
     })
   },
@@ -223,6 +224,7 @@ UiController.prototype = {
           }
 
           if (confirm('Are you sure you want to remove this subscriber?')) {
+            this.disableDeleteSelectedButton()
             const idArray = [itemId]
             callback(idArray)
           }
@@ -230,10 +232,10 @@ UiController.prototype = {
       })
     }
 
-    const $deleteSelectedBtn = document.querySelector('.js-delete-selected')
+    this.$deleteSelectedBtn = document.querySelector('.js-delete-selected')
 
-    if ($deleteSelectedBtn) {
-      $deleteSelectedBtn.addEventListener('click', (e) => {
+    if (this.$deleteSelectedBtn) {
+      this.$deleteSelectedBtn.addEventListener('click', (e) => {
         const btnDataDeletionContent = e.target.dataset.deletionContent
         if (btnDataDeletionContent !== deletionContent) return
         
@@ -241,10 +243,21 @@ UiController.prototype = {
         if (!itemIds) return
 
         if (confirm('Are you sure you want to remove selected subscribers?')) {
+          this.disableDeleteSelectedButton()
           callback(itemIds)
           return itemIds
         }
       })
+    }
+  },
+
+  disableDeleteSelectedButton: function() {
+    this.$deleteSelectedBtn.disabled = true
+  },
+
+  enableDeleteSelectedButton: function() {
+    if (this.$deleteSelectedBtn.disabled) {
+      this.$deleteSelectedBtn.removeAttribute('disabled')
     }
   },
 
@@ -295,11 +308,11 @@ UiController.prototype = {
         this.tableRowsToRemove = []
       }
 
-      this.updateTableNumersAfterItemsDeletion()
-    }, 3000)
+      this.updateTableNumbersAfterItemsDeletion()
+    }, 1000)
   },
 
-  updateTableNumersAfterItemsDeletion: function() {
+  updateTableNumbersAfterItemsDeletion: function() {
     const $totalRows = document.querySelectorAll('.js-table-row')
     this.getTablePageNumbers()
 
@@ -308,12 +321,12 @@ UiController.prototype = {
     }
     else {
       this.updateTablePageNumbers()
+      this.enableDeleteSelectedButton()
     }
   },
 
   getTablePageNumbers: function() {
     this.tablePageNumbers = {
-      from: Number(document.querySelector('.js-table-number-from').innerText),
       to: Number(document.querySelector('.js-table-number-to').innerText),
       of: Number(document.querySelector('.js-table-number-of').innerText)
     }
@@ -322,6 +335,8 @@ UiController.prototype = {
   handleEmptiedTableItems: function() {
     const params = new URLSearchParams(location.search)
     this.currentTablePage = +params.get('page')
+
+    this.removeTablePageNumbers()
 
     if (this.currentTablePage && this.currentTablePage > 1) {
       this.goToPreviousTablePage()
@@ -347,23 +362,19 @@ UiController.prototype = {
     document.querySelector('.js-table').innerHTML = 'No items found to display'
   },
 
+  removeTablePageNumbers: function() {
+    document.querySelector('.js-table-numbers').style.visibility = 'hidden'
+  },
+
   updateTablePageNumbers: function() {
-    const $from = document.querySelector('.js-table-number-from')
     const $to = document.querySelector('.js-table-number-to')
     const $of = document.querySelector('.js-table-number-of')
 
-    const count = this.deleteItemsCount
-    const { from } = this.tablePageNumbers
-    const to = this.tablePageNumbers.to - count
-    const of = this.tablePageNumbers.of - count
+    const to = this.tablePageNumbers.to - this.deleteItemsCount
+    const of = this.tablePageNumbers.of - this.deleteItemsCount
 
-    $to.innerText = to >= 0 ? to : 0
-    $of.innerText = of >= 0 ? of : 0
-
-    if ((from - count) == of || (from - 1) == of) {
-      $from.innerText = 0
-      $to.innerText = 0
-    }
+    $to.innerText = to
+    $of.innerText = of
   }
 }
 

@@ -1,45 +1,54 @@
 import { FormHandler } from "../../helpers/FormHandler.js"
 import { uiController } from '../classes/UiController.js'
 
-const Newsletter = function() {}
+const Newsletter = function() {
+  const init = () => {
+    this.initSubscribtionForm()
+  }
+
+  init()
+}
 
 Newsletter.prototype = {
   constructor: Newsletter,
 
-  initNewsletterForm: function() {
-    this.newsletterForm = null
+  // SUBSCRIBE NEWSLETTER
 
+  initSubscribtionForm: function() {
     document.addEventListener('submit', e => {
-      const $newsletterForm = e.target.closest('.js-newsletter-form')
-      if ($newsletterForm) {
+      const $subscribtionForm = e.target.closest('.js-newsletter-form')
+
+      this.subscribtionForm = null
+
+      if ($subscribtionForm) {
         e.preventDefault()
         
-        if (!this.newsletterForm) {
-          this.newsletterForm = new FormHandler($newsletterForm)
+        if (!this.subscribtionForm) {
+          this.subscribtionForm = new FormHandler($subscribtionForm)
         }
 
-        if (this.newsletterForm.formFilledByBot()) return
-        this.handleNewsletterForm()
+        if (this.subscribtionForm.formFilledByBot()) return
+        this.handleSubscribtionForm()
       }
     })
   },
 
-  handleNewsletterForm: async function() {
-    this.newsletterForm.formData = new FormData(this.newsletterForm.$form)
-    this.newsletterForm.addCsrfToFormData()
-    this.validateNewsletterForm.call(this.newsletterForm)
+  handleSubscribtionForm: async function() {
+    this.subscribtionForm.formData = new FormData(this.subscribtionForm.$form)
+    this.subscribtionForm.addCsrfToFormData()
+    this.validateSubscribtionForm.call(this.subscribtionForm)
 
-    if (Object.keys(this.newsletterForm.errors).length) {
-      this.newsletterForm.displayFormErrors()
+    if (Object.keys(this.subscribtionForm.errors).length) {
+      this.subscribtionForm.displayFormErrors()
       return
     }
 
-    await this.sendNewsletterRequest.call(this.newsletterForm)
-    if (!this.newsletterForm.response) return
-    this.handleNewsletterFormResponse.call(this.newsletterForm)
+    await this.sendSubscribtionRequest.call(this.subscribtionForm)
+    if (!this.subscribtionForm.response) return
+    this.handleSubscribtionFormResponse.call(this.subscribtionForm)
   },
 
-  validateNewsletterForm: function() {
+  validateSubscribtionForm: function() {
     const name = this.formData.get('name').trim()
     const email = this.formData.get('email').trim()
     const policy = this.formData.get('policy')
@@ -61,7 +70,7 @@ Newsletter.prototype = {
     }
   },
 
-  sendNewsletterRequest: async function() {
+  sendSubscribtionRequest: async function() {
     try {
       const request = await fetch(docRoot + 'ajax/newsletter-subscribe', {
         method: 'POST',
@@ -75,7 +84,7 @@ Newsletter.prototype = {
     }
   },
 
-  handleNewsletterFormResponse: function () {
+  handleSubscribtionFormResponse: function () {
     this.clearFormErrors()
 
     if (this.response.hasOwnProperty('success')) {
@@ -91,4 +100,4 @@ Newsletter.prototype = {
   }
 }
 
-export { Newsletter }
+export const newsletter = new Newsletter()
