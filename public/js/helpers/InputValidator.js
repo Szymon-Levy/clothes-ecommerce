@@ -1,9 +1,6 @@
-const InputValidator = function() {}
+class InputValidator {
 
-InputValidator.prototype = {
-  constructor: InputValidator,
-
-  emailValidation: function(email, isRequired = false) {
+  emailValidation(email, isRequired = false) {
     const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
     if (isRequired && email === '') {
@@ -17,25 +14,25 @@ InputValidator.prototype = {
     }
 
     return false
-  },
+  }
 
-  lengthValidation: function(value, name, from, to, isRequired = false) {
+  lengthValidation(value, name, from, to, isRequired = false) {
     if (isRequired && value === '') {
       return `${name} is required!`
     }
     else if (value !== '' && (value.length < from || value.length > to)) {
-      return  `${name} cannot be shorter than ${from} and longer than ${to} characters!`
+      return `${name} cannot be shorter than ${from} and longer than ${to} characters!`
     }
 
     return false
-  },
+  }
 
-  multiValuesValidation: function(value, name, checkValuesSet, isRequired = false) {
+  multiValuesValidation(value, name, checkValuesSet, isRequired = false) {
     if (isRequired && value === '') {
       return `${name} is required!`
     }
     else if (!checkValuesSet.includes(value) && !(value == '')) {
-      return  `${name} value is incorrect!`
+      return `${name} value is incorrect!`
     }
 
     return false
