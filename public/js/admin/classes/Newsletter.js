@@ -1,22 +1,20 @@
 import { FormHandler } from "../../helpers/FormHandler.js"
 import { uiController } from '../classes/UiController.js'
 
-const Newsletter = function() {
-  const init = () => {
-    this.initAddSubscriberForm()
-    this.initEditSubscriberForm()
-    this.initDeleteSubscribers()
+class Newsletter {
+  constructor() {
+    const init = () => {
+      this.initAddSubscriberForm()
+      this.initEditSubscriberForm()
+      this.initDeleteSubscribers()
+    }
+
+    init()
   }
-
-  init()
-}
-
-Newsletter.prototype = {
-  constructor: Newsletter,
 
   // ADD SUBSCRIBER
 
-  initAddSubscriberForm: function() {
+  initAddSubscriberForm() {
     const $addSubscriberForm = document.querySelector('.js-add-subscriber-form')
     if (!$addSubscriberForm) return
 
@@ -28,9 +26,9 @@ Newsletter.prototype = {
       if (this.addSubscriberForm.formFilledByBot()) return
       this.handleAddSubscriberForm()
     })
-  },
+  }
 
-  handleAddSubscriberForm: async function() {
+  async handleAddSubscriberForm() {
     this.addSubscriberForm.formData = new FormData(this.addSubscriberForm.$form)
     this.addSubscriberForm.addCsrfToFormData()
     this.validateAddSubscriberForm.call(this.addSubscriberForm)
@@ -43,9 +41,9 @@ Newsletter.prototype = {
     await this.sendAddSubscriberRequest.call(this.addSubscriberForm)
     if (!this.addSubscriberForm.response) return
     this.handleAddSubscriberFormResponse.call(this.addSubscriberForm)
-  },
+  }
 
-  validateAddSubscriberForm: function() {
+  validateAddSubscriberForm() {
     const name = this.formData.get('name').trim()
     const email = this.formData.get('email').trim()
     this.errors = {}
@@ -60,9 +58,9 @@ Newsletter.prototype = {
     if (emailError) {
       this.errors.email = emailError
     }
-  },
+  }
 
-  sendAddSubscriberRequest: async function() {
+  async sendAddSubscriberRequest() {
     try {
       const request = await fetch(docRoot + 'admin/ajax/newsletter-add-subscriber', {
         method: 'POST',
@@ -70,29 +68,29 @@ Newsletter.prototype = {
       })
       this.response = await request.json()
       return true
-    } catch(error) {
+    } catch (error) {
       uiController.showAlert('Server error. Try again and if the problem persists please notify the administrator: admin@clothes-ecommerce.com.pl.', 'error')
       return false
     }
-  },
+  }
 
-  handleAddSubscriberFormResponse: function () {
+  handleAddSubscriberFormResponse() {
     this.clearFormErrors()
 
     if (this.response.hasOwnProperty('success')) {
-        location.href = docRoot + this.response.path
+      location.href = docRoot + this.response.path
     }
     else if (this.response.hasOwnProperty('error')) {
-        uiController.showAlert(this.response.error, 'error')
+      uiController.showAlert(this.response.error, 'error')
     }
     else {
       this.displayFormErrors(this.response)
     }
-  },
+  }
 
   // EDIT SUBSCRIBER
 
-  initEditSubscriberForm: function() {
+  initEditSubscriberForm() {
     const $editSubscriberForm = document.querySelector('.js-edit-subscriber-form')
     if (!$editSubscriberForm) return
 
@@ -104,9 +102,9 @@ Newsletter.prototype = {
       if (this.editSubscriberForm.formFilledByBot()) return
       this.handleEditSubscriberForm()
     })
-  },
+  }
 
-  handleEditSubscriberForm: async function() {
+  async handleEditSubscriberForm() {
     this.editSubscriberForm.formData = new FormData(this.editSubscriberForm.$form)
     this.editSubscriberForm.addCsrfToFormData()
     const validate = this.validateEditSubscriberForm.call(this.editSubscriberForm)
@@ -120,9 +118,9 @@ Newsletter.prototype = {
     await this.sendEditSubscriberRequest.call(this.editSubscriberForm)
     if (!this.editSubscriberForm.response) return
     this.handleEditSubscriberFormResponse.call(this.editSubscriberForm)
-  },
+  }
 
-  validateEditSubscriberForm: function() {
+  validateEditSubscriberForm() {
     const id = this.formData.get('id')?.trim()
     const name = this.formData.get('name').trim()
     const email = this.formData.get('email').trim()
@@ -143,9 +141,9 @@ Newsletter.prototype = {
     if (emailError) {
       this.errors.email = emailError
     }
-  },
+  }
 
-  sendEditSubscriberRequest: async function() {
+  async sendEditSubscriberRequest() {
     try {
       const request = await fetch(docRoot + 'admin/ajax/newsletter-edit-subscriber', {
         method: 'POST',
@@ -154,36 +152,37 @@ Newsletter.prototype = {
 
       this.response = await request.json()
       return true
-    } catch(error) {
+    } catch (error) {
       uiController.showAlert('Server error. Try again and if the problem persists please notify the administrator: admin@clothes-ecommerce.com.pl.', 'error')
       return false
     }
-  },
+  }
 
-  handleEditSubscriberFormResponse: function () {
+  handleEditSubscriberFormResponse() {
     this.clearFormErrors()
 
     if (this.response.hasOwnProperty('success')) {
-        location.href = docRoot + this.response.path
+      location.href = docRoot + this.response.path
     }
     else if (this.response.hasOwnProperty('error')) {
-        uiController.showAlert(this.response.error, 'error')
+      uiController.showAlert(this.response.error, 'error')
     }
     else {
       this.displayFormErrors(this.response)
     }
-  },
+  }
 
   // DELETE TABLE ITEMS
-  prepareDeletionFormData: function(itemsId) {
+
+  prepareDeletionFormData(itemsId) {
     const form = new FormHandler()
     form.formData = new FormData()
     form.addCsrfToFormData()
     form.formData.append('ids', JSON.stringify(itemsId))
     return form
-  },
+  }
 
-  handleDeletionResponse: function() {
+  handleDeletionResponse() {
     const response = this.deletionResponse
 
     if (response.hasOwnProperty('success')) {
@@ -196,16 +195,16 @@ Newsletter.prototype = {
     else if (response.hasOwnProperty('info')) {
       uiController.showAlert(response.info, 'info')
     }
-  },
+  }
 
   // DELETE SUBSCRIBERS
 
-  initDeleteSubscribers: function () {
+  initDeleteSubscribers() {
     const deleteCallback = this.sendDeleteNewsletterItemsRequest.bind(this)
     uiController.setDeleteItemsFromTableHandler(deleteCallback, 'subscriber')
-  },
+  }
 
-  sendDeleteNewsletterItemsRequest: async function (itemsId) {
+  async sendDeleteNewsletterItemsRequest(itemsId) {
     this.deletionItemsIds = itemsId
     this.deleteSubscribersForm = this.prepareDeletionFormData(this.deletionItemsIds)
     let success = false
@@ -218,7 +217,7 @@ Newsletter.prototype = {
 
       this.deletionResponse = await request.json()
       success = true
-    } catch(error) {
+    } catch (error) {
       uiController.showAlert('Server error. Try again and if the problem persists please notify the administrator: admin@clothes-ecommerce.com.pl.', 'error')
     } finally {
       if (success) {

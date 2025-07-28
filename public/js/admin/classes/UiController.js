@@ -1,27 +1,25 @@
-const UiController = function() {
-  const init = () => {
-    this.initAside()
-    this.initMessageBox()
-    this.initAlert()
-    this.initTable()
+class UiController {
+  constructor() {
+    const init = () => {
+      this.initAside()
+      this.initMessageBox()
+      this.initAlert()
+      this.initTable()
+    }
+
+    init()
   }
-
-  init()
-}
-
-UiController.prototype = {
-  constructor: UiController,
 
   // ASIDE
 
-  initAside: function() {
+  initAside() {
     this.$aside = document.querySelector('.js-aside')
     this.$mobileOverlay = document.querySelector('.js-mobile-overlay')
-    if(!this.$aside) return
-    
+    if (!this.$aside) return
+
     const $showAsideBtn = document.querySelector('.js-show-aside')
     const $hideAsideBtn = document.querySelector('.js-hide-aside')
-    
+
     $showAsideBtn.addEventListener('click', this.showAside.bind(this))
     $hideAsideBtn.addEventListener('click', this.hideAside.bind(this))
     this.$mobileOverlay.addEventListener('click', this.hideAside.bind(this))
@@ -31,47 +29,47 @@ UiController.prototype = {
       if (!this.$clickedAsideNavItem) return
       this.collapseAsideDropdownMenu()
     })
-  },
+  }
 
-  showAside: function() {
+  showAside() {
     this.$aside.classList.add('show')
     this.$mobileOverlay.classList.add('active')
-  },
+  }
 
-  hideAside: function() {
+  hideAside() {
     this.$aside.classList.remove('show')
     this.$mobileOverlay.classList.remove('active')
-  },
+  }
 
-  collapseAsideDropdownMenu: function() {
+  collapseAsideDropdownMenu() {
     const $currentlyActiveItem = this.$aside.querySelector('.js-aside-nav-menu-item-title.show-links')
-      if ($currentlyActiveItem && $currentlyActiveItem != this.$clickedAsideNavItem) {
-        $currentlyActiveItem.classList.remove('show-links')
-      }
+    if ($currentlyActiveItem && $currentlyActiveItem != this.$clickedAsideNavItem) {
+      $currentlyActiveItem.classList.remove('show-links')
+    }
     this.$clickedAsideNavItem.classList.toggle('show-links')
-  },
+  }
 
   // MESSAGE BOX
 
-  initMessageBox: function() {
+  initMessageBox() {
     this.$messageBox = document.querySelector('.js-message')
     if (!this.$messageBox) return
 
     this.$messageBox.addEventListener('click', e => {
       const $messageClose = e.target.closest('.js-message-close')
       if (!$messageClose) return
-      
+
       this.closeMessageBox()
     })
-  },
+  }
 
-  closeMessageBox: function() {
+  closeMessageBox() {
     this.$messageBox.remove()
-  },
+  }
 
   // ALERT
 
-  initAlert: function() {
+  initAlert() {
     this.alertTimeoutId
 
     document.addEventListener('click', e => {
@@ -79,21 +77,21 @@ UiController.prototype = {
         this.closeAlert()
       }
     })
-  },
+  }
 
-  showAlert: function(message, type) {
+  showAlert(message, type) {
     this.alertMessage = message
     this.alertType = type
     this.$currentAlert = document.querySelector('.js-alert')
 
     const alertTypes = {
-      success: {icon: 'ri-checkbox-circle-line', title: 'Success :)'},
-      error: {icon: 'ri-checkbox-circle-line', title: 'Error!'},
-      info: {icon: 'ri-information-line', title: 'Information...'},
-      warning: {icon: 'ri-spam-3-line', title: 'Warning!'}
+      success: { icon: 'ri-checkbox-circle-line', title: 'Success :)' },
+      error: { icon: 'ri-checkbox-circle-line', title: 'Error!' },
+      info: { icon: 'ri-information-line', title: 'Information...' },
+      warning: { icon: 'ri-spam-3-line', title: 'Warning!' }
     }
 
-    const {icon, title} = alertTypes[type] || alertTypes.info
+    const { icon, title } = alertTypes[type] || alertTypes.info
     this.alertIcon = icon
     this.alertTitle = title
 
@@ -104,9 +102,9 @@ UiController.prototype = {
     this.createAlertInDOM()
 
     this.alertTimeoutId = setTimeout(() => this.closeAlert(), 3000)
-  },
+  }
 
-  createAlertInDOM: function() {
+  createAlertInDOM() {
     const alert = document.createElement('div')
     alert.className = `alert alert--show alert--${this.alertType} js-alert`
 
@@ -144,19 +142,19 @@ UiController.prototype = {
 
     this.$currentAlert = alert
     document.querySelector('.app-content__panel').insertAdjacentElement('afterend', alert)
-  },
+  }
 
-  closeAlert: function(e) {
+  closeAlert(e) {
     this.$currentAlert.remove()
-  },
+  }
 
   // TABLE
 
-  initTable: function() {
+  initTable() {
     this.$selectAllItemsTogglers = document.querySelectorAll('.js-select-all-items')
     this.$table = document.querySelector('.js-table')
 
-    if(this.$table) {
+    if (this.$table) {
       this.$table.addEventListener('change', e => {
         const $target = e.target
 
@@ -170,11 +168,11 @@ UiController.prototype = {
         }
       })
     }
-  },
+  }
 
-  toggleTableItemsSelection: function () {
+  toggleTableItemsSelection() {
     const $selectItems = document.querySelectorAll('.js-select-item')
-    if (!$selectItems) { return false }
+    if (!$selectItems) { return false} 
 
     const currentState = this.$tableChangeTarget.checked
     document.querySelectorAll('.js-select-all-items').forEach($select => {
@@ -195,26 +193,26 @@ UiController.prototype = {
         }
       })
     }
-  },
+  }
 
-  updateSortTableParamsOnMobile: function() {
+  updateSortTableParamsOnMobile() {
     const $form = this.$tableChangeTarget.closest('.js-sort-columns-mobile-form')
     const $select = $form.querySelector('.js-sort-columns-select')
     const selectedValue = $select.value.split("-")
     $form.querySelector('[name="orderby"]').value = selectedValue[0]
     $form.querySelector('[name="sort"]').value = selectedValue[1]
     $form.submit()
-  },
+  }
 
-  setDeleteItemsFromTableHandler: function(callback, deletionContent) {
-    if(this.$table) {
+  setDeleteItemsFromTableHandler(callback, deletionContent) {
+    if (this.$table) {
       this.$table.addEventListener('click', e => {
         const $target = e.target
 
         if ($target.closest('.js-table-delete-item')) {
           this.$tableClickTarget = $target.closest('.js-table-delete-item')
           const btnDataDeletionContent = this.$tableClickTarget.dataset.deletionContent
-          if(btnDataDeletionContent !== deletionContent) return
+          if (btnDataDeletionContent !== deletionContent) return
 
           const itemId = this.$tableClickTarget.closest('.js-table-row')?.dataset.id
 
@@ -238,7 +236,7 @@ UiController.prototype = {
       this.$deleteSelectedBtn.addEventListener('click', (e) => {
         const btnDataDeletionContent = e.target.dataset.deletionContent
         if (btnDataDeletionContent !== deletionContent) return
-        
+
         const itemIds = this.getSelectedTableItemsIds()
         if (!itemIds) return
 
@@ -249,31 +247,31 @@ UiController.prototype = {
         }
       })
     }
-  },
+  }
 
-  disableDeleteSelectedButton: function() {
+  disableDeleteSelectedButton() {
     this.$deleteSelectedBtn.disabled = true
-  },
+  }
 
-  enableDeleteSelectedButton: function() {
+  enableDeleteSelectedButton() {
     if (this.$deleteSelectedBtn.disabled) {
       this.$deleteSelectedBtn.removeAttribute('disabled')
     }
-  },
+  }
 
-  getSelectedTableItemsIds: function() {
+  getSelectedTableItemsIds() {
     const $selectItems = this.$table.querySelectorAll('.js-select-item')
 
     if (!$selectItems.length) {
       this.showAlert('Items to select don\'t exists!', 'error')
-      return false;
+      return false
     }
 
     const isAnyChecked = [...$selectItems].some(checkbox => checkbox.checked)
 
     if (!isAnyChecked) {
       this.showAlert('None of the items are selected!', 'info')
-      return false;
+      return false
     }
 
     const ids = []
@@ -285,9 +283,9 @@ UiController.prototype = {
     })
 
     return ids
-  },
+  }
 
-  handleDeletionItemsFromTable: function(ids, count) {
+  handleDeletionItemsFromTable(ids, count) {
     this.deleteItemsCount = count
 
     if (!Array.isArray(this.tableRowsToRemove)) {
@@ -310,9 +308,9 @@ UiController.prototype = {
 
       this.updateTableNumbersAfterItemsDeletion()
     }, 1000)
-  },
+  }
 
-  updateTableNumbersAfterItemsDeletion: function() {
+  updateTableNumbersAfterItemsDeletion() {
     const $totalRows = document.querySelectorAll('.js-table-row')
     this.getTablePageNumbers()
 
@@ -323,16 +321,16 @@ UiController.prototype = {
       this.updateTablePageNumbers()
       this.enableDeleteSelectedButton()
     }
-  },
+  }
 
-  getTablePageNumbers: function() {
+  getTablePageNumbers() {
     this.tablePageNumbers = {
       to: Number(document.querySelector('.js-table-number-to').innerText),
       of: Number(document.querySelector('.js-table-number-of').innerText)
     }
-  },
+  }
 
-  handleEmptiedTableItems: function() {
+  handleEmptiedTableItems() {
     const params = new URLSearchParams(location.search)
     this.currentTablePage = +params.get('page')
 
@@ -349,24 +347,24 @@ UiController.prototype = {
     }
 
     this.handleEmptiedTable()
-  },
+  }
 
-  goToPreviousTablePage: function() {
+  goToPreviousTablePage() {
     const newUrl = new URL(location.href)
     newUrl.searchParams.set('page', this.currentTablePage - 1)
     location.href = newUrl.toString()
-  },
+  }
 
-  handleEmptiedTable: function() {
+  handleEmptiedTable() {
     document.querySelector('.js-panel-bottom').remove()
     document.querySelector('.js-table').innerHTML = 'No items found to display'
-  },
+  }
 
-  removeTablePageNumbers: function() {
+  removeTablePageNumbers() {
     document.querySelector('.js-table-numbers').style.visibility = 'hidden'
-  },
+  }
 
-  updateTablePageNumbers: function() {
+  updateTablePageNumbers() {
     const $to = document.querySelector('.js-table-number-to')
     const $of = document.querySelector('.js-table-number-of')
 
