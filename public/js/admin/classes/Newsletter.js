@@ -219,7 +219,6 @@ Newsletter.prototype = {
       this.deletionResponse = await request.json()
       success = true
     } catch(error) {
-      console.log(error)
       uiController.showAlert('Server error. Try again and if the problem persists please notify the administrator: admin@clothes-ecommerce.com.pl.', 'error')
     } finally {
       if (success) {

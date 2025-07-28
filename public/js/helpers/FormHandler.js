@@ -1,15 +1,12 @@
 import { InputValidator } from "./InputValidator.js"
 
-const FormHandler = function($form = null) {
-  this.$form = $form
-}
+class FormHandler extends InputValidator {
+  constructor($form = null) {
+    super()
+    this.$form = $form
+  }
 
-// Inheritance from InputValidator
-FormHandler.prototype = Object.create(InputValidator.prototype)
-FormHandler.prototype.constructor = FormHandler
-
-Object.assign(FormHandler.prototype, {
-  clearFormErrors: function() {
+  clearFormErrors() {
     const $errors = this.$form.querySelectorAll('.js-form-error')
 
     if ($errors.length) {
@@ -17,13 +14,13 @@ Object.assign(FormHandler.prototype, {
         $error.remove()
       })
     }
-  },
+  }
 
-  addCsrfToFormData: function() {
+  addCsrfToFormData() {
     this.formData.append('csrf', csrf)
-  },
+  }
 
-  displayFormErrors: function() {
+  displayFormErrors() {
     this.clearFormErrors()
 
     for (const [name, message] of Object.entries(this.errors)) {
@@ -39,14 +36,14 @@ Object.assign(FormHandler.prototype, {
       $newError.textContent = message
       $field.append($newError)
     }
-  },
+  }
 
-  formFilledByBot: function() {
+  formFilledByBot() {
     const $honeypotInput = this.$form.querySelector('[name="website"]')
     if (!$honeypotInput) return true
 
     return !$honeypotInput.value == ''
   }
-})
+}
 
 export { FormHandler }
