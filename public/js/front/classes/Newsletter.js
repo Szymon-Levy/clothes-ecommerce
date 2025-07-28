@@ -1,20 +1,18 @@
 import { FormHandler } from "../../helpers/FormHandler.js"
 import { uiController } from '../classes/UiController.js'
 
-const Newsletter = function() {
-  const init = () => {
-    this.initSubscribtionForm()
+class Newsletter {
+  constructor() {
+    const init = () => {
+      this.initSubscribtionForm()
+    }
+
+    init()
   }
-
-  init()
-}
-
-Newsletter.prototype = {
-  constructor: Newsletter,
 
   // SUBSCRIBE NEWSLETTER
 
-  initSubscribtionForm: function() {
+  initSubscribtionForm() {
     document.addEventListener('submit', e => {
       const $subscribtionForm = e.target.closest('.js-newsletter-form')
 
@@ -22,7 +20,7 @@ Newsletter.prototype = {
 
       if ($subscribtionForm) {
         e.preventDefault()
-        
+
         if (!this.subscribtionForm) {
           this.subscribtionForm = new FormHandler($subscribtionForm)
         }
@@ -31,9 +29,9 @@ Newsletter.prototype = {
         this.handleSubscribtionForm()
       }
     })
-  },
+  }
 
-  handleSubscribtionForm: async function() {
+  async handleSubscribtionForm() {
     this.subscribtionForm.formData = new FormData(this.subscribtionForm.$form)
     this.subscribtionForm.addCsrfToFormData()
     this.validateSubscribtionForm.call(this.subscribtionForm)
@@ -46,9 +44,9 @@ Newsletter.prototype = {
     await this.sendSubscribtionRequest.call(this.subscribtionForm)
     if (!this.subscribtionForm.response) return
     this.handleSubscribtionFormResponse.call(this.subscribtionForm)
-  },
+  }
 
-  validateSubscribtionForm: function() {
+  validateSubscribtionForm() {
     const name = this.formData.get('name').trim()
     const email = this.formData.get('email').trim()
     const policy = this.formData.get('policy')
@@ -64,13 +62,13 @@ Newsletter.prototype = {
     if (emailError) {
       this.errors.email = emailError
     }
-    
+
     if (!policy) {
       this.errors.policy = 'Accepting privacy policy is required!'
     }
-  },
+  }
 
-  sendSubscribtionRequest: async function() {
+  async sendSubscribtionRequest() {
     try {
       const request = await fetch(docRoot + 'ajax/newsletter-subscribe', {
         method: 'POST',
@@ -78,21 +76,21 @@ Newsletter.prototype = {
       })
       this.response = await request.json()
       return true
-    } catch(error) {
+    } catch (error) {
       uiController.showAlert('Server error. Try again and if the problem persists please notify the administrator: admin@clothes-ecommerce.com.pl.', 'error')
       return false
     }
-  },
+  }
 
-  handleSubscribtionFormResponse: function () {
+  handleSubscribtionFormResponse() {
     this.clearFormErrors()
 
     if (this.response.hasOwnProperty('success')) {
-        uiController.showAlert(this.response.success, 'success')
-        this.$form.reset()
+      uiController.showAlert(this.response.success, 'success')
+      this.$form.reset()
     }
     else if (this.response.hasOwnProperty('error')) {
-        uiController.showAlert(this.response.error, 'error')
+      uiController.showAlert(this.response.error, 'error')
     }
     else {
       this.displayFormErrors(this.response)

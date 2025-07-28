@@ -1,80 +1,78 @@
-const UiController = function() {
-  const init = ()=> {
-    this.initSettingSideSpace()
-    this.initPreloader()
-    this.initOffcanvas()
-    this.initMessageBox()
-    this.initHeader()
-    this.initAlert()
+class UiController {
+  constructor() {
+    const init = () => {
+      this.initSettingSideSpace()
+      this.initPreloader()
+      this.initOffcanvas()
+      this.initMessageBox()
+      this.initHeader()
+      this.initAlert()
+    }
+
+    init()
   }
-
-  init()
-}
-
-UiController.prototype = {
-  constructor: UiController,
 
   // SET SIDE SPACE
 
-  initSettingSideSpace: function() {
+  initSettingSideSpace() {
     this.setSideSpace()
 
     const setSideSpaceHandler = throttleFunction(this.setSideSpace.bind(this), 100)
     window.addEventListener('resize', setSideSpaceHandler)
-  },
+  }
 
-  setSideSpace: function() {
+  setSideSpace() {
     const sideSpace = Math.floor(document.body.clientWidth / 8)
 
     document.documentElement.style.setProperty('--side-space-dynamic', sideSpace + 'px')
-  },
+  }
 
   // PRELOADER ANIMATION
 
-  initPreloader: function() {
+  initPreloader() {
     this.$preloader = document.querySelector('.js-preloader')
-    if(!this.$preloader) return
+    if (!this.$preloader) return
 
     this.showPreloader()
-  },
+  }
 
-  showPreloader: function() {
+  showPreloader() {
     this.$preloader.style.display = 'block'
 
     setTimeout(() => {
       this.$preloader.classList.add('active')
     }, 50)
-  },
+  }
 
   // OFFCANVAS
 
-  initOffcanvas: function() {
+  initOffcanvas() {
     this.$offcanvasMenu = document.querySelector('.js-offcanvas')
     this.$offcanvasOpen = document.querySelector('.js-offcanvas-open')
     this.$offcanvasClose = document.querySelector('.js-offcanvas-close')
 
-    if(!this.$offcanvasMenu || !this.$offcanvasOpen || !this.$offcanvasClose) return
+    if (!this.$offcanvasMenu || !this.$offcanvasOpen || !this.$offcanvasClose) return
 
     this.$offcanvasMenu.classList.add('inactive')
     this.$offcanvasOpen.addEventListener('click', this.openOffcanvas.bind(this))
     this.$offcanvasClose.addEventListener('click', this.closeOffcanvas.bind(this))
-  },
+  }
 
-  openOffcanvas: function() {
+  openOffcanvas() {
     this.$offcanvasMenu.classList.toggle('active')
     this.$offcanvasMenu.classList.toggle('inactive')
     document.body.style.overflow = 'hidden'
-  },
+  }
 
-  closeOffcanvas: function() {
+  closeOffcanvas() {
     this.$offcanvasMenu.classList.toggle('active')
     this.$offcanvasMenu.classList.toggle('inactive')
     document.body.style.overflow = ''
-  },
+  }
 
   // CLOSE MESSAGE BOX
 
-  initMessageBox: function() {
+  initMessageBox() {
     this.$messageBox = document.querySelector('.js-message')
     if (!this.$messageBox) return
 
@@ -84,15 +82,15 @@ UiController.prototype = {
 
       this.closeMessageBox()
     })
-  },
+  }
 
-  closeMessageBox: function() {
+  closeMessageBox() {
     this.$messageBox.remove()
-  },
+  }
 
   // STICKY HEADER
 
-  initHeader: function() {
+  initHeader() {
     this.$header = document.querySelector('.js-header')
     this.isHeaderSticky = false
 
@@ -100,9 +98,9 @@ UiController.prototype = {
 
     const handleStickyHeaderScroll = throttleFunction(this.stickyHeader.bind(this), 30)
     window.addEventListener('scroll', handleStickyHeaderScroll)
-  },
+  }
 
-  stickyHeader: function() {
+  stickyHeader() {
     const Y = window.scrollY
     const stickynessDistance = window.innerHeight * 1.5
 
@@ -124,11 +122,11 @@ UiController.prototype = {
 
       this.$header.addEventListener('animationend', onAnimationEnd)
     }
-  },
+  }
 
   // ALERTS
 
-  initAlert: function() {
+  initAlert() {
     this.alertTimeoutId
 
     document.addEventListener('click', e => {
@@ -136,21 +134,21 @@ UiController.prototype = {
         this.closeAlert()
       }
     })
-  },
+  }
 
-  showAlert: function(message, type) {
+  showAlert(message, type) {
     this.alertMessage = message
     this.alertType = type
     this.$currentAlert = document.querySelector('.js-alert')
 
     const alertTypes = {
-      success: {icon: 'ri-checkbox-circle-line', title: 'Success :)'},
-      error: {icon: 'ri-checkbox-circle-line', title: 'Error!'},
-      info: {icon: 'ri-information-line', title: 'Information...'},
-      warning: {icon: 'ri-spam-3-line', title: 'Warning!'}
+      success: { icon: 'ri-checkbox-circle-line', title: 'Success :)' },
+      error: { icon: 'ri-checkbox-circle-line', title: 'Error!' },
+      info: { icon: 'ri-information-line', title: 'Information...' },
+      warning: { icon: 'ri-spam-3-line', title: 'Warning!' }
     }
 
-    const {icon, title} = alertTypes[type] || alertTypes.info
+    const { icon, title } = alertTypes[type] || alertTypes.info
     this.alertIcon = icon
     this.alertTitle = title
 
@@ -161,9 +159,9 @@ UiController.prototype = {
     this.createAlertInDOM()
 
     this.alertTimeoutId = setTimeout(() => this.closeAlert(), 6000)
-  },
+  }
 
-  createAlertInDOM: function() {
+  createAlertInDOM() {
     const alert = document.createElement('div')
     alert.className = `alert alert--show alert--${this.alertType} js-alert`
 
@@ -201,9 +199,9 @@ UiController.prototype = {
 
     this.$currentAlert = alert
     document.querySelector('.body-wrapper').insertAdjacentElement('afterend', alert)
-  },
+  }
 
-  closeAlert: function(e) {
+  closeAlert(e) {
     this.$currentAlert.remove()
   }
 }

@@ -1,20 +1,18 @@
 import { FormHandler } from "../../helpers/FormHandler.js"
 import { uiController } from '../classes/UiController.js'
 
-const Contact = function() {
-  const init = () => {
-    this.initContactForm()
+class Contact {
+  constructor() {
+    const init = () => {
+      this.initContactForm()
+    }
+
+    init()
   }
-
-  init()
-}
-
-Contact.prototype = {
-  constructor: Contact,
 
   // SEND MESSAGE FROM CONTACT FORM
 
-  initContactForm: function() {
+  initContactForm() {
     const $contactForm = document.querySelector('.js-contact-form')
     if (!$contactForm) return
 
@@ -26,9 +24,9 @@ Contact.prototype = {
       if (this.contactForm.formFilledByBot()) return
       this.handleContactForm()
     })
-  },
+  }
 
-  handleContactForm: async function() {
+  async handleContactForm() {
     this.contactForm.formData = new FormData(this.contactForm.$form)
     this.contactForm.addCsrfToFormData()
     this.validateContactForm.call(this.contactForm)
@@ -37,13 +35,13 @@ Contact.prototype = {
       this.contactForm.displayFormErrors()
       return
     }
-    
+
     await this.sendContactRequest.call(this.contactForm)
     if (!this.contactForm.response) return
     this.handleContactFormResponse.call(this.contactForm)
-  },
+  }
 
-  validateContactForm: function () {
+  validateContactForm() {
     const name = this.formData.get('name').trim()
     const email = this.formData.get('email').trim()
     const subject = this.formData.get('subject').trim()
@@ -79,13 +77,13 @@ Contact.prototype = {
     if (messageError) {
       this.errors.message = messageError
     }
-    
+
     if (!policy) {
       this.errors.policy = 'Accepting privacy policy is required!'
     }
-  },
+  }
 
-  sendContactRequest: async function () {
+  async sendContactRequest() {
     try {
       const request = await fetch(docRoot + 'ajax/contact-send-message', {
         method: 'POST',
@@ -93,21 +91,21 @@ Contact.prototype = {
       })
       this.response = await request.json()
       return true
-    } catch(error) {
+    } catch (error) {
       showAlert('Server error. Try again and if the problem persists please notify the administrator: admin@clothes-ecommerce.com.pl.', 'error')
       return false
     }
-  },
+  }
 
-  handleContactFormResponse: function () {
+  handleContactFormResponse() {
     this.clearFormErrors()
 
     if (this.response.hasOwnProperty('success')) {
-        uiController.showAlert(this.response.success, 'success')
-        this.$form.reset()
+      uiController.showAlert(this.response.success, 'success')
+      this.$form.reset()
     }
     else if (this.response.hasOwnProperty('error')) {
-        uiController.showAlert(this.response.error, 'error')
+      uiController.showAlert(this.response.error, 'error')
     }
     else {
       this.displayFormErrors(this.response)
