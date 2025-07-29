@@ -278,9 +278,10 @@
       <span class="app-content__panel__bottom__numbers js-table-numbers">
         <span>{{ (page - 1) * admin_pagination + 1 }}</span>
          - 
-        <span class="js-table-number-to">{{ (page -1) * admin_pagination + subscribers|length }} </span>
+         {% set number_to = (page -1) * admin_pagination + subscribers|length %}
+        <span class="js-table-number-to" data-number="{{ number_to }}">{{ number_to }}</span>
          of 
-        <span class="js-table-number-of">{{ count }}</span>
+        <span class="js-table-number-of" data-number="{{ count }}">{{ count }}</span>
       </span>
 
       {% if count > admin_pagination %}

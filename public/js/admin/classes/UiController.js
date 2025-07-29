@@ -313,6 +313,7 @@ class UiController {
   updateTableNumbersAfterItemsDeletion() {
     const $totalRows = document.querySelectorAll('.js-table-row')
     this.getTablePageNumbers()
+    this.updatePageTitleCountItems()
 
     if ($totalRows.length === 0) {
       this.handleEmptiedTableItems()
@@ -325,8 +326,8 @@ class UiController {
 
   getTablePageNumbers() {
     this.tablePageNumbers = {
-      to: Number(document.querySelector('.js-table-number-to').innerText),
-      of: Number(document.querySelector('.js-table-number-of').innerText)
+      to: Number(document.querySelector('.js-table-number-to').dataset.number),
+      of: Number(document.querySelector('.js-table-number-of').dataset.number)
     }
   }
 
@@ -373,6 +374,18 @@ class UiController {
 
     $to.innerText = to
     $of.innerText = of
+
+    $to.dataset.number = to
+    $of.dataset.number = of
+  }
+
+  updatePageTitleCountItems() {
+    const $page_title_count = document.querySelector('.js-page-title-count')
+    const page_title_count_number = Number($page_title_count.dataset.number)
+    const updatedCount = page_title_count_number - this.deleteItemsCount
+
+    $page_title_count.innerText = updatedCount
+    $page_title_count.dataset.number = updatedCount
   }
 }
 

@@ -1,7 +1,11 @@
 <div class="page-title">
   <div class="container">
     <div class="row">
-      <h1 class="page-title__heading heading heading--h1 heading--primary">{{ page_title }}</h1>
+      {% set title_has_count = show_count_near_title and (count or count == 0) %}
+      <h1 class="page-title__heading heading heading--h1 heading--primary">
+        {{ page_title }} 
+        {% if title_has_count %} (<span class="page-title__heading__count js-page-title-count" data-number="{{ count }}">{{ count }}</span>) {% endif %}
+      </h1>
       
       <ul class="breadcrumbs">
         <li>
