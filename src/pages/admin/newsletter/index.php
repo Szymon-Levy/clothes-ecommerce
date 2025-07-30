@@ -4,7 +4,7 @@
 $keyword = trim($_GET['keyword'] ?? '');
 $order_by = trim($_GET['orderby'] ?? '');
 $sort = trim($_GET['sort'] ?? 'a');
-$page = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?? 1;
+$page = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
 
 
 // template data
