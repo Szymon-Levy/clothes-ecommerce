@@ -8,6 +8,4 @@ if(preg_match('/[A-Z]/', $_SERVER['REQUEST_URI'])) {
 }
 
 $router = new ClothesEcommerce\App\Router($_SERVER['REQUEST_URI'], $globals_container);
-$url_parts = $router->getUrlParts();
-
 $router->route();
