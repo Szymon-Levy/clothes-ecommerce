@@ -1,8 +1,8 @@
 <?php
 
 namespace ClothesEcommerce\Newsletter;
-use ClothesEcommerce\App\DataBase;
-use ClothesEcommerce\Email\Email;
+use App\DataBase;
+use App\Email;
 
 class Newsletter 
 {

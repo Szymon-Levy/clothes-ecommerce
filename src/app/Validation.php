@@ -1,6 +1,6 @@
 <?php
 
-namespace ClothesEcommerce\Validation;
+namespace App;
 
 class Validation 
 {

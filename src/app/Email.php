@@ -1,6 +1,6 @@
 <?php
 
-namespace ClothesEcommerce\Email;
+namespace App;
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;

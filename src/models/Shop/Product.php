@@ -1,6 +1,6 @@
 <?php
 
-use ClothesEcommerce\App\DataBase;
+use App\DataBase;
 
 class Product 
 {

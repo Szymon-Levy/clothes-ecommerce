@@ -1,14 +1,14 @@
 <?php
 
-namespace ClothesEcommerce\App;
+namespace App;
 
 class Export 
 {
   private string $data_source;
   private null|array $data = null;
-  private \ClothesEcommerce\App\App $app;
+  private App $app;
 
-  public function __construct (string $data_source, \ClothesEcommerce\App\App $app)
+  public function __construct (string $data_source, App $app)
   {
     $this->data_source = $data_source;
     $this->app = $app;

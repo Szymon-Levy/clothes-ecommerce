@@ -5,7 +5,7 @@
  * @param string $file_path - path to static asset from public folder
  * @return string - full asset url with cache busting method
  */
-$assets = new \Twig\TwigFunction('assets', function (string $file_path) {
+$assets = new Twig\TwigFunction('assets', function (string $file_path) {
   if(file_exists($file_path)) {
     $file_path .= '?v=' . filemtime($file_path);
   }
@@ -19,7 +19,7 @@ $twig->addFunction($assets);
  * @param string $source - front/admin source of files
  * @return string - script tags with linked files
  */
-$loadPageJs = new \Twig\TwigFunction('loadPageJs', function (array|string $file_names, string $source) {
+$loadPageJs = new Twig\TwigFunction('loadPageJs', function (array|string $file_names, string $source) {
   if (is_string($file_names)) {
     $file_names = explode(' ', $file_names);
   }
@@ -35,7 +35,7 @@ $loadPageJs = new \Twig\TwigFunction('loadPageJs', function (array|string $file_
 });
 $twig->addFunction($loadPageJs);
 
-$pageActiveStatus = new \Twig\TwigFunction('pageActiveStatus', function (string $current_page, string|null $url_part) {
+$pageActiveStatus = new Twig\TwigFunction('pageActiveStatus', function (string $current_page, string|null $url_part) {
   if($current_page == $url_part) {
     return 'active';
   }
@@ -43,7 +43,7 @@ $pageActiveStatus = new \Twig\TwigFunction('pageActiveStatus', function (string 
 });
 $twig->addFunction($pageActiveStatus);
 
-$honeypot = new \Twig\TwigFunction('honeypot', function () {
+$honeypot = new Twig\TwigFunction('honeypot', function () {
   echo '
     <div style="opacity: 0; position: absolute; top: 0; left: 0; height: 0; width: 0; z-index: -1;">
         <label>
@@ -56,4 +56,4 @@ $honeypot = new \Twig\TwigFunction('honeypot', function () {
 $twig->addFunction($honeypot);
 
 // deafult date format
-$twig->getExtension(\Twig\Extension\CoreExtension::class)->setDateFormat('d/m/Y H:i', '%d days');
+$twig->getExtension(Twig\Extension\CoreExtension::class)->setDateFormat('d/m/Y H:i', '%d days');

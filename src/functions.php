@@ -38,13 +38,13 @@ function redirect (string $page)
 }
 
 // Creates user message in session
-function createUserMessageInSession (string $content, string $type, ClothesEcommerce\Session\Session $session) 
+function createUserMessageInSession (string $content, string $type, App\Session $session) 
 {
     $session->setSessionVariable('user_message', ['content' => $content, 'type' => $type]);
 }
 
 // Creates admin message in session
-function createAdminMessageInSession (string $content, string $type, ClothesEcommerce\Session\Session $session) 
+function createAdminMessageInSession (string $content, string $type, App\Session $session) 
 {
     $session->setSessionVariable('admin_message', ['content' => $content, 'type' => $type]);
 }
@@ -66,7 +66,7 @@ function isFormFilledByBot()
 }
 
 // Checks if csrf token is correct
-function isCsrfIncorrect(ClothesEcommerce\Session\Session $session) 
+function isCsrfIncorrect(App\Session $session) 
 {
     if (!isset($_POST['csrf']) || $_POST['csrf'] != $session->csrf) {
         return 'Operation not allowed, refresh the page and try again!';

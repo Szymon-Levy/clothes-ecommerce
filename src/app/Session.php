@@ -1,6 +1,6 @@
 <?php
 
-namespace ClothesEcommerce\Session;
+namespace App;
 
 class Session 
 {

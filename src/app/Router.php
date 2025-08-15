@@ -1,6 +1,6 @@
 <?php
 
-namespace ClothesEcommerce\App;
+namespace App;
 
 class Router 
 {

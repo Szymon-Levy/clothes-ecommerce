@@ -1,8 +1,8 @@
 <?php
 
 namespace ClothesEcommerce\Contact;
-use ClothesEcommerce\App\DataBase;
-use ClothesEcommerce\Email\Email;
+use App\DataBase;
+use App\Email;
 
 class Contact 
 {

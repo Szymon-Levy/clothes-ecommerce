@@ -1,9 +1,9 @@
 <?php
 
-namespace ClothesEcommerce\App;
+namespace App;
 use PDO;
 
-class DataBase extends \PDO 
+class DataBase extends PDO
 {
   public function __construct(string $dsn, string $db_user, string $db_password) 
   {
@@ -19,7 +19,7 @@ class DataBase extends \PDO
       return $this->query($sql);
     }
     $stmt = $this->prepare($sql);
-    $result = $stmt->execute($arguments);
+    $stmt->execute($arguments);
     return $stmt;
   }
 }

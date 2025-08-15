@@ -1,6 +1,6 @@
 <?php
 
-use ClothesEcommerce\Validation\Validation;
+use App\Validation;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   //csrf validation
