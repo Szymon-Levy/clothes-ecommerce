@@ -3,7 +3,7 @@
 $data_source = trim($_GET['data'] ?? '');
 
 if ($data_source) {
-  $export = new App\Export($data_source, $app);
+  $export = new Core\Export($data_source, $app);
   $export_data = $export->exportData();
 
   if (!$export_data) {

@@ -1,6 +1,6 @@
 <?php
 
-use App\DataBase;
+use Core\DataBase;
 
 class Product 
 {

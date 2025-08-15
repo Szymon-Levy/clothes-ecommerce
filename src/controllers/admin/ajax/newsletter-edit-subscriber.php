@@ -1,6 +1,6 @@
 <?php
 
-use App\Validation;
+use Core\Validation;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   //csrf validation

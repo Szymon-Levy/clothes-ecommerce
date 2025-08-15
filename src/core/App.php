@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace Core;
 use ClothesEcommerce\Newsletter\Newsletter;
 use ClothesEcommerce\Contact\Contact;
 

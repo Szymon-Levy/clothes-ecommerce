@@ -7,10 +7,10 @@ if(preg_match('/[A-Z]/', $_SERVER['REQUEST_URI'])) {
   header("Location: //" . $_SERVER['HTTP_HOST'] . strtolower($_SERVER['REQUEST_URI']));
 }
 
-$router = new App\Router($_SERVER['REQUEST_URI'], $globals_container);
+$router = new Core\Router($_SERVER['REQUEST_URI'], $globals_container);
 $router->route();
 
-// $router = new App\Routing\Router();
+// $router = new Core\Routing\Router();
 // $routes = require_once APP_ROOT . '/src/routes.php';
 // $routes($router);
 // print $router->dispatch();

@@ -1,6 +1,6 @@
 <?php
 
-use App\Routing\Router;
+use Core\Routing\Router;
 
 return function(Router $router) {
   $router->add(

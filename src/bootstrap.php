@@ -14,7 +14,7 @@ if (DEV === false) {
 }
 
 // App object
-$app = new App\App($dsn, $db_user, $db_password);
+$app = new Core\App($dsn, $db_user, $db_password);
 unset ($dsn, $db_user, $db_password);
 
 // Twig loading
@@ -26,7 +26,7 @@ $twig->addGlobal('doc_root', DOC_ROOT);
 $twig->addGlobal('admin_pagination', ADMIN_PAGINATION);
 
 // Access to session
-$session = new App\Session();
+$session = new Core\Session();
 $twig->addGlobal('session', $session);
 
 // Add footer info to twig
@@ -46,7 +46,7 @@ if (DEV === true) {
 require APP_ROOT . '/src/twig_extensions.php';
 
 // Create container for variables
-$globals_container = new App\GlobalsContainer();
+$globals_container = new Core\GlobalsContainer();
 $globals_container->set('app', $app);
 $globals_container->set('twig', $twig);
 $globals_container->set('session', $session);
