@@ -9,3 +9,8 @@ if(preg_match('/[A-Z]/', $_SERVER['REQUEST_URI'])) {
 
 $router = new App\Router($_SERVER['REQUEST_URI'], $globals_container);
 $router->route();
+
+$router = new App\Routing\Router();
+$routes = require_once APP_ROOT . '/src/routes.php';
+$routes($router);
+print $router->dispatch();
