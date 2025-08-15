@@ -2,7 +2,7 @@
 
 define('APP_ROOT', dirname(__FILE__, 2));
 
-require APP_ROOT . '/src/functions.php';
+require APP_ROOT . '/src/helpers.php';
 require APP_ROOT . '/config/config.php';
 require APP_ROOT . '/vendor/autoload.php';
 
@@ -20,7 +20,7 @@ unset ($dsn, $db_user, $db_password);
 // Twig loading
 $twig_settings['cache'] = APP_ROOT . '/var/cache';
 $twig_settings['debug'] = DEV;
-$twig_loader = new Twig\Loader\FilesystemLoader(APP_ROOT . '/views');
+$twig_loader = new Twig\Loader\FilesystemLoader(APP_ROOT . '/src/views');
 $twig = new Twig\Environment($twig_loader, $twig_settings);
 $twig->addGlobal('doc_root', DOC_ROOT);
 $twig->addGlobal('admin_pagination', ADMIN_PAGINATION);
@@ -43,7 +43,7 @@ if (DEV === true) {
 }
 
 // Add Twig custom functions and modifications
-require APP_ROOT . '/src/twig_customs.php';
+require APP_ROOT . '/src/twig_extensions.php';
 
 // Create container for variables
 $globals_container = new App\GlobalsContainer();
