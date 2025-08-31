@@ -1,11 +1,23 @@
 <?php
 
-$data['shop_name'] = SHOP_NAME;
-$data['shop_address'] = SHOP_ADDRESS;
-$data['shop_email'] = SHOP_EMAIL;
-$data['shop_phone'] = SHOP_PHONE;
+namespace Controllers\front;
 
-$data['page_title'] = 'Contact';
-$data['page_js'] = 'contact';
+use Controllers\BaseController;
 
-echo $twig->render('front/contact.html.twig', $data);
+class Contact extends BaseController
+{
+
+  public function index()
+  {
+    $data = [
+      'shop_name' => SHOP_NAME,
+      'shop_address' => SHOP_ADDRESS,
+      'shop_email' => SHOP_EMAIL,
+      'shop_phone' => SHOP_PHONE,
+      'page_title' => 'Contact',
+      'page_js' => 'contact'
+    ];
+
+    echo $this->twig->render('front/contact.html.twig', $data);
+  }
+}

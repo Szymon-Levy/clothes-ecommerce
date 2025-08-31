@@ -2,11 +2,22 @@
 
 namespace Core\Routing;
 
+use Exception;
+use Core\GlobalsContainer;
+
 class Router 
 {
   protected array $routes = [];
+  protected array $error_handlers = [];
+  protected Route $current;
+  protected GlobalsContainer $globals_container;
 
-  public function add(string $method, string $path, callable $handler): Route
+  public function __construct(GlobalsContainer $globals_container)
+  {
+    $this->globals_container = $globals_container;
+  }
+
+  public function add(string $method, string $path, $handler): Route
   {
     $route = $this->routes[] = new Route($method, $path, $handler);
     return $route;
@@ -17,13 +28,24 @@ class Router
     $paths = $this->paths();
 
     $request_method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
-    $request_path = $_SERVER['REQUEST_URI'] ?? '/';
+
+    $uri = $_SERVER['REQUEST_URI'] ?? '/';
+    $uri = parse_url($uri, PHP_URL_PATH);
+    $base = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/');
+
+    if ($base !== '' && str_starts_with($uri, $base)) {
+      $uri = substr($uri, strlen($base));
+    }
+
+    $request_path = $uri ?: '/';
 
     $matching = $this->match($request_method, $request_path);
 
     if ($matching) {
+      $this->current = $matching;
+
       try {
-        return $matching->dispatch();
+        return $matching->dispatch($this->globals_container);
       } catch (\Throwable $e) {
         return $this->dispatchError();
       }
@@ -56,5 +78,65 @@ class Router
     }
 
     return null;
+  }
+
+  public function errorHandler(int $code, callable $handler)
+  {
+    $this->error_handlers[$code] = $handler;
+  }
+
+  public function dispatchNotAllowed()
+  {
+    $this->error_handlers[400] ??= fn() => 'not allowed';
+    return $this->error_handlers[400]();
+  }
+
+  public function dispatchNotFound()
+  {
+    $this->error_handlers[404] ??= fn() => 'not found';
+    return $this->error_handlers[404]();
+  }
+
+  public function dispatchError()
+  {
+    $this->error_handlers[500] ??= fn() => 'server error';
+    return $this->error_handlers[500]();
+  }
+
+  public function redirect($path)
+  {
+    header("Location: {$path}", $replace = true, $code = 301);
+    exit;
+  }
+
+  public function current(): ?Route
+  {
+    return $this->current;
+  }
+
+  public function route(string $name, array $parameters): string
+  {
+    foreach ($this->routes as $route) {
+      if ($route->name() === $name) {
+        $finds = [];
+        $replaces = [];
+
+        foreach ($parameters as $key => $value) {
+          array_push($finds, "{{$key}}");
+          array_push($replaces, $value);
+
+          array_push($finds, "{{$key}?}");
+          array_push($replaces, $value);
+        }
+
+        $path = $route->path();
+        $path = str_replace($finds, $replaces, $path);
+        $path = preg_replace('#{[^}]+}#', '', $path);
+
+        return $path;
+      }
+    }
+
+    throw new Exception('no route with that name');
   }
 }
