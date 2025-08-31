@@ -42,6 +42,8 @@ class Router
     $matching = $this->match($request_method, $request_path);
 
     if ($matching) {
+      $this->passUrpPartsToTwig($request_path);
+
       $this->current = $matching;
 
       try {
@@ -80,7 +82,7 @@ class Router
     return null;
   }
 
-  public function errorHandler(int $code, callable $handler)
+  public function errorHandler(int $code, array $handler)
   {
     $this->error_handlers[$code] = $handler;
   }
@@ -93,8 +95,12 @@ class Router
 
   public function dispatchNotFound()
   {
-    $this->error_handlers[404] ??= fn() => 'not found';
-    return $this->error_handlers[404]();
+    http_response_code(404);
+
+    [$class, $method] = $this->error_handlers[404];
+    $controller = new $class($this->globals_container);
+
+    return $controller->{$method}();
   }
 
   public function dispatchError()
@@ -138,5 +144,11 @@ class Router
     }
 
     throw new Exception('no route with that name');
+  }
+
+  public function passUrpPartsToTwig(string $uri){
+    $url_parts = explode('/', trim($uri, '/'));
+
+    $this->globals_container->get('twig')->addGlobal('url_parts', $url_parts);
   }
 }

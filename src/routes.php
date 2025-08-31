@@ -1,11 +1,15 @@
 <?php
 
 use Core\Routing\Router;
+use Controllers\Errors;
 use Controllers\front\Home;
 use Controllers\front\Contact;
 use Controllers\front\UiElements;
 
 return function(Router $router) {
+  // ERRORS
+  $router->errorHandler(404, [Errors::class, 'error404']);
+
   // FRONT
   $router->add('GET', '/', [Home::class, 'index']);
   $router->add('GET', '/contact', [Contact::class, 'index']);
