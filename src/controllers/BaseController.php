@@ -29,6 +29,6 @@ abstract class BaseController
 
   protected function renderView(string $path, array $data = [])
   {
-    echo $this->twig->render('front/index.html.twig', $data);
+    echo $this->twig->render($path, $data);
   }
 }

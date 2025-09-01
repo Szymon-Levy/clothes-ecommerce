@@ -68,7 +68,7 @@
 
               <tr>
                 <td style="padding: 30px 0 0; text-align: center;" align="center">
-                  <a href="<?= (IS_LOCAL ? 'http://localhost' .DOC_ROOT : 'https://' . DOMAIN . '/') ?>newsletter-deletion?token=<?= $email_data['token'] ?>">
+                  <a href="<?= (IS_LOCAL ? 'http://localhost' .DOC_ROOT : 'https://' . DOMAIN . '/') ?>delete-subscribtion/<?= $email_data['token'] ?>">
                     <img src="https://<?= (IS_LOCAL ? FIXED_DOMAIN : DOMAIN) ?>/images/email/btn-delete-subscribtion.png" width="168" style="border: 0; max-width: 181px;" alt="Delete subscribtion">
                   </a>
                 </td>

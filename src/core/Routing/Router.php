@@ -49,7 +49,7 @@ class Router
       try {
         return $matching->dispatch($this->globals_container);
       } catch (\Throwable $e) {
-        return $this->dispatchError();
+        $this->dispatchError($e);
       }
     }
 
@@ -103,10 +103,11 @@ class Router
     return $controller->{$method}();
   }
 
-  public function dispatchError()
+  public function dispatchError(\Throwable $e)
   {
-    $this->error_handlers[500] ??= fn() => 'server error';
-    return $this->error_handlers[500]();
+    http_response_code(500);
+
+    echo DEV ? $e->getMessage() : 'Server error!';
   }
 
   public function redirect($path)
