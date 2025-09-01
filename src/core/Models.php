@@ -1,10 +1,10 @@
 <?php
 
 namespace Core;
-use ClothesEcommerce\Newsletter\Newsletter;
-use ClothesEcommerce\Contact\Contact;
+use Models\Newsletter;
+use Models\Contact;
 
-class App
+class Models
 {
   protected $database = null;
   protected $newsletter = null;

@@ -1,18 +1,12 @@
 <?php
 
-namespace ClothesEcommerce\Contact;
-use Core\DataBase;
+namespace Models;
+
+use Models\BaseModel;
 use Core\Email;
 
-class Contact 
+class Contact extends BaseModel
 {
-  protected $database;
-
-  public function __construct (DataBase $database) 
-  {
-    $this->database = $database;
-  }
-
   private function saveMessage (string $name, string $email, string $subject, string $message) 
   {
     $arguments['sender_name'] = $name;

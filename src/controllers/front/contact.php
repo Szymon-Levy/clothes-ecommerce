@@ -92,7 +92,7 @@ class Contact extends BaseController
     $this->session->removeSessionVariable('csrf');
     
     // save email data in database and send copy
-    $db_response = $this->app->contact()->sendUserMessage($name, $email, $subject, $message, $this->email_settings);
+    $db_response = $this->models->contact()->sendUserMessage($name, $email, $subject, $message, $this->email_settings);
 
     if ($db_response == '200') {
       $response['success'] = 'Your message has been successfully sent to the administrator. We have sent a copy of your message to your email.';

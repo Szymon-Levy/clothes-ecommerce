@@ -13,8 +13,8 @@ if (DEV === false) {
   register_shutdown_function('shutdown_handling');
 }
 
-// App object
-$app = new Core\App($dsn, $db_user, $db_password);
+// Models container object
+$models = new Core\Models($dsn, $db_user, $db_password);
 unset ($dsn, $db_user, $db_password);
 
 // Twig loading
@@ -25,7 +25,7 @@ $twig = new Twig\Environment($twig_loader, $twig_settings);
 $twig->addGlobal('doc_root', DOC_ROOT);
 $twig->addGlobal('admin_pagination', ADMIN_PAGINATION);
 
-// Access to session
+// Twig access to session
 $session = new Core\Session();
 $twig->addGlobal('session', $session);
 
@@ -47,7 +47,7 @@ require APP_ROOT . '/src/twig_extensions.php';
 
 // Create container for variables
 $globals_container = new Core\GlobalsContainer();
-$globals_container->set('app', $app);
+$globals_container->set('models', $models);
 $globals_container->set('twig', $twig);
 $globals_container->set('session', $session);
 $globals_container->set('email_settings', $email_settings);

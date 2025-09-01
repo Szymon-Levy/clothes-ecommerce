@@ -1,19 +1,14 @@
 <?php
 
-namespace ClothesEcommerce\Newsletter;
-use Core\DataBase;
+namespace Models;
+
+use Models\BaseModel;
 use Core\Email;
 
-class Newsletter 
+class Newsletter extends BaseModel
 {
-  protected $database;
-  private $allowed_filter_columns = ['id', 'name', 'email', 'is_active', 'created_at'];
-  private $results_count = 0;
-
-  public function __construct (DataBase $database) 
-  {
-    $this->database = $database;
-  }
+  protected $allowed_filter_columns = ['id', 'name', 'email', 'is_active', 'created_at'];
+  protected $results_count = 0;
 
   public function addSubscriber (string $name, string $email, array $email_settings) 
   {

@@ -1,10 +1,12 @@
 <?php
 
+namespace Models;
+
 use Core\DataBase;
 
-class Product 
+abstract class BaseModel
 {
-  protected $database;
+  protected DataBase $database;
 
   public function __construct(DataBase $database)
   {
