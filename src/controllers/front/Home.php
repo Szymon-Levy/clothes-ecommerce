@@ -14,6 +14,6 @@ class Home extends BaseController
       'page_js' => 'home'
     ];
 
-    echo $this->twig->render('front/index.html.twig', $data);
+    $this->renderView('front/index.html.twig', $data);
   }
 }

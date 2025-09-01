@@ -19,7 +19,7 @@ class Contact extends BaseController
       'page_js' => 'contact'
     ];
 
-    echo $this->twig->render('front/contact.html.twig', $data);
+    $this->renderView('front/contact.html.twig', $data);
   }
 
   public function sendMessage()

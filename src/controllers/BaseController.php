@@ -26,4 +26,9 @@ abstract class BaseController
     $this->session = $globals_container->get('session');
     $this->email_settings = $globals_container->get('email_settings');
   }
+
+  protected function renderView(string $path, array $data = [])
+  {
+    echo $this->twig->render('front/index.html.twig', $data);
+  }
 }
