@@ -13,6 +13,7 @@ return function(Router $router) {
   // FRONT
   $router->add('GET', '/', [Home::class, 'index']);
   $router->add('GET', '/contact', [Contact::class, 'index']);
+  $router->add('POST', '/ajax/contact-send-message', [Contact::class, 'sendMessage']);
   
   // UI ELEMENTS
   
