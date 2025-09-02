@@ -11,6 +11,7 @@ class Router
   protected array $error_handlers = [];
   protected Route $current;
   protected GlobalsContainer $globals_container;
+  protected array $url_parts;
 
   public function __construct(GlobalsContainer $globals_container)
   {
@@ -147,9 +148,14 @@ class Router
     throw new Exception('no route with that name');
   }
 
-  public function passUrpPartsToTwig(string $uri){
-    $url_parts = explode('/', trim($uri, '/'));
+  public function urlParts(): array
+  {
+    return $this->url_parts;
+  }
 
-    $this->globals_container->get('twig')->addGlobal('url_parts', $url_parts);
+  public function passUrpPartsToTwig(string $uri){
+    $this->url_parts = explode('/', trim($uri, '/'));
+
+    $this->globals_container->get('twig')->addGlobal('url_parts', $this->urlParts());
   }
 }

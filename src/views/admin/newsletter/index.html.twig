@@ -56,7 +56,7 @@
         Delete selected
       </button>
 
-      <a href="{{ doc_root }}admin/export?data=newsletter-subscribers" class="btn btn--full excel" target="_blank">
+      <a href="{{ doc_root }}admin/export/newsletter-subscribers" class="btn btn--full excel" target="_blank">
         <i class="ri-file-excel-2-line" aria-hidden="true"></i>
         Export to Excel
       </a>
@@ -257,7 +257,7 @@
               <td data-label="Created at">{{ subscriber.created_at|date() }}</td>
               <td data-label="Actions">
                 <div class="table__actions">
-                  <a class="table__actions__btn table__actions__btn--edit" href="{{ doc_root }}admin/newsletter/edit-subscriber?id={{ subscriber.id }}">
+                  <a class="table__actions__btn table__actions__btn--edit" href="{{ doc_root }}admin/newsletter/edit-subscriber/{{ subscriber.id }}">
                     <i class="ri-edit-line" aria-hidden="true"></i>
                     <span class="visually-hidden">Edit item</span>
                   </a>

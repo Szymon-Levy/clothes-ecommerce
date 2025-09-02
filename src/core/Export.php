@@ -2,23 +2,25 @@
 
 namespace Core;
 
-class Export 
+use Core\Models;
+
+class Export
 {
   private string $data_source;
   private null|array $data = null;
-  private App $app;
+  private Models $models;
 
-  public function __construct (string $data_source, App $app)
+  public function __construct (string $data_source, Models $models)
   {
     $this->data_source = $data_source;
-    $this->app = $app;
+    $this->models = $models;
   }
 
   private function getTableData ():void
   {
     switch ($this->data_source) {
       case 'newsletter-subscribers':
-        $this->data = $this->app->newsletter()->getExportSubscribersData();
+        $this->data = $this->models->newsletter()->getExportSubscribersData();
         break;
     }
   }

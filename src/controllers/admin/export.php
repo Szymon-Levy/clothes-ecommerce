@@ -1,17 +1,27 @@
 <?php
 
-$data_source = trim($_GET['data'] ?? '');
+namespace Controllers\admin;
 
-if ($data_source) {
-  $export = new Core\Export($data_source, $app);
-  $export_data = $export->exportData();
+use Controllers\BaseController;
 
-  if (!$export_data) {
-    echo '<script>';
-    echo 'window.self.close()';
-    echo '</script>';
+class Export extends BaseController
+{
+  public function export()
+  {
+    $data_source = $this->router->current()->parameters()['data'] ?? null;
+
+    if ($data_source) {
+      $export = new \Core\Export($data_source, $this->models);
+      $export_data = $export->exportData();
+
+      if (!$export_data) {
+        echo '<script>';
+        echo 'window.self.close()';
+        echo '</script>';
+      }
+    }
+    else {
+      redirect('admin');
+    }
   }
-}
-else {
-  redirect('admin');
 }
