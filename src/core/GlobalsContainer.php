@@ -4,7 +4,7 @@ namespace Core;
 
 class GlobalsContainer 
 {
-  private array $globals;
+  protected array $globals;
 
   public function set(string $name, mixed $variable): void
   {

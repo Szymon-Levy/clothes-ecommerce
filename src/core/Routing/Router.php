@@ -108,7 +108,16 @@ class Router
   {
     http_response_code(500);
 
-    echo DEV ? $e->getMessage() : 'Server error!';
+    if (defined('DEV') && DEV) {
+        echo "<h1>Application error</h1>";
+        echo "<p><strong>Message:</strong> {$e->getMessage()}</p>";
+        echo "<p><strong>File:</strong> {$e->getFile()}</p>";
+        echo "<p><strong>Line:</strong> {$e->getLine()}</p>";
+        echo "<p><strong>Type:</strong> " . get_class($e) . "</p>";
+        echo "<pre>{$e->getTraceAsString()}</pre>";
+    } else {
+        echo "Server error!";
+    }
   }
 
   public function redirect($path)

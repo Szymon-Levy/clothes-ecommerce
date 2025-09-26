@@ -3,6 +3,7 @@
 define('APP_ROOT', dirname(__FILE__, 2));
 
 require APP_ROOT . '/src/helpers.php';
+require APP_ROOT . '/src/error_handlers.php';
 require APP_ROOT . '/config/config.php';
 require APP_ROOT . '/vendor/autoload.php';
 
@@ -13,7 +14,7 @@ if (DEV === false) {
   register_shutdown_function('shutdown_handling');
 }
 
-// Models container object
+// Models container
 $models = new Core\Models($dsn, $db_user, $db_password);
 unset ($dsn, $db_user, $db_password);
 
@@ -45,9 +46,13 @@ if (DEV === true) {
 // Add Twig custom functions and modifications
 require APP_ROOT . '/src/twig_extensions.php';
 
+// Create helpers instance
+$helpers = new Core\Helpers($session);
+
 // Create container for variables
 $globals_container = new Core\GlobalsContainer();
 $globals_container->set('models', $models);
 $globals_container->set('twig', $twig);
 $globals_container->set('session', $session);
 $globals_container->set('email_settings', $email_settings);
+$globals_container->set('helpers', $helpers);

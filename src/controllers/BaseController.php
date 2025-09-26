@@ -7,6 +7,7 @@ use Core\Routing\Router;
 use Twig\Environment;
 use Core\Models;
 use Core\Session;
+use Core\Helpers;
 
 abstract class BaseController
 {
@@ -16,6 +17,7 @@ abstract class BaseController
   protected Models $models;
   protected Session $session;
   protected array $email_settings;
+  protected Helpers $helpers;
 
   public function __construct(GlobalsContainer $globals_container)
   {
@@ -25,6 +27,7 @@ abstract class BaseController
     $this->models = $globals_container->get('models');
     $this->session = $globals_container->get('session');
     $this->email_settings = $globals_container->get('email_settings');
+    $this->helpers = $globals_container->get('helpers');
   }
 
   protected function renderView(string $path, array $data = [])
