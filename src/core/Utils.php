@@ -2,7 +2,7 @@
 
 namespace Core;
 
-class Helpers
+class Utils
 {
   protected Session $session;
 

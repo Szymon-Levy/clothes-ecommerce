@@ -14,10 +14,6 @@ if (DEV === false) {
   register_shutdown_function('shutdown_handling');
 }
 
-// Models container
-$models = new Core\Models($dsn, $db_user, $db_password);
-unset ($dsn, $db_user, $db_password);
-
 // Twig loading
 $twig_settings['cache'] = APP_ROOT . '/var/cache';
 $twig_settings['debug'] = DEV;
@@ -46,13 +42,17 @@ if (DEV === true) {
 // Add Twig custom functions and modifications
 require APP_ROOT . '/src/twig_extensions.php';
 
-// Create helpers instance
-$helpers = new Core\Helpers($session);
+// Create utils instance
+$utils = new Core\Utils($session);
 
 // Create container for variables
 $globals_container = new Core\GlobalsContainer();
-$globals_container->set('models', $models);
 $globals_container->set('twig', $twig);
 $globals_container->set('session', $session);
 $globals_container->set('email_settings', $email_settings);
-$globals_container->set('helpers', $helpers);
+$globals_container->set('utils', $utils);
+
+// Models container
+$models = new Core\Models($dsn, $db_user, $db_password, $globals_container);
+unset ($dsn, $db_user, $db_password);
+$globals_container->set('models', $models);
