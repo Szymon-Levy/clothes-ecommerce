@@ -107,6 +107,7 @@ class Router
   public function dispatchError(\Throwable $e)
   {
     http_response_code(500);
+    error_log($e);
 
     if (defined('DEV') && DEV) {
         echo "<h1>Application error</h1>";

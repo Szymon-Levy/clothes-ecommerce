@@ -44,16 +44,16 @@ class Newsletter extends BaseController
     $id = $this->router->current()->parameters()['id'] ?? '';
 
     if (!$id) {
-      createAdminMessageInSession('Wrong user id.', 'error', $this->session);
-      redirect('admin/newsletter');
+      $this->utils->createAdminMessageInSession('Wrong user id.', 'error');
+      $this->utils->redirect('admin/newsletter');
       exit;
     }
 
     $subscriber = $this->models->newsletter()->getSubscriberById($id);
 
     if (!$subscriber) {
-      createAdminMessageInSession('User with given id doesn\'t exists.', 'error', $this->session);
-      redirect('admin/newsletter');
+      $this->utils->createAdminMessageInSession('User with given id doesn\'t exists.', 'error');
+      $this->utils->redirect('admin/newsletter');
       exit;
     }
 
@@ -73,7 +73,7 @@ class Newsletter extends BaseController
   public function addSubscriberToDB()
   {
     //csrf validation
-    $csrf_error = isCsrfIncorrect($this->session);
+    $csrf_error = $this->utils->isCsrfIncorrect();
     if ($csrf_error) {
       $response['error'] = $csrf_error;
       echo json_encode($response);
@@ -81,7 +81,7 @@ class Newsletter extends BaseController
     }
 
     // anti bot validation
-    $bot_error = isFormFilledByBot();
+    $bot_error = $this->utils->isFormFilledByBot();
     if ($bot_error) {
       $response['error'] = $bot_error;
       echo json_encode($response);
@@ -115,7 +115,7 @@ class Newsletter extends BaseController
     $db_response = $this->models->newsletter()->addSubscriber($name, $email, $this->email_settings);
 
     if ($db_response == '200') {
-      createAdminMessageInSession ($name . ' has been successfully added to the subscriber list.', 'success', $this->session);
+      $this->utils->createAdminMessageInSession ($name . ' has been successfully added to the subscriber list.', 'success');
       $response['success'] = true;
       $response['path'] = 'admin/newsletter';
     }
@@ -133,7 +133,7 @@ class Newsletter extends BaseController
   public function deleteSubscribers()
   {
     //csrf validation
-    $csrf_error = isCsrfIncorrect($this->session);
+    $csrf_error = $this->utils->isCsrfIncorrect();
     if ($csrf_error) {
       $response['error'] = $csrf_error;
       echo json_encode($response);
@@ -172,7 +172,7 @@ class Newsletter extends BaseController
   public function editSubscriberInDB()
   {
     //csrf validation
-    $csrf_error = isCsrfIncorrect($this->session);
+    $csrf_error = $this->utils->isCsrfIncorrect();
     if ($csrf_error) {
       $response['error'] = $csrf_error;
       echo json_encode($response);
@@ -180,7 +180,7 @@ class Newsletter extends BaseController
     }
 
     // anti bot validation
-    $bot_error = isFormFilledByBot();
+    $bot_error = $this->utils->isFormFilledByBot();
     if ($bot_error) {
       $response['error'] = $bot_error;
       echo json_encode($response);
@@ -221,7 +221,7 @@ class Newsletter extends BaseController
     $db_response = $this->models->newsletter()->editSubscriber($id, $name, $email, $this->email_settings);
 
     if ($db_response == '200') {
-      createAdminMessageInSession ($name . ' has been successfully updated.', 'success', $this->session);
+      $this->utils->createAdminMessageInSession ($name . ' has been successfully updated.', 'success');
       $response['success'] = true;
       $response['path'] = 'admin/newsletter';
     }

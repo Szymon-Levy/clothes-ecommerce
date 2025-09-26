@@ -23,9 +23,14 @@ class Session
       $this->csrf = $_SESSION['csrf'];
     }
     else {
-      $this->csrf = generateCSRF();
+      $this->csrf = $this->generateCSRF();
       $this->setSessionVariable('csrf', $this->csrf);
     }
+  }
+
+  private function generateCSRF()
+  {
+    return bin2hex(random_bytes(32));
   }
 
   public function setSessionVariable (string $variableName, string|array $variableValue)

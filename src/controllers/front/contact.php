@@ -25,7 +25,7 @@ class Contact extends BaseController
   public function sendMessage()
   {
     //csrf validation
-    $csrf_error = isCsrfIncorrect($this->session);
+    $csrf_error = $this->utils->isCsrfIncorrect();
     if ($csrf_error) {
       $response['error'] = $csrf_error;
       echo json_encode($response);
@@ -33,7 +33,7 @@ class Contact extends BaseController
     }
 
     // anti bot validation
-    $bot_error = isFormFilledByBot();
+    $bot_error = $this->utils->isFormFilledByBot();
     if ($bot_error) {
       $response['error'] = $bot_error;
       echo json_encode($response);

@@ -118,23 +118,24 @@ class Newsletter extends BaseModel
 
   private function assignToken (string $subscriber_id, string $token_role_id) 
   {
-    $loop = false;
     $arguments['subscriber_id'] = $subscriber_id;
-    $arguments['token'] = generateToken();
     $arguments['token_role_id'] = $token_role_id;
     $sql = 'INSERT INTO newsletter_tokens (subscriber_id, token, token_role_id)
             VALUES (:subscriber_id, :token, :token_role_id)';
-
+    
     do {
+      $token = $this->utils->generateToken();
+      $arguments['token'] = $token;
+
       try {
         $this->database->SQL($sql, $arguments);
-        return $arguments['token'];
+        return $token;
       } catch (\PDOException $e) {
-        if ($e->errorInfo[1] === 1062) {
-          $loop = true;
+        if ($e->errorInfo[1] !== 1062) {
+          throw $e;
         }
       }
-    } while ($loop);
+    } while (true);
   }
 
   private function deleteTokens (string $subscriber_id) 

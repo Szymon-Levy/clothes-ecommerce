@@ -2,7 +2,6 @@
 
 define('APP_ROOT', dirname(__FILE__, 2));
 
-require APP_ROOT . '/src/helpers.php';
 require APP_ROOT . '/src/error_handlers.php';
 require APP_ROOT . '/config/config.php';
 require APP_ROOT . '/vendor/autoload.php';
@@ -55,4 +54,5 @@ $globals_container->set('utils', $utils);
 // Models container
 $models = new Core\Models($dsn, $db_user, $db_password, $globals_container);
 unset ($dsn, $db_user, $db_password);
+
 $globals_container->set('models', $models);

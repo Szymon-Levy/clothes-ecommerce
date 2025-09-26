@@ -28,7 +28,7 @@ class Contact extends BaseModel
       'name' => htmlspecialchars($name),
       'email' => htmlspecialchars($email),
       'subject' => htmlspecialchars($subject),
-      'message' => replaceWhitespaces(htmlspecialchars($message))
+      'message' => $this->utils->replaceWhitespaces(htmlspecialchars($message))
     ];
 
     $send_email = $email_sender->sendEmail(

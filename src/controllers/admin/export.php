@@ -21,7 +21,7 @@ class Export extends BaseController
       }
     }
     else {
-      redirect('admin');
+      $this->utils->redirect('admin');
     }
   }
 }

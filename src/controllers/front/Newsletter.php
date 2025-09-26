@@ -10,7 +10,7 @@ class Newsletter extends BaseController
   public function subscribe()
   {
     //csrf validation
-    $csrf_error = isCsrfIncorrect($this->session);
+    $csrf_error = $this->utils->isCsrfIncorrect();
     if ($csrf_error) {
       $response['error'] = $csrf_error;
       echo json_encode($response);
@@ -18,7 +18,7 @@ class Newsletter extends BaseController
     }
 
     // anti bot validation
-    $bot_error = isFormFilledByBot();
+    $bot_error = $this->utils->isFormFilledByBot();
     if ($bot_error) {
       $response['error'] = $bot_error;
       echo json_encode($response);
@@ -75,28 +75,28 @@ class Newsletter extends BaseController
     $token = $this->router->current()->parameters()['token'] ?? '';
 
     if (!$token) {
-      redirect('');
+      $this->utils->redirect('');
     }
 
     $db_response = $this->models->newsletter()->confirmSubscribtion($token, $this->email_settings);
 
     if ($db_response == '200') {
-      createUserMessageInSession('Your subscription has been activated. Please check your inbox for further information.', 'success', $this->session);
+      $this->utils->createUserMessageInSession('Your subscription has been activated. Please check your inbox for further information.', 'success');
     }
     else if ($db_response == 'subscriber_not_found') {
-      createUserMessageInSession('Invalid token. Try again.', 'error', $this->session);
+      $this->utils->createUserMessageInSession('Invalid token. Try again.', 'error');
     }
     else if ($db_response == 'already_confirmed') {
-      createUserMessageInSession('Your subscription has already been activated.', 'info', $this->session);
+      $this->utils->createUserMessageInSession('Your subscription has already been activated.', 'info');
     }
     else if ($db_response == 'token_expired') {
-      createUserMessageInSession('Your activation token has expired and Your subscribtion has been deleted. Join us again and hurry up with the activation!', 'error', $this->session);
+      $this->utils->createUserMessageInSession('Your activation token has expired and Your subscribtion has been deleted. Join us again and hurry up with the activation!', 'error');
     }
     else if ($db_response == 'email_error') {
-      createUserMessageInSession('A problem with sending the message to the specified email occured, check if the email address is correct and try again!', 'error', $this->session);
+      $this->utils->createUserMessageInSession('A problem with sending the message to the specified email occured, check if the email address is correct and try again!', 'error');
     }
 
-    redirect('');
+    $this->utils->redirect('');
   }
 
   public function deleteSubscribtion()
@@ -104,18 +104,18 @@ class Newsletter extends BaseController
     $token = $this->router->current()->parameters()['token'] ?? '';
 
     if (!$token) {
-      redirect('');
+      $this->utils->redirect('');
     }
 
     $db_response = $this->models->newsletter()->deleteSubscribtion($token);
 
     if ($db_response == '200') {
-      createUserMessageInSession('We’re reaching out to confirm that you have successfully unsubscribed from our newsletter. If this was a mistake or you change your mind, you can always re-subscribe.', 'success', $this->session);
+      $this->utils->createUserMessageInSession('We’re reaching out to confirm that you have successfully unsubscribed from our newsletter. If this was a mistake or you change your mind, you can always re-subscribe.', 'success');
     }
     else if ($db_response == 'subscriber_not_found') {
-      createUserMessageInSession('Invalid token. Try again.', 'error', $this->session);
+      $this->utils->createUserMessageInSession('Invalid token. Try again.', 'error');
     }
 
-    redirect('');
+    $this->utils->redirect('');
   }
 }
