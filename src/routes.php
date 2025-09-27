@@ -29,7 +29,6 @@ return function(Router $router) {
   $router->add('GET', '/terms-and-conditions', [SitePolicy::class, 'termsAndConditions']);
   
   // UI ELEMENTS
-  
   $router->add('POST', '/ui_elements/newsletter_popup', [UiElements::class, 'newsletterPopup']);
   $router->add('POST', '/ui_elements/video_popup', [UiElements::class, 'videoPopup']);
 

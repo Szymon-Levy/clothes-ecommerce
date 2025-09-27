@@ -31,7 +31,7 @@ class Route
 
   public function matches(string $method, string $path): bool
   {
-    if ($this->method === $method && $this->path === $path) {
+    if ($this->method === $method && $this->normalisePath($this->path) === $this->normalisePath($path)) {
       return true;
     }
 
