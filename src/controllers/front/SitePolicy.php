@@ -10,10 +10,6 @@ class SitePolicy extends BaseController
   public function privacyPolicy()
   {
     $data = [
-      'shop_name'=> SHOP_NAME,
-      'shop_address'=> SHOP_ADDRESS,
-      'shop_email'=> SHOP_EMAIL,
-      'shop_phone'=> SHOP_PHONE,
       'page_title'=> 'Privacy policy'
     ];
 
@@ -23,11 +19,6 @@ class SitePolicy extends BaseController
   public function termsAndConditions()
   {
     $data = [
-      'shop_name' => SHOP_NAME,
-      'shop_address' => SHOP_ADDRESS,
-      'shop_email' => SHOP_EMAIL,
-      'shop_phone' => SHOP_PHONE,
-      'domain' => FIXED_DOMAIN,
       'page_title' => 'Terms and conditions'
     ];
 

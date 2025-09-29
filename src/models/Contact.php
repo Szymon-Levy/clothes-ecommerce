@@ -18,25 +18,27 @@ class Contact extends BaseModel
     $this->database->SQL($sql, $arguments);
   }
 
-  public function sendUserMessage (string $name, string $email, string $subject, string $message, array $email_settings) 
+  public function sendUserMessage (string $name, string $email, string $subject, string $message)
   {
     $this->database->beginTransaction();
     $this->saveMessage($name, $email, $subject, $message);
 
-    $email_sender = new Email($email_settings);
+    $email_sender = new Email($this->email_settings);
+
     $email_data = [
-      'name' => htmlspecialchars($name),
-      'email' => htmlspecialchars($email),
-      'subject' => htmlspecialchars($subject),
-      'message' => $this->utils->replaceWhitespaces(htmlspecialchars($message))
+      'name' => $name,
+      'email' => $email,
+      'subject' => $subject,
+      'message' => $message
     ];
 
+    $email_body = $this->twig->render('email_templates/contact_message_copy.html.twig', $email_data);
+
     $send_email = $email_sender->sendEmail(
-      $email_settings['admin_username'], 
+      $this->email_settings['admin_username'], 
       $email, 
-      'Copy of message sent to ' . SHOP_NAME . ' administrator.', 
-      'contact_message_copy', 
-      $email_data
+      'Copy of message sent to ' . $this->global_vars['shop_info']['name'] . ' administrator.', 
+      $email_body
     );
 
     if ($send_email) {

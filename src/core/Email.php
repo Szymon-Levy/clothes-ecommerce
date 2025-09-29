@@ -8,13 +8,14 @@ use PHPMailer\PHPMailer\Exception;
 
 class Email 
 {
-  protected $phpmailer;
+  protected PHPMailer $phpmailer;
 
   public function __construct (array $email_settings) 
   {
     $this->phpmailer = new PHPMailer(true);
     $this->phpmailer->isSMTP();
-    if (IS_LOCAL) {
+
+    if ($_SERVER['SERVER_NAME'] == 'localhost') {
       $this->phpmailer->SMTPOptions = [
         'ssl' => [
           'verify_peer' => false,
@@ -23,6 +24,7 @@ class Email
         ]
       ];
     }
+
     $this->phpmailer->SMTPAuth = true;
     $this->phpmailer->Host = $email_settings['server'];
     $this->phpmailer->SMTPSecure = $email_settings['security'];
@@ -34,7 +36,7 @@ class Email
     $this->phpmailer->isHTML(true);
   }
   
-  public function sendEmail (string $from, string|array $to, string $subject, string $template_name, array $email_data = [])
+  public function sendEmail (string $from, string|array $to, string $subject, string $body)
   {
     $this->phpmailer->setFrom($from, 'Clothes Ecommerce');
 
@@ -48,9 +50,7 @@ class Email
     }
 
     $this->phpmailer->Subject = $subject;
-    ob_start();
-    include(APP_ROOT . '/src/email_templates/' . $template_name . '.php');
-    $this->phpmailer->Body = ob_get_clean();
+    $this->phpmailer->Body = $body;
     try {
       $this->phpmailer->send();
       return true;

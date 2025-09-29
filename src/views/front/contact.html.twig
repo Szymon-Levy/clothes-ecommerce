@@ -11,10 +11,10 @@
 
           <div class="contact-page__info">
             <p>
-              <strong>{{ shop_name }}</strong> <br>
-              {{ shop_address }}<br>
-              Email: <a href="mailto:{{ shop_email }}">{{ shop_email }}</a><br>
-              Phone: {{ shop_phone }}
+              <strong>{{ global_vars.shop_info.name }}</strong> <br>
+              {{ global_vars.shop_info.address }}<br>
+              Email: <a href="mailto:{{ global_vars.shop_info.email }}">{{ global_vars.shop_info.email }}</a><br>
+              Phone: {{ global_vars.shop_info.phone }}
             </p>
 
             <ul class="contact-page__info__icons">
@@ -88,7 +88,7 @@
                 <div class="form__field js-form-field">
                   <div class="form__checkbox">
                     <input class="form__checkbox__input" type="checkbox" name="policy" id="policy" value="1">
-                    <label for="policy"><span>I agree with the <a href="{{ doc_root }}privacy-policy"> privacy policy</a>.</span></label>
+                    <label for="policy"><span>I agree with the <a href="{{ global_vars.system.doc_root }}privacy-policy"> privacy policy</a>.</span></label>
                   </div>
                 </div>
               </div>

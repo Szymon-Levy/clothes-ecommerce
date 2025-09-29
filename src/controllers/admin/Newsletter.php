@@ -112,7 +112,7 @@ class Newsletter extends BaseController
     }
     
     // add subscriber
-    $db_response = $this->models->newsletter()->addSubscriber($name, $email, $this->email_settings);
+    $db_response = $this->models->newsletter()->addSubscriber($name, $email);
 
     if ($db_response == '200') {
       $this->utils->createAdminMessageInSession ($name . ' has been successfully added to the subscriber list.', 'success');
@@ -218,7 +218,7 @@ class Newsletter extends BaseController
     }
     
     // edit subscriber
-    $db_response = $this->models->newsletter()->editSubscriber($id, $name, $email, $this->email_settings);
+    $db_response = $this->models->newsletter()->editSubscriber($id, $name, $email);
 
     if ($db_response == '200') {
       $this->utils->createAdminMessageInSession ($name . ' has been successfully updated.', 'success');

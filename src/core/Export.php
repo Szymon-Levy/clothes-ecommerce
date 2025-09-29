@@ -3,6 +3,7 @@
 namespace Core;
 
 use Core\Models;
+use Core\PhpXlsxGenerator;
 
 class Export
 {
@@ -46,7 +47,6 @@ class Export
       }
     }
     
-    include APP_ROOT . '/src/lib/PhpXlsxGenerator.php';
     $xlsx = PhpXlsxGenerator::fromArray($excel_data); 
     $xlsx->downloadAs($file_name);
     return true;

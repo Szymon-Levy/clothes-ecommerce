@@ -5,12 +5,12 @@
  * @param string $file_path - path to static asset from public folder
  * @return string - full asset url with cache busting param
  */
-$assets = new Twig\TwigFunction('assets', function (string $file_path) {
+$assets = new Twig\TwigFunction('assets', function (string $file_path) use ($doc_root) {
   if (file_exists($file_path)) {
     $file_path .= '?v=' . filemtime($file_path);
   }
 
-  return DOC_ROOT . $file_path;
+  return $doc_root . $file_path;
 });
 
 $twig->addFunction($assets);
@@ -21,7 +21,7 @@ $twig->addFunction($assets);
  * @param string $source - front/admin source of files
  * @return string - script tags with linked files
  */
-$loadPageJs = new Twig\TwigFunction('loadPageJs', function (array|string $file_names, string $source) {
+$loadPageJs = new Twig\TwigFunction('loadPageJs', function (array|string $file_names, string $source) use ($doc_root) {
   if (is_string($file_names)) {
     $file_name = $file_names;
     $file_names = [];
@@ -33,7 +33,7 @@ $loadPageJs = new Twig\TwigFunction('loadPageJs', function (array|string $file_n
 
     if (file_exists($file_path)) {
       $file_path .= '?v=' . filemtime($file_path);
-      $full_path = DOC_ROOT . $file_path;
+      $full_path = $doc_root . $file_path;
       echo '<script src="' . $full_path . '" defer type="module"></script>';
     }
   }

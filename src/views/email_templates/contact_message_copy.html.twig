@@ -1,16 +1,15 @@
+{% set domain = global_vars.system.is_local ? global_vars.system.fixed_domain : global_vars.system.domain %}
+
 <!DOCTYPE html>
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Copy of message sent to <?= SHOP_NAME ?> administrator</title>
-	
+	<title>Copy of message sent to {{ global_vars.shop_info.name }} administrator</title>
 </head>
 <body style="margin: 0;">
-
 	<center class="wrapper" style="padding-bottom: 40px; width: 100%; table-layout: fixed; background-color: #f3f3f3;">
-
 		<table class="main" width="100%" style="border-spacing: 0; width: 100%; max-width: 600px; color: #000; font-family: 'Roboto', sans-serif; text-align: center;" align="center">
 
       <!-- LOGO -->
@@ -20,8 +19,8 @@
 
               <tr>
                 <td style="padding: 40px 0 20px; text-align: center;" align="center">
-                  <a href="https://<?= (IS_LOCAL ? FIXED_DOMAIN : DOMAIN) ?>">
-                    <img src="https://<?= (IS_LOCAL ? FIXED_DOMAIN : DOMAIN) ?>/images/email/logo.png" width="110" style="border: 0;" alt="<?= SHOP_NAME ?>">
+                  <a href="https://{{ domain }}">
+                    <img src="https://{{ domain }}/images/email/logo.png" width="110" style="border: 0;" alt="{{ global_vars.shop_info.name }}">
                   </a>
                 </td>
               </tr>
@@ -29,7 +28,6 @@
             </table>
           </td>
        </tr>
-
 
         <!-- BODY -->
         <tr>
@@ -40,7 +38,7 @@
                 <td style="padding: 50px 40px 0; text-align: center;" align="center">
                   <p style="margin: 0; font-size: 14px; font-weight: 400; line-height: 22px;">
                     <strong>Sender</strong> <br>
-                    <?= $email_data['name'] ?>
+                    {{ name }}
                   </p>
                 </td>
               </tr> <!-- text 1 -->
@@ -49,7 +47,7 @@
                 <td style="padding: 20px 40px 0; text-align: center;" align="center">
                   <p style="margin: 0; font-size: 14px; font-weight: 400; line-height: 22px;">
                     <strong>From email</strong> <br>
-                    <?= $email_data['email'] ?>
+                    {{ email }}
                   </p>
                 </td>
               </tr> <!-- text 2 -->
@@ -58,7 +56,7 @@
                 <td style="padding: 20px 40px 0; text-align: center;" align="center">
                   <p style="margin: 0; font-size: 14px; font-weight: 400; line-height: 22px;">
                     <strong>Subject</strong> <br>
-                    <?= $email_data['subject'] ?>
+                    {{ subject }}
                   </p>
                 </td>
               </tr> <!-- text 3 -->
@@ -67,7 +65,7 @@
                 <td style="padding: 20px 40px 0; text-align: center;" align="center">
                   <p style="margin: 0; font-size: 14px; font-weight: 400; line-height: 22px;">
                     <strong>Message content</strong> <br>
-                    <?= $email_data['message'] ?>
+                    {{ message|nl2br }}
                   </p>
                 </td>
               </tr> <!-- text 4 -->
@@ -77,7 +75,7 @@
                   <p style="margin: 0; font-size: 16px; font-weight: 400; line-height: 24px;">
                     <strong>
                       Best regards, <br>
-                      The <?= SHOP_NAME ?> Team
+                      The {{ global_vars.shop_info.name }} Team
                     </strong>
                   </p>
                 </td>
@@ -85,7 +83,6 @@
             </table>
           </td>
        </tr>
-
 
         <!-- FOOTER -->
         <tr>
@@ -95,19 +92,19 @@
               <tr>
                 <td style="padding: 20px 0 0; text-align: center;" align="center">
                   <a href="https://www.facebook.com/" style="padding: 0 5px; display: inline-block;">
-                      <img src="https://<?= (IS_LOCAL ? FIXED_DOMAIN : DOMAIN) ?>/images/email/facebook.png" width="30" style="border: 0;" alt="facebook icon">
+                      <img src="https://{{ domain }}/images/email/facebook.png" width="30" style="border: 0;" alt="facebook icon">
                   </a>
                   
                   <a href="https://www.instagram.com/" style="padding: 0 5px; display: inline-block;">
-                      <img src="https://<?= (IS_LOCAL ? FIXED_DOMAIN : DOMAIN) ?>/images/email/instagram.png" width="30" style="border: 0;" alt="instagram icon">
+                      <img src="https://{{ domain }}/images/email/instagram.png" width="30" style="border: 0;" alt="instagram icon">
                   </a>
 
                   <a href="https://www.tiktok.com/" style="padding: 0 5px; display: inline-block;">
-                      <img src="https://<?= (IS_LOCAL ? FIXED_DOMAIN : DOMAIN) ?>/images/email/tiktok.png" width="30" style="border: 0;" alt="tiktok icon">
+                      <img src="https://{{ domain }}/images/email/tiktok.png" width="30" style="border: 0;" alt="tiktok icon">
                   </a>
 
                   <a href="https://www.linkedin.com/" style="padding: 0 5px; display: inline-block;">
-                      <img src="https://<?= (IS_LOCAL ? FIXED_DOMAIN : DOMAIN) ?>/images/email/linkedin.png" width="30" style="border: 0;" alt="linkedin icon">
+                      <img src="https://{{ domain }}/images/email/linkedin.png" width="30" style="border: 0;" alt="linkedin icon">
                   </a>
 
                   <p style="margin: 0; padding: 10px 0 0;">
@@ -117,15 +114,10 @@
                   </p>
                 </td>
               </tr>
-
             </table>
           </td>
        </tr>
-
-
 		</table> <!-- End Main Class -->
-
 	</center> <!-- End Wrapper -->
-
 </body>
 </html>

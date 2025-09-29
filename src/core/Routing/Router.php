@@ -109,7 +109,7 @@ class Router
     http_response_code(500);
     error_log($e);
 
-    if (defined('DEV') && DEV) {
+    if ($this->globals_container->get('global_vars')['system']['dev']) {
         echo "<h1>Application error</h1>";
         echo "<p><strong>Message:</strong> {$e->getMessage()}</p>";
         echo "<p><strong>File:</strong> {$e->getFile()}</p>";

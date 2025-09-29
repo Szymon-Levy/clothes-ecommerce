@@ -54,7 +54,7 @@ class Newsletter extends BaseController
     }
     
     // add subscriber
-    $db_response = $this->models->newsletter()->addSubscriber($name, $email, $this->email_settings);
+    $db_response = $this->models->newsletter()->addSubscriber($name, $email);
 
     if ($db_response == '200') {
       $response['success'] = 'We\'ve added you to our subscriber list. To confirm, please check your email and click the activation link. Link will expire after 5 minutes';
@@ -78,7 +78,7 @@ class Newsletter extends BaseController
       $this->utils->redirect('');
     }
 
-    $db_response = $this->models->newsletter()->confirmSubscribtion($token, $this->email_settings);
+    $db_response = $this->models->newsletter()->confirmSubscribtion($token);
 
     if ($db_response == '200') {
       $this->utils->createUserMessageInSession('Your subscription has been activated. Please check your inbox for further information.', 'success');

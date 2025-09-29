@@ -5,10 +5,12 @@ namespace Core;
 class Utils
 {
   protected Session $session;
+  protected array $global_vars;
 
-  public function __construct(Session $session)
+  public function __construct(Session $session, GlobalsContainer $globals_container)
   {
     $this->session = $session;
+    $this->global_vars = $globals_container->get('global_vars');
   }
 
   public function generateToken() 
@@ -34,14 +36,8 @@ class Utils
 
   public function redirect(string $page)
   {
-    header('Location: ' . DOC_ROOT . $page);
+    header('Location: ' . $this->global_vars['system']['doc_root'] . $page);
     exit;
-  }
-
-  public function replaceWhitespaces(string $text)
-  {
-    $new_text = str_replace(' ', '&nbsp;', $text);
-    return nl2br($new_text);
   }
 
   public function createAdminMessageInSession(string $content, string $type) 

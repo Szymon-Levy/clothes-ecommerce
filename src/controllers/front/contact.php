@@ -11,10 +11,6 @@ class Contact extends BaseController
   public function index()
   {
     $data = [
-      'shop_name' => SHOP_NAME,
-      'shop_address' => SHOP_ADDRESS,
-      'shop_email' => SHOP_EMAIL,
-      'shop_phone' => SHOP_PHONE,
       'page_title' => 'Contact',
       'page_js' => 'contact'
     ];
@@ -92,7 +88,7 @@ class Contact extends BaseController
     $this->session->removeSessionVariable('csrf');
     
     // save email data in database and send copy
-    $db_response = $this->models->contact()->sendUserMessage($name, $email, $subject, $message, $this->email_settings);
+    $db_response = $this->models->contact()->sendUserMessage($name, $email, $subject, $message);
 
     if ($db_response == '200') {
       $response['success'] = 'Your message has been successfully sent to the administrator. We have sent a copy of your message to your email.';

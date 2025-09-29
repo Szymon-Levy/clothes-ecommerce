@@ -10,13 +10,12 @@ class Newsletter extends BaseModel
   protected $allowed_filter_columns = ['id', 'name', 'email', 'is_active', 'created_at'];
   protected $results_count = 0;
 
-  public function addSubscriber (string $name, string $email, array $email_settings) 
+  public function addSubscriber (string $name, string $email) 
   {
     $arguments['name'] = $name;
     $arguments['email'] = $email;
     $sql = 'INSERT INTO newsletter_subscribers (name, email)
             VALUES (:name, :email)';
-
     try {
       $this->database->beginTransaction();
       $this->database->SQL($sql, $arguments);
@@ -24,17 +23,20 @@ class Newsletter extends BaseModel
 
       $token = $this->assignToken($new_id, 'NA');
 
-      $email_sender = new Email($email_settings);
+      $email_sender = new Email($this->email_settings);
+
       $email_data = [
-        'name' => htmlspecialchars($name),
-        'token' => htmlspecialchars($token)
+        'name' => $name,
+        'token' => $token
       ];
+
+      $email_body = $this->twig->render('email_templates/newsletter_subscribtion_confirmation.html.twig', $email_data);
+
       $send_email = $email_sender->sendEmail(
-        $email_settings['admin_username'], 
+        $this->email_settings['admin_username'], 
         $email, 
-        'Welcome to ' . SHOP_NAME . ' - Confirm Your Newsletter Subscription', 
-        'newsletter_subscribtion_confirmation', 
-        $email_data
+        'Welcome to ' . $this->global_vars['shop_info']['name'] . ' - Confirm Your Newsletter Subscription', 
+        $email_body
       );
 
       if ($send_email) {
@@ -54,7 +56,7 @@ class Newsletter extends BaseModel
     }
   }
 
-  public function editSubscriber (string $id, string $name, string $email, array $email_settings) 
+  public function editSubscriber (string $id, string $name, string $email) 
   {
     $existing_subscriber = $this->getSubscriberById($id);
     if (!$existing_subscriber) return 'subscriber_not_found';
@@ -77,17 +79,21 @@ class Newsletter extends BaseModel
         $this->deleteTokens($id);
 
         $token = $this->assignToken($id, 'NA');
-        $email_sender = new Email($email_settings);
+
+        $email_sender = new Email($this->email_settings);
+
         $email_data = [
-          'name' => htmlspecialchars($name),
-          'token' => htmlspecialchars($token)
+          'name' => $name,
+          'token' => $token
         ];
+
+        $email_body = $this->twig->render('email_templates/newsletter_email_update_confirmation.html.twig', $email_data);
+
         $send_email = $email_sender->sendEmail(
-          $email_settings['admin_username'], 
+          $this->email_settings['admin_username'], 
           $email, 
-          'Confirm Your new email address in ' . SHOP_NAME . ' Newsletter', 
-          'newsletter_email_update_confirmation', 
-          $email_data
+          'Confirm Your new email address in ' . $this->global_vars['shop_info']['name'] . ' Newsletter', 
+          $email_body
         );
 
         if (!$send_email) {
@@ -192,7 +198,7 @@ class Newsletter extends BaseModel
     $this->database->SQL($sql, ['subscriber_id' => $subscriber_id]);
   }
 
-  public function confirmSubscribtion (string $token, array $email_settings)
+  public function confirmSubscribtion (string $token)
   {
     $subscriber = $this->getSubscriberByToken($token, 'NA');
     if (!$subscriber) {
@@ -213,18 +219,21 @@ class Newsletter extends BaseModel
     $this->activateSubscribtion($subscriber_id);
 
     $deletion_token = $this->assignToken($subscriber_id, 'ND');
-    $email_sender = new Email($email_settings);
+
+    $email_sender = new Email($this->email_settings);
+
     $email_data = [
-      'name' => htmlspecialchars($subscriber['name']),
+      'name' => $subscriber['name'],
       'token' => $deletion_token
     ];
+
+    $email_body = $this->twig->render('email_templates/newsletter_welcome.html.twig', $email_data);
     
     $send_email = $email_sender->sendEmail(
-      $email_settings['admin_username'], 
+      $this->email_settings['admin_username'], 
       $subscriber['email'], 
-      'Your newsletter subscribtion at ' . SHOP_NAME . ' is active.', 
-      'newsletter_welcome', 
-      $email_data
+      'Your newsletter subscribtion at ' . $this->global_vars['shop_info']['name'] . ' is active.', 
+      $email_body
     );
 
     if (!$send_email) {
@@ -275,7 +284,8 @@ class Newsletter extends BaseModel
     $order .= ($order_by && in_array($order_by, ['name', 'email'])) ? ' COLLATE utf8mb4_polish_ci ' : '';
     $order .= ($sort == 'd') ? 'DESC' : 'ASC';
 
-    $limit_clause = sprintf(' LIMIT %d OFFSET %d', ADMIN_PAGINATION, ($page - 1) * ADMIN_PAGINATION);
+    $admin_pagination = $this->global_vars['system']['admin_pagination'];
+    $limit_clause = sprintf(' LIMIT %d OFFSET %d', $admin_pagination, ($page - 1) * $admin_pagination);
 
     $sql = "SELECT 
       id,

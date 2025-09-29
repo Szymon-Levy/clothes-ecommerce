@@ -65,7 +65,7 @@
     -Global variables js
   -->
   <script>
-    const docRoot = '{{ doc_root }}';
+    const docRoot = '{{ global_vars.system.doc_root }}';
     const csrf = '{{ session.csrf|e("js") }}';
   </script>
 
