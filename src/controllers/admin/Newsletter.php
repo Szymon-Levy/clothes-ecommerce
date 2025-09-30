@@ -72,21 +72,7 @@ class Newsletter extends BaseController
 
   public function addSubscriberToDB()
   {
-    //csrf validation
-    $csrf_error = $this->utils->isCsrfIncorrect();
-    if ($csrf_error) {
-      $response['error'] = $csrf_error;
-      echo json_encode($response);
-      exit();
-    }
-
-    // anti bot validation
-    $bot_error = $this->utils->isFormFilledByBot();
-    if ($bot_error) {
-      $response['error'] = $bot_error;
-      echo json_encode($response);
-      exit();
-    }
+    $this->formSecurity();
     
     // post data
     $name = trim($_POST['name'] ?? '');
@@ -132,13 +118,7 @@ class Newsletter extends BaseController
 
   public function deleteSubscribers()
   {
-    //csrf validation
-    $csrf_error = $this->utils->isCsrfIncorrect();
-    if ($csrf_error) {
-      $response['error'] = $csrf_error;
-      echo json_encode($response);
-      exit();
-    }
+    $this->formSecurity(['csrf']);
 
     // response definition
     $response = [];
@@ -171,21 +151,7 @@ class Newsletter extends BaseController
 
   public function editSubscriberInDB()
   {
-    //csrf validation
-    $csrf_error = $this->utils->isCsrfIncorrect();
-    if ($csrf_error) {
-      $response['error'] = $csrf_error;
-      echo json_encode($response);
-      exit();
-    }
-
-    // anti bot validation
-    $bot_error = $this->utils->isFormFilledByBot();
-    if ($bot_error) {
-      $response['error'] = $bot_error;
-      echo json_encode($response);
-      exit();
-    }
+    $this->formSecurity();
     
     // post data
     $id = trim($_POST['id'] ?? '');

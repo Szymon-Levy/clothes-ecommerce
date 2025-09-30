@@ -21,16 +21,18 @@ class Utils
   public function isCsrfIncorrect() 
   {
     if (!isset($_POST['csrf']) || $_POST['csrf'] != $this->session->csrf) {
-        return 'Operation not allowed, refresh the page and try again!';
+      return 'Operation not allowed, refresh the page and try again!';
     }
+
     return false;
   }
 
   public function isFormFilledByBot() 
   {
-    if (!isset($_POST['website']) || !$_POST['website'] == '') {
-        return 'You are not allowed to send this form!';
+    if (!isset($_POST['website']) || $_POST['website'] !== '') {
+      return 'You are not allowed to send this form!';
     }
+
     return false;
   }
 

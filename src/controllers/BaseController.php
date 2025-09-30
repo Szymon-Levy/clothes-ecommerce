@@ -34,4 +34,27 @@ abstract class BaseController
   {
     echo $this->twig->render($path, $data);
   }
+
+  protected function formSecurity(array $use_only = [])
+  {
+    if (empty($use_only) || in_array('csrf', $use_only)) {
+      $csrf_error = $this->utils->isCsrfIncorrect();
+  
+      if ($csrf_error) {
+        $response['error'] = $csrf_error;
+        echo json_encode($response);
+        exit();
+      }
+    }
+
+    if (empty($use_only) || in_array('bot', $use_only)) {
+      $bot_error = $this->utils->isFormFilledByBot();
+  
+      if ($bot_error) {
+        $response['error'] = $bot_error;
+        echo json_encode($response);
+        exit();
+      }
+    }
+  }
 }
