@@ -1,4 +1,4 @@
-{% set domain = global_vars.system.is_local ? global_vars.system.fixed_domain : global_vars.system.domain %}
+{% set domain = global_vars.system.prod_domain %}
 
 <!DOCTYPE html>
 <html>
@@ -19,8 +19,8 @@
 
               <tr>
                 <td style="padding: 40px 0 20px; text-align: center;" align="center">
-                  <a href="https://{{ domain }}">
-                    <img src="https://{{ domain }}/images/email/logo.png" width="110" style="border: 0;" alt="{{ global_vars.shop_info.name }}">
+                  <a href="{{ domain }}">
+                    <img src="{{ domain }}/images/email/logo.png" width="110" style="border: 0;" alt="{{ global_vars.shop_info.name }}">
                   </a>
                 </td>
               </tr>
@@ -92,23 +92,23 @@
               <tr>
                 <td style="padding: 20px 0 0; text-align: center;" align="center">
                   <a href="https://www.facebook.com/" style="padding: 0 5px; display: inline-block;">
-                      <img src="https://{{ domain }}/images/email/facebook.png" width="30" style="border: 0;" alt="facebook icon">
+                      <img src="{{ domain }}/images/email/facebook.png" width="30" style="border: 0;" alt="facebook icon">
                   </a>
                   
                   <a href="https://www.instagram.com/" style="padding: 0 5px; display: inline-block;">
-                      <img src="https://{{ domain }}/images/email/instagram.png" width="30" style="border: 0;" alt="instagram icon">
+                      <img src="{{ domain }}/images/email/instagram.png" width="30" style="border: 0;" alt="instagram icon">
                   </a>
 
                   <a href="https://www.tiktok.com/" style="padding: 0 5px; display: inline-block;">
-                      <img src="https://{{ domain }}/images/email/tiktok.png" width="30" style="border: 0;" alt="tiktok icon">
+                      <img src="{{ domain }}/images/email/tiktok.png" width="30" style="border: 0;" alt="tiktok icon">
                   </a>
 
                   <a href="https://www.linkedin.com/" style="padding: 0 5px; display: inline-block;">
-                      <img src="https://{{ domain }}/images/email/linkedin.png" width="30" style="border: 0;" alt="linkedin icon">
+                      <img src="{{ domain }}/images/email/linkedin.png" width="30" style="border: 0;" alt="linkedin icon">
                   </a>
 
                   <p style="margin: 0; padding: 10px 0 0;">
-                    <a href="https://clothes-ecommerce.com.pl" style="font-size: 16px; color: #000; text-decoration: none;">
+                    <a href="{{ domain }}" style="font-size: 16px; color: #000; text-decoration: none;">
                       www.clothes-ecommerce.com.pl
                     </a>
                   </p>

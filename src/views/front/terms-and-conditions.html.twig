@@ -13,7 +13,7 @@
 
         <ul>
             <li><strong>Company Name:</strong> {{ global_vars.shop_info.name }}</li>
-            <li><strong>Website:</strong> <a href="https://{{ global_vars.system.fixed_domain }}">www.{{ global_vars.system.fixed_domain }}</a></li>
+            <li><strong>Website:</strong> <a href="{{ global_vars.system.prod_domain }}">{{ global_vars.shop_info.domain }}</a></li>
             <li><strong>Contact Information:</strong>
               <ul>
                 <li>Email: <a href="mailto:{{ global_vars.shop_info.email }}">{{ global_vars.shop_info.email }}</a></li>

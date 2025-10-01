@@ -1,4 +1,4 @@
-{% set domain = global_vars.system.is_local ? global_vars.system.fixed_domain : global_vars.system.domain %}
+{% set domain = global_vars.system.prod_domain %}
 
 <!DOCTYPE html>
 <html>
@@ -7,37 +7,30 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Your newsletter subscribtion at {{ global_vars.shop_info.name }} is active</title>
-	
 </head>
 <body style="margin: 0;">
-
 	<center class="wrapper" style="padding-bottom: 40px; width: 100%; table-layout: fixed; background-color: #f3f3f3;">
-
 		<table class="main" width="100%" style="border-spacing: 0; width: 100%; max-width: 600px; color: #000; font-family: 'Roboto', sans-serif; text-align: center;" align="center">
 
       <!-- LOGO -->
        <tr>
           <td style="padding: 0;">
             <table width="100%" style="border-spacing: 0;">
-
               <tr>
                 <td style="padding: 40px 0 20px; text-align: center;" align="center">
-                  <a href="https://{{ domain }}">
-                    <img src="https://{{ domain }}/images/email/logo.png" width="110" style="border: 0;" alt="{{ global_vars.shop_info.name }}">
+                  <a href="{{ domain }}">
+                    <img src="{{ domain }}/images/email/logo.png" width="110" style="border: 0;" alt="{{ global_vars.shop_info.name }}">
                   </a>
                 </td>
               </tr>
-
             </table>
           </td>
        </tr>
-
 
         <!-- BODY -->
         <tr>
           <td style="padding: 0; background-color: #fff;" bgcolor="#fff">
             <table width="100%" style="border-spacing: 0;">
-
               <tr>
                 <td style="padding: 50px 0 0; text-align: center;" align="center">
                   <h1 style="margin: 0; font-size: 35px; font-family: serif; text-transform: uppercase; font-weight: 400;">Welcome {{ name }}</h1>
@@ -70,8 +63,8 @@
 
               <tr>
                 <td style="padding: 30px 0 0; text-align: center;" align="center">
-                  <a href="{{ (global_vars.system.is_local ? 'http://localhost' ~ global_vars.system.doc_root : 'https://' ~ global_vars.system.domain ~ '/') }}delete-subscribtion/{{ token }}">
-                    <img src="https://{{ domain }}/images/email/btn-delete-subscribtion.png" width="168" style="border: 0; max-width: 181px;" alt="Delete subscribtion">
+                  <a href="{{ (global_vars.system.is_local ? global_vars.system.dev_domain ~ global_vars.system.doc_root : global_vars.system.prod_domain ~ '/') }}delete-subscribtion/{{ token }}">
+                    <img src="{{ domain }}/images/email/btn-delete-subscribtion.png" width="168" style="border: 0; max-width: 181px;" alt="Delete subscribtion">
                   </a>
                 </td>
               </tr> <!-- button -->
@@ -89,54 +82,46 @@
 
               <tr>
                 <td style="padding: 50px 0 0; text-align: center;" align="center">
-                  <img src="https://{{ domain }}/images/email/two-young-women-walking.jpg" width="600" style="display: block; border: 0; max-width: 100%;" alt="Woman with shopping bags">
+                  <img src="{{ domain }}/images/email/two-young-women-walking.jpg" width="600" style="display: block; border: 0; max-width: 100%;" alt="Woman with shopping bags">
                 </td>
               </tr> <!-- image -->
-
             </table>
           </td>
        </tr>
-
 
         <!-- FOOTER -->
         <tr>
           <td style="padding: 0;">
             <table width="100%" style="border-spacing: 0;">
-
               <tr>
                 <td style="padding: 20px 0 0; text-align: center;" align="center">
                   <a href="https://www.facebook.com/" style="padding: 0 5px; display: inline-block;">
-                      <img src="https://{{ domain }}/images/email/facebook.png" width="30" style="border: 0;" alt="facebook icon">
+                      <img src="{{ domain }}/images/email/facebook.png" width="30" style="border: 0;" alt="facebook icon">
                   </a>
                   
                   <a href="https://www.instagram.com/" style="padding: 0 5px; display: inline-block;">
-                      <img src="https://{{ domain }}/images/email/instagram.png" width="30" style="border: 0;" alt="instagram icon">
+                      <img src="{{ domain }}/images/email/instagram.png" width="30" style="border: 0;" alt="instagram icon">
                   </a>
 
                   <a href="https://www.tiktok.com/" style="padding: 0 5px; display: inline-block;">
-                      <img src="https://{{ domain }}/images/email/tiktok.png" width="30" style="border: 0;" alt="tiktok icon">
+                      <img src="{{ domain }}/images/email/tiktok.png" width="30" style="border: 0;" alt="tiktok icon">
                   </a>
 
                   <a href="https://www.linkedin.com/" style="padding: 0 5px; display: inline-block;">
-                      <img src="https://{{ domain }}/images/email/linkedin.png" width="30" style="border: 0;" alt="linkedin icon">
+                      <img src="{{ domain }}/images/email/linkedin.png" width="30" style="border: 0;" alt="linkedin icon">
                   </a>
 
                   <p style="margin: 0; padding: 10px 0 0;">
-                    <a href="https://clothes-ecommerce.com.pl" style="font-size: 16px; color: #000; text-decoration: none;">
+                    <a href="{{ domain }}" style="font-size: 16px; color: #000; text-decoration: none;">
                       www.clothes-ecommerce.com.pl
                     </a>
                   </p>
                 </td>
               </tr>
-
             </table>
           </td>
        </tr>
-
-
 		</table> <!-- End Main Class -->
-
 	</center> <!-- End Wrapper -->
-
 </body>
 </html>
