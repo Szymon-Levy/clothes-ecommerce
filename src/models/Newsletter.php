@@ -301,12 +301,12 @@ class Newsletter extends BaseModel
     return $this->database->SQL($sql, $arguments)->fetchAll();
   }
 
-  public function getExportSubscribersData ()
+  public function getSubscribersDataToExport()
   {
     $data['file_name'] = 'newsletter-subscribers';
     $data['headings'] = ['ID', 'SUBSCRIBER NAME', 'EMAIL', 'CREATED DATE', 'ACTIVITY STATUS'];
     $data['db_columns'] = ['id', 'name', 'email', 'created_at', 'activity_status'];
-
+            
     $sql = 'SELECT
               id,
               name,

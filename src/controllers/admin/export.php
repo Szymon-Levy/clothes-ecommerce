@@ -3,25 +3,36 @@
 namespace Controllers\admin;
 
 use Controllers\BaseController;
+use Core\ExportToXlsx;
 
 class Export extends BaseController
 {
-  public function export()
-  {
-    $data_source = $this->router->current()->parameters()['data'] ?? null;
 
-    if ($data_source) {
-      $export = new \Core\Export($data_source, $this->models);
-      $export_data = $export->exportData();
+    private function getDataBySource(string $data_source)
+    {
+        switch ($data_source) {
+            case 'newsletter-subscribers':
+                return $this->models->newsletter()->getSubscribersDataToExport();
+                break;
+            default:
+                return false;
+        }
+    }
 
-      if (!$export_data) {
-        echo '<script>';
-        echo 'window.self.close()';
-        echo '</script>';
-      }
+    public function export()
+    {
+        $data_source = $this->router->current()->parameters()['data'] ?? '';
+
+        $data = $this->getDataBySource($data_source);
+
+        if ($data === false) {
+            $this->utils->createAdminMessageInSession('Unknown data source.', 'error');
+            $this->utils->redirect('admin');
+        }
+
+        $export = new ExportToXlsx($data);
+        $export->exportData();
+
+        echo '<script>window.self.close()</script>';
     }
-    else {
-      $this->utils->redirect('admin');
-    }
-  }
 }
