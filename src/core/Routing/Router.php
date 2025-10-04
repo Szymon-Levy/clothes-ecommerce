@@ -5,7 +5,7 @@ namespace Core\Routing;
 use Exception;
 use Core\GlobalsContainer;
 
-class Router 
+class Router
 {
   protected array $routes = [];
   protected array $error_handlers = [];
@@ -123,7 +123,12 @@ class Router
 
   public function redirect($path)
   {
-    header("Location: {$path}", $replace = true, $code = 301);
+    header(
+        "Location: " . $this->globals_container->get('global_vars')['system']['doc_root'] . $path, 
+        $replace = true, 
+        $code = 301
+    );
+
     exit;
   }
 

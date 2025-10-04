@@ -27,7 +27,7 @@ class Export extends BaseController
 
         if ($data === false) {
             $this->utils->createAdminMessageInSession('Unknown data source.', 'error');
-            $this->utils->redirect('admin');
+            $this->router->redirect('admin/newsletter');
         }
 
         $export = new ExportToXlsx($data);

@@ -36,12 +36,6 @@ class Utils
     return false;
   }
 
-  public function redirect(string $page)
-  {
-    header('Location: ' . $this->global_vars['system']['doc_root'] . $page);
-    exit;
-  }
-
   public function createAdminMessageInSession(string $content, string $type) 
   {
     $this->session->setSessionVariable('admin_message', ['content' => $content, 'type' => $type]);

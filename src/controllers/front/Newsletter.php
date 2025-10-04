@@ -61,7 +61,7 @@ class Newsletter extends BaseController
     $token = $this->router->current()->parameters()['token'] ?? '';
 
     if (!$token) {
-      $this->utils->redirect('');
+      $this->router->redirect('');
     }
 
     $db_response = $this->models->newsletter()->confirmSubscribtion($token);
@@ -82,7 +82,7 @@ class Newsletter extends BaseController
       $this->utils->createUserMessageInSession('A problem with sending the message to the specified email occured, check if the email address is correct and try again!', 'error');
     }
 
-    $this->utils->redirect('');
+    $this->router->redirect('');
   }
 
   public function deleteSubscribtion()
@@ -90,7 +90,7 @@ class Newsletter extends BaseController
     $token = $this->router->current()->parameters()['token'] ?? '';
 
     if (!$token) {
-      $this->utils->redirect('');
+      $this->router->redirect('');
     }
 
     $db_response = $this->models->newsletter()->deleteSubscribtion($token);
@@ -102,6 +102,6 @@ class Newsletter extends BaseController
       $this->utils->createUserMessageInSession('Invalid token. Try again.', 'error');
     }
 
-    $this->utils->redirect('');
+    $this->router->redirect('');
   }
 }
