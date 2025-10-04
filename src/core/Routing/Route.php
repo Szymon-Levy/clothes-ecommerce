@@ -107,7 +107,7 @@ class Route
         return $this->parameters;
     }
 
-    public function name(string $name = null): mixed
+    public function name(string $name): mixed
     {
         if ($name) {
             $this->name = $name;

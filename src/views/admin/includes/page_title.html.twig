@@ -1,53 +1,66 @@
 {% set doc_root = global_vars.system.doc_root %}
+{% set title_has_count = show_count_near_title and (count or count == 0) %}
 
 <div class="page-title">
-  <div class="container">
-    <div class="row">
-      {% set title_has_count = show_count_near_title and (count or count == 0) %}
+    <div class="container">
+        <div class="row">
+            <div class="page-title__heading">
+                {% if previous_page_path %} 
+                    <a 
+                        href="{{ doc_root ~ previous_page_path }}" 
+                        class="page-title__heading__previous-page heading--h1"
+                    >
+                        <i class="ri-arrow-left-line" aria-hidden="true"></i>
+                        <span class="visually-hidden">Previous page</span>
+                    </a>
+                {% endif %}
 
-      <div class="page-title__heading">
-        {% if previous_page_path %} 
-            <a href="{{ doc_root ~ previous_page_path }}" class="page-title__heading__previous-page heading--h1">
-                <i class="ri-arrow-left-line" aria-hidden="true"></i>
-                <span class="visually-hidden">Previous page</span>
-            </a>
-        {% endif %}
+                <h1 class="heading heading--h1 heading--primary">{{ page_title }}</h1>
 
-        <h1 class="heading heading--h1 heading--primary">{{ page_title }}</h1>
+                {% if title_has_count %} 
+                    <span 
+                        class="page-title__heading__count heading heading--h1 heading--primary js-page-title-count" 
+                        data-number="{{ count }}"
+                    >
+                        ({{ count }})
+                    </span> 
+                {% endif %}
+            </div>
+            
+            <ul class="breadcrumbs">
+                <li>
+                    {% if url_parts|length == 1 %}
+                        <span>Dashboard</span>
+                    {% else %}
+                        <a href="{{ doc_root }}admin">Dashboard</a>
+                    {% endif %}
+                </li>
 
-        {% if title_has_count %} 
-            <span class="page-title__heading__count heading heading--h1 heading--primary js-page-title-count" data-number="{{ count }}">({{ count }})</span> 
-        {% endif %}
-      </div>
-      
-      <ul class="breadcrumbs">
-        <li>
-          {% if url_parts|length == 1 %}
-            <span>Dashboard</span>
-          {% else %}
-            <a href="{{ doc_root }}admin">Dashboard</a>
-          {% endif %}
-        </li>
+                {% set count = 1 %}
 
-        {% set count = 1 %}
-        {% for page in url_parts %}
+                {% for page in url_parts %}
 
-          {% if page != 'admin' %}
+                    {% if page != 'admin' %}
 
-            {% set title = page|replace({'-': ' '})|capitalize %}
-            <li>
-              {% if not loop.last %}
-                <a href="{{ doc_root }}{% for page2 in url_parts %}{% if loop.index0 <= count %}{{ page2|e('url') }}{% endif %}{% if not loop.last %}/{% endif %}{% endfor %}" {% if loop.last %}class="active"{% endif %}>{{ title }}</a>
-              {% else %}
-                <span>{{ title }}</span>
-              {% endif %}
-            </li>
-
-            {% set count = count + 1 %}
-          {% endif %}
-
-        {% endfor %}
-      </ul>
+                        {% set title = page|replace({'-': ' '})|capitalize %}
+                        
+                        <li>
+                            {% if not loop.last %}
+                                <a 
+                                    href="{{ doc_root }}{% for page2 in url_parts %}{% if loop.index0 <= count %}{{ page2|e('url') }}{% endif %}{% if not loop.last %}/{% endif %}{% endfor %}" 
+                                    {% if loop.last %}class="active"{% endif %}
+                                >
+                                    {{ title }}
+                                </a>
+                            {% else %}
+                                <span>{{ title }}</span>
+                            {% endif %}
+                        </li>
+                        
+                        {% set count = count + 1 %}
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
     </div>
-  </div>
 </div>

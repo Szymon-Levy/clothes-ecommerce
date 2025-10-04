@@ -2,51 +2,50 @@
 
 namespace Core;
 
-class Session 
+class Session
 {
-  public $user_message;
-  public $admin_message;
-  public $csrf;
+    public $user_message;
+    public $admin_message;
+    public $csrf;
 
-  public function __construct ()
-  {
-    session_start();
-    // set messages
-    $this->user_message = $_SESSION['user_message'] ?? null;
-    if ($this->user_message != null) unset($_SESSION['user_message']);
+    public function __construct()
+    {
+        session_start();
+        // set messages
+        $this->user_message = $_SESSION['user_message'] ?? null;
+        if ($this->user_message != null) unset($_SESSION['user_message']);
 
-    $this->admin_message = $_SESSION['admin_message'] ?? null;
-    if ($this->admin_message != null) unset($_SESSION['admin_message']);
+        $this->admin_message = $_SESSION['admin_message'] ?? null;
+        if ($this->admin_message != null) unset($_SESSION['admin_message']);
 
-    // set csrf token
-    if (isset($_SESSION['csrf'])) {
-      $this->csrf = $_SESSION['csrf'];
+        // set csrf token
+        if (isset($_SESSION['csrf'])) {
+            $this->csrf = $_SESSION['csrf'];
+        } else {
+            $this->csrf = $this->generateCSRF();
+            $this->setSessionVariable('csrf', $this->csrf);
+        }
     }
-    else {
-      $this->csrf = $this->generateCSRF();
-      $this->setSessionVariable('csrf', $this->csrf);
+
+    private function generateCSRF()
+    {
+        return bin2hex(random_bytes(32));
     }
-  }
 
-  private function generateCSRF()
-  {
-    return bin2hex(random_bytes(32));
-  }
+    public function setSessionVariable(string $variableName, string|array $variableValue)
+    {
+        if (!property_exists($this, $variableName)) return false;
+        $this->$variableName = $variableValue;
 
-  public function setSessionVariable (string $variableName, string|array $variableValue)
-  {
-    if (!property_exists($this, $variableName)) return false;
-    $this->$variableName = $variableValue;
+        if (session_status() !== PHP_SESSION_ACTIVE) session_start();
+        $_SESSION[$variableName] = $variableValue;
+    }
 
-    if(session_status() !== PHP_SESSION_ACTIVE) session_start();
-    $_SESSION[$variableName] = $variableValue;
-  }
+    public function removeSessionVariable(string $variableName)
+    {
+        if (!property_exists($this, $variableName)) return false;
 
-  public function removeSessionVariable (string $variableName)
-  {
-    if (!property_exists($this, $variableName)) return false;
-
-    if(session_status() !== PHP_SESSION_ACTIVE) session_start();
-    unset($_SESSION[$variableName]);
-  }
+        if (session_status() !== PHP_SESSION_ACTIVE) session_start();
+        unset($_SESSION[$variableName]);
+    }
 }

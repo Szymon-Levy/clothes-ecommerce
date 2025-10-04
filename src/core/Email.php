@@ -3,59 +3,57 @@
 namespace Core;
 
 use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-class Email 
+class Email
 {
-  protected PHPMailer $phpmailer;
+    protected PHPMailer $phpmailer;
 
-  public function __construct (array $email_settings) 
-  {
-    $this->phpmailer = new PHPMailer(true);
-    $this->phpmailer->isSMTP();
+    public function __construct(array $email_settings)
+    {
+        $this->phpmailer = new PHPMailer(true);
+        $this->phpmailer->isSMTP();
 
-    if ($_SERVER['SERVER_NAME'] == 'localhost') {
-      $this->phpmailer->SMTPOptions = [
-        'ssl' => [
-          'verify_peer' => false,
-          'verify_peer_name' => false,
-          'allow_self_signed' => true
-        ]
-      ];
+        if ($_SERVER['SERVER_NAME'] == 'localhost') {
+            $this->phpmailer->SMTPOptions = [
+                'ssl' => [
+                    'verify_peer' => false,
+                    'verify_peer_name' => false,
+                    'allow_self_signed' => true
+                ]
+            ];
+        }
+
+        $this->phpmailer->SMTPAuth = true;
+        $this->phpmailer->Host = $email_settings['server'];
+        $this->phpmailer->SMTPSecure = $email_settings['security'];
+        $this->phpmailer->Port = $email_settings['port'];
+        $this->phpmailer->Username = $email_settings['username'];
+        $this->phpmailer->Password = $email_settings['password'];
+        $this->phpmailer->SMTPDebug = $email_settings['debug'];
+        $this->phpmailer->CharSet = 'UTF-8';
+        $this->phpmailer->isHTML(true);
     }
 
-    $this->phpmailer->SMTPAuth = true;
-    $this->phpmailer->Host = $email_settings['server'];
-    $this->phpmailer->SMTPSecure = $email_settings['security'];
-    $this->phpmailer->Port = $email_settings['port'];
-    $this->phpmailer->Username = $email_settings['username'];
-    $this->phpmailer->Password = $email_settings['password'];
-    $this->phpmailer->SMTPDebug = $email_settings['debug'];
-    $this->phpmailer->CharSet = 'UTF-8';
-    $this->phpmailer->isHTML(true);
-  }
-  
-  public function sendEmail (string $from, string|array $to, string $subject, string $body)
-  {
-    $this->phpmailer->setFrom($from, 'Clothes Ecommerce');
+    public function sendEmail(string $from, string|array $to, string $subject, string $body)
+    {
+        $this->phpmailer->setFrom($from, 'Clothes Ecommerce');
 
-    if (is_array($to)) {
-      foreach ($to as $email) {
-        $this->phpmailer->addAddress($email);
-      }
-    }
-    else {
-      $this->phpmailer->addAddress($to);
-    }
+        if (is_array($to)) {
+            foreach ($to as $email) {
+                $this->phpmailer->addAddress($email);
+            }
+        } else {
+            $this->phpmailer->addAddress($to);
+        }
 
-    $this->phpmailer->Subject = $subject;
-    $this->phpmailer->Body = $body;
-    try {
-      $this->phpmailer->send();
-      return true;
-    } catch (Exception $e) {
-      return false;
+        $this->phpmailer->Subject = $subject;
+        $this->phpmailer->Body = $body;
+        try {
+            $this->phpmailer->send();
+            return true;
+        } catch (Exception $e) {
+            return false;
+        }
     }
-  }
 }

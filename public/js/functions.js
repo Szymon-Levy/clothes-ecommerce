@@ -3,17 +3,17 @@
  */
 
 const throttleFunction = (callback, interval = 100) => {
-  let isRunning = false
-  
-  return (...args) => {
-    if (!isRunning) {
-      isRunning = true
+    let isRunning = false
 
-      callback.apply(this, args)
+    return (...args) => {
+        if (!isRunning) {
+            isRunning = true
 
-      setTimeout(() => {
-        isRunning = false
-      }, interval);
+            callback.apply(this, args)
+
+            setTimeout(() => {
+                isRunning = false
+            }, interval);
+        }
     }
-  }
 }

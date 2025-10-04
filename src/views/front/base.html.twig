@@ -2,134 +2,122 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>
-  {% block title %} {% endblock %}
-  - Clothes Fashion Store
-  </title>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>
+			{% block title %}{% endblock %} - Clothes Fashion Store
+		</title>
 
-  <!--
-    - favicon
-  -->
-  <link rel="icon" href="{{ assets('images/logo/favicon.svg') }}" type="image/svg+xml">
+		<!--
+		    - favicon
+		-->
+		<link rel="icon" href="{{ assets('images/logo/favicon.svg') }}" type="image/svg+xml">
 
-  <!--
-    -remix icons
-  -->
-  <link href="{{ assets('css/remixicon.css') }}" rel="stylesheet"/>
+		<!--
+		    -remix icons
+		-->
+		<link href="{{ assets('css/remixicon.css') }}" rel="stylesheet"/>
 
-  <!--
-    -custom css link
-  -->
-  <link rel="stylesheet" href="{{ assets('css/front/style.css') }}">
+		<!--
+		    -custom css link
+		-->
+		<link rel="stylesheet" href="{{ assets('css/front/style.css') }}">
+	</head>
 
-</head>
+	<body {% if home_page %} class="home-page" {% endif %}>
+		{% if not page_404 %}
+			<!-- PRELOADER -->
+			<div class="preloader js-preloader"></div>
 
-<body {% if home_page %}class="home-page"{% endif %}>
+			<!-- LINES -->
+			<div class="lines">
+				<div class="lines__container">
+					<div class="row">
+						<span class="lines__line"></span>
+						<span class="lines__line"></span>
+						<span class="lines__line"></span>
+						<span class="lines__line"></span>
+						<span class="lines__line"></span>
+						<span class="lines__line"></span>
+					</div>
+				</div>
+			</div>
+		{% endif %}
 
-  {% if not page_404 %}
-    <!-- PRELOADER -->
+		<main
+			class="body-wrapper">
 
-    <div class="preloader js-preloader"></div>
+			<!-- MESSAGES -->
+			{% if session.user_message %}
+				{% include 'front/includes/message.html.twig' %}
+			{% endif %}
 
-    <!-- LINES -->
+			{% if not page_404 %}
+				<!-- NAV -->
+				{% include 'front/includes/offcanvas.html.twig' %}
 
-    <div class="lines">
-      <div class="lines__container">
-        <div class="row">
-          <span class="lines__line"></span>
-          <span class="lines__line"></span>
-          <span class="lines__line"></span>
-          <span class="lines__line"></span>
-          <span class="lines__line"></span>
-          <span class="lines__line"></span>
-        </div>
-      </div>
-    </div>
-  {% endif %}
+				<!-- HEADER -->
+				{% include 'front/includes/header.html.twig' %}
+			{% endif %}
 
-  <main class="body-wrapper">
+			<!-- PAGE TITLE -->
+			{% if page_title %}
+				{% include 'front/includes/page_title.html.twig' %}
+			{% endif %}
 
-    <!-- MESSAGES -->
-    {% if session.user_message %}
+			{% block content %}{% endblock %}
 
-      {% include 'front/includes/message.html.twig' %}
+			{% if not page_404 %}
+				<!-- FOOTER -->
+				{% include 'front/includes/footer.html.twig' %}
+			{% endif %}
 
-    {% endif %}
+		</main>
 
-    {% if not page_404 %}
-      <!-- NAV -->
+		<!--
+		    -Global variables js
+		-->
+		<script>
+			const docRoot = '{{ doc_root }}';
+            const csrf = '{{ session.csrf|e("js") }}';
+		</script>
 
-      {% include 'front/includes/offcanvas.html.twig' %}
+		<!--
+		    -ScrollReveal
+		-->
+		<script src="{{ doc_root }}js/front/general/scrollreveal.js"></script>
 
-      <!-- HEADER -->
+		<!--
+		    -pre js block on single page
+		-->
+		{% block page_js_pre %}{% endblock %}
 
-      {% include 'front/includes/header.html.twig' %}
+		<!--
+		    -functions
+		-->
+		<script src="{{ assets('js/functions.js') }}"></script>
 
-    {% endif %}
+		<!--
+		    -animations
+		-->
+		<script src="{{ assets('js/front/general/animations.js') }}"></script>
 
-    <!-- PAGE TITLE -->
-    {% if page_title %}
+		<!--
+		    -main js
+		-->
+		<script type="module" defer src="{{ assets('js/front/main.js') }}"></script>
 
-      {% include 'front/includes/page_title.html.twig' %}
+		<!--
+		    -page js
+		-->
+		{% if page_js %}
+			{{ loadPageJs(page_js, 'front') }}
+		{% endif %}
 
-    {% endif %}
-
-    {% block content %}{% endblock %}
-
-    {% if not page_404 %}
-      <!-- FOOTER -->
-
-      {% include 'front/includes/footer.html.twig' %}
-    {% endif %}
-
-  </main>
-
-  <!--
-    -Global variables js
-  -->
-  <script>
-    const docRoot = '{{ doc_root }}';
-    const csrf = '{{ session.csrf|e("js") }}';
-  </script>
-
-  <!--
-    -ScrollReveal
-  -->
-  <script src="{{ doc_root }}js/front/general/scrollreveal.js"></script>
-
-  <!--
-    -pre js block on single page
-  -->
-  {% block page_js_pre %} {% endblock %}
-
-  <!--
-    -functions
-  -->
-  <script src="{{ assets('js/functions.js') }}"></script>
-
-  <!--
-    -animations
-  -->
-  <script src="{{ assets('js/front/general/animations.js') }}"></script>
-
-  <!--
-    -main js
-  -->
-  <script type="module" defer src="{{ assets('js/front/main.js') }}"></script>
-
-  <!--
-    -page js
-  -->
-  {% if page_js %}
-    {{ loadPageJs(page_js, 'front') }}
-  {% endif %}
-
-  <!--
-    -post js block on single page
-  -->
-  {% block page_js_post %} {% endblock %}
-</body>
+		<!--
+		    -post js block on single page
+		-->
+		{% block page_js_post %}{% endblock %}
+	</body>
 </html>

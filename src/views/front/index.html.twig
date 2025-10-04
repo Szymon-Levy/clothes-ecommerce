@@ -3,168 +3,236 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-  <!-- HOME -->
 
-  <section class="home">
-    <div class="container">
-      <div class="row main-grid">
-        <div class="home__content-col">
-          <div class="headline">collection 2020</div>
-          <h1 class="heading heading--h1 heading--primary" data-anim-fade-in-left>New Arrivals</h1>
-          <p data-anim-fade-in-up>Mattis nisl eu quam elementum vulputate ultrices blandit. Congue molestie et varius risus, tristique fermentum purus nunc sed. Et tristique cursus felis placerat proin aliquam. Faucibus aliquam nam morbi volutpat scelerisque cursus in est. Posuere lacus risus faucibus a morbi aliquam malesuada sed sed.</p>
-          <a href="{{ doc_root }}" class="link-btn">Shop now</a>
-        </div>
+	<!-- HOME -->
 
-        <div class="home__video-popup-col">
-          <div class="home__video-popup">
-            <img class="home__video-popup__image" src="{{ assets('images/home-section/video-popup-image.webp') }}" alt="Woman in black and grey dress holding her head">
-            <button class="home__video-popup__icon js-video-popup-button">
-              <img src="{{ assets('images/icons/video-popup-icon.svg') }}" alt="video popup" aria-hidden="true">
-            </button>
-          </div>
-        </div>
+	<section class="home">
+		<div class="container">
+			<div class="row main-grid">
+				<div class="home__content-col">
+					<div class="headline">collection 2020</div>
 
-        <div class="home__image-col">
-          <img src="{{ assets('images/home-section/home-image.webp') }}" alt="Two models in red outfits" data-anim-fade-in-right>
-        </div>
-      </div>
-    </div>
-  </section>
+					<h1 class="heading heading--h1 heading--primary" data-anim-fade-in-left>New Arrivals</h1>
 
-  <!-- NEW -->
+					<p data-anim-fade-in-up>
+                        Mattis nisl eu quam elementum vulputate ultrices blandit. Congue molestie et varius risus, tristique fermentum purus nunc sed. Et tristique cursus felis placerat proin aliquam. Faucibus aliquam nam morbi volutpat scelerisque cursus in est. Posuere lacus risus faucibus a morbi aliquam malesuada sed sed.
+                    </p>
 
-  <section class="new text-image-sided">
-    <div class="container">
-      <div class="row main-grid row--bg-text">
-        <div class="bg-text">
-          <span>new</span>
-        </div>
+					<a href="{{ doc_root }}" class="link-btn">Shop now</a>
+				</div>
 
-        <div class="new__content-col">
-          <div class="headline">collection 2020</div>
-          <h2 class="heading heading--h1 heading--primary" data-anim-fade-in-right>Black <br>& White</h2>
-          <p data-anim-fade-in-up>Mattis nisl eu quam elementum vulputate ultrices blandit. Congue molestie et varius risus, tristique fermentum purus nunc sed. Et tristique cursus felis placerat proin aliquam. Faucibus aliquam nam morbi volutpat scelerisque cursus in est. Posuere lacus risus faucibus a morbi aliquam malesuada sed sed.</p>
-          <a href="{{ doc_root }}" class="link-btn">Shop collection</a>
-        </div>
+				<div class="home__video-popup-col">
+					<div class="home__video-popup">
+						<img 
+                            class="home__video-popup__image" 
+                            src="{{ assets('images/home-section/video-popup-image.webp') }}" 
+                            alt="Woman in black and grey dress holding her head"
+                        >
 
-        <div class="new__image-col">
-          <img src="{{ assets('images/new-image.webp') }}" alt="Two models in black and white outfits" data-anim-fade-in-up>
-        </div>
-      </div>
-    </div>
-  </section>
+						<button class="home__video-popup__icon js-video-popup-button">
+							<img 
+                                src="{{ assets('images/icons/video-popup-icon.svg') }}" 
+                                alt="video popup" 
+                                aria-hidden="true"
+                            >
+						</button>
+					</div>
+				</div>
 
-  <!-- BOHO -->
+				<div class="home__image-col">
+					<img 
+                        src="{{ assets('images/home-section/home-image.webp') }}" 
+                        alt="Two models in red outfits" 
+                        data-anim-fade-in-right
+                    >
+				</div>
+			</div>
+		</div>
+	</section>
 
-  <section class="boho text-image-sided">
-    <div class="container">
-      <div class="row main-grid row--bg-text">
-        <div class="bg-text">
-          <span>boho</span>
-        </div>
+	<!-- NEW -->
 
-        <div class="boho__content-col">
-          <div class="headline">collection 2020</div>
-          <h2 class="heading heading--h1 heading--primary" data-anim-fade-in-left>Party <br>Collection</h2>
-          <p data-anim-fade-in-up>Mattis nisl eu quam elementum vulputate ultrices blandit. Congue molestie et varius risus, tristique fermentum purus nunc sed. Et tristique cursus felis placerat proin aliquam. Faucibus aliquam nam morbi volutpat scelerisque cursus in est. Posuere lacus risus faucibus a morbi aliquam malesuada sed sed.</p>
-          <a href="{{ doc_root }}" class="link-btn">Shop now</a>
-        </div>
+	<section class="new text-image-sided">
+		<div class="container">
+			<div class="row main-grid row--bg-text">
+				<div class="bg-text">
+					<span>new</span>
+				</div>
 
-        <div class="boho__image-col">
-          <img src="{{ assets('images/boho-image.webp') }}" alt="Model in black dress holding her head" data-anim-fade-in-right>
-        </div>
-      </div>
-    </div>
-  </section>
+				<div class="new__content-col">
+					<div class="headline">collection 2020</div>
 
-  <!-- NEWSLETTER CALL TO ACTION -->
+					<h2 class="heading heading--h1 heading--primary" data-anim-fade-in-right>Black<br>& White</h2>
 
-  <section class="newsletter-cta">
-    <div class="container">
-      <div class="row main-grid">
-        <div class="newsletter-cta__block">
-          <div class="newsletter-cta__block__content-col">
-            <h4 class="heading heading--h4">Subscribe to our newsletter</h4>
-            <p>Eu, est arcu, vestibulum egestas quam ac sed egestas aliquet. Diam massa magnis mi, tortor, sit. Rhoncus phasellus habitant at turpis proin nibh suspendisse.</p>
-          </div>
-          <div class="newsletter-cta__block__button-col">
-            <button class="newsletter-cta__block__button btn btn--black js-newsletter-cta-button">subscribe</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+					<p data-anim-fade-in-up>
+                        Mattis nisl eu quam elementum vulputate ultrices blandit. Congue molestie et varius risus, tristique fermentum purus nunc sed. Et tristique cursus felis placerat proin aliquam. Faucibus aliquam nam morbi volutpat scelerisque cursus in est. Posuere lacus risus faucibus a morbi aliquam malesuada sed sed.
+                    </p>
 
-  <!-- SIDE IMAGES -->
+					<a href="{{ doc_root }}" class="link-btn">Shop collection</a>
+				</div>
 
-  <section class="side-images">
-    <div class="container">
-      <div class="row main-grid">
-        <div class="side-images__image-col side-images__image-col--left">
-          <img src="{{ assets('images/side-images/side-image-left.webp') }}" alt="Model in black dress sitting on chairs">
-        </div>
+				<div class="new__image-col">
+					<img 
+                        src="{{ assets('images/new-image.webp') }}" 
+                        alt="Two models in black and white outfits" 
+                        data-anim-fade-in-up
+                    >
+				</div>
+			</div>
+		</div>
+	</section>
 
-        <div class="side-images__content-col">
-          <div class="headline">lookbooks</div>
-          <h3 class="heading heading--h2 heading--primary" data-anim-fade-in-left>Boho wear Lookbook 2021</h3>
-          <p data-anim-fade-in-up>Eu, est arcu, vestibulum egestas quam ac sed egestas aliquet. Diam massa magnis mi, tortor, sit. Rhoncus phasellus habitant at turpis proin nibh suspendisse. Sodales parturient quisque purus pharetra massa et cras nulla commodo. Et condimentum egestas adipiscing nibh.</p>
-          <a href="{{ doc_root }}" class="link-btn">Read more</a>
-        </div>
+	<!-- BOHO -->
 
-        <div class="side-images__image-col side-images__image-col--right">
-          <img src="{{ assets('images/side-images/side-image-right.webp') }}" alt="Model in black jacket standing near the window in abandoned building">
-        </div>
-      </div>
-    </div>
-  </section>
+	<section class="boho text-image-sided">
+		<div class="container">
+			<div class="row main-grid row--bg-text">
+				<div class="bg-text">
+					<span>boho</span>
+				</div>
 
-  <!-- HOME ARTICLES -->
+				<div class="boho__content-col">
+					<div class="headline">collection 2020</div>
 
-  <section class="home-articles">
-    <div class="container">
-      <div class="row home-articles__row main-grid">
-        <h2 class="home-articles__heading heading heading--h1 heading--primary" data-anim-fade-in-right>Latest <br>articles</h2>
-      </div>
+					<h2 class="heading heading--h1 heading--primary" data-anim-fade-in-left>Party<br>Collection</h2>
 
-      <div class="row home-articles__row home-articles__row--right main-grid">
-        <div class="home-articles__block">
-          <div class="home-articles__block__image">
-            <img src="{{ assets('images/blog-posts/post1.webp') }}" alt="Woman in a red dress on desert" data-anim-scale-in>
-          </div>
+					<p data-anim-fade-in-up>
+                        Mattis nisl eu quam elementum vulputate ultrices blandit. Congue molestie et varius risus, tristique fermentum purus nunc sed. Et tristique cursus felis placerat proin aliquam. Faucibus aliquam nam morbi volutpat scelerisque cursus in est. Posuere lacus risus faucibus a morbi aliquam malesuada sed sed.
+                    </p>
 
-          <div class="home-articles__block__content" data-anim-fade-in-up>
-            <div class="home-articles__block__heading">
-              <div class="headline">lookbooks</div>
-              <h3 class="heading heading--h2 heading--primary">Boho wear Lookbook 2021</h3>
-            </div>
-            
-            <div class="home-articles__block__intro">
-              <p>Eu, est arcu, vestibulum egestas quam ac sed egestas aliquet. Diam massa magnis mi, tortor, sit. Rhoncus phasellus habitant at turpis proin nibh suspendisse. Sodales parturient quisque purus pharetra massa et cras nulla commodo. Et condimentum egestas adipiscing nibh.</p>
-              <a href="{{ doc_root }}" class="link-btn">Read more</a>
-            </div>
-          </div>
-        </div>
-      </div>
+					<a href="{{ doc_root }}" class="link-btn">Shop now</a>
+				</div>
 
-      <div class="row home-articles__row home-articles__row--left main-grid">
-        <div class="home-articles__block">
-          <div class="home-articles__block__image">
-            <img src="{{ assets('images/blog-posts/post2.webp') }}" alt="Women in dark dresses" data-anim-scale-in>
-          </div>
+				<div class="boho__image-col">
+					<img 
+                        src="{{ assets('images/boho-image.webp') }}" 
+                        alt="Model in black dress holding her head" 
+                        data-anim-fade-in-right
+                    >
+				</div>
+			</div>
+		</div>
+	</section>
 
-          <div class="home-articles__block__content" data-anim-fade-in-up>
-            <div class="home-articles__block__heading">
-              <div class="headline">lookbooks</div>
-              <h3 class="heading heading--h2 heading--primary">Boho wear Lookbook 2021</h3>
-            </div>
+	<!-- NEWSLETTER CALL TO ACTION -->
 
-            <div class="home-articles__block__intro">
-              <p>Eu, est arcu, vestibulum egestas quam ac sed egestas aliquet. Diam massa magnis mi, tortor, sit. Rhoncus phasellus habitant at turpis proin nibh suspendisse. Sodales parturient quisque purus pharetra massa et cras nulla commodo. Et condimentum egestas adipiscing nibh.</p>
-              <a href="{{ doc_root }}" class="link-btn">Read more</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+	<section class="newsletter-cta">
+		<div class="container">
+			<div class="row main-grid">
+				<div class="newsletter-cta__block">
+					<div class="newsletter-cta__block__content-col">
+						<h4 class="heading heading--h4">Subscribe to our newsletter</h4>
+
+						<p>Eu, est arcu, vestibulum egestas quam ac sed egestas aliquet. Diam massa magnis mi, tortor, sit. Rhoncus phasellus habitant at turpis proin nibh suspendisse.</p>
+					</div>
+
+					<div class="newsletter-cta__block__button-col">
+						<button class="newsletter-cta__block__button btn btn--black js-newsletter-cta-button">subscribe</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- SIDE IMAGES -->
+
+	<section class="side-images">
+		<div class="container">
+			<div class="row main-grid">
+				<div class="side-images__image-col side-images__image-col--left">
+					<img 
+                        src="{{ assets('images/side-images/side-image-left.webp') }}" 
+                        alt="Model in black dress sitting on chairs"
+                    >
+				</div>
+
+				<div class="side-images__content-col">
+					<div class="headline">lookbooks</div>
+
+					<h3 class="heading heading--h2 heading--primary" data-anim-fade-in-left>Boho wear Lookbook 2021</h3>
+
+					<p data-anim-fade-in-up>
+                        Eu, est arcu, vestibulum egestas quam ac sed egestas aliquet. Diam massa magnis mi, tortor, sit. Rhoncus phasellus habitant at turpis proin nibh suspendisse. Sodales parturient quisque purus pharetra massa et cras nulla commodo. Et condimentum egestas adipiscing nibh.
+                    </p>
+
+					<a href="{{ doc_root }}" class="link-btn">Read more</a>
+				</div>
+
+				<div class="side-images__image-col side-images__image-col--right">
+					<img 
+                        src="{{ assets('images/side-images/side-image-right.webp') }}" 
+                        alt="Model in black jacket standing near the window in abandoned building"
+                    >
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- HOME ARTICLES -->
+
+	<section class="home-articles">
+		<div class="container">
+			<div class="row home-articles__row main-grid">
+				<h2 class="home-articles__heading heading heading--h1 heading--primary" data-anim-fade-in-right>
+                    Latest <br>articles
+                </h2>
+			</div>
+
+			<div class="row home-articles__row home-articles__row--right main-grid">
+				<div class="home-articles__block">
+					<div class="home-articles__block__image">
+						<img 
+                            src="{{ assets('images/blog-posts/post1.webp') }}" 
+                            alt="Woman in a red dress on desert" 
+                            data-anim-scale-in
+                        >
+					</div>
+
+					<div class="home-articles__block__content" data-anim-fade-in-up>
+						<div class="home-articles__block__heading">
+							<div class="headline">lookbooks</div>
+
+							<h3 class="heading heading--h2 heading--primary">Boho wear Lookbook 2021</h3>
+						</div>
+
+						<div class="home-articles__block__intro">
+							<p>
+                                Eu, est arcu, vestibulum egestas quam ac sed egestas aliquet. Diam massa magnis mi, tortor, sit. Rhoncus phasellus habitant at turpis proin nibh suspendisse. Sodales parturient quisque purus pharetra massa et cras nulla commodo. Et condimentum egestas adipiscing nibh.
+                            </p>
+
+							<a href="{{ doc_root }}" class="link-btn">Read more</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row home-articles__row home-articles__row--left main-grid">
+				<div class="home-articles__block">
+					<div class="home-articles__block__image">
+						<img 
+                            src="{{ assets('images/blog-posts/post2.webp') }}" 
+                            alt="Women in dark dresses" 
+                            data-anim-scale-in
+                        >
+					</div>
+
+					<div class="home-articles__block__content" data-anim-fade-in-up>
+						<div class="home-articles__block__heading">
+							<div class="headline">lookbooks</div>
+
+							<h3 class="heading heading--h2 heading--primary">Boho wear Lookbook 2021</h3>
+						</div>
+
+						<div class="home-articles__block__intro">
+							<p>
+                                Eu, est arcu, vestibulum egestas quam ac sed egestas aliquet. Diam massa magnis mi, tortor, sit. Rhoncus phasellus habitant at turpis proin nibh suspendisse. Sodales parturient quisque purus pharetra massa et cras nulla commodo. Et condimentum egestas adipiscing nibh.
+                            </p>
+
+							<a href="{{ doc_root }}" class="link-btn">Read more</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 {% endblock %}

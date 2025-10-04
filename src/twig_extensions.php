@@ -6,11 +6,11 @@
  * @return string - full asset url with cache busting param
  */
 $assets = new Twig\TwigFunction('assets', function (string $file_path) use ($doc_root) {
-  if (file_exists($file_path)) {
-    $file_path .= '?v=' . filemtime($file_path);
-  }
+    if (file_exists($file_path)) {
+        $file_path .= '?v=' . filemtime($file_path);
+    }
 
-  return $doc_root . $file_path;
+    return $doc_root . $file_path;
 });
 
 $twig->addFunction($assets);
@@ -22,21 +22,21 @@ $twig->addFunction($assets);
  * @return string - script tags with linked files
  */
 $loadPageJs = new Twig\TwigFunction('loadPageJs', function (array|string $file_names, string $source) use ($doc_root) {
-  if (is_string($file_names)) {
-    $file_name = $file_names;
-    $file_names = [];
-    $file_names[] = $file_name;
-  }
-
-  foreach ($file_names as $file_name) {
-    $file_path = 'js/' . $source . '/pages/' . $file_name . '.js';
-
-    if (file_exists($file_path)) {
-      $file_path .= '?v=' . filemtime($file_path);
-      $full_path = $doc_root . $file_path;
-      echo '<script src="' . $full_path . '" defer type="module"></script>';
+    if (is_string($file_names)) {
+        $file_name = $file_names;
+        $file_names = [];
+        $file_names[] = $file_name;
     }
-  }
+
+    foreach ($file_names as $file_name) {
+        $file_path = 'js/' . $source . '/pages/' . $file_name . '.js';
+
+        if (file_exists($file_path)) {
+            $file_path .= '?v=' . filemtime($file_path);
+            $full_path = $doc_root . $file_path;
+            echo '<script src="' . $full_path . '" defer type="module"></script>';
+        }
+    }
 });
 
 $twig->addFunction($loadPageJs);
@@ -48,11 +48,11 @@ $twig->addFunction($loadPageJs);
  * @return string - class name that will be printed in element to highlight in html
  */
 $pageActiveStatus = new Twig\TwigFunction('pageActiveStatus', function (string $current_page, string|null $url_part) {
-  if ($current_page == $url_part) {
-    return 'active';
-  }
-
-  return '';
+    if ($current_page == $url_part) {
+        return 'active';
+    }
+    
+    return '';
 });
 
 $twig->addFunction($pageActiveStatus);
@@ -61,7 +61,7 @@ $twig->addFunction($pageActiveStatus);
  * Prints honeypot form element
  */
 $honeypot = new Twig\TwigFunction('honeypot', function () {
-  echo '
+    echo '
     <div style="opacity: 0; position: absolute; top: 0; left: 0; height: 0; width: 0; z-index: -1;">
         <label>
             leave this field blank to prove your humanity

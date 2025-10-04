@@ -4,45 +4,45 @@ namespace Core;
 
 class Utils
 {
-  protected Session $session;
-  protected array $global_vars;
+    protected Session $session;
+    protected array $global_vars;
 
-  public function __construct(Session $session, GlobalsContainer $globals_container)
-  {
-    $this->session = $session;
-    $this->global_vars = $globals_container->get('global_vars');
-  }
-
-  public function generateToken() 
-  {
-    return bin2hex(random_bytes(16));
-  }
-
-  public function isCsrfIncorrect() 
-  {
-    if (!isset($_POST['csrf']) || $_POST['csrf'] != $this->session->csrf) {
-      return 'Operation not allowed, refresh the page and try again!';
+    public function __construct(Session $session, GlobalsContainer $globals_container)
+    {
+        $this->session = $session;
+        $this->global_vars = $globals_container->get('global_vars');
     }
 
-    return false;
-  }
-
-  public function isFormFilledByBot() 
-  {
-    if (!isset($_POST['website']) || $_POST['website'] !== '') {
-      return 'You are not allowed to send this form!';
+    public function generateToken()
+    {
+        return bin2hex(random_bytes(16));
     }
 
-    return false;
-  }
+    public function isCsrfIncorrect()
+    {
+        if (!isset($_POST['csrf']) || $_POST['csrf'] != $this->session->csrf) {
+            return 'Operation not allowed, refresh the page and try again!';
+        }
 
-  public function createAdminMessageInSession(string $content, string $type) 
-  {
-    $this->session->setSessionVariable('admin_message', ['content' => $content, 'type' => $type]);
-  }
+        return false;
+    }
 
-  public function createUserMessageInSession(string $content, string $type) 
-  {
-    $this->session->setSessionVariable('user_message', ['content' => $content, 'type' => $type]);
-  }
+    public function isFormFilledByBot()
+    {
+        if (!isset($_POST['website']) || $_POST['website'] !== '') {
+            return 'You are not allowed to send this form!';
+        }
+
+        return false;
+    }
+
+    public function createAdminMessageInSession(string $content, string $type)
+    {
+        $this->session->setSessionVariable('admin_message', ['content' => $content, 'type' => $type]);
+    }
+
+    public function createUserMessageInSession(string $content, string $type)
+    {
+        $this->session->setSessionVariable('user_message', ['content' => $content, 'type' => $type]);
+    }
 }

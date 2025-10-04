@@ -3,108 +3,115 @@
 {% block title %}Contact{% endblock %}
 
 {% block content %}
-  <section class="contact-page">
-    <div class="container">
-      <div class="row main-grid">
-        <div class="contact-page__data-col">
-          <h2 class="heading heading--h2 heading--primary">Get in touch!</h2>
+	<section class="contact-page">
+		<div class="container">
+			<div class="row main-grid">
+				<div class="contact-page__data-col">
+					<h2 class="heading heading--h2 heading--primary">Get in touch!</h2>
 
-          <div class="contact-page__info">
-            <p>
-              <strong>{{ global_vars.shop_info.name }}</strong> <br>
-              {{ global_vars.shop_info.address }}<br>
-              Email: <a href="mailto:{{ global_vars.shop_info.email }}">{{ global_vars.shop_info.email }}</a><br>
-              Phone: {{ global_vars.shop_info.phone }}
-            </p>
+					<div class="contact-page__info">
+						<p>
+							<strong>{{ global_vars.shop_info.name }}</strong>
+							<br>
+							{{ global_vars.shop_info.address }}<br>
+							Email:
+							<a href="mailto:{{ global_vars.shop_info.email }}">{{ global_vars.shop_info.email }}</a><br>
+							Phone:
+							{{ global_vars.shop_info.phone }}
+						</p>
 
-            <ul class="contact-page__info__icons">
-              <li>
-                <a href="https://www.facebook.com">
-                  <i class="ri-facebook-fill" aria-hidden="true"></i>
-                </a>
-              </li>
+						<ul class="contact-page__info__icons">
+							<li>
+								<a href="https://www.facebook.com">
+									<i class="ri-facebook-fill" aria-hidden="true"></i>
+								</a>
+							</li>
 
-              <li>
-                <a href="https://www.instagram.com">
-                  <i class="ri-instagram-fill" aria-hidden="true"></i>
-                </a>
-              </li>
+							<li>
+								<a href="https://www.instagram.com">
+									<i class="ri-instagram-fill" aria-hidden="true"></i>
+								</a>
+							</li>
 
-              <li>
-                <a href="https://www.linkedin.com">
-                  <i class="ri-linkedin-fill" aria-hidden="true"></i>
-                </a>
-              </li>
-            </ul>
-          </div>
+							<li>
+								<a href="https://www.linkedin.com">
+									<i class="ri-linkedin-fill" aria-hidden="true"></i>
+								</a>
+							</li>
+						</ul>
+					</div>
 
-          <form class="contact-page__form form js-contact-form">
-            {{ honeypot() }}
+					<form class="contact-page__form form js-contact-form">
+						{{ honeypot() }}
 
-            <div class="form__row">
-              <div class="form__col">
-                <div class="form__field js-form-field">
-                  <input class="form__input-field" type="text" name="name" placeholder="Your name">
-                </div>
-              </div>
-            </div>
-      
-            <div class="form__row">
-              <div class="form__col">
-                <div class="form__field js-form-field">
-                  <input class="form__input-field" type="text" name="email" placeholder="Your e-mail">
-                </div>
-              </div>
-            </div>
-      
-            <div class="form__row">
-              <div class="form__col">
-                <div class="form__field js-form-field">
-                  <div class="form__select">
-                    <select name="subject" id="">
-                      <option value="">Choose message subject</option>
-                      <option value="Shipping & Delivery">Shipping & Delivery</option>
-                      <option value="Returns & Exchanges">Returns & Exchanges</option>
-                      <option value="Payment Issues">Payment Issues</option>
-                      <option value="Technical Support">Technical Support</option>
-                      <option value="Account Management">Account Management</option>
-                      <option value="Other">Other</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-            </div>
-      
-            <div class="form__row">
-              <div class="form__col">
-                <div class="form__field js-form-field">
-                  <textarea name="message" placeholder="Content of message"></textarea>
-                </div>
-              </div>
-            </div>
-      
-            <div class="form__row">
-              <div class="form__col">
-                <div class="form__field js-form-field">
-                  <div class="form__checkbox">
-                    <input class="form__checkbox__input" type="checkbox" name="policy" id="policy" value="1">
-                    <label for="policy"><span>I agree with the <a href="{{ global_vars.system.doc_root }}privacy-policy"> privacy policy</a>.</span></label>
-                  </div>
-                </div>
-              </div>
-            </div>
-      
-            <div class="form__row form__row--submit">
-              <button type="submit" class="btn btn--black">Send message</button>
-            </div>
-          </form>
+						<div class="form__row">
+							<div class="form__col">
+								<div class="form__field js-form-field">
+									<input class="form__input-field" type="text" name="name" placeholder="Your name">
+								</div>
+							</div>
+						</div>
 
-        </div>
+						<div class="form__row">
+							<div class="form__col">
+								<div class="form__field js-form-field">
+									<input class="form__input-field" type="text" name="email" placeholder="Your e-mail">
+								</div>
+							</div>
+						</div>
 
-        <div class="contact-page__map-col">
-          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3594.9458091124256!2d-74.0014782062086!3d40.74053064625036!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c259be7944cce9%3A0xf9d2c10f559b1984!2sW%2015th%20St%2C%20New%20York%2C%20NY%2C%20Stany%20Zjednoczone!5e0!3m2!1spl!2spl!4v1731326762871!5m2!1spl!2spl" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
-      </div>
-    </div>
-  </section>
+						<div class="form__row">
+							<div class="form__col">
+								<div class="form__field js-form-field">
+									<div class="form__select">
+										<select name="subject" id="">
+											<option value="">Choose message subject</option>
+											<option value="Shipping & Delivery">Shipping & Delivery</option>
+											<option value="Returns & Exchanges">Returns & Exchanges</option>
+											<option value="Payment Issues">Payment Issues</option>
+											<option value="Technical Support">Technical Support</option>
+											<option value="Account Management">Account Management</option>
+											<option value="Other">Other</option>
+										</select>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="form__row">
+							<div class="form__col">
+								<div class="form__field js-form-field">
+									<textarea name="message" placeholder="Content of message"></textarea>
+								</div>
+							</div>
+						</div>
+
+						<div class="form__row">
+							<div class="form__col">
+								<div class="form__field js-form-field">
+									<div class="form__checkbox">
+										<input class="form__checkbox__input" type="checkbox" name="policy" id="policy" value="1">
+										<label for="policy">
+											<span>
+                                                I agree with the 
+												<a href="{{ global_vars.system.doc_root }}privacy-policy">privacy policy</a>.
+                                            </span>
+										</label>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="form__row form__row--submit">
+							<button type="submit" class="btn btn--black">Send message</button>
+						</div>
+					</form>
+				</div>
+
+				<div class="contact-page__map-col">
+					<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3594.9458091124256!2d-74.0014782062086!3d40.74053064625036!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c259be7944cce9%3A0xf9d2c10f559b1984!2sW%2015th%20St%2C%20New%20York%2C%20NY%2C%20Stany%20Zjednoczone!5e0!3m2!1spl!2spl!4v1731326762871!5m2!1spl!2spl" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+				</div>
+			</div>
+		</div>
+	</section>
 {% endblock %}

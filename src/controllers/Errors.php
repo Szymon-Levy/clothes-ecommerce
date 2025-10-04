@@ -7,12 +7,12 @@ use Controllers\BaseController;
 class Errors extends BaseController
 {
 
-  public function error404()
-  {
-    $data = [
-      'page_404' => true,
-    ];
+    public function error404()
+    {
+        $data = [
+            'page_404' => true,
+        ];
 
-    echo $this->twig->render('front/404.html.twig', $data);
-  }
+        echo $this->twig->render('front/404.html.twig', $data);
+    }
 }

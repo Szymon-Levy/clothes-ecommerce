@@ -1,6 +1,6 @@
 <?php
 
-function error_handling($type, $message, $file, $line) 
+function error_handling($type, $message, $file, $line)
 {
     throw new ErrorException($message, 0, $type, $file, $line);
 }
@@ -17,8 +17,7 @@ function shutdown_handling()
 {
     $error = error_get_last();
     if ($error) {
-        $e = new ErrorException($error['message'], 0, $error['type'],
-                                $error['file'], $error['line']);
+        $e = new ErrorException($error['message'], 0, $error['type'], $error['file'], $error['line']);
         exceptions_handling($e);
     }
 }

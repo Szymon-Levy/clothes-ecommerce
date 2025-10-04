@@ -1,99 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>
-  {% block title %} {% endblock %}
-  - Admin
-  </title>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>
+			{% block title %}{% endblock %} - Admin
+		</title>
 
-  <!--
-    - favicon
-  -->
-  <link rel="icon" href="{{ assets('images/admin/favicon.png') }}" type="image/png">
+		<!--
+		    - favicon
+		-->
+		<link rel="icon" href="{{ assets('images/admin/favicon.png') }}" type="image/png">
 
-  <!--
-    -remix icons
-  -->
-  <link href="{{ assets('css/remixicon.css') }}" rel="stylesheet"/>
+		<!--
+		    -remix icons
+		-->
+		<link href="{{ assets('css/remixicon.css') }}" rel="stylesheet"/>
 
-  <!--
-    -custom css
-  -->
-  <link rel="stylesheet" href="{{ assets('css/admin/style.css') }}">
+		<!--
+		    -custom css
+		-->
+		<link rel="stylesheet" href="{{ assets('css/admin/style.css') }}">
+	</head>
 
-</head>
+	<body>
+		<div class="app">
+			<div class="mobile-overlay js-mobile-overlay"></div>
 
-<body>
+			<!-- MAIN CONTENT -->
+			{% if not authentication_page %}
+				<!-- ASIDE -->
+				{% include 'admin/includes/aside.html.twig' %}
 
-  <div class="app">
-    <div class="mobile-overlay js-mobile-overlay"></div>
+				<main>
+					<!-- HEADER -->
+					{% include 'admin/includes/header.html.twig' %}
 
-    <!-- MAIN CONTENT -->
-    {% if not authentication_page %}
-      <!-- ASIDE -->
-      {% include 'admin/includes/aside.html.twig' %}
+					<div class="app-content">
+						{% if session.admin_message %}
+							<!-- MESSAGES -->
+							{% include 'admin/includes/message.html.twig' %}
+						{% endif %}
 
-      <main>
-        <!-- HEADER -->
-        {% include 'admin/includes/header.html.twig' %}
+						<!-- PAGE TITLE -->
+						{% include 'admin/includes/page_title.html.twig' %}
 
-        <div class="app-content">
-          {% if session.admin_message %}
-            <!-- MESSAGES -->
-            {% include 'admin/includes/message.html.twig' %}
-          {% endif %}
+						<div class="app-content__panel"> {% block content %}{% endblock %}</div>
 
-          <!-- PAGE TITLE -->
-          {% include 'admin/includes/page_title.html.twig' %}
+						<p class="copyright">© NomisCMS - Created By Szymon Lewandowski</p>
+					</div>
+				</main>
+            {% else %}
+                {{ block('content') }}
+            {% endif %}
+		</div>
 
-          <div class="app-content__panel">
-            {% block content %}{% endblock %}
-          </div>
+        <!--
+            -Global variables js
+        -->
+        <script>
+            const docRoot = '{{ global_vars.system.doc_root }}';
+            const csrf = '{{ session.csrf|e("js") }}';
+        </script>
 
-          <p class="copyright">© NomisCMS - Created By Szymon Lewandowski</p>
-        </div>
-      </main>
-    {% else %}
-      {{ block('content') }}
-    {% endif %}
+        <!--
+            -pre js block on single page
+        -->
+        {% block page_js_pre %}{% endblock %}
 
-  </div>
+        <!--
+            -functions
+        -->
+        <script src="{{ assets('js/functions.js') }}"></script>
 
-  <!--
-    -Global variables js
-  -->
-  <script>
-    const docRoot = '{{ global_vars.system.doc_root }}';
-    const csrf = '{{ session.csrf|e("js") }}';
-  </script>
+        <!--
+            -main js
+        -->
+        <script type="module" defer src="{{ assets('js/admin/main.js') }}"></script>
 
-  <!--
-    -pre js block on single page
-  -->
-  {% block page_js_pre %} {% endblock %}
+        <!--
+            -page js
+        -->
+        {% if page_js %}
+            {{ loadPageJs(page_js, 'admin') }}
+        {% endif %}
 
-  <!--
-    -functions
-  -->
-  <script src="{{ assets('js/functions.js') }}"></script>
-
-  <!--
-    -main js
-  -->
-  <script type="module" defer src="{{ assets('js/admin/main.js') }}"></script>
-
-  <!--
-    -page js
-  -->
-  {% if page_js %}
-    {{ loadPageJs(page_js, 'admin') }}
-  {% endif %}
-
-  <!--
-    -post js block on single page
-  -->
-  {% block page_js_post %} {% endblock %}
-</body>
+        <!--
+            -post js block on single page
+        -->
+        {% block page_js_post %}{% endblock %}
+	</body>
 </html>

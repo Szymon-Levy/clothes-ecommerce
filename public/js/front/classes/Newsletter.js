@@ -2,100 +2,100 @@ import { FormHandler } from "../../helpers/FormHandler.js"
 import { uiController } from '../classes/UiController.js'
 
 class Newsletter {
-  constructor() {
-    const init = () => {
-      this.initSubscribtionForm()
-    }
-
-    init()
-  }
-
-  // SUBSCRIBE NEWSLETTER
-
-  initSubscribtionForm() {
-    document.addEventListener('submit', e => {
-      const $subscribtionForm = e.target.closest('.js-newsletter-form')
-
-      this.subscribtionForm = null
-
-      if ($subscribtionForm) {
-        e.preventDefault()
-
-        if (!this.subscribtionForm) {
-          this.subscribtionForm = new FormHandler($subscribtionForm)
+    constructor() {
+        const init = () => {
+            this.initSubscribtionForm()
         }
 
-        if (this.subscribtionForm.formFilledByBot()) return
-        this.handleSubscribtionForm()
-      }
-    })
-  }
-
-  async handleSubscribtionForm() {
-    this.subscribtionForm.formData = new FormData(this.subscribtionForm.$form)
-    this.subscribtionForm.addCsrfToFormData()
-    this.validateSubscribtionForm.call(this.subscribtionForm)
-
-    if (Object.keys(this.subscribtionForm.errors).length) {
-      this.subscribtionForm.displayFormErrors()
-      return
+        init()
     }
 
-    await this.sendSubscribtionRequest.call(this.subscribtionForm)
-    if (!this.subscribtionForm.response) return
-    this.handleSubscribtionFormResponse.call(this.subscribtionForm)
-  }
+    // SUBSCRIBE NEWSLETTER
 
-  validateSubscribtionForm() {
-    const name = this.formData.get('name').trim()
-    const email = this.formData.get('email').trim()
-    const policy = this.formData.get('policy')
-    this.errors = {}
+    initSubscribtionForm() {
+        document.addEventListener('submit', e => {
+            const $subscribtionForm = e.target.closest('.js-newsletter-form')
 
-    const nameError = this.lengthValidation(name, 'Name', 2, 50, true)
-    const emailError = this.emailValidation(email, true)
+            this.subscribtionForm = null
 
-    if (nameError) {
-      this.errors.name = nameError
+            if ($subscribtionForm) {
+                e.preventDefault()
+
+                if (!this.subscribtionForm) {
+                    this.subscribtionForm = new FormHandler($subscribtionForm)
+                }
+
+                if (this.subscribtionForm.formFilledByBot()) return
+                this.handleSubscribtionForm()
+            }
+        })
     }
 
-    if (emailError) {
-      this.errors.email = emailError
+    async handleSubscribtionForm() {
+        this.subscribtionForm.formData = new FormData(this.subscribtionForm.$form)
+        this.subscribtionForm.addCsrfToFormData()
+        this.validateSubscribtionForm.call(this.subscribtionForm)
+
+        if (Object.keys(this.subscribtionForm.errors).length) {
+            this.subscribtionForm.displayFormErrors()
+            return
+        }
+
+        await this.sendSubscribtionRequest.call(this.subscribtionForm)
+        if (!this.subscribtionForm.response) return
+        this.handleSubscribtionFormResponse.call(this.subscribtionForm)
     }
 
-    if (!policy) {
-      this.errors.policy = 'Accepting privacy policy is required!'
-    }
-  }
+    validateSubscribtionForm() {
+        const name = this.formData.get('name').trim()
+        const email = this.formData.get('email').trim()
+        const policy = this.formData.get('policy')
+        this.errors = {}
 
-  async sendSubscribtionRequest() {
-    try {
-      const request = await fetch(docRoot + 'ajax/newsletter-subscribe', {
-        method: 'POST',
-        body: this.formData
-      })
-      this.response = await request.json()
-      return true
-    } catch (error) {
-      uiController.showAlert('Server error. Try again and if the problem persists please notify the administrator: admin@clothes-ecommerce.com.pl.', 'error')
-      return false
-    }
-  }
+        const nameError = this.lengthValidation(name, 'Name', 2, 50, true)
+        const emailError = this.emailValidation(email, true)
 
-  handleSubscribtionFormResponse() {
-    this.clearFormErrors()
+        if (nameError) {
+            this.errors.name = nameError
+        }
 
-    if (this.response.hasOwnProperty('success')) {
-      uiController.showAlert(this.response.success, 'success')
-      this.$form.reset()
+        if (emailError) {
+            this.errors.email = emailError
+        }
+
+        if (!policy) {
+            this.errors.policy = 'Accepting privacy policy is required!'
+        }
     }
-    else if (this.response.hasOwnProperty('error')) {
-      uiController.showAlert(this.response.error, 'error')
+
+    async sendSubscribtionRequest() {
+        try {
+            const request = await fetch(docRoot + 'ajax/newsletter-subscribe', {
+                method: 'POST',
+                body: this.formData
+            })
+            this.response = await request.json()
+            return true
+        } catch (error) {
+            uiController.showAlert('Server error. Try again and if the problem persists please notify the administrator: admin@clothes-ecommerce.com.pl.', 'error')
+            return false
+        }
     }
-    else {
-      this.displayFormErrors(this.response)
+
+    handleSubscribtionFormResponse() {
+        this.clearFormErrors()
+
+        if (this.response.hasOwnProperty('success')) {
+            uiController.showAlert(this.response.success, 'success')
+            this.$form.reset()
+        }
+        else if (this.response.hasOwnProperty('error')) {
+            uiController.showAlert(this.response.error, 'error')
+        }
+        else {
+            this.displayFormErrors(this.response)
+        }
     }
-  }
 }
 
 export const newsletter = new Newsletter()

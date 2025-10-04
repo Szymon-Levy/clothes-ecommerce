@@ -7,170 +7,171 @@ use Core\GlobalsContainer;
 
 class Router
 {
-  protected array $routes = [];
-  protected array $error_handlers = [];
-  protected Route $current;
-  protected GlobalsContainer $globals_container;
-  protected array $url_parts;
+    protected array $routes = [];
+    protected array $error_handlers = [];
+    protected Route $current;
+    protected GlobalsContainer $globals_container;
+    protected array $url_parts;
 
-  public function __construct(GlobalsContainer $globals_container)
-  {
-    $this->globals_container = $globals_container;
-  }
-
-  public function add(string $method, string $path, $handler): Route
-  {
-    $route = $this->routes[] = new Route($method, $path, $handler);
-    return $route;
-  }
-
-  public function dispatch()
-  {
-    $paths = $this->paths();
-
-    $request_method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
-
-    $uri = $_SERVER['REQUEST_URI'] ?? '/';
-    $uri = parse_url($uri, PHP_URL_PATH);
-    $base = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/');
-
-    if ($base !== '' && str_starts_with($uri, $base)) {
-      $uri = substr($uri, strlen($base));
+    public function __construct(GlobalsContainer $globals_container)
+    {
+        $this->globals_container = $globals_container;
     }
 
-    $request_path = $uri ?: '/';
-
-    $matching = $this->match($request_method, $request_path);
-
-    if ($matching) {
-      $this->passUrpPartsToTwig($request_path);
-
-      $this->current = $matching;
-
-      try {
-        return $matching->dispatch($this->globals_container);
-      } catch (\Throwable $e) {
-        $this->dispatchError($e);
-      }
-    }
-
-    if (in_array($request_path, $paths)) {
-      return $this->dispatchNotAllowed();
-    }
-
-    return $this->dispatchNotFound();
-  }
-
-  private function paths(): array
-  {
-    $paths = [];
-
-    foreach($this->routes as $route) {
-      $paths[] = $route->path();
-    }
-
-    return $paths;
-  }
-
-  private function match(string $method, string $path): ?Route
-  {
-    foreach($this->routes as $route) {
-      if ($route->matches($method, $path)) {
+    public function add(string $method, string $path, $handler): Route
+    {
+        $route = $this->routes[] = new Route($method, $path, $handler);
         return $route;
-      }
     }
 
-    return null;
-  }
+    public function dispatch()
+    {
+        $paths = $this->paths();
 
-  public function errorHandler(int $code, array $handler)
-  {
-    $this->error_handlers[$code] = $handler;
-  }
+        $request_method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
 
-  public function dispatchNotAllowed()
-  {
-    $this->error_handlers[400] ??= fn() => 'not allowed';
-    return $this->error_handlers[400]();
-  }
+        $uri = $_SERVER['REQUEST_URI'] ?? '/';
+        $uri = parse_url($uri, PHP_URL_PATH);
+        $base = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/');
 
-  public function dispatchNotFound()
-  {
-    http_response_code(404);
-
-    [$class, $method] = $this->error_handlers[404];
-    $controller = new $class($this->globals_container);
-
-    return $controller->{$method}();
-  }
-
-  public function dispatchError(\Throwable $e)
-  {
-    http_response_code(500);
-    error_log($e);
-
-    if ($this->globals_container->get('global_vars')['system']['dev']) {
-        echo "<h1>Application error</h1>";
-        echo "<p><strong>Message:</strong> {$e->getMessage()}</p>";
-        echo "<p><strong>File:</strong> {$e->getFile()}</p>";
-        echo "<p><strong>Line:</strong> {$e->getLine()}</p>";
-        echo "<p><strong>Type:</strong> " . get_class($e) . "</p>";
-        echo "<pre>{$e->getTraceAsString()}</pre>";
-    } else {
-        echo "Server error!";
-    }
-  }
-
-  public function redirect($path)
-  {
-    header(
-        "Location: " . $this->globals_container->get('global_vars')['system']['doc_root'] . $path, 
-        $replace = true, 
-        $code = 301
-    );
-
-    exit;
-  }
-
-  public function current(): ?Route
-  {
-    return $this->current;
-  }
-
-  public function route(string $name, array $parameters): string
-  {
-    foreach ($this->routes as $route) {
-      if ($route->name() === $name) {
-        $finds = [];
-        $replaces = [];
-
-        foreach ($parameters as $key => $value) {
-          array_push($finds, "{{$key}}");
-          array_push($replaces, $value);
-
-          array_push($finds, "{{$key}?}");
-          array_push($replaces, $value);
+        if ($base !== '' && str_starts_with($uri, $base)) {
+            $uri = substr($uri, strlen($base));
         }
 
-        $path = $route->path();
-        $path = str_replace($finds, $replaces, $path);
-        $path = preg_replace('#{[^}]+}#', '', $path);
+        $request_path = $uri ?: '/';
 
-        return $path;
-      }
+        $matching = $this->match($request_method, $request_path);
+
+        if ($matching) {
+            $this->passUrpPartsToTwig($request_path);
+
+            $this->current = $matching;
+
+            try {
+                return $matching->dispatch($this->globals_container);
+            } catch (\Throwable $e) {
+                $this->dispatchError($e);
+            }
+        }
+
+        if (in_array($request_path, $paths)) {
+            return $this->dispatchNotAllowed();
+        }
+
+        return $this->dispatchNotFound();
     }
 
-    throw new Exception('no route with that name');
-  }
+    private function paths(): array
+    {
+        $paths = [];
 
-  public function urlParts(): array
-  {
-    return $this->url_parts;
-  }
+        foreach ($this->routes as $route) {
+            $paths[] = $route->path();
+        }
 
-  public function passUrpPartsToTwig(string $uri){
-    $this->url_parts = explode('/', trim($uri, '/'));
+        return $paths;
+    }
 
-    $this->globals_container->get('twig')->addGlobal('url_parts', $this->urlParts());
-  }
+    private function match(string $method, string $path): ?Route
+    {
+        foreach ($this->routes as $route) {
+            if ($route->matches($method, $path)) {
+                return $route;
+            }
+        }
+
+        return null;
+    }
+
+    public function errorHandler(int $code, array $handler)
+    {
+        $this->error_handlers[$code] = $handler;
+    }
+
+    public function dispatchNotAllowed()
+    {
+        $this->error_handlers[400] ??= fn() => 'not allowed';
+        return $this->error_handlers[400]();
+    }
+
+    public function dispatchNotFound()
+    {
+        http_response_code(404);
+
+        [$class, $method] = $this->error_handlers[404];
+        $controller = new $class($this->globals_container);
+
+        return $controller->{$method}();
+    }
+
+    public function dispatchError(\Throwable $e)
+    {
+        http_response_code(500);
+        error_log($e);
+
+        if ($this->globals_container->get('global_vars')['system']['dev']) {
+            echo "<h1>Application error</h1>";
+            echo "<p><strong>Message:</strong> {$e->getMessage()}</p>";
+            echo "<p><strong>File:</strong> {$e->getFile()}</p>";
+            echo "<p><strong>Line:</strong> {$e->getLine()}</p>";
+            echo "<p><strong>Type:</strong> " . get_class($e) . "</p>";
+            echo "<pre>{$e->getTraceAsString()}</pre>";
+        } else {
+            echo "Server error!";
+        }
+    }
+
+    public function redirect($path)
+    {
+        header(
+            "Location: " . $this->globals_container->get('global_vars')['system']['doc_root'] . $path,
+            $replace = true,
+            $code = 301
+        );
+
+        exit;
+    }
+
+    public function current(): ?Route
+    {
+        return $this->current;
+    }
+
+    public function route(string $name, array $parameters): string
+    {
+        foreach ($this->routes as $route) {
+            if ($route->name() === $name) {
+                $finds = [];
+                $replaces = [];
+
+                foreach ($parameters as $key => $value) {
+                    array_push($finds, "{{$key}}");
+                    array_push($replaces, $value);
+
+                    array_push($finds, "{{$key}?}");
+                    array_push($replaces, $value);
+                }
+
+                $path = $route->path();
+                $path = str_replace($finds, $replaces, $path);
+                $path = preg_replace('#{[^}]+}#', '', $path);
+
+                return $path;
+            }
+        }
+
+        throw new Exception('no route with that name');
+    }
+
+    public function urlParts(): array
+    {
+        return $this->url_parts;
+    }
+
+    public function passUrpPartsToTwig(string $uri)
+    {
+        $this->url_parts = explode('/', trim($uri, '/'));
+
+        $this->globals_container->get('twig')->addGlobal('url_parts', $this->urlParts());
+    }
 }

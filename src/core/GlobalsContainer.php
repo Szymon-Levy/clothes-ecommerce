@@ -2,17 +2,17 @@
 
 namespace Core;
 
-class GlobalsContainer 
+class GlobalsContainer
 {
-  protected array $globals;
+    protected array $globals;
 
-  public function set(string $name, mixed $variable): void
-  {
-    $this->globals[$name] = $variable;
-  }
+    public function set(string $name, mixed $variable): void
+    {
+        $this->globals[$name] = $variable;
+    }
 
-  public function get(string $name): mixed
-  {
-    return $this->globals[$name] ?? null;
-  }
+    public function get(string $name): mixed
+    {
+        return $this->globals[$name] ?? null;
+    }
 }

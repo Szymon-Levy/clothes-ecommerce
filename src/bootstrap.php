@@ -8,9 +8,9 @@ require $app_root . '/vendor/autoload.php';
 
 // Errors
 if ($dev === false) {
-  set_exception_handler('exceptions_handling');
-  set_error_handler('error_handling');
-  register_shutdown_function('shutdown_handling');
+    set_exception_handler('exceptions_handling');
+    set_error_handler('error_handling');
+    register_shutdown_function('shutdown_handling');
 }
 
 // Twig loading
@@ -25,7 +25,7 @@ $session = new Core\Session();
 $twig->addGlobal('session', $session);
 
 if ($dev === true) {
-  $twig->addExtension(new Twig\Extension\DebugExtension());
+    $twig->addExtension(new Twig\Extension\DebugExtension());
 }
 
 // Add Twig custom functions and modifications
@@ -44,5 +44,5 @@ $globals_container->set('utils', $utils);
 
 // Models container
 $models = new Core\Models($dsn, $db_user, $db_password, $globals_container);
-unset ($dsn, $db_user, $db_password);
+unset($dsn, $db_user, $db_password);
 $globals_container->set('models', $models);

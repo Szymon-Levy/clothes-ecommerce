@@ -1,54 +1,59 @@
 {% extends 'ui_elements/base/popup.html.twig' %}
 
 {% block content %}
-  <div class="newsletter-popup__content-col">
-    <div class="newsletter-popup__title">
-      <p class="heading heading--h4">We have special offer for You!</p>
-      <h3 class="newsletter-popup__heading heading heading--h2 heading--primary">
-        Sign up to our Newsletter and <span>receive 15% off</span>.
-      </h3>
-    </div>
+	<div class="newsletter-popup__content-col">
+		<div class="newsletter-popup__title">
+			<p class="heading heading--h4">We have special offer for You!</p>
+			<h3 class="newsletter-popup__heading heading heading--h2 heading--primary">
+				Sign up to our Newsletter and
+				<span>receive 15% off</span>.
+			</h3>
+		</div>
 
-    <form class="form js-newsletter-form">
-      <p>Enter your email for your exclusive offer:</p>
+		<form class="form js-newsletter-form">
+			<p>Enter your email for your exclusive offer:</p>
 
-      {{ honeypot() }}
-      
-      <div class="form__row">
-        <div class="form__col">
-          <div class="form__field js-form-field">
-            <input class="form__input-field" type="text" name="name" placeholder="Your name">
-          </div>
-        </div>
-      </div>
+			{{ honeypot() }}
 
-      <div class="form__row">
-        <div class="form__col">
-          <div class="form__field js-form-field">
-            <input class="form__input-field" type="text" name="email" placeholder="Your e-mail">
-          </div>
-        </div>
-      </div>
+			<div class="form__row">
+				<div class="form__col">
+					<div class="form__field js-form-field">
+						<input class="form__input-field" type="text" name="name" placeholder="Your name">
+					</div>
+				</div>
+			</div>
 
-      <div class="form__row">
-        <div class="form__col">
-          <div class="form__field js-form-field">
-            <div class="form__checkbox">
-              <input class="form__checkbox__input" type="checkbox" name="policy" id="policy" value="1">
-              <label for="policy"><span>I agree with the <a href="{{ global_vars.system.doc_root }}privacy-policy"> privacy policy</a>.</span></label>
-            </div>
-          </div>
-        </div>
-      </div>
+			<div class="form__row">
+				<div class="form__col">
+					<div class="form__field js-form-field">
+						<input class="form__input-field" type="text" name="email" placeholder="Your e-mail">
+					</div>
+				</div>
+			</div>
 
-      <div class="form__row form__row--submit">
-        <button type="submit" class="btn btn--black">Sign me up</button>
-      </div>
-    </form>
-  </div>
+			<div class="form__row">
+				<div class="form__col">
+					<div class="form__field js-form-field">
+						<div class="form__checkbox">
+							<input class="form__checkbox__input" type="checkbox" name="policy" id="policy" value="1">
+							<label for="policy">
+								<span>I agree with the
+									<a href="{{ global_vars.system.doc_root }}privacy-policy">
+										privacy policy</a>.</span>
+							</label>
+						</div>
+					</div>
+				</div>
+			</div>
 
-  <div class="newsletter-popup__image-col">
-    <img src="{{ assets('images/logo/logo.svg') }}" class="newsletter-popup__logo" alt="logo">
-    <img src="{{ assets('images/newsletter-image.webp') }}" class="newsletter-popup__image" alt="woman in white dress">
-  </div>
+			<div class="form__row form__row--submit">
+				<button type="submit" class="btn btn--black">Sign me up</button>
+			</div>
+		</form>
+	</div>
+
+	<div class="newsletter-popup__image-col">
+		<img src="{{ assets('images/logo/logo.svg') }}" class="newsletter-popup__logo" alt="logo">
+		<img src="{{ assets('images/newsletter-image.webp') }}" class="newsletter-popup__image" alt="woman in white dress">
+	</div>
 {% endblock %}

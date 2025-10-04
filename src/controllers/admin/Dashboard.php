@@ -6,12 +6,12 @@ use Controllers\BaseController;
 
 class Dashboard extends BaseController
 {
-  public function index()
-  {
-    $data = [
-      'page_title' => 'Dashboard'
-    ];
+    public function index()
+    {
+        $data = [
+            'page_title' => 'Dashboard'
+        ];
 
-    $this->renderView('admin/dashboard.html.twig', $data);
-  }
+        $this->renderView('admin/dashboard.html.twig', $data);
+    }
 }

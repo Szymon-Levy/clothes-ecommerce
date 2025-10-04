@@ -1,348 +1,350 @@
 {% extends 'admin/base.html.twig' %}
 
-{% block title %}{{ page_title }}{% endblock %}
+{% block title %}
+	{{ page_title }}
+{% endblock %}
 
 {% block content %}
 
-  {% set admin_pagination = global_vars.system.admin_pagination %}
-  {% set doc_root = global_vars.system.doc_root %}
+	{% set admin_pagination = global_vars.system.admin_pagination %}
+	{% set doc_root = global_vars.system.doc_root %}
 
-  <div class="app-content__panel__top">
-    <form class="app-content__panel__top__search-form form" action="{{ doc_root }}admin/newsletter">
-      {% if sort == 'd' %}
-          <input type="hidden" name="sort" value="d">
-      {% endif %}
+	<div class="app-content__panel__top">
+		<form class="app-content__panel__top__search-form form" action="{{ doc_root }}admin/newsletter">
+			{% if sort == 'd' %}
+				<input type="hidden" name="sort" value="d">
+			{% endif %}
 
-      {% if order_by %}
-          <input type="hidden" name="orderby" value="{{ order_by }}">
-      {% endif %}
+			{% if order_by %}
+				<input type="hidden" name="orderby" value="{{ order_by }}">
+			{% endif %}
 
-      <input class="app-content__panel__top__search-form__input form__input-field" type="text" name="keyword" placeholder="Search by email" value="{% if keyword %}{{ keyword }}{% endif %}">
-      <button class="app-content__panel__top__search-form__button">
-        <i class="ri-search-line" aria-hidden="true"></i>
-        <span class="visually-hidden">Search by email</span>
-      </button>
-    </form>
+			<input class="app-content__panel__top__search-form__input form__input-field" type="text" name="keyword" placeholder="Search by email" value="{% if keyword %}{{ keyword }}{% endif %}">
+			<button class="app-content__panel__top__search-form__button">
+				<i class="ri-search-line" aria-hidden="true"></i>
+				<span class="visually-hidden">Search by email</span>
+			</button>
+		</form>
 
-    <div class="app-content__panel__top__buttons">
-      {% set query_params = { orderby: 'created_at' } %}
+		<div class="app-content__panel__top__buttons">
+			{% set query_params = { orderby: 'created_at' } %}
 
-      {% if keyword %}
-        {% set query_params = query_params | merge({ keyword: keyword }) %}
-      {% endif %}
+			{% if keyword %}
+				{% set query_params = query_params | merge({ keyword: keyword }) %}
+			{% endif %}
 
-      {% if order_by == 'created_at' and sort != 'd' %}
-        {% set query_params = query_params | merge({ sort: 'd' }) %}
-      {% endif %}
+			{% if order_by == 'created_at' and sort != 'd' %}
+				{% set query_params = query_params | merge({ sort: 'd' }) %}
+			{% endif %}
 
-      {% set url = doc_root ~ 'admin/newsletter?' ~ query_params | url_encode %}
+			{% set url = doc_root ~ 'admin/newsletter?' ~ query_params | url_encode %}
 
-      <a href="{{ url }}" class="btn app-content__panel__top__buttons__date"
-      >
-        <i class="ri-calendar-2-line" aria-hidden="true"></i> Date 
-        {% if order_by == 'created_at' and sort == 'a' %}
-          desc
-          <i class="ri-arrow-down-line app-content__panel__top__buttons__date__arrow" aria-hidden="true"></i>
-        {% else %}
-          asc
-          <i class="ri-arrow-up-line app-content__panel__top__buttons__date__arrow" aria-hidden="true"></i>
-        {% endif %}
-      </a>
+			<a href="{{ url }}" class="btn app-content__panel__top__buttons__date">
+				<i class="ri-calendar-2-line" aria-hidden="true"></i>
+				Date
+				{% if order_by == 'created_at' and sort == 'a' %}
+					desc
+					<i class="ri-arrow-down-line app-content__panel__top__buttons__date__arrow" aria-hidden="true"></i>
+				{% else %}
+					asc
+					<i class="ri-arrow-up-line app-content__panel__top__buttons__date__arrow" aria-hidden="true"></i>
+				{% endif %}
+			</a>
 
-      <a href="{{ doc_root }}admin/newsletter/add-subscriber" class="btn btn--full">
-        <i class="ri-add-line" aria-hidden="true"></i>
-        Add new
-      </a>
+			<a href="{{ doc_root }}admin/newsletter/add-subscriber" class="btn btn--full">
+				<i class="ri-add-line" aria-hidden="true"></i>
+				Add new
+			</a>
 
-      <button href="{{ doc_root }}admin/newsletter" class="btn btn--full app-content__panel__top__buttons__delete js-delete-selected" data-deletion-content="subscriber">
-        <i class="ri-delete-bin-line" aria-hidden="true"></i>
-        Delete selected
-      </button>
+			<button href="{{ doc_root }}admin/newsletter" class="btn btn--full app-content__panel__top__buttons__delete js-delete-selected" data-deletion-content="subscriber">
+				<i class="ri-delete-bin-line" aria-hidden="true"></i>
+				Delete selected
+			</button>
 
-      <a href="{{ doc_root }}admin/export/newsletter-subscribers" class="btn btn--full excel" target="_blank">
-        <i class="ri-file-excel-2-line" aria-hidden="true"></i>
-        Export to Excel
-      </a>
+			<a href="{{ doc_root }}admin/export/newsletter-subscribers" class="btn btn--full excel" target="_blank">
+				<i class="ri-file-excel-2-line" aria-hidden="true"></i>
+				Export to Excel
+			</a>
 
-      <a href="{{ doc_root }}admin/newsletter" class="btn app-content__panel__top__buttons__refresh">
-        <i class="ri-refresh-line" aria-hidden="true"></i>
-        <span class="visually-hidden">Refresh</span>
-      </a>
-    </div>
-  </div>
+			<a href="{{ doc_root }}admin/newsletter" class="btn app-content__panel__top__buttons__refresh">
+				<i class="ri-refresh-line" aria-hidden="true"></i>
+				<span class="visually-hidden">Refresh</span>
+			</a>
+		</div>
+	</div>
 
-  {% if subscribers %}
+	{% if subscribers %}
 
-    <div class="js-table">
-      <div class="select-all-items-mobile">
-        <div class="form__checkbox">
-          <input class="form__checkbox__input js-select-all-items" type="checkbox" name="selectall" id="selectall-mobile">
-          <label for="selectall-mobile"><span>Select all items</span></label>
-        </div>
-      </div>
+		<div class="js-table">
+			<div class="select-all-items-mobile">
+				<div class="form__checkbox">
+					<input class="form__checkbox__input js-select-all-items" type="checkbox" name="selectall" id="selectall-mobile">
+					<label for="selectall-mobile">
+						<span>Select all items</span>
+					</label>
+				</div>
+			</div>
 
-      <form action="{{ doc_root }}admin/newsletter" class="sort-columns-mobile js-sort-columns-mobile-form">
-        {% if keyword %}
-            <input type="hidden" name="keyword" value="{{ keyword }}">
-        {% endif %}
-    
-        <input type="hidden" name="orderby" value="{{ order_by }}">
-        <input type="hidden" name="sort" value="{{ sort }}">
-    
-        <h4 class="sort-columns-mobile__title">Sorting options</h4>
-    
-        <div class="form__select">
-            <select class="js-sort-columns-select" id="sort-columns-select">
-                <option value="id-a" {% if (order_by == 'id' or order_by == '') and sort == 'a' %}selected hidden{% endif %}>Id (Ascending)</option>
-                <option value="id-d" {% if (order_by == 'id' or order_by == '') and sort == 'd' %}selected hidden{% endif %}>Id (Descending)</option>
-    
-                <option value="name-a" {% if order_by == 'name' and sort == 'a' %}selected hidden{% endif %}>Name (Ascending)</option>
-                <option value="name-d" {% if order_by == 'name' and sort == 'd' %}selected hidden{% endif %}>Name (Descending)</option>
-    
-                <option value="email-a" {% if order_by == 'email' and sort == 'a' %}selected hidden{% endif %}>Email (Ascending)</option>
-                <option value="email-d" {% if order_by == 'email' and sort == 'd' %}selected hidden{% endif %}>Email (Descending)</option>
-    
-                <option value="is_active-a" {% if order_by == 'is_active' and sort == 'a' %}selected hidden{% endif %}>Activity (Ascending)</option>
-                <option value="is_active-d" {% if order_by == 'is_active' and sort == 'd' %}selected hidden{% endif %}>Activity (Descending)</option>
-    
-                <option value="created_at-a" {% if order_by == 'created_at' and sort == 'a' %}selected hidden{% endif %}>Created at (Ascending)</option>
-                <option value="created_at-d" {% if order_by == 'created_at' and sort == 'd' %}selected hidden{% endif %}>Created at (Descending)</option>
-            </select>
-        </div>
-    </form>
+			<form action="{{ doc_root }}admin/newsletter" class="sort-columns-mobile js-sort-columns-mobile-form">
+				{% if keyword %}
+					<input type="hidden" name="keyword" value="{{ keyword }}">
+				{% endif %}
 
-      <table class="table">
-        <thead>
-          <tr>
-            <th>
-              <div class="form__checkbox">
-                <input class="form__checkbox__input js-select-all-items" type="checkbox" name="selectall" id="selectall">
-                <label for="selectall"></label>
-              </div>
-            </th>
+				<input type="hidden" name="orderby" value="{{ order_by }}">
+				<input type="hidden" name="sort" value="{{ sort }}">
 
-            <th>
-              {% set query_params = {} %}
+				<h4 class="sort-columns-mobile__title">Sorting options</h4>
 
-              {% if keyword %}
-                {% set query_params = query_params | merge({ keyword: keyword }) %}
-              {% endif %}
+				<div class="form__select">
+					<select class="js-sort-columns-select" id="sort-columns-select">
+						<option value="id-a" {% if (order_by == 'id' or order_by == '') and sort == 'a' %} selected hidden {% endif %}>Id (Ascending)</option>
+						<option value="id-d" {% if (order_by == 'id' or order_by == '') and sort == 'd' %} selected hidden {% endif %}>Id (Descending)</option>
 
-              {% if (order_by == '' or order_by == 'id') and sort != 'd' %}
-                {% set query_params = query_params | merge({ sort: 'd' }) %}
-              {% endif %}
+						<option value="name-a" {% if order_by == 'name' and sort == 'a' %} selected hidden {% endif %}>Name (Ascending)</option>
+						<option value="name-d" {% if order_by == 'name' and sort == 'd' %} selected hidden {% endif %}>Name (Descending)</option>
 
-              {% if query_params %}
-                {% set url = doc_root ~ 'admin/newsletter?' ~ query_params | url_encode %}
-              {% else %}
-                {% set url = doc_root ~ 'admin/newsletter' %}
-              {% endif %}
+						<option value="email-a" {% if order_by == 'email' and sort == 'a' %} selected hidden {% endif %}>Email (Ascending)</option>
+						<option value="email-d" {% if order_by == 'email' and sort == 'd' %} selected hidden {% endif %}>Email (Descending)</option>
 
-              <a href="{{ url }}" class="order {% if order_by == '' or order_by == 'id' %}order--selected{% endif %}">Id 
+						<option value="is_active-a" {% if order_by == 'is_active' and sort == 'a' %} selected hidden {% endif %}>Activity (Ascending)</option>
+						<option value="is_active-d" {% if order_by == 'is_active' and sort == 'd' %} selected hidden {% endif %}>Activity (Descending)</option>
 
-                <span class="order__icons">
-                  <i class="ri-arrow-up-s-fill {% if (order_by == '' or order_by == 'id') and sort == 'a' %}active{% endif %}" aria-hidden="true"></i>
-                  <i class="ri-arrow-down-s-fill {% if (order_by == '' or order_by == 'id') and sort == 'd' %}active{% endif %}" aria-hidden="true"></i>
-                </span>
-              </a>
-            </th>
+						<option value="created_at-a" {% if order_by == 'created_at' and sort == 'a' %} selected hidden {% endif %}>Created at (Ascending)</option>
+						<option value="created_at-d" {% if order_by == 'created_at' and sort == 'd' %} selected hidden {% endif %}>Created at (Descending)</option>
+					</select>
+				</div>
+			</form>
 
-            <th>
-              {% set query_params = { orderby: 'name' } %}
-  
-              {% if keyword %}
-                {% set query_params = query_params | merge({ keyword: keyword }) %}
-              {% endif %}
-  
-              {% if order_by == 'name' and sort != 'd' %}
-                {% set query_params = query_params | merge({ sort: 'd' }) %}
-              {% endif %}
-  
-              {% set url = doc_root ~ 'admin/newsletter?' ~ query_params | url_encode %}
+			<table class="table">
+				<thead>
+					<tr>
+						<th>
+							<div class="form__checkbox">
+								<input class="form__checkbox__input js-select-all-items" type="checkbox" name="selectall" id="selectall">
+								<label for="selectall"></label>
+							</div>
+						</th>
 
-              <a href="{{ url }}" class="order {% if order_by == 'name' %}order--selected{% endif %}">Name 
+						<th>
+							{% set query_params = {} %}
 
-                <span class="order__icons">
-                  <i class="ri-arrow-up-s-fill {% if order_by == 'name' and sort == 'a' %}active{% endif %}" aria-hidden="true"></i>
-                  <i class="ri-arrow-down-s-fill {% if order_by == 'name' and sort == 'd' %}active{% endif %}" aria-hidden="true"></i>
-                </span>
-              </a>
-            </th>
+							{% if keyword %}
+								{% set query_params = query_params | merge({ keyword: keyword }) %}
+							{% endif %}
 
-            <th>
-              {% set query_params = { orderby: 'email' } %}
+							{% if (order_by == '' or order_by == 'id') and sort != 'd' %}
+								{% set query_params = query_params | merge({ sort: 'd' }) %}
+							{% endif %}
 
-              {% if keyword %}
-                {% set query_params = query_params | merge({ keyword: keyword }) %}
-              {% endif %}
+							{% if query_params %}
+								{% set url = doc_root ~ 'admin/newsletter?' ~ query_params | url_encode %}
+							{% else %}
+								{% set url = doc_root ~ 'admin/newsletter' %}
+							{% endif %}
 
-              {% if order_by == 'email' and sort != 'd' %}
-                {% set query_params = query_params | merge({ sort: 'd' }) %}
-              {% endif %}
+							<a href="{{ url }}" class="order {% if order_by == '' or order_by == 'id' %}order--selected{% endif %}">Id
 
-              {% set url = doc_root ~ 'admin/newsletter?' ~ query_params | url_encode %}
+								<span class="order__icons">
+									<i class="ri-arrow-up-s-fill {% if (order_by == '' or order_by == 'id') and sort == 'a' %}active{% endif %}" aria-hidden="true"></i>
+									<i class="ri-arrow-down-s-fill {% if (order_by == '' or order_by == 'id') and sort == 'd' %}active{% endif %}" aria-hidden="true"></i>
+								</span>
+							</a>
+						</th>
 
-              <a href="{{ url }}" class="order {% if order_by == 'email' %}order--selected{% endif %}">Email 
-                
-                <span class="order__icons">
-                  <i class="ri-arrow-up-s-fill {% if order_by == 'email' and sort == 'a' %}active{% endif %}" aria-hidden="true"></i>
-                  <i class="ri-arrow-down-s-fill {% if order_by == 'email' and sort == 'd' %}active{% endif %}" aria-hidden="true"></i>
-                </span>
-              </a>
-            </th>
+						<th>
+							{% set query_params = { orderby: 'name' } %}
 
-            <th>
-              {% set query_params = { orderby: 'is_active' } %}
+							{% if keyword %}
+								{% set query_params = query_params | merge({ keyword: keyword }) %}
+							{% endif %}
 
-              {% if keyword %}
-                {% set query_params = query_params | merge({ keyword: keyword }) %}
-              {% endif %}
+							{% if order_by == 'name' and sort != 'd' %}
+								{% set query_params = query_params | merge({ sort: 'd' }) %}
+							{% endif %}
 
-              {% if order_by == 'is_active' and sort != 'd' %}
-                {% set query_params = query_params | merge({ sort: 'd' }) %}
-              {% endif %}
+							{% set url = doc_root ~ 'admin/newsletter?' ~ query_params | url_encode %}
 
-              {% set url = doc_root ~ 'admin/newsletter?' ~ query_params | url_encode %}
+							<a href="{{ url }}" class="order {% if order_by == 'name' %}order--selected{% endif %}">Name
 
-              <a href="{{ url }}" class="order {% if order_by == 'is_active' %}order--selected{% endif %}">Activity 
-                
-                <span class="order__icons">
-                  <i class="ri-arrow-up-s-fill {% if order_by == 'is_active' and sort == 'a' %}active{% endif %}" aria-hidden="true"></i>
-                  <i class="ri-arrow-down-s-fill {% if order_by == 'is_active' and sort == 'd' %}active{% endif %}" aria-hidden="true"></i>
-                </span>
-              </a>
-            </th>
+								<span class="order__icons">
+									<i class="ri-arrow-up-s-fill {% if order_by == 'name' and sort == 'a' %}active{% endif %}" aria-hidden="true"></i>
+									<i class="ri-arrow-down-s-fill {% if order_by == 'name' and sort == 'd' %}active{% endif %}" aria-hidden="true"></i>
+								</span>
+							</a>
+						</th>
 
-            <th>
-              {% set query_params = { orderby: 'created_at' } %}
+						<th>
+							{% set query_params = { orderby: 'email' } %}
 
-              {% if keyword %}
-                {% set query_params = query_params | merge({ keyword: keyword }) %}
-              {% endif %}
+							{% if keyword %}
+								{% set query_params = query_params | merge({ keyword: keyword }) %}
+							{% endif %}
 
-              {% if order_by == 'created_at' and sort != 'd' %}
-                {% set query_params = query_params | merge({ sort: 'd' }) %}
-              {% endif %}
+							{% if order_by == 'email' and sort != 'd' %}
+								{% set query_params = query_params | merge({ sort: 'd' }) %}
+							{% endif %}
 
-              {% set url = doc_root ~ 'admin/newsletter?' ~ query_params | url_encode %}
+							{% set url = doc_root ~ 'admin/newsletter?' ~ query_params | url_encode %}
 
-              <a href="{{ url }}" class="order {% if order_by == 'created_at' %}order--selected{% endif %}">Created at 
-                
-                <span class="order__icons">
-                  <i class="ri-arrow-up-s-fill {% if order_by == 'created_at' and sort == 'a' %}active{% endif %}" aria-hidden="true"></i>
-                  <i class="ri-arrow-down-s-fill {% if order_by == 'created_at' and sort == 'd' %}active{% endif %}" aria-hidden="true"></i>
-                </span>
-              </a>
-            </th>
-            <th class="actions">Actions</th>
-          </tr>
-        </thead>
+							<a href="{{ url }}" class="order {% if order_by == 'email' %}order--selected{% endif %}">Email
 
-        <tbody>
-          {% for subscriber in subscribers %}
-            <tr class="js-table-row" data-id="{{ subscriber.id }}">
-              <td data-label="Selection">
-                <div class="form__checkbox">
-                  <input class="form__checkbox__input js-select-item" type="checkbox" value="{{ subscriber.id }}" name="selection-item" id="{{ subscriber.id }}">
-                  <label for="{{ subscriber.id }}"></label>
-                </div>
-              </td>
-              <td data-label="Id">{{ subscriber.id }}</td>
-              <td data-label="Name">{{ subscriber.name }}</td>
-              <td data-label="Email">{{ subscriber.email }}</td>
-              <td data-label="Activity">
-                {% if subscriber.is_active %}
-                  <span class="table__status table__status--active"></span>
-                {% else %}
-                <span class="table__status table__status--inactive"></span>
-                {% endif %}
-              </td>
-              <td data-label="Created at">{{ subscriber.created_at|date() }}</td>
-              <td data-label="Actions">
-                <div class="table__actions">
-                  <a class="table__actions__btn table__actions__btn--edit" href="{{ doc_root }}admin/newsletter/edit-subscriber/{{ subscriber.id }}">
-                    <i class="ri-edit-line" aria-hidden="true"></i>
-                    <span class="visually-hidden">Edit item</span>
-                  </a>
+								<span class="order__icons">
+									<i class="ri-arrow-up-s-fill {% if order_by == 'email' and sort == 'a' %}active{% endif %}" aria-hidden="true"></i>
+									<i class="ri-arrow-down-s-fill {% if order_by == 'email' and sort == 'd' %}active{% endif %}" aria-hidden="true"></i>
+								</span>
+							</a>
+						</th>
 
-                  <button class="table__actions__btn table__actions__btn--delete js-table-delete-item" data-deletion-content="subscriber">
-                    <i class="ri-delete-bin-line" aria-hidden="true"></i>
-                    <span class="visually-hidden">Delete item</span>
-                  </button>
-                </div>
-              </td>
-            </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
+						<th>
+							{% set query_params = { orderby: 'is_active' } %}
 
-    <div class="app-content__panel__bottom js-panel-bottom">
-      <span class="app-content__panel__bottom__numbers js-table-numbers">
-        <span>{{ (page - 1) * admin_pagination + 1 }}</span>
-         - 
-         {% set number_to = (page -1) * admin_pagination + subscribers|length %}
-        <span class="js-table-number-to" data-number="{{ number_to }}">{{ number_to }}</span>
-         of 
-        <span class="js-table-number-of" data-number="{{ count }}">{{ count }}</span>
-      </span>
+							{% if keyword %}
+								{% set query_params = query_params | merge({ keyword: keyword }) %}
+							{% endif %}
 
-      {% if count > admin_pagination %}
-        {% set pages = (count / admin_pagination)|round(0, 'ceil') %}
+							{% if order_by == 'is_active' and sort != 'd' %}
+								{% set query_params = query_params | merge({ sort: 'd' }) %}
+							{% endif %}
 
-        {% set query_params = {} %}
+							{% set url = doc_root ~ 'admin/newsletter?' ~ query_params | url_encode %}
 
-        {% if keyword %}
-          {% set query_params = query_params | merge({ keyword: keyword }) %}
-        {% endif %}
+							<a href="{{ url }}" class="order {% if order_by == 'is_active' %}order--selected{% endif %}">Activity
 
-        {% if order_by %}
-          {% set query_params = query_params | merge({ orderby: order_by }) %}
-        {% endif %}
+								<span class="order__icons">
+									<i class="ri-arrow-up-s-fill {% if order_by == 'is_active' and sort == 'a' %}active{% endif %}" aria-hidden="true"></i>
+									<i class="ri-arrow-down-s-fill {% if order_by == 'is_active' and sort == 'd' %}active{% endif %}" aria-hidden="true"></i>
+								</span>
+							</a>
+						</th>
 
-        {% if sort == 'd' %}
-          {% set query_params = query_params | merge({ sort: 'd' }) %}
-        {% endif %}
+						<th>
+							{% set query_params = { orderby: 'created_at' } %}
 
-        {% if query_params|length > 0 %}
-          {% set pagination_params = query_params | url_encode %}
-        {% else %}
-          {% set pagination_params = '' %}
-        {% endif %}
+							{% if keyword %}
+								{% set query_params = query_params | merge({ keyword: keyword }) %}
+							{% endif %}
 
-        <ul class="app-content__panel__bottom__pagination">
-          {% if page > 1 %}
-            <li>
-              <a class="app-content__panel__bottom__pagination__button app-content__panel__bottom__pagination__button--first" href="{{ doc_root }}admin/newsletter{% if pagination_params %}?{% endif %}{{ pagination_params }}">
-                <i class="ri-skip-left-line" aria-hidden="true"></i>
-              </a>
-            </li>
-          {% endif %}
+							{% if order_by == 'created_at' and sort != 'd' %}
+								{% set query_params = query_params | merge({ sort: 'd' }) %}
+							{% endif %}
 
-          {% for i in 1..pages %}
+							{% set url = doc_root ~ 'admin/newsletter?' ~ query_params | url_encode %}
 
-            <li>
-              <a class="app-content__panel__bottom__pagination__button {% if page == i %}active{% endif %}" href="{{ doc_root }}admin/newsletter?page={{ i }}{% if pagination_params %}&{% endif %}{{ pagination_params }}">{{ i }}</a>
-            </li>
+							<a href="{{ url }}" class="order {% if order_by == 'created_at' %}order--selected{% endif %}">Created at
 
-          {% endfor %}
+								<span class="order__icons">
+									<i class="ri-arrow-up-s-fill {% if order_by == 'created_at' and sort == 'a' %}active{% endif %}" aria-hidden="true"></i>
+									<i class="ri-arrow-down-s-fill {% if order_by == 'created_at' and sort == 'd' %}active{% endif %}" aria-hidden="true"></i>
+								</span>
+							</a>
+						</th>
+						<th class="actions">Actions</th>
+					</tr>
+				</thead>
 
-          {% if page < pages %}
-            <li>
-              <a class="app-content__panel__bottom__pagination__button app-content__panel__bottom__pagination__button--last" href="{{ doc_root }}admin/newsletter?page={{ pages }}{% if pagination_params %}&{% endif %}{{ pagination_params }}">
-                <i class="ri-skip-right-line" aria-hidden="true"></i>
-              </a>
-            </li>
-          {% endif %}
-        </ul>
-      {% endif %}
-    </div>
-    {% else %}
-      No items found to display
-  {% endif %}
+				<tbody>
+					{% for subscriber in subscribers %}
+						<tr class="js-table-row" data-id="{{ subscriber.id }}">
+							<td data-label="Selection">
+								<div class="form__checkbox">
+									<input class="form__checkbox__input js-select-item" type="checkbox" value="{{ subscriber.id }}" name="selection-item" id="{{ subscriber.id }}">
+									<label for="{{ subscriber.id }}"></label>
+								</div>
+							</td>
+							<td data-label="Id">{{ subscriber.id }}</td>
+							<td data-label="Name">{{ subscriber.name }}</td>
+							<td data-label="Email">{{ subscriber.email }}</td>
+							<td data-label="Activity">
+								{% if subscriber.is_active %}
+									<span class="table__status table__status--active"></span>
+								{% else %}
+									<span class="table__status table__status--inactive"></span>
+								{% endif %}
+							</td>
+							<td data-label="Created at">{{ subscriber.created_at|date() }}</td>
+							<td data-label="Actions">
+								<div class="table__actions">
+									<a class="table__actions__btn table__actions__btn--edit" href="{{ doc_root }}admin/newsletter/edit-subscriber/{{ subscriber.id }}">
+										<i class="ri-edit-line" aria-hidden="true"></i>
+										<span class="visually-hidden">Edit item</span>
+									</a>
 
-{% endblock %}
+									<button class="table__actions__btn table__actions__btn--delete js-table-delete-item" data-deletion-content="subscriber">
+										<i class="ri-delete-bin-line" aria-hidden="true"></i>
+										<span class="visually-hidden">Delete item</span>
+									</button>
+								</div>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
 
-{% block page_js %}
+		<div class="app-content__panel__bottom js-panel-bottom">
+			<span class="app-content__panel__bottom__numbers js-table-numbers">
+				<span>{{ (page - 1) * admin_pagination + 1 }}</span>
+				-
+				{% set number_to = (page -1) * admin_pagination + subscribers|length %}
+				<span class="js-table-number-to" data-number="{{ number_to }}">{{ number_to }}</span>
+				of
+				<span class="js-table-number-of" data-number="{{ count }}">{{ count }}</span>
+			</span>
+
+			{% if count > admin_pagination %}
+				{% set pages = (count / admin_pagination)|round(0, 'ceil') %}
+
+				{% set query_params = {} %}
+
+				{% if keyword %}
+					{% set query_params = query_params | merge({ keyword: keyword }) %}
+				{% endif %}
+
+				{% if order_by %}
+					{% set query_params = query_params | merge({ orderby: order_by }) %}
+				{% endif %}
+
+				{% if sort == 'd' %}
+					{% set query_params = query_params | merge({ sort: 'd' }) %}
+				{% endif %}
+
+				{% if query_params|length > 0 %}
+					{% set pagination_params = query_params | url_encode %}
+				{% else %}
+					{% set pagination_params = '' %}
+				{% endif %}
+
+				<ul class="app-content__panel__bottom__pagination">
+					{% if page > 1 %}
+						<li>
+							<a class="app-content__panel__bottom__pagination__button app-content__panel__bottom__pagination__button--first" href="{{ doc_root }}admin/newsletter{% if pagination_params %}?{% endif %}{{ pagination_params }}">
+								<i class="ri-skip-left-line" aria-hidden="true"></i>
+							</a>
+						</li>
+					{% endif %}
+
+					{% for i in 1..pages %}
+
+						<li>
+							<a class="app-content__panel__bottom__pagination__button {% if page == i %}active{% endif %}" href="{{ doc_root }}admin/newsletter?page={{ i }}{% if pagination_params %}&{% endif %}{{ pagination_params }}">{{ i }}</a>
+						</li>
+
+					{% endfor %}
+
+					{% if page < pages %}
+						<li>
+							<a class="app-content__panel__bottom__pagination__button app-content__panel__bottom__pagination__button--last" href="{{ doc_root }}admin/newsletter?page={{ pages }}{% if pagination_params %}&{% endif %}{{ pagination_params }}">
+								<i class="ri-skip-right-line" aria-hidden="true"></i>
+							</a>
+						</li>
+					{% endif %}
+				</ul>
+			{% endif %}
+		</div>
+	{% else %}
+		No items found to display
+	{% endif %}
 
 {% endblock %}
+
+{% block page_js %}{% endblock %}
