@@ -747,6 +747,16 @@ main {
 
 .page-title__heading {
   margin-bottom: .3em;
+  display: flex;
+  align-items: center;
+}
+
+.page-title__heading__previous-page {
+    margin-right: .2em;
+}
+
+.page-title__heading__count {
+    margin-left: .2em;
 }
 
 .breadcrumbs {

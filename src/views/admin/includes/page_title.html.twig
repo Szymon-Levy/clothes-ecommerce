@@ -4,10 +4,21 @@
   <div class="container">
     <div class="row">
       {% set title_has_count = show_count_near_title and (count or count == 0) %}
-      <h1 class="page-title__heading heading heading--h1 heading--primary">
-        {{ page_title }} 
-        {% if title_has_count %} (<span class="page-title__heading__count js-page-title-count" data-number="{{ count }}">{{ count }}</span>) {% endif %}
-      </h1>
+
+      <div class="page-title__heading">
+        {% if previous_page_path %} 
+            <a href="{{ doc_root ~ previous_page_path }}" class="page-title__heading__previous-page heading--h1">
+                <i class="ri-arrow-left-line" aria-hidden="true"></i>
+                <span class="visually-hidden">Previous page</span>
+            </a>
+        {% endif %}
+
+        <h1 class="heading heading--h1 heading--primary">{{ page_title }}</h1>
+
+        {% if title_has_count %} 
+            <span class="page-title__heading__count heading heading--h1 heading--primary js-page-title-count" data-number="{{ count }}">({{ count }})</span> 
+        {% endif %}
+      </div>
       
       <ul class="breadcrumbs">
         <li>

@@ -33,6 +33,7 @@ class Newsletter extends BaseController
     {
         $data = [
             'page_title' => 'Add Subscriber',
+            'previous_page_path' => 'admin/newsletter',
             'page_js' => 'newsletter'
         ];
 
@@ -63,6 +64,7 @@ class Newsletter extends BaseController
         $data = [
             'subscriber' => $subscriber,
             'page_title' => 'Edit Subscriber',
+            'previous_page_path' => 'admin/newsletter',
             'page_js' => 'newsletter',
             'url_parts' => $url_parts
         ];
