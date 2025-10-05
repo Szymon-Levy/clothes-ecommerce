@@ -44,7 +44,7 @@ class Newsletter extends BaseController
     {
         $id = $this->router->current()->parameters()['id'] ?? '';
 
-        if (!$id) {
+        if ($id === '' || filter_var($id, FILTER_VALIDATE_INT) === false) {
             $this->utils->showAdminMessage('Wrong user id.', 'error');
             $this->router->redirect('admin/newsletter');
             exit;
