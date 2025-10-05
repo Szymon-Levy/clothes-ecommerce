@@ -20,9 +20,12 @@ $twig_loader = new Twig\Loader\FilesystemLoader($app_root . '/src/views');
 $twig = new Twig\Environment($twig_loader, $twig_settings);
 $twig->addGlobal('global_vars', $global_vars);
 
-// Twig access to session
+// Twig access to session variables
 $session = new Core\Session();
-$twig->addGlobal('session', $session);
+$twig->addGlobal('session', $session->getTwigVariables());
+
+// Csrf
+$csrf = new Core\Csrf($session);
 
 if ($dev === true) {
     $twig->addExtension(new Twig\Extension\DebugExtension());
@@ -37,9 +40,10 @@ $globals_container->set('twig', $twig);
 $globals_container->set('session', $session);
 $globals_container->set('email_settings', $email_settings);
 $globals_container->set('global_vars', $global_vars);
+$globals_container->set('csrf', $csrf);
 
 // Create utils instance
-$utils = new Core\Utils($session, $globals_container);
+$utils = new Core\Utils($globals_container);
 $globals_container->set('utils', $utils);
 
 // Models container

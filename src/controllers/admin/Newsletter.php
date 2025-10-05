@@ -45,7 +45,7 @@ class Newsletter extends BaseController
         $id = $this->router->current()->parameters()['id'] ?? '';
 
         if (!$id) {
-            $this->utils->createAdminMessageInSession('Wrong user id.', 'error');
+            $this->utils->showAdminMessage('Wrong user id.', 'error');
             $this->router->redirect('admin/newsletter');
             exit;
         }
@@ -53,7 +53,7 @@ class Newsletter extends BaseController
         $subscriber = $this->models->newsletter()->getSubscriberById($id);
 
         if (!$subscriber) {
-            $this->utils->createAdminMessageInSession('User with given id doesn\'t exists.', 'error');
+            $this->utils->showAdminMessage('User with given id doesn\'t exists.', 'error');
             $this->router->redirect('admin/newsletter');
             exit;
         }
@@ -103,7 +103,7 @@ class Newsletter extends BaseController
         $db_response = $this->models->newsletter()->addSubscriber($name, $email);
 
         if ($db_response == '200') {
-            $this->utils->createAdminMessageInSession($name . ' has been successfully added to the subscriber list.', 'success');
+            $this->utils->showAdminMessage($name . ' has been successfully added to the subscriber list.', 'success');
             $response['success'] = true;
             $response['path'] = 'admin/newsletter';
         } else if ($db_response == '1062') {
@@ -186,7 +186,7 @@ class Newsletter extends BaseController
         $db_response = $this->models->newsletter()->editSubscriber($id, $name, $email);
 
         if ($db_response == '200') {
-            $this->utils->createAdminMessageInSession($name . ' has been successfully updated.', 'success');
+            $this->utils->showAdminMessage($name . ' has been successfully updated.', 'success');
             $response['success'] = true;
             $response['path'] = 'admin/newsletter';
         } else if ($db_response == 'subscriber_not_found') {

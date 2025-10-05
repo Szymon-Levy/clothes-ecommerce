@@ -17,6 +17,7 @@ class FormHandler extends InputValidator {
     }
 
     addCsrfToFormData() {
+        const csrf = getCookie('csrf_token');
         this.formData.append('csrf', csrf)
     }
 

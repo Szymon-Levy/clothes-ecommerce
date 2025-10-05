@@ -65,15 +65,15 @@ class Newsletter extends BaseController
         $db_response = $this->models->newsletter()->confirmSubscribtion($token);
 
         if ($db_response == '200') {
-            $this->utils->createUserMessageInSession('Your subscription has been activated. Please check your inbox for further information.', 'success');
+            $this->utils->showUserMessage('Your subscription has been activated. Please check your inbox for further information.', 'success');
         } else if ($db_response == 'subscriber_not_found') {
-            $this->utils->createUserMessageInSession('Invalid token. Try again.', 'error');
+            $this->utils->showUserMessage('Invalid token. Try again.', 'error');
         } else if ($db_response == 'already_confirmed') {
-            $this->utils->createUserMessageInSession('Your subscription has already been activated.', 'info');
+            $this->utils->showUserMessage('Your subscription has already been activated.', 'info');
         } else if ($db_response == 'token_expired') {
-            $this->utils->createUserMessageInSession('Your activation token has expired and Your subscribtion has been deleted. Join us again and hurry up with the activation!', 'error');
+            $this->utils->showUserMessage('Your activation token has expired and Your subscribtion has been deleted. Join us again and hurry up with the activation!', 'error');
         } else if ($db_response == 'email_error') {
-            $this->utils->createUserMessageInSession('A problem with sending the message to the specified email occured, check if the email address is correct and try again!', 'error');
+            $this->utils->showUserMessage('A problem with sending the message to the specified email occured, check if the email address is correct and try again!', 'error');
         }
 
         $this->router->redirect('');
@@ -90,9 +90,9 @@ class Newsletter extends BaseController
         $db_response = $this->models->newsletter()->deleteSubscribtion($token);
 
         if ($db_response == '200') {
-            $this->utils->createUserMessageInSession('We’re reaching out to confirm that you have successfully unsubscribed from our newsletter. If this was a mistake or you change your mind, you can always re-subscribe.', 'success');
+            $this->utils->showUserMessage('We’re reaching out to confirm that you have successfully unsubscribed from our newsletter. If this was a mistake or you change your mind, you can always re-subscribe.', 'success');
         } else if ($db_response == 'subscriber_not_found') {
-            $this->utils->createUserMessageInSession('Invalid token. Try again.', 'error');
+            $this->utils->showUserMessage('Invalid token. Try again.', 'error');
         }
 
         $this->router->redirect('');

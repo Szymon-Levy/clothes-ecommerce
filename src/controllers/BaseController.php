@@ -8,6 +8,7 @@ use Twig\Environment;
 use Core\Models;
 use Core\Session;
 use Core\Utils;
+use Core\Csrf;
 
 abstract class BaseController
 {
@@ -18,6 +19,7 @@ abstract class BaseController
     protected array $email_settings;
     protected Utils $utils;
     protected array $global_vars;
+    protected Csrf $csrf;
 
     public function __construct(GlobalsContainer $globals_container)
     {
@@ -28,6 +30,7 @@ abstract class BaseController
         $this->email_settings = $globals_container->get('email_settings');
         $this->utils = $globals_container->get('utils');
         $this->global_vars = $globals_container->get('global_vars');
+        $this->csrf = $globals_container->get('csrf');
     }
 
     protected function renderView(string $path, array $data = [])
@@ -43,8 +46,10 @@ abstract class BaseController
             if ($csrf_error) {
                 $response['error'] = $csrf_error;
                 echo json_encode($response);
-                exit();
+                exit;
             }
+
+            $this->csrf->regenerateToken();
         }
 
         if (empty($use_only) || in_array('bot', $use_only)) {
@@ -53,7 +58,7 @@ abstract class BaseController
             if ($bot_error) {
                 $response['error'] = $bot_error;
                 echo json_encode($response);
-                exit();
+                exit;
             }
         }
     }

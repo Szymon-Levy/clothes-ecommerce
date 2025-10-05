@@ -4,48 +4,57 @@ namespace Core;
 
 class Session
 {
-    public $user_message;
-    public $admin_message;
-    public $csrf;
-
     public function __construct()
     {
-        session_start();
-        // set messages
-        $this->user_message = $_SESSION['user_message'] ?? null;
-        if ($this->user_message != null) unset($_SESSION['user_message']);
-
-        $this->admin_message = $_SESSION['admin_message'] ?? null;
-        if ($this->admin_message != null) unset($_SESSION['admin_message']);
-
-        // set csrf token
-        if (isset($_SESSION['csrf'])) {
-            $this->csrf = $_SESSION['csrf'];
-        } else {
-            $this->csrf = $this->generateCSRF();
-            $this->setSessionVariable('csrf', $this->csrf);
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
         }
     }
 
-    private function generateCSRF()
+    public function get(string $key, $default = null)
     {
-        return bin2hex(random_bytes(32));
+        return $_SESSION[$key] ?? $default;
     }
 
-    public function setSessionVariable(string $variableName, string|array $variableValue)
+    public function set(string $key, $value)
     {
-        if (!property_exists($this, $variableName)) return false;
-        $this->$variableName = $variableValue;
-
-        if (session_status() !== PHP_SESSION_ACTIVE) session_start();
-        $_SESSION[$variableName] = $variableValue;
+        $_SESSION[$key] = $value;
     }
 
-    public function removeSessionVariable(string $variableName)
+    public function has(string $key)
     {
-        if (!property_exists($this, $variableName)) return false;
+        return isset($_SESSION[$key]);
+    }
 
-        if (session_status() !== PHP_SESSION_ACTIVE) session_start();
-        unset($_SESSION[$variableName]);
+    public function remove(string $key)
+    {
+        unset($_SESSION[$key]);
+    }
+
+    protected function clear()
+    {
+        session_destroy();
+    }
+
+    public function flash(string $key, $value = null)
+    {
+        if ($value === null) {
+            $data = $this->get("flash_{$key}");
+            $this->remove("flash_{$key}");
+
+            return $data;
+        }
+
+        $this->set("flash_{$key}", $value);
+    }
+
+    public function getTwigVariables()
+    {
+        $data = [
+            'user_message' => $this->flash('user_message'),
+            'admin_message' => $this->flash('admin_message')
+        ];
+
+        return $data;
     }
 }

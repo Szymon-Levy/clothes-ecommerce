@@ -26,7 +26,7 @@ class Export extends BaseController
         $data = $this->getDataBySource($data_source);
 
         if ($data === false) {
-            $this->utils->createAdminMessageInSession('Unknown data source.', 'error');
+            $this->utils->showAdminMessage('Unknown data source.', 'error');
             $this->router->redirect('admin/newsletter');
         }
 

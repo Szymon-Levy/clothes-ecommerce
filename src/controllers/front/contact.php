@@ -70,9 +70,6 @@ class Contact extends BaseController
             exit();
         }
 
-        //remove csrf session variable
-        $this->session->removeSessionVariable('csrf');
-
         // save email data in database and send copy
         $db_response = $this->models->contact()->sendUserMessage($name, $email, $subject, $message);
 
