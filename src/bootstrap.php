@@ -26,6 +26,7 @@ $twig->addGlobal('session', $session->getTwigVariables());
 
 // Csrf
 $csrf = new Core\Csrf($session);
+$csrf->setInCookie();
 
 if ($dev === true) {
     $twig->addExtension(new Twig\Extension\DebugExtension());

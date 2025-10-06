@@ -120,7 +120,7 @@ class Newsletter extends BaseController
     {
         $this->formSecurity(['csrf']);
 
-        // response definition
+        // response
         $response = [];
 
         // post data

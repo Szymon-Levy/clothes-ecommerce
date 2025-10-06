@@ -48,8 +48,6 @@ abstract class BaseController
                 echo json_encode($response);
                 exit;
             }
-
-            $this->csrf->regenerateToken();
         }
 
         if (empty($use_only) || in_array('bot', $use_only)) {

@@ -7,7 +7,6 @@ use Core\ExportToXlsx;
 
 class Export extends BaseController
 {
-
     private function getDataBySource(string $data_source)
     {
         switch ($data_source) {
