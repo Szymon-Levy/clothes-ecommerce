@@ -644,27 +644,27 @@ body {
     transform: translate(-50%, -50%) rotate(-225deg);
 }
 
-/* newsletter popup */
+/* newsletter subscribtion popup */
 
-.newsletter-popup .popup__container {
+.subscribtion-popup .popup__container {
     background-color: var(--color-white);
 }
 
-.newsletter-popup__content-col {
+.subscribtion-popup__content-col {
     overflow: hidden;
 }
 
-.newsletter-popup__content-col form>p {
+.subscribtion-popup__content-col form>p {
     font-size: .75rem;
     margin-bottom: .625rem;
 }
 
-.newsletter-popup__image-col {
+.subscribtion-popup__image-col {
     display: none;
     position: relative;
 }
 
-.newsletter-popup__logo {
+.subscribtion-popup__logo {
     display: none;
     position: absolute;
     animation: rotateLogo 7s infinite linear;
@@ -676,22 +676,22 @@ body {
     }
 }
 
-.newsletter-popup__image {
+.subscribtion-popup__image {
     position: absolute;
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-.newsletter-popup.animate .newsletter-popup__title {
+.subscribtion-popup.animate .subscribtion-popup__title {
     animation: headingAnimation .6s ease;
 }
 
-.newsletter-popup.animate form {
+.subscribtion-popup.animate form {
     animation: formAnimation .6s ease .2s backwards;
 }
 
-.newsletter-popup.animate .newsletter-popup__image {
+.subscribtion-popup.animate .subscribtion-popup__image {
     animation: imageAnimation .6s ease .4s backwards;
 }
 
@@ -1672,24 +1672,24 @@ body {
         padding: 3.75rem 1.875rem;
     }
 
-    /* newsletter popup */
-    .newsletter-popup__content-col {
+    /* newsletter subscribtion popup */
+    .subscribtion-popup__content-col {
         padding: 1.875rem 2.1875rem 1.875rem 0;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
     }
 
-    .newsletter-popup form {
+    .subscribtion-popup form {
         margin-top: 2.5rem;
         max-width: 17.5rem;
     }
 
-    .newsletter-popup__image-col {
+    .subscribtion-popup__image-col {
         display: block;
     }
 
-    .newsletter-popup .row {
+    .subscribtion-popup .row {
         display: grid;
         grid-template-columns: 60% 1fr;
     }
@@ -1797,18 +1797,18 @@ body {
         height: 1.5625rem;
     }
 
-    /* newsletter popup */
+    /* newsletter subscribtion popup */
 
-    .newsletter-popup form {
+    .subscribtion-popup form {
         margin-top: 3.75rem;
         max-width: 18.75rem;
     }
 
-    .newsletter-popup__content-col {
+    .subscribtion-popup__content-col {
         padding: 0 2.1875rem 0 0;
     }
 
-    .newsletter-popup__logo {
+    .subscribtion-popup__logo {
         display: block;
         left: 0;
         bottom: 0;
@@ -2045,29 +2045,29 @@ body {
 
     /* == POPUP == */
 
-    /* newsletter popup */
+    /* newsletter subscribtion popup */
 
-    .newsletter-popup .popup__container {
+    .subscribtion-popup .popup__container {
         padding: 5rem;
         max-width: 62.5rem;
     }
 
-    .newsletter-popup .popup__close {
+    .subscribtion-popup .popup__close {
         top: 1.875rem;
         right: 1.875rem;
     }
 
-    .newsletter-popup form {
+    .subscribtion-popup form {
         margin-top: 2.5rem;
         max-width: 21.25rem;
     }
 
-    .newsletter-popup__content-col form>p {
+    .subscribtion-popup__content-col form>p {
         font-size: .9375rem;
         margin-bottom: .9375rem;
     }
 
-    .newsletter-popup__logo {
+    .subscribtion-popup__logo {
         max-width: 6.25rem;
     }
 
@@ -2288,8 +2288,8 @@ body {
 
     /* == POPUP == */
 
-    /* newsletter popup */
-    .newsletter-popup__heading {
+    /* newsletter subscribtion popup */
+    .subscribtion-popup__heading {
         font-size: 2.375rem;
     }
 

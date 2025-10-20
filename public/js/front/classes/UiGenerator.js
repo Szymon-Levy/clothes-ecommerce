@@ -54,8 +54,8 @@ class UiGenerator {
             case 'video_popup':
                 return 'video_popup'
 
-            case 'newsletter_popup':
-                return 'newsletter_popup'
+            case 'subscribtion_popup':
+                return 'subscribtion_popup'
 
             default:
                 return false
@@ -65,7 +65,7 @@ class UiGenerator {
     executeElementInsertMethod() {
         switch (this.type) {
             case 'video_popup':
-            case 'newsletter_popup':
+            case 'subscribtion_popup':
                 this.addPopupToDOM()
                 break
 

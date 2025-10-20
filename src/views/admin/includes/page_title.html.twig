@@ -18,11 +18,8 @@
                 <h1 class="heading heading--h1 heading--primary">{{ page_title }}</h1>
 
                 {% if title_has_count %} 
-                    <span 
-                        class="page-title__heading__count heading heading--h1 heading--primary js-page-title-count" 
-                        data-number="{{ count }}"
-                    >
-                        ({{ count }})
+                    <span class="page-title__heading__count heading heading--h1 heading--primary">
+                        (<span class="js-page-title-count" data-number="{{ count }}">{{ count }}</span>)
                     </span> 
                 {% endif %}
             </div>

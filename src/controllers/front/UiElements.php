@@ -7,13 +7,13 @@ use Controllers\BaseController;
 class UiElements extends BaseController
 {
 
-    public function newsletterPopup()
+    public function subscribtionPopup()
     {
         $data = [
-            'wrapper_class' => 'newsletter-popup animate'
+            'wrapper_class' => 'subscribtion-popup animate'
         ];
 
-        echo $this->twig->render('ui_elements/newsletter_popup.html.twig', $data);
+        echo $this->twig->render('ui_elements/subscribtion_popup.html.twig', $data);
     }
 
     public function videoPopup()

@@ -14,7 +14,7 @@ class Newsletter {
 
     initSubscribtionForm() {
         document.addEventListener('submit', e => {
-            const $subscribtionForm = e.target.closest('.js-newsletter-form')
+            const $subscribtionForm = e.target.closest('.js-subscribtion-form')
 
             this.subscribtionForm = null
 

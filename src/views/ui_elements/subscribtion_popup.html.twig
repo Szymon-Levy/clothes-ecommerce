@@ -1,16 +1,16 @@
 {% extends 'ui_elements/base/popup.html.twig' %}
 
 {% block content %}
-	<div class="newsletter-popup__content-col">
-		<div class="newsletter-popup__title">
+	<div class="subscribtion-popup__content-col">
+		<div class="subscribtion-popup__title">
 			<p class="heading heading--h4">We have special offer for You!</p>
-			<h3 class="newsletter-popup__heading heading heading--h2 heading--primary">
+			<h3 class="subscribtion-popup__heading heading heading--h2 heading--primary">
 				Sign up to our Newsletter and
 				<span>receive 15% off</span>.
 			</h3>
 		</div>
 
-		<form class="form js-newsletter-form">
+		<form class="form js-subscribtion-form">
 			<p>Enter your email for your exclusive offer:</p>
 
 			{{ honeypot() }}
@@ -38,8 +38,8 @@
 							<input class="form__checkbox__input" type="checkbox" name="policy" id="policy" value="1">
 							<label for="policy">
 								<span>I agree with the
-									<a href="{{ global_vars.system.doc_root }}privacy-policy">
-										privacy policy</a>.</span>
+									<a href="{{ global_vars.system.doc_root }}privacy-policy">privacy policy</a>.
+                                </span>
 							</label>
 						</div>
 					</div>
@@ -52,8 +52,8 @@
 		</form>
 	</div>
 
-	<div class="newsletter-popup__image-col">
-		<img src="{{ assets('images/logo/logo.svg') }}" class="newsletter-popup__logo" alt="logo">
-		<img src="{{ assets('images/newsletter-image.webp') }}" class="newsletter-popup__image" alt="woman in white dress">
+	<div class="subscribtion-popup__image-col">
+		<img src="{{ assets('images/logo/logo.svg') }}" class="subscribtion-popup__logo" alt="logo">
+		<img src="{{ assets('images/newsletter-image.webp') }}" class="subscribtion-popup__image" alt="woman in white dress">
 	</div>
 {% endblock %}

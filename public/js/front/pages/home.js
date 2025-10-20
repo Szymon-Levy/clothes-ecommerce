@@ -16,13 +16,13 @@ if ($videoPopupButton) {
     })
 }
 
-// NEWSLETTER GENERATE POPUP
+// NEWSLETTER SUBSCRIBTION GENERATE POPUP
 const $newsletterCtaButton = document.querySelector('.js-newsletter-cta-button')
 
 if ($newsletterCtaButton) {
-    const newsletterPopup = new UiGenerator('newsletter_popup', {}, $newsletterCtaButton)
+    const subscribtionPopup = new UiGenerator('subscribtion_popup', {}, $newsletterCtaButton)
 
     $newsletterCtaButton.addEventListener('click', () => {
-        newsletterPopup.render()
+        subscribtionPopup.render()
     })
 }
