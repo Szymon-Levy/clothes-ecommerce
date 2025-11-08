@@ -51,3 +51,6 @@ $globals_container->set('utils', $utils);
 $models = new Core\Models($dsn, $db_user, $db_password, $globals_container);
 unset($dsn, $db_user, $db_password);
 $globals_container->set('models', $models);
+
+// new container
+$container = new Core\Container();
