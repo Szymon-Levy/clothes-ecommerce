@@ -6,8 +6,8 @@
 
 {% block content %}
 
-	{% set admin_pagination = global_vars.system.admin_pagination %}
-	{% set doc_root = global_vars.system.doc_root %}
+	{% set admin_pagination = config.system.admin_pagination %}
+	{% set doc_root = config.system.doc_root %}
 
 	<div class="app-content__panel__top">
 		<form class="app-content__panel__top__search-form form" action="{{ doc_root }}admin/newsletter">

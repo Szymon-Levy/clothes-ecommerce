@@ -68,7 +68,7 @@ class Container
                 $dependency_class_name = $type->getName();
 
                 if ($dependency_class_name === self::class) {
-                    $dependencies = $this;
+                    $dependencies[] = $this;
                 } else {
                     $dependencies[] = $this->get($dependency_class_name);
                 }

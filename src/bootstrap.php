@@ -3,7 +3,7 @@
 $app_root = dirname(__FILE__, 2);
 
 require $app_root . '/src/error_handlers.php';
-require $app_root . '/config/config.php';
+require $app_root . '/config/main.config.php';
 require $app_root . '/vendor/autoload.php';
 
 // Errors
@@ -13,44 +13,17 @@ if ($dev === false) {
     register_shutdown_function('shutdown_handling');
 }
 
-// Twig loading
-$twig_settings['cache'] = $app_root . '/var/cache';
-$twig_settings['debug'] = $dev;
-$twig_loader = new Twig\Loader\FilesystemLoader($app_root . '/src/views');
-$twig = new Twig\Environment($twig_loader, $twig_settings);
-$twig->addGlobal('global_vars', $global_vars);
+// Container
+$container = new Core\Container();
 
-// Twig access to session variables
-$session = new Core\Session();
-$twig->addGlobal('session', $session->getTwigVariables());
+// Database
+$container->set(Core\DataBase::class, function($c) {
+    $dsn = $c->get(Core\Config::class)->database('dsn');
+    $user = $c->get(Core\Config::class)->database('user');
+    $password = $c->get(Core\Config::class)->database('password');
+    
+    return new Core\DataBase($dsn, $user, $password);
+});
 
 // Csrf
-$csrf = new Core\Csrf($session);
-$csrf->setInCookie();
-
-if ($dev === true) {
-    $twig->addExtension(new Twig\Extension\DebugExtension());
-}
-
-// Add Twig custom functions and modifications
-require $app_root . '/src/twig_extensions.php';
-
-// Create container for variables
-$globals_container = new Core\GlobalsContainer();
-$globals_container->set('twig', $twig);
-$globals_container->set('session', $session);
-$globals_container->set('email_settings', $email_settings);
-$globals_container->set('global_vars', $global_vars);
-$globals_container->set('csrf', $csrf);
-
-// Create utils instance
-$utils = new Core\Utils($globals_container);
-$globals_container->set('utils', $utils);
-
-// Models container
-$models = new Core\Models($dsn, $db_user, $db_password, $globals_container);
-unset($dsn, $db_user, $db_password);
-$globals_container->set('models', $models);
-
-// new container
-$container = new Core\Container();
+$container->get(Core\Csrf::class)->setInCookie();

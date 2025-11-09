@@ -1,4 +1,4 @@
-{% set domain = global_vars.system.prod_domain %}
+{% set domain = config.system.prod_domain %}
 
 <!DOCTYPE html>
 <html>
@@ -6,7 +6,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Welcome to {{ global_vars.shop_info.name }} - Confirm Your new email address</title>
+		<title>Welcome to {{ config.shop.name }} - Confirm Your new email address</title>
 	</head>
 	<body style="margin: 0;">
 		<center class="wrapper" style="padding-bottom: 40px; width: 100%; table-layout: fixed; background-color: #f3f3f3;">
@@ -19,7 +19,7 @@
 							<tr>
 								<td style="padding: 40px 0 20px; text-align: center;" align="center">
 									<a href="{{ domain }}">
-										<img src="{{ domain }}/images/email/logo.png" width="110" style="border: 0;" alt="{{ global_vars.shop_info.name }}">
+										<img src="{{ domain }}/images/email/logo.png" width="110" style="border: 0;" alt="{{ config.shop.name }}">
 									</a>
 								</td>
 							</tr>
@@ -43,14 +43,14 @@
 								<td style="padding: 20px 40px 0; text-align: center;" align="center">
 									<p style="margin: 0; font-size: 14px; font-weight: 400; line-height: 22px;">
 										The email address for your subscription in
-										{{ global_vars.shop_info.name }}'s newsletter has been changed. To confirm that you are a subscriber assigned to this email address, please click the activation link below:
+										{{ config.shop.name }}'s newsletter has been changed. To confirm that you are a subscriber assigned to this email address, please click the activation link below:
 									</p>
 								</td>
 							</tr> <!-- text 1 -->
 
 							<tr>
 								<td style="padding: 30px 0 0; text-align: center;" align="center">
-									<a href="{{ (global_vars.system.is_local ? global_vars.system.dev_domain ~ global_vars.system.doc_root : global_vars.system.prod_domain ~ '/') }}confirm-subscribtion/{{ token }}">
+									<a href="{{ (config.system.is_local ? config.system.dev_domain ~ config.system.doc_root : config.system.prod_domain ~ '/') }}confirm-subscribtion/{{ token }}">
 										<img src="{{ domain }}/images/email/btn-activate-subscribtion.png" width="181" style="border: 0; max-width: 181px;" alt="Activate subscribtion">
 									</a>
 								</td>
@@ -70,7 +70,7 @@
 										<strong>
 											Best regards,
 											<br>
-											The {{ global_vars.shop_info.name }} Team
+											The {{ config.shop.name }} Team
 										</strong>
 									</p>
 								</td>

@@ -38,7 +38,7 @@ class Email
     public function sendEmail(string $from, string|array $to, string $subject, string $body)
     {
         $this->phpmailer->setFrom($from, 'Clothes Ecommerce');
-
+        
         if (is_array($to)) {
             foreach ($to as $email) {
                 $this->phpmailer->addAddress($email);

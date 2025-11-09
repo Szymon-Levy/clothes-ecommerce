@@ -2,7 +2,7 @@
 
 namespace Core\Routing;
 
-use Core\GlobalsContainer;
+use Core\Container;
 
 class Route
 {
@@ -86,13 +86,14 @@ class Route
         return $path;
     }
 
-    public function dispatch(GlobalsContainer $globals_container)
+    public function dispatch(Container $container)
     {
         if (is_array($this->handler)) {
             [$class, $method] = $this->handler;
 
             if (is_string($class)) {
-                $controller = new $class($globals_container);
+                $controller = $container->get($class);
+
                 return $controller->{$method}();
             }
 

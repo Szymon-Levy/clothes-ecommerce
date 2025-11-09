@@ -2,21 +2,23 @@
 
 namespace Core\Routing;
 
+use Core\Config;
+use Core\Container;
+use Core\TemplateEngine;
 use Exception;
-use Core\GlobalsContainer;
 
 class Router
 {
     protected array $routes = [];
     protected array $error_handlers = [];
     protected Route $current;
-    protected GlobalsContainer $globals_container;
     protected array $url_parts;
 
-    public function __construct(GlobalsContainer $globals_container)
-    {
-        $this->globals_container = $globals_container;
-    }
+    public function __construct(
+        protected Container $container,
+        protected TemplateEngine $template_engine,
+        protected Config $config
+    ){}
 
     public function add(string $method, string $path, $handler): Route
     {
@@ -48,7 +50,7 @@ class Router
             $this->current = $matching;
 
             try {
-                return $matching->dispatch($this->globals_container);
+                return $matching->dispatch($this->container);
             } catch (\Throwable $e) {
                 $this->dispatchError($e);
             }
@@ -99,7 +101,8 @@ class Router
         http_response_code(404);
 
         [$class, $method] = $this->error_handlers[404];
-        $controller = new $class($this->globals_container);
+        
+        $controller = $this->container->get($class);
 
         return $controller->{$method}();
     }
@@ -109,7 +112,7 @@ class Router
         http_response_code(500);
         error_log($e);
 
-        if ($this->globals_container->get('global_vars')['system']['dev']) {
+        if ($this->config->system('dev')) {
             echo "<h1>Application error</h1>";
             echo "<p><strong>Message:</strong> {$e->getMessage()}</p>";
             echo "<p><strong>File:</strong> {$e->getFile()}</p>";
@@ -124,7 +127,7 @@ class Router
     public function redirect($path)
     {
         header(
-            "Location: " . $this->globals_container->get('global_vars')['system']['doc_root'] . $path,
+            "Location: " . $this->config->system()['doc_root'] . $path,
             $replace = true,
             $code = 301
         );
@@ -172,6 +175,6 @@ class Router
     {
         $this->url_parts = explode('/', trim($uri, '/'));
 
-        $this->globals_container->get('twig')->addGlobal('url_parts', $this->urlParts());
+        $this->template_engine->engine()->addGlobal('url_parts', $this->urlParts());
     }
 }

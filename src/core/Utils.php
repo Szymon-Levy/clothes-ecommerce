@@ -4,16 +4,10 @@ namespace Core;
 
 class Utils
 {
-    protected Session $session;
-    protected array $global_vars;
-    protected Csrf $csrf;
-
-    public function __construct(GlobalsContainer $globals_container)
-    {
-        $this->session = $globals_container->get('session');
-        $this->global_vars = $globals_container->get('global_vars');
-        $this->csrf = $globals_container->get('csrf');
-    }
+    public function __construct(
+        protected Session $session,
+        protected Csrf $csrf
+    ){}
 
     public function generateToken()
     {

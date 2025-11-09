@@ -8,16 +8,16 @@
 			<div class="row main-grid">
 				<div class="contact-page__data-col">
 					<h2 class="heading heading--h2 heading--primary">Get in touch!</h2>
-
+                    
 					<div class="contact-page__info">
 						<p>
-							<strong>{{ global_vars.shop_info.name }}</strong>
+							<strong>{{ config.shop.name }}</strong>
 							<br>
-							{{ global_vars.shop_info.address }}<br>
+							{{ config.shop.address }}<br>
 							Email:
-							<a href="mailto:{{ global_vars.shop_info.email }}">{{ global_vars.shop_info.email }}</a><br>
+							<a href="mailto:{{ config.shop.email }}">{{ config.shop.email }}</a><br>
 							Phone:
-							{{ global_vars.shop_info.phone }}
+							{{ config.shop.phone }}
 						</p>
 
 						<ul class="contact-page__info__icons">
@@ -94,7 +94,7 @@
 										<label for="policy">
 											<span>
                                                 I agree with the 
-												<a href="{{ global_vars.system.doc_root }}privacy-policy">privacy policy</a>.
+												<a href="{{ config.system.doc_root }}privacy-policy">privacy policy</a>.
                                             </span>
 										</label>
 									</div>

@@ -27,7 +27,7 @@ class Contact extends BaseModel
         $this->database->beginTransaction();
         $this->saveMessage($name, $email, $subject, $message);
 
-        $email_sender = new Email($this->email_settings);
+        $email_sender = new Email($this->config->email());
 
         $email_data = [
             'name' => $name,
@@ -36,12 +36,13 @@ class Contact extends BaseModel
             'message' => $message
         ];
 
-        $email_body = $this->twig->render('email_templates/contact_message_copy.html.twig', $email_data);
-
+        
+        $email_body = $this->template_engine->engine()->render('email_templates/contact_message_copy.html.twig', $email_data);
+        
         $send_email = $email_sender->sendEmail(
-            $this->email_settings['admin_username'],
+            $this->config->email('admin_username'),
             $email,
-            'Copy of message sent to ' . $this->global_vars['shop_info']['name'] . ' administrator.',
+            'Copy of message sent to ' . $this->config->shop('name') . ' administrator.',
             $email_body
         );
 

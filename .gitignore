@@ -1,6 +1,6 @@
 .vscode
 var
-config
+/config
 vendor
 composer.phar
 icons

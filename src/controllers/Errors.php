@@ -13,6 +13,6 @@ class Errors extends BaseController
             'page_404' => true,
         ];
 
-        echo $this->twig->render('front/404.html.twig', $data);
+        echo $this->renderView('front/404.html.twig', $data);
     }
 }
