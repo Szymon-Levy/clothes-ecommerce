@@ -1,6 +1,6 @@
 <?php
 
-namespace Core;
+namespace Core\Config;
 
 use Exception;
 
@@ -11,7 +11,7 @@ class Config
 
     public function __construct()
     {
-        $dir = dirname(__DIR__, 2) . '/config';
+        $dir = dirname(__DIR__, 3) . '/config';
 
         $config_filles_dir = array_diff(scandir($dir), array('..', '.'));
 

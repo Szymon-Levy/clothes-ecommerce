@@ -1,6 +1,9 @@
 <?php
 
-namespace Core;
+namespace Core\Utils;
+
+use Core\Http\Csrf;
+use Core\Http\Session;
 
 class Utils
 {

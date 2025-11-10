@@ -3,7 +3,7 @@
 namespace Controllers\front;
 
 use Controllers\BaseController;
-use Core\Validation;
+use Core\Validation\Validation;
 
 class Contact extends BaseController
 {

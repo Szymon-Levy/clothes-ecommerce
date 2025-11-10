@@ -2,15 +2,15 @@
 
 namespace Models;
 
-use Core\DataBase;
-use Core\Utils;
-use Core\TemplateEngine;
-use Core\Config;
+use Core\Config\Config;
+use Core\Database\DataBase;
+use Core\TemplateEngine\TemplateEngine;
+use Core\Utils\Utils;
 
 abstract class BaseModel
 {
     public function __construct(
-        protected DataBase $database,
+        protected Database $database,
         protected Utils $utils,
         protected TemplateEngine $template_engine,
         protected Config $config

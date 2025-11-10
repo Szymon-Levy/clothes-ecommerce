@@ -2,7 +2,7 @@
 
 namespace Core\Routing;
 
-use Core\Container;
+use Core\Container\Container;
 
 class Route
 {

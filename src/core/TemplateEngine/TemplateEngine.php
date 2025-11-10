@@ -1,7 +1,9 @@
 <?php
 
-namespace Core;
+namespace Core\TemplateEngine;
 
+use Core\Config\Config;
+use Core\Http\Session;
 use Twig\Environment;
 
 class TemplateEngine
@@ -13,9 +15,9 @@ class TemplateEngine
         protected Session $session
     )
     {
-        $twig_loader = new \Twig\Loader\FilesystemLoader(dirname(__DIR__) . '/views');
+        $twig_loader = new \Twig\Loader\FilesystemLoader(dirname(__DIR__, 2) . '/views');
 
-        $twig_settings['cache'] = dirname(__DIR__, 2). '/var/cache';
+        $twig_settings['cache'] = dirname(__DIR__, 3). '/var/cache';
         $twig_settings['debug'] = $this->config->system('dev');
         $twig_settings['strict_variables'] = false;
 

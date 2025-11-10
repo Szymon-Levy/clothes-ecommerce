@@ -14,16 +14,16 @@ if ($dev === false) {
 }
 
 // Container
-$container = new Core\Container();
+$container = new Core\Container\Container();
 
 // Database
-$container->set(Core\DataBase::class, function($c) {
-    $dsn = $c->get(Core\Config::class)->database('dsn');
-    $user = $c->get(Core\Config::class)->database('user');
-    $password = $c->get(Core\Config::class)->database('password');
+$container->set(Core\Database\DataBase::class, function($c) {
+    $dsn = $c->get(Core\Config\Config::class)->database('dsn');
+    $user = $c->get(Core\Config\Config::class)->database('user');
+    $password = $c->get(Core\Config\Config::class)->database('password');
     
-    return new Core\DataBase($dsn, $user, $password);
+    return new Core\Database\DataBase($dsn, $user, $password);
 });
 
 // Csrf
-$container->get(Core\Csrf::class)->setInCookie();
+$container->get(Core\Http\Csrf::class)->setInCookie();

@@ -3,7 +3,7 @@
 namespace Models;
 
 use Models\BaseModel;
-use Core\Email;
+use Core\Utils\Email;
 
 class Contact extends BaseModel
 {

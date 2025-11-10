@@ -3,7 +3,7 @@
 namespace Controllers\admin;
 
 use Controllers\BaseController;
-use Core\Validation;
+use Core\Validation\Validation;
 
 class Newsletter extends BaseController
 {

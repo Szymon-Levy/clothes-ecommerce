@@ -3,7 +3,7 @@
 namespace Controllers\admin;
 
 use Controllers\BaseController;
-use Core\ExportToXlsx;
+use Core\Utils\ExportToXlsx;
 
 class Export extends BaseController
 {

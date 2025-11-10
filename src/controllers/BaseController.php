@@ -2,13 +2,13 @@
 
 namespace Controllers;
 
-use Core\Config;
+use Core\Config\Config;
+use Core\Http\Csrf;
+use Core\Http\Session;
 use Core\Routing\Router;
 use Core\Models;
-use Core\Session;
-use Core\Utils;
-use Core\Csrf;
-use Core\TemplateEngine;
+use Core\TemplateEngine\TemplateEngine;
+use Core\Utils\Utils;
 
 abstract class BaseController
 {

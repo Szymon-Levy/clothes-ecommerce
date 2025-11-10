@@ -2,6 +2,8 @@
 
 namespace Core;
 
+use Core\Container\Container;
+use Core\Database\DataBase;
 use Models\Newsletter;
 use Models\Contact;
 

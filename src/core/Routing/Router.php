@@ -2,9 +2,9 @@
 
 namespace Core\Routing;
 
-use Core\Config;
-use Core\Container;
-use Core\TemplateEngine;
+use Core\Config\Config;
+use Core\Container\Container;
+use Core\TemplateEngine\TemplateEngine;
 use Exception;
 
 class Router
