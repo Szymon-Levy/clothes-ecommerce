@@ -36,9 +36,9 @@ class ContactController extends BaseController
         // validation
         $response = [];
 
-        $name_error = Validation::length($name, 'Name', 2, 50, true);
-        $email_error = Validation::email($email, true);
-        $subject_allowed_values = [
+        $nameError = Validation::length($name, 'Name', 2, 50, true);
+        $emailError = Validation::email($email, true);
+        $subjectAllowedValues = [
             'Shipping & Delivery',
             'Returns & Exchanges',
             'Payment Issues',
@@ -46,23 +46,23 @@ class ContactController extends BaseController
             'Account Management',
             'Other'
         ];
-        $subject_error = Validation::multiValues($subject, 'Subject', $subject_allowed_values, true);
-        $message_error = Validation::length($message, 'Message', 15, 200, true);
+        $subjectError = Validation::multiValues($subject, 'Subject', $subjectAllowedValues, true);
+        $messageError = Validation::length($message, 'Message', 15, 200, true);
 
-        if ($name_error) {
-            $response['name'] = $name_error;
+        if ($nameError) {
+            $response['name'] = $nameError;
         }
 
-        if ($email_error) {
-            $response['email'] = $email_error;
+        if ($emailError) {
+            $response['email'] = $emailError;
         }
 
-        if ($subject_error) {
-            $response['subject'] = $subject_error;
+        if ($subjectError) {
+            $response['subject'] = $subjectError;
         }
 
-        if ($message_error) {
-            $response['message'] = $message_error;
+        if ($messageError) {
+            $response['message'] = $messageError;
         }
 
         if (!$policy) {
@@ -76,11 +76,11 @@ class ContactController extends BaseController
         }
         
         // save email data in database and send copy
-        $db_response = $this->contactModel->sendUserMessage($name, $email, $subject, $message);
+        $dbResponse = $this->contactModel->sendUserMessage($name, $email, $subject, $message);
         
-        if ($db_response == '200') {
+        if ($dbResponse == '200') {
             $response['success'] = 'Your message has been successfully sent to the administrator. We have sent a copy of your message to your email.';
-        } else if ($db_response == 'email_error') {
+        } else if ($dbResponse == 'email_error') {
             $response['error'] = 'A problem with sending the message to the specified email occured, check if the email address is correct and try again!';
         }
 

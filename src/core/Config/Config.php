@@ -46,36 +46,36 @@ class Config
 
     protected function getConfigFromFiles()
     {
-        $config_files_dir = array_diff(scandir($this->configDir), array('..', '.'));
+        $configFilesDir = array_diff(scandir($this->configDir), array('..', '.'));
 
-        foreach($config_files_dir as $file_name) {
-            if (in_array($file_name, $this->excludes)) {
+        foreach($configFilesDir as $fileName) {
+            if (in_array($fileName, $this->excludes)) {
                 continue;
             }
             
-            $file_config = require $this->configDir . '/' . $file_name;
+            $fileConfig = require $this->configDir . '/' . $fileName;
             
-            if (is_array($file_config)) {
-                [$name, $data] = $file_config;
+            if (is_array($fileConfig)) {
+                [$name, $data] = $fileConfig;
                 $this->config[$name] = $data;
             }
         }
     }
 
-    protected function get(string $config_name, string $variable = '')
+    protected function get(string $configName, string $variable = '')
     {
-        if (! isset($this->config[$config_name])) {
-            throw new Exception("{$config_name} config doesn't exist");
+        if (! isset($this->config[$configName])) {
+            throw new Exception("{$configName} config doesn't exist");
         }
 
-        $config = $this->config[$config_name];
+        $config = $this->config[$configName];
 
         if ($variable === '') {
             return $config;
         }
 
         if (! array_key_exists($variable, $config)) {
-            throw new Exception("Variable {$variable} doesn't exist in {$config_name} config");
+            throw new Exception("Variable {$variable} doesn't exist in {$configName} config");
         }
 
         return $config[$variable];

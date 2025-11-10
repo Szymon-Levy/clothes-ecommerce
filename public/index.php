@@ -10,6 +10,6 @@ if (preg_match('/[A-Z]/', $_SERVER['REQUEST_URI'])) {
 // router
 $router = $container->get(\Core\Routing\Router::class);
 
-$routes = require_once $app_root . '/src/routes.php';
+$routes = require_once $appRoot . '/src/routes.php';
 $routes($router);
 $router->dispatch();

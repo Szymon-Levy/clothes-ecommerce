@@ -4,9 +4,9 @@ namespace Core\Validation;
 
 class Validation
 {
-    public static function email(string $email, bool $is_required = false): string|bool
+    public static function email(string $email, bool $isRequired = false): string|bool
     {
-        if ($is_required && $email === '') {
+        if ($isRequired && $email === '') {
             return 'E-mail address is required!';
         } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             return 'E-mail address format is invalid!';
@@ -17,9 +17,9 @@ class Validation
         return false;
     }
 
-    public static function length(string $value, string $name, int $from, int $to, bool $is_required = false): string|bool
+    public static function length(string $value, string $name, int $from, int $to, bool $isRequired = false): string|bool
     {
-        if ($is_required && $value === '') {
+        if ($isRequired && $value === '') {
             return $name . ' is required!';
         } else if ($value !== '' && (strlen($value) < $from || strlen($value) > $to)) {
             return  $name . ' cannot be shorter than ' . $from . ' and longer than ' . $to . ' characters!';
@@ -28,11 +28,11 @@ class Validation
         return false;
     }
 
-    public static function multiValues(string $value, string $name, array $checked_values_set, bool $is_required = false): string|bool
+    public static function multiValues(string $value, string $name, array $checkedValuesSet, bool $isRequired = false): string|bool
     {
-        if ($is_required && $value === '') {
+        if ($isRequired && $value === '') {
             return $name . ' is required!';
-        } else if (!in_array($value, $checked_values_set) && !($value == '')) {
+        } else if (!in_array($value, $checkedValuesSet) && !($value == '')) {
             return  $name . ' value is incorrect!';
         }
 

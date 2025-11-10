@@ -7,15 +7,15 @@ use PHPMailer\PHPMailer\Exception;
 
 class Email
 {
-    protected PHPMailer $phpmailer;
+    protected PHPMailer $phpMailer;
 
-    public function __construct(array $email_settings)
+    public function __construct(array $emailSettings)
     {
-        $this->phpmailer = new PHPMailer(true);
-        $this->phpmailer->isSMTP();
+        $this->phpMailer = new PHPMailer(true);
+        $this->phpMailer->isSMTP();
 
         if ($_SERVER['SERVER_NAME'] == 'localhost') {
-            $this->phpmailer->SMTPOptions = [
+            $this->phpMailer->SMTPOptions = [
                 'ssl' => [
                     'verify_peer' => false,
                     'verify_peer_name' => false,
@@ -24,33 +24,34 @@ class Email
             ];
         }
 
-        $this->phpmailer->SMTPAuth = true;
-        $this->phpmailer->Host = $email_settings['server'];
-        $this->phpmailer->SMTPSecure = $email_settings['security'];
-        $this->phpmailer->Port = $email_settings['port'];
-        $this->phpmailer->Username = $email_settings['username'];
-        $this->phpmailer->Password = $email_settings['password'];
-        $this->phpmailer->SMTPDebug = $email_settings['debug'];
-        $this->phpmailer->CharSet = 'UTF-8';
-        $this->phpmailer->isHTML(true);
+        $this->phpMailer->SMTPAuth = true;
+        $this->phpMailer->Host = $emailSettings['server'];
+        $this->phpMailer->SMTPSecure = $emailSettings['security'];
+        $this->phpMailer->Port = $emailSettings['port'];
+        $this->phpMailer->Username = $emailSettings['username'];
+        $this->phpMailer->Password = $emailSettings['password'];
+        $this->phpMailer->SMTPDebug = $emailSettings['debug'];
+        $this->phpMailer->CharSet = 'UTF-8';
+        $this->phpMailer->isHTML(true);
     }
 
     public function sendEmail(string $from, string|array $to, string $subject, string $body)
     {
-        $this->phpmailer->setFrom($from, 'Clothes Ecommerce');
+        $this->phpMailer->setFrom($from, 'Clothes Ecommerce');
         
         if (is_array($to)) {
             foreach ($to as $email) {
-                $this->phpmailer->addAddress($email);
+                $this->phpMailer->addAddress($email);
             }
         } else {
-            $this->phpmailer->addAddress($to);
+            $this->phpMailer->addAddress($to);
         }
 
-        $this->phpmailer->Subject = $subject;
-        $this->phpmailer->Body = $body;
+        $this->phpMailer->Subject = $subject;
+        $this->phpMailer->Body = $body;
+        
         try {
-            $this->phpmailer->send();
+            $this->phpMailer->send();
             return true;
         } catch (Exception $e) {
             return false;

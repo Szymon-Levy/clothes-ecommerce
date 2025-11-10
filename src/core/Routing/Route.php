@@ -35,13 +35,13 @@ class Route
             return true;
         }
 
-        $parameter_names = [];
+        $parameterNames = [];
         $pattern = $this->normalisePath($this->path);
 
         $pattern = preg_replace_callback(
             '#{([^}]+)}/#',
-            function (array $found) use (&$parameter_names) {
-                array_push($parameter_names, rtrim($found[1], '?'));
+            function (array $found) use (&$parameterNames) {
+                array_push($parameterNames, rtrim($found[1], '?'));
 
                 if (str_ends_with($found[1], '?')) {
                     return '([^/]*)(?:/?)';
@@ -58,18 +58,18 @@ class Route
 
         preg_match_all("#{$pattern}#", $this->normalisePath($path), $matches);
 
-        $parameter_values = [];
+        $parameterValues = [];
 
         if (count($matches[1]) > 0) {
             foreach ($matches[1] as $value) {
-                array_push($parameter_values, $value);
+                array_push($parameterValues, $value);
             }
 
-            $empty_values = array_fill(0, count($parameter_names), null);
+            $emptyValues = array_fill(0, count($parameterNames), null);
 
-            $parameter_values += $empty_values;
+            $parameterValues += $emptyValues;
 
-            $this->parameters = array_combine($parameter_names, $parameter_values);
+            $this->parameters = array_combine($parameterNames, $parameterValues);
 
             return true;
         }

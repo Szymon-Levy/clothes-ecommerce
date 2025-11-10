@@ -33,27 +33,27 @@ class Container
             throw new Exception("Unknown class or interface: {$name}");
         }
 
-        $class_reflection = new ReflectionClass($name);
+        $classReflection = new ReflectionClass($name);
 
-        if (! $class_reflection->isInstantiable()) {
+        if (! $classReflection->isInstantiable()) {
             throw new Exception("Class {$name} is not instanciable");
         }
 
-        $constructor = $class_reflection->getConstructor();
+        $constructor = $classReflection->getConstructor();
 
         if ($constructor === null) {
-            $instance = $class_reflection->newInstance();
+            $instance = $classReflection->newInstance();
             $this->instances[$name] = $instance;
     
             return $instance;
         }
 
-        $parent_class = $class_reflection->getParentClass();
+        $parentClass = $classReflection->getParentClass();
 
-        if ($parent_class && $parent_class->getConstructor()) {
+        if ($parentClass && $parentClass->getConstructor()) {
             $params = array_merge(
                 $constructor->getParameters(),
-                $parent_class->getConstructor()->getParameters()
+                $parentClass->getConstructor()->getParameters()
             );
         } else {
             $params = $constructor->getParameters();
@@ -75,12 +75,12 @@ class Container
             }
 
             if ($type instanceof ReflectionNamedType && ! $type->isBuiltin()) {
-                $dependency_class_name = $type->getName();
+                $dependencyClassName = $type->getName();
 
-                if ($dependency_class_name === self::class) {
+                if ($dependencyClassName === self::class) {
                     $dependencies[] = $this;
                 } else {
-                    $dependencies[] = $this->get($dependency_class_name);
+                    $dependencies[] = $this->get($dependencyClassName);
                 }
 
                 continue;
@@ -99,33 +99,33 @@ class Container
             throw new Exception("Unsupported parameter type \${$param->getName()} in {$name}");
         }
 
-        $instance = $class_reflection->newInstanceArgs($dependencies);
+        $instance = $classReflection->newInstanceArgs($dependencies);
 
-        $parent_class = $class_reflection->getParentClass();
+        $parentClass = $classReflection->getParentClass();
 
-        if ($parent_class && $parent_class->getConstructor()) {
-            $parent_constructor = $parent_class->getConstructor();
-            $parent_params = $parent_constructor->getParameters();
-            $parent_dependencies = [];
+        if ($parentClass && $parentClass->getConstructor()) {
+            $parentConstructor = $parentClass->getConstructor();
+            $parentParams = $parentConstructor->getParameters();
+            $parentDependencies = [];
 
-            foreach ($parent_params as $param) {
+            foreach ($parentParams as $param) {
                 $type = $param->getType();
 
                 if ($type instanceof ReflectionNamedType && ! $type->isBuiltin()) {
-                    $dependency_class_name = $type->getName();
-                    if ($dependency_class_name === self::class) {
-                        $parent_dependencies[] = $this;
+                    $dependencyClassName = $type->getName();
+                    if ($dependencyClassName === self::class) {
+                        $parentDependencies[] = $this;
                     } else {
-                        $parent_dependencies[] = $this->get($dependency_class_name);
+                        $parentDependencies[] = $this->get($dependencyClassName);
                     }
                 } elseif ($param->isDefaultValueAvailable()) {
-                    $parent_dependencies[] = $param->getDefaultValue();
+                    $parentDependencies[] = $param->getDefaultValue();
                 } else {
-                    throw new Exception("Cannot autowire parent dependency \${$param->getName()} in {$parent_class->getName()}");
+                    throw new Exception("Cannot autowire parent dependency \${$param->getName()} in {$parentClass->getName()}");
                 }
             }
 
-            $parent_constructor->invokeArgs($instance, $parent_dependencies);
+            $parentConstructor->invokeArgs($instance, $parentDependencies);
         }
 
         $this->instances[$name] = $instance;

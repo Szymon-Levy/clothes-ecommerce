@@ -15,13 +15,13 @@ class TemplateEngine
         protected Session $session
     )
     {
-        $twig_loader = new \Twig\Loader\FilesystemLoader(dirname(__DIR__, 2) . '/views');
+        $twigLoader = new \Twig\Loader\FilesystemLoader(dirname(__DIR__, 2) . '/views');
 
-        $twig_settings['cache'] = dirname(__DIR__, 3). '/var/cache';
-        $twig_settings['debug'] = $this->config->system('dev');
-        $twig_settings['strict_variables'] = false;
+        $twigSettings['cache'] = dirname(__DIR__, 3). '/var/cache';
+        $twigSettings['debug'] = $this->config->system('dev');
+        $twigSettings['strict_variables'] = false;
 
-        $twig = new \Twig\Environment($twig_loader, $twig_settings);
+        $twig = new \Twig\Environment($twigLoader, $twigSettings);
 
         $twig->addGlobal('config', $this->config->all());
         $twig->addGlobal('session', $this->session->getTwigVariables());
@@ -35,40 +35,50 @@ class TemplateEngine
         $this->extendTwig();
     }
 
+    public function render(string $path, array $data = [])
+    {
+        return $this->engine()->render($path, $data);
+    }
+
+    public function engine()
+    {
+        return $this->engine;
+    }
+
     protected function extendTwig()
     {
-        $assets = new \Twig\TwigFunction('assets', function (string $file_path) {
-            if (file_exists($file_path)) {
-                $file_path .= '?v=' . filemtime($file_path);
+        $assets = new \Twig\TwigFunction('assets', function (string $filePath) {
+            if (file_exists($filePath)) {
+                $filePath .= '?v=' . filemtime($filePath);
             }
     
-            return $this->config->system('doc_root') . $file_path;
+            return $this->config->system('doc_root') . $filePath;
         });
     
         $this->engine->addFunction($assets);
 
-        $loadPageJs = new \Twig\TwigFunction('loadPageJs', function (array|string $file_names, string $source) {
-            if (is_string($file_names)) {
-                $file_name = $file_names;
-                $file_names = [];
-                $file_names[] = $file_name;
+        $loadPageJs = new \Twig\TwigFunction('loadPageJs', function (array|string $fileNames, string $source) {
+            if (is_string($fileNames)) {
+                $fileName = $fileNames;
+                $fileNames = [];
+                $fileNames[] = $fileName;
             }
 
-            foreach ($file_names as $file_name) {
-                $file_path = 'js/' . $source . '/pages/' . $file_name . '.js';
+            foreach ($fileNames as $fileName) {
+                $filePath = 'js/' . $source . '/pages/' . $fileName . '.js';
 
-                if (file_exists($file_path)) {
-                    $file_path .= '?v=' . filemtime($file_path);
-                    $full_path = $this->config->system('doc_root') . $file_path;
-                    echo '<script src="' . $full_path . '" defer type="module"></script>';
+                if (file_exists($filePath)) {
+                    $filePath .= '?v=' . filemtime($filePath);
+                    $fullPath = $this->config->system('doc_root') . $filePath;
+                    echo '<script src="' . $fullPath . '" defer type="module"></script>';
                 }
             }
         });
 
         $this->engine->addFunction($loadPageJs);
 
-        $pageActiveStatus = new \Twig\TwigFunction('pageActiveStatus', function (string $current_page, string|null $url_part) {
-            if ($current_page == $url_part) {
+        $pageActiveStatus = new \Twig\TwigFunction('pageActiveStatus', function (string $currentPage, string|null $urlPart) {
+            if ($currentPage == $urlPart) {
                 return 'active';
             }
             
@@ -91,10 +101,5 @@ class TemplateEngine
         $this->engine->addFunction($honeypot);
 
         $this->engine->getExtension(\Twig\Extension\CoreExtension::class)->setDateFormat('d/m/Y H:i', '%d days');
-    }
-
-    public function engine()
-    {
-        return $this->engine;
     }
 }

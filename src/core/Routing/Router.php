@@ -10,13 +10,13 @@ use Exception;
 class Router
 {
     protected array $routes = [];
-    protected array $error_handlers = [];
+    protected array $errorHandlers = [];
     protected Route $current;
-    protected array $url_parts;
+    protected array $urlParts;
 
     public function __construct(
         protected Container $container,
-        protected TemplateEngine $template_engine,
+        protected TemplateEngine $templateEngine,
         protected Config $config
     ){}
 
@@ -30,7 +30,7 @@ class Router
     {
         $paths = $this->paths();
 
-        $request_method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
+        $requestMethod = $_SERVER['REQUEST_METHOD'] ?? 'GET';
 
         $uri = $_SERVER['REQUEST_URI'] ?? '/';
         $uri = parse_url($uri, PHP_URL_PATH);
@@ -40,12 +40,12 @@ class Router
             $uri = substr($uri, strlen($base));
         }
 
-        $request_path = $uri ?: '/';
+        $requestPath = $uri ?: '/';
 
-        $matching = $this->match($request_method, $request_path);
+        $matching = $this->match($requestMethod, $requestPath);
 
         if ($matching) {
-            $this->passUrpPartsToTwig($request_path);
+            $this->passUrpPartsToTwig($requestPath);
 
             $this->current = $matching;
 
@@ -56,7 +56,7 @@ class Router
             }
         }
 
-        if (in_array($request_path, $paths)) {
+        if (in_array($requestPath, $paths)) {
             return $this->dispatchNotAllowed();
         }
 
@@ -87,20 +87,20 @@ class Router
 
     public function errorHandler(int $code, array $handler)
     {
-        $this->error_handlers[$code] = $handler;
+        $this->errorHandlers[$code] = $handler;
     }
 
     public function dispatchNotAllowed()
     {
-        $this->error_handlers[400] ??= fn() => 'not allowed';
-        return $this->error_handlers[400]();
+        $this->errorHandlers[400] ??= fn() => 'not allowed';
+        return $this->errorHandlers[400]();
     }
 
     public function dispatchNotFound()
     {
         http_response_code(404);
 
-        [$class, $method] = $this->error_handlers[404];
+        [$class, $method] = $this->errorHandlers[404];
         
         $controller = $this->container->get($class);
 
@@ -168,13 +168,13 @@ class Router
 
     public function urlParts(): array
     {
-        return $this->url_parts;
+        return $this->urlParts;
     }
 
     public function passUrpPartsToTwig(string $uri)
     {
-        $this->url_parts = explode('/', trim($uri, '/'));
+        $this->urlParts = explode('/', trim($uri, '/'));
 
-        $this->template_engine->engine()->addGlobal('url_parts', $this->urlParts());
+        $this->templateEngine->engine()->addGlobal('url_parts', $this->urlParts());
     }
 }

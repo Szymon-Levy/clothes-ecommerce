@@ -27,9 +27,9 @@ class ContactModel extends BaseModel
         $this->database->beginTransaction();
         $this->saveMessage($name, $email, $subject, $message);
 
-        $email_sender = new Email($this->config->email());
+        $emailSender = new Email($this->config->email());
 
-        $email_data = [
+        $emailData = [
             'name' => $name,
             'email' => $email,
             'subject' => $subject,
@@ -37,16 +37,16 @@ class ContactModel extends BaseModel
         ];
 
         
-        $email_body = $this->template_engine->engine()->render('email_templates/contact_message_copy.html.twig', $email_data);
+        $emailBody = $this->templateEngine->render('email_templates/contact_message_copy.html.twig', $emailData);
         
-        $send_email = $email_sender->sendEmail(
+        $sendEmail = $emailSender->sendEmail(
             $this->config->email('admin_username'),
             $email,
             'Copy of message sent to ' . $this->config->shop('name') . ' administrator.',
-            $email_body
+            $emailBody
         );
 
-        if ($send_email) {
+        if ($sendEmail) {
             $this->database->commit();
             return '200';
         } else {

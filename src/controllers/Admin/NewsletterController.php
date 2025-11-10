@@ -15,18 +15,18 @@ class NewsletterController extends BaseController
     public function index()
     {
         $keyword = trim($_GET['keyword'] ?? '');
-        $order_by = trim($_GET['orderby'] ?? '');
+        $orderBy = trim($_GET['orderby'] ?? '');
         $sort = trim($_GET['sort'] ?? 'a');
         $page = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
 
         $data = [
             'page_title' => 'Subscribers List',
-            'subscribers' => $this->newsletterModel->getSubscribersTable($keyword, $order_by, $page, $sort),
+            'subscribers' => $this->newsletterModel->getSubscribersTable($keyword, $orderBy, $page, $sort),
             'count' => $this->newsletterModel->getSubscribersResultsCount(),
             'show_count_near_title' => true,
             'keyword' => $keyword,
             'page' => $page,
-            'order_by' => $order_by,
+            'order_by' => $orderBy,
             'sort' => ($sort == 'd') ? $sort : 'a',
             'page_js' => 'newsletter'
         ];
@@ -63,15 +63,15 @@ class NewsletterController extends BaseController
             exit;
         }
 
-        $url_parts = $this->router->urlParts();
-        array_pop($url_parts);
+        $urlParts = $this->router->urlParts();
+        array_pop($urlParts);
 
         $data = [
             'subscriber' => $subscriber,
             'page_title' => 'Edit Subscriber',
             'previous_page_path' => 'admin/newsletter',
             'page_js' => 'newsletter',
-            'url_parts' => $url_parts
+            'url_parts' => $urlParts
         ];
 
         $this->renderView('admin/newsletter/edit-subscriber.html.twig', $data);
@@ -88,15 +88,15 @@ class NewsletterController extends BaseController
         // validation
         $response = [];
 
-        $name_error = Validation::length($name, 'Name', 2, 50, true);
-        $email_error = Validation::email($email, true);
+        $nameError = Validation::length($name, 'Name', 2, 50, true);
+        $emailError = Validation::email($email, true);
 
-        if ($name_error) {
-            $response['name'] = $name_error;
+        if ($nameError) {
+            $response['name'] = $nameError;
         }
 
-        if ($email_error) {
-            $response['email'] = $email_error;
+        if ($emailError) {
+            $response['email'] = $emailError;
         }
 
         if (!empty($response)) {
@@ -105,15 +105,15 @@ class NewsletterController extends BaseController
         }
 
         // add subscriber
-        $db_response = $this->newsletterModel->addSubscriber($name, $email);
+        $dbResponse = $this->newsletterModel->addSubscriber($name, $email);
 
-        if ($db_response == '200') {
+        if ($dbResponse == '200') {
             $this->utils->showAdminMessage($name . ' has been successfully added to the subscriber list.', 'success');
             $response['success'] = true;
             $response['path'] = 'admin/newsletter';
-        } else if ($db_response == '1062') {
+        } else if ($dbResponse == '1062') {
             $response['error'] = 'This e-mail address has already been taken!';
-        } else if ($db_response == 'email_error') {
+        } else if ($dbResponse == 'email_error') {
             $response['error'] = 'A problem with sending the message to the specified email occured, check if the email address is correct and try again!';
         }
 
@@ -165,8 +165,8 @@ class NewsletterController extends BaseController
         // validation
         $response = [];
 
-        $name_error = Validation::length($name, 'Name', 2, 50, true);
-        $email_error = Validation::email($email, true);
+        $nameError = Validation::length($name, 'Name', 2, 50, true);
+        $emailError = Validation::email($email, true);
 
         if (empty($id)) {
             $response['error'] = 'Id cannot be empty!';
@@ -174,12 +174,12 @@ class NewsletterController extends BaseController
             exit();
         }
 
-        if ($name_error) {
-            $response['name'] = $name_error;
+        if ($nameError) {
+            $response['name'] = $nameError;
         }
 
-        if ($email_error) {
-            $response['email'] = $email_error;
+        if ($emailError) {
+            $response['email'] = $emailError;
         }
 
         if (!empty($response)) {
@@ -188,17 +188,17 @@ class NewsletterController extends BaseController
         }
 
         // edit subscriber
-        $db_response = $this->newsletterModel->editSubscriber($id, $name, $email);
+        $dbResponse = $this->newsletterModel->editSubscriber($id, $name, $email);
 
-        if ($db_response == '200') {
+        if ($dbResponse == '200') {
             $this->utils->showAdminMessage($name . ' has been successfully updated.', 'success');
             $response['success'] = true;
             $response['path'] = 'admin/newsletter';
-        } else if ($db_response == 'subscriber_not_found') {
+        } else if ($dbResponse == 'subscriber_not_found') {
             $response['error'] = 'Subscriber with given id doesn\'t exist!';
-        } else if ($db_response == '1062') {
+        } else if ($dbResponse == '1062') {
             $response['error'] = 'This e-mail address has already been taken!';
-        } else if ($db_response == 'email_error') {
+        } else if ($dbResponse == 'email_error') {
             $response['error'] = 'A problem with sending the message to the specified email occured, check if the email address is correct and try again!';
         }
 

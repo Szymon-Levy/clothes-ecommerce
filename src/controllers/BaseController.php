@@ -17,31 +17,31 @@ abstract class BaseController
         protected Utils $utils,
         protected Csrf $csrf,
         protected Config $config,
-        protected TemplateEngine $template_engine
+        protected TemplateEngine $templateEngine
     ){}
 
     protected function renderView(string $path, array $data = [])
     {
-        echo $this->template_engine->engine()->render($path, $data);
+        echo $this->templateEngine->render($path, $data);
     }
 
-    protected function formSecurity(array $use_only = [])
+    protected function formSecurity(array $useOnly = [])
     {
-        if (empty($use_only) || in_array('csrf', $use_only)) {
-            $csrf_error = $this->utils->isCsrfIncorrect();
+        if (empty($useOnly) || in_array('csrf', $useOnly)) {
+            $csrfError = $this->utils->isCsrfIncorrect();
 
-            if ($csrf_error) {
-                $response['error'] = $csrf_error;
+            if ($csrfError) {
+                $response['error'] = $csrfError;
                 echo json_encode($response);
                 exit;
             }
         }
 
-        if (empty($use_only) || in_array('bot', $use_only)) {
-            $bot_error = $this->utils->isFormFilledByBot();
+        if (empty($useOnly) || in_array('bot', $useOnly)) {
+            $botError = $this->utils->isFormFilledByBot();
 
-            if ($bot_error) {
-                $response['error'] = $bot_error;
+            if ($botError) {
+                $response['error'] = $botError;
                 echo json_encode($response);
                 exit;
             }

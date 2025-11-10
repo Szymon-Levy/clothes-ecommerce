@@ -24,15 +24,15 @@ class NewsletterController extends BaseController
         // validation
         $response = [];
 
-        $name_error = Validation::length($name, 'Name', 2, 50, true);
-        $email_error = Validation::email($email, true);
+        $nameError = Validation::length($name, 'Name', 2, 50, true);
+        $emailError = Validation::email($email, true);
 
-        if ($name_error) {
-            $response['name'] = $name_error;
+        if ($nameError) {
+            $response['name'] = $nameError;
         }
 
-        if ($email_error) {
-            $response['email'] = $email_error;
+        if ($emailError) {
+            $response['email'] = $emailError;
         }
 
         if (!$policy) {
@@ -45,13 +45,13 @@ class NewsletterController extends BaseController
         }
 
         // add subscriber
-        $db_response = $this->newsletterModel->addSubscriber($name, $email);
+        $dbResponse = $this->newsletterModel->addSubscriber($name, $email);
 
-        if ($db_response == '200') {
+        if ($dbResponse == '200') {
             $response['success'] = 'We\'ve added you to our subscriber list. To confirm, please check your email and click the activation link. Link will expire after 5 minutes';
-        } else if ($db_response == '1062') {
+        } else if ($dbResponse == '1062') {
             $response['error'] = 'This e-mail address is already subscribed to our newsletter!';
-        } else if ($db_response == 'email_error') {
+        } else if ($dbResponse == 'email_error') {
             $response['error'] = 'A problem with sending the message to the specified email occured, check if the email address is correct and try again!';
         }
 
@@ -67,17 +67,17 @@ class NewsletterController extends BaseController
             $this->router->redirect('');
         }
 
-        $db_response = $this->newsletterModel->confirmSubscribtion($token);
+        $dbResponse = $this->newsletterModel->confirmSubscribtion($token);
 
-        if ($db_response == '200') {
+        if ($dbResponse == '200') {
             $this->utils->showUserMessage('Your subscription has been activated. Please check your inbox for further information.', 'success');
-        } else if ($db_response == 'subscriber_not_found') {
+        } else if ($dbResponse == 'subscriber_not_found') {
             $this->utils->showUserMessage('Invalid token. Try again.', 'error');
-        } else if ($db_response == 'already_confirmed') {
+        } else if ($dbResponse == 'already_confirmed') {
             $this->utils->showUserMessage('Your subscription has already been activated.', 'info');
-        } else if ($db_response == 'token_expired') {
+        } else if ($dbResponse == 'token_expired') {
             $this->utils->showUserMessage('Your activation token has expired and Your subscribtion has been deleted. Join us again and hurry up with the activation!', 'error');
-        } else if ($db_response == 'email_error') {
+        } else if ($dbResponse == 'email_error') {
             $this->utils->showUserMessage('A problem with sending the message to the specified email occured, check if the email address is correct and try again!', 'error');
         }
 
@@ -92,11 +92,11 @@ class NewsletterController extends BaseController
             $this->router->redirect('');
         }
 
-        $db_response = $this->newsletterModel->deleteSubscribtion($token);
+        $dbResponse = $this->newsletterModel->deleteSubscribtion($token);
 
-        if ($db_response == '200') {
+        if ($dbResponse == '200') {
             $this->utils->showUserMessage('We’re reaching out to confirm that you have successfully unsubscribed from our newsletter. If this was a mistake or you change your mind, you can always re-subscribe.', 'success');
-        } else if ($db_response == 'subscriber_not_found') {
+        } else if ($dbResponse == 'subscriber_not_found') {
             $this->utils->showUserMessage('Invalid token. Try again.', 'error');
         }
 

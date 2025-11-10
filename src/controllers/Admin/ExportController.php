@@ -12,9 +12,9 @@ class ExportController extends BaseController
         protected NewsletterModel $newsletterModel
     ){}
 
-    private function getDataBySource(string $data_source)
+    private function getDataBySource(string $dataSource)
     {
-        switch ($data_source) {
+        switch ($dataSource) {
             case 'newsletter-subscribers':
                 return $this->newsletterModel->getSubscribersDataToExport();
                 break;
@@ -25,9 +25,9 @@ class ExportController extends BaseController
 
     public function export()
     {
-        $data_source = $this->router->current()->parameters()['data'] ?? '';
+        $dataSource = $this->router->current()->parameters()['data'] ?? '';
 
-        $data = $this->getDataBySource($data_source);
+        $data = $this->getDataBySource($dataSource);
 
         if ($data === false) {
             $this->utils->showAdminMessage('Unknown data source.', 'error');

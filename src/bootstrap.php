@@ -1,10 +1,10 @@
 <?php
 
-$app_root = dirname(__FILE__, 2);
+$appRoot = dirname(__FILE__, 2);
 
-require $app_root . '/src/error_handlers.php';
-require $app_root . '/config/main.config.php';
-require $app_root . '/vendor/autoload.php';
+require $appRoot . '/src/error_handlers.php';
+require $appRoot . '/config/main.config.php';
+require $appRoot . '/vendor/autoload.php';
 
 // Errors
 if ($dev === false) {

@@ -12,7 +12,7 @@ abstract class BaseModel
     public function __construct(
         protected Database $database,
         protected Utils $utils,
-        protected TemplateEngine $template_engine,
+        protected TemplateEngine $templateEngine,
         protected Config $config
     ){}
 }

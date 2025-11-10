@@ -7,8 +7,8 @@ use Core\Utils\Email;
 
 class NewsletterModel extends BaseModel
 {
-    protected $allowed_filter_columns = ['id', 'name', 'email', 'is_active', 'created_at'];
-    protected $results_count = 0;
+    protected $allowedFilterColumns = ['id', 'name', 'email', 'is_active', 'created_at'];
+    protected $resultsCount = 0;
 
     public function addSubscriber(string $name, string $email)
     {
@@ -24,27 +24,27 @@ class NewsletterModel extends BaseModel
             $this->database->beginTransaction();
             $this->database->SQL($sql, $arguments);
 
-            $new_id = $this->database->lastInsertId();
+            $newId = $this->database->lastInsertId();
 
-            $token = $this->assignToken($new_id, 'NA');
+            $token = $this->assignToken($newId, 'NA');
 
-            $email_sender = new Email($this->config->email());
+            $emailSender = new Email($this->config->email());
 
-            $email_data = [
+            $emailData = [
                 'name' => $name,
                 'token' => $token
             ];
 
-            $email_body = $this->template_engine->engine()->render('email_templates/newsletter_subscribtion_confirmation.html.twig', $email_data);
+            $emailBody = $this->templateEngine->render('email_templates/newsletter_subscribtion_confirmation.html.twig', $emailData);
 
-            $send_email = $email_sender->sendEmail(
+            $sendEmail = $emailSender->sendEmail(
                 $this->config->email('admin_username'),
                 $email,
                 'Welcome to ' . $this->config->shop('name') . ' - Confirm Your Newsletter Subscription',
-                $email_body
+                $emailBody
             );
 
-            if ($send_email) {
+            if ($sendEmail) {
                 $this->database->commit();
                 return '200';
             } else {
@@ -62,9 +62,9 @@ class NewsletterModel extends BaseModel
 
     public function editSubscriber(string $id, string $name, string $email)
     {
-        $existing_subscriber = $this->getSubscriberById($id);
+        $existingSubscriber = $this->getSubscriberById($id);
 
-        if (!$existing_subscriber) return 'subscriber_not_found';
+        if (!$existingSubscriber) return 'subscriber_not_found';
 
         $arguments['id'] = $id;
         $arguments['name'] = $name;
@@ -82,29 +82,29 @@ class NewsletterModel extends BaseModel
             $this->database->beginTransaction();
             $this->database->SQL($sql, $arguments);
 
-            if ($existing_subscriber['email'] != $email) {
+            if ($existingSubscriber['email'] != $email) {
                 $this->desactivateSubscribtion($id);
                 $this->deleteTokens($id);
 
                 $token = $this->assignToken($id, 'NA');
 
-                $email_sender = new Email($this->config->email());
+                $emailSender = new Email($this->config->email());
 
-                $email_data = [
+                $emailData = [
                     'name' => $name,
                     'token' => $token
                 ];
 
-                $email_body = $this->template_engine->engine()->render('email_templates/newsletter_email_update_confirmation.html.twig', $email_data);
+                $emailBody = $this->templateEngine->render('email_templates/newsletter_email_update_confirmation.html.twig', $emailData);
 
-                $send_email = $email_sender->sendEmail(
+                $sendEmail = $emailSender->sendEmail(
                     $this->config->email('admin_username'),
                     $email,
                     'Confirm Your new email address in ' . $this->config->shop('name') . ' Newsletter',
-                    $email_body
+                    $emailBody
                 );
 
-                if (!$send_email) {
+                if (!$sendEmail) {
                     $this->database->rollBack();
                     return 'email_error';
                 }
@@ -123,22 +123,22 @@ class NewsletterModel extends BaseModel
 
     public function deleteSubscribers(array $ids)
     {
-        $in_string = str_repeat('?,', count($ids) - 1) . '?';
+        $inString = str_repeat('?,', count($ids) - 1) . '?';
 
         $sql = "
             DELETE FROM newsletter_subscribers
-            WHERE id IN ($in_string)
+            WHERE id IN ($inString)
         ";
 
         $stmt = $this->database->SQL($sql, $ids);
-        $deleted_count = $stmt->rowCount();
-        return $deleted_count;
+        $deletedCount = $stmt->rowCount();
+        return $deletedCount;
     }
 
-    private function assignToken(string $subscriber_id, string $token_role_id)
+    private function assignToken(string $subscriberId, string $tokenRoleId)
     {
-        $arguments['subscriber_id'] = $subscriber_id;
-        $arguments['token_role_id'] = $token_role_id;
+        $arguments['subscriber_id'] = $subscriberId;
+        $arguments['token_role_id'] = $tokenRoleId;
 
         $sql = '
             INSERT INTO newsletter_tokens (subscriber_id, token, token_role_id)
@@ -160,9 +160,9 @@ class NewsletterModel extends BaseModel
         } while (true);
     }
 
-    private function deleteTokens(string $subscriber_id)
+    private function deleteTokens(string $subscriberId)
     {
-        $arguments['subscriber_id'] = $subscriber_id;
+        $arguments['subscriber_id'] = $subscriberId;
 
         $sql = '
             DELETE FROM newsletter_tokens 
@@ -188,10 +188,10 @@ class NewsletterModel extends BaseModel
         return $this->database->SQL($sql, $arguments)->fetch();
     }
 
-    private function getSubscriberByToken(string $token, string $token_role_id)
+    private function getSubscriberByToken(string $token, string $tokenRoleId)
     {
         $arguments['token'] = $token;
-        $arguments['token_role_id'] = $token_role_id;
+        $arguments['token_role_id'] = $tokenRoleId;
 
         $sql = '
             SELECT
@@ -210,7 +210,7 @@ class NewsletterModel extends BaseModel
         return $this->database->SQL($sql, $arguments)->fetch();
     }
 
-    private function activateSubscribtion(int|string $subscriber_id)
+    private function activateSubscribtion(int|string $subscriberId)
     {
         $sql = '
             UPDATE newsletter_subscribers 
@@ -218,10 +218,10 @@ class NewsletterModel extends BaseModel
             WHERE id = :subscriber_id
         ';
 
-        $this->database->SQL($sql, ['subscriber_id' => $subscriber_id]);
+        $this->database->SQL($sql, ['subscriber_id' => $subscriberId]);
     }
 
-    private function desactivateSubscribtion(int|string $subscriber_id)
+    private function desactivateSubscribtion(int|string $subscriberId)
     {
         $sql = '
             UPDATE newsletter_subscribers 
@@ -229,7 +229,7 @@ class NewsletterModel extends BaseModel
             WHERE id = :subscriber_id
         ';
 
-        $this->database->SQL($sql, ['subscriber_id' => $subscriber_id]);
+        $this->database->SQL($sql, ['subscriber_id' => $subscriberId]);
     }
 
     public function confirmSubscribtion(string $token)
@@ -249,30 +249,30 @@ class NewsletterModel extends BaseModel
             return 'token_expired';
         }
 
-        $subscriber_id = $subscriber['id'];
+        $subscriberId = $subscriber['id'];
 
         $this->database->beginTransaction();
-        $this->activateSubscribtion($subscriber_id);
+        $this->activateSubscribtion($subscriberId);
 
-        $deletion_token = $this->assignToken($subscriber_id, 'ND');
+        $deletionToken = $this->assignToken($subscriberId, 'ND');
 
-        $email_sender = new Email($this->config->email());
+        $emailSender = new Email($this->config->email());
 
-        $email_data = [
+        $emailData = [
             'name' => $subscriber['name'],
-            'token' => $deletion_token
+            'token' => $deletionToken
         ];
 
-        $email_body = $this->template_engine->engine()->render('email_templates/newsletter_welcome.html.twig', $email_data);
+        $emailBody = $this->templateEngine->render('email_templates/newsletter_welcome.html.twig', $emailData);
 
-        $send_email = $email_sender->sendEmail(
+        $sendEmail = $emailSender->sendEmail(
             $this->config->email('admin_username'),
             $subscriber['email'],
             'Your newsletter subscribtion at ' . $this->config->shop('name') . ' is active.',
-            $email_body
+            $emailBody
         );
 
-        if (!$send_email) {
+        if (!$sendEmail) {
             $this->database->rollBack();
             return 'email_error';
         }
@@ -296,36 +296,36 @@ class NewsletterModel extends BaseModel
 
     public function getSubscribersResultsCount()
     {
-        return $this->results_count;
+        return $this->resultsCount;
     }
 
-    public function getSubscribersTable(string $keyword, string $order_by, int $page, string $sort)
+    public function getSubscribersTable(string $keyword, string $orderBy, int $page, string $sort)
     {
         $arguments = [];
-        $where_clauses = [];
+        $whereClauses = [];
         $from = 'FROM newsletter_subscribers';
 
         if ($keyword) {
             $arguments['keyword'] = '%' . $keyword . '%';
-            $where_clauses[] = 'email LIKE :keyword';
+            $whereClauses[] = 'email LIKE :keyword';
         }
 
-        $where = $where_clauses ? ' WHERE ' . implode(' AND ', $where_clauses) : '';
+        $where = $whereClauses ? ' WHERE ' . implode(' AND ', $whereClauses) : '';
 
         // Get count of results to pagination
         $sql = "
             SELECT COUNT(id) AS count $from $where;
         ";
 
-        $this->results_count = $this->database->SQL($sql, $arguments)->fetch()['count'];
+        $this->resultsCount = $this->database->SQL($sql, $arguments)->fetch()['count'];
 
         $order = ' ORDER BY ';
-        $order .= ($order_by && in_array($order_by, $this->allowed_filter_columns)) ? "$order_by " : 'id ';
-        $order .= ($order_by && in_array($order_by, ['name', 'email'])) ? ' COLLATE utf8mb4_polish_ci ' : '';
+        $order .= ($orderBy && in_array($orderBy, $this->allowedFilterColumns)) ? "$orderBy " : 'id ';
+        $order .= ($orderBy && in_array($orderBy, ['name', 'email'])) ? ' COLLATE utf8mb4_polish_ci ' : '';
         $order .= ($sort == 'd') ? 'DESC' : 'ASC';
 
-        $admin_pagination = $this->config->system('admin_pagination');
-        $limit_clause = sprintf(' LIMIT %d OFFSET %d', $admin_pagination, ($page - 1) * $admin_pagination);
+        $adminPagination = $this->config->system('admin_pagination');
+        $limitClause = sprintf(' LIMIT %d OFFSET %d', $adminPagination, ($page - 1) * $adminPagination);
 
         $sql = "
             SELECT 
@@ -337,7 +337,7 @@ class NewsletterModel extends BaseModel
             $from 
             $where 
             $order 
-            $limit_clause;
+            $limitClause;
         ";
 
         return $this->database->SQL($sql, $arguments)->fetchAll();
