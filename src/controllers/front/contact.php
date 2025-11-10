@@ -4,9 +4,13 @@ namespace Controllers\Front;
 
 use Controllers\BaseController;
 use Core\Validation\Validation;
+use Models\Contact as ContactModel;
 
 class Contact extends BaseController
 {
+    public function __construct(
+        protected ContactModel $contactModel
+    ){}
 
     public function index()
     {
@@ -72,7 +76,7 @@ class Contact extends BaseController
         }
         
         // save email data in database and send copy
-        $db_response = $this->models->contact()->sendUserMessage($name, $email, $subject, $message);
+        $db_response = $this->contactModel->sendUserMessage($name, $email, $subject, $message);
         
         if ($db_response == '200') {
             $response['success'] = 'Your message has been successfully sent to the administrator. We have sent a copy of your message to your email.';

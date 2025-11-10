@@ -4,9 +4,14 @@ namespace Controllers\Front;
 
 use Controllers\BaseController;
 use Core\Validation\Validation;
+use Models\Newsletter as NewsletterModel;
 
 class Newsletter extends BaseController
 {
+    public function __construct(
+        protected NewsletterModel $newsletterModel
+    ){}
+
     public function subscribe()
     {
         $this->formSecurity();
@@ -40,7 +45,7 @@ class Newsletter extends BaseController
         }
 
         // add subscriber
-        $db_response = $this->models->newsletter()->addSubscriber($name, $email);
+        $db_response = $this->newsletterModel->addSubscriber($name, $email);
 
         if ($db_response == '200') {
             $response['success'] = 'We\'ve added you to our subscriber list. To confirm, please check your email and click the activation link. Link will expire after 5 minutes';
@@ -62,7 +67,7 @@ class Newsletter extends BaseController
             $this->router->redirect('');
         }
 
-        $db_response = $this->models->newsletter()->confirmSubscribtion($token);
+        $db_response = $this->newsletterModel->confirmSubscribtion($token);
 
         if ($db_response == '200') {
             $this->utils->showUserMessage('Your subscription has been activated. Please check your inbox for further information.', 'success');
@@ -87,7 +92,7 @@ class Newsletter extends BaseController
             $this->router->redirect('');
         }
 
-        $db_response = $this->models->newsletter()->deleteSubscribtion($token);
+        $db_response = $this->newsletterModel->deleteSubscribtion($token);
 
         if ($db_response == '200') {
             $this->utils->showUserMessage('We’re reaching out to confirm that you have successfully unsubscribed from our newsletter. If this was a mistake or you change your mind, you can always re-subscribe.', 'success');

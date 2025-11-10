@@ -6,7 +6,6 @@ use Core\Config\Config;
 use Core\Http\Csrf;
 use Core\Http\Session;
 use Core\Routing\Router;
-use Core\Models;
 use Core\TemplateEngine\TemplateEngine;
 use Core\Utils\Utils;
 
@@ -14,7 +13,6 @@ abstract class BaseController
 {
     public function __construct(
         protected Router $router,
-        protected Models $models,
         protected Session $session,
         protected Utils $utils,
         protected Csrf $csrf,

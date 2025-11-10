@@ -4,9 +4,14 @@ namespace Controllers\Admin;
 
 use Controllers\BaseController;
 use Core\Validation\Validation;
+use Models\Newsletter as NewsletterModel;
 
 class Newsletter extends BaseController
 {
+    public function __construct(
+        protected NewsletterModel $newsletterModel
+    ){}
+
     public function index()
     {
         $keyword = trim($_GET['keyword'] ?? '');
@@ -16,8 +21,8 @@ class Newsletter extends BaseController
 
         $data = [
             'page_title' => 'Subscribers List',
-            'subscribers' => $this->models->newsletter()->getSubscribersTable($keyword, $order_by, $page, $sort),
-            'count' => $this->models->newsletter()->getSubscribersResultsCount(),
+            'subscribers' => $this->newsletterModel->getSubscribersTable($keyword, $order_by, $page, $sort),
+            'count' => $this->newsletterModel->getSubscribersResultsCount(),
             'show_count_near_title' => true,
             'keyword' => $keyword,
             'page' => $page,
@@ -50,7 +55,7 @@ class Newsletter extends BaseController
             exit;
         }
 
-        $subscriber = $this->models->newsletter()->getSubscriberById($id);
+        $subscriber = $this->newsletterModel->getSubscriberById($id);
 
         if (!$subscriber) {
             $this->utils->showAdminMessage('User with given id doesn\'t exists.', 'error');
@@ -100,7 +105,7 @@ class Newsletter extends BaseController
         }
 
         // add subscriber
-        $db_response = $this->models->newsletter()->addSubscriber($name, $email);
+        $db_response = $this->newsletterModel->addSubscriber($name, $email);
 
         if ($db_response == '200') {
             $this->utils->showAdminMessage($name . ' has been successfully added to the subscriber list.', 'success');
@@ -133,7 +138,7 @@ class Newsletter extends BaseController
             exit();
         }
 
-        $count = $this->models->newsletter()->deleteSubscribers($ids);
+        $count = $this->newsletterModel->deleteSubscribers($ids);
 
         if ($count > 0) {
             $response['count'] = $count;
@@ -183,7 +188,7 @@ class Newsletter extends BaseController
         }
 
         // edit subscriber
-        $db_response = $this->models->newsletter()->editSubscriber($id, $name, $email);
+        $db_response = $this->newsletterModel->editSubscriber($id, $name, $email);
 
         if ($db_response == '200') {
             $this->utils->showAdminMessage($name . ' has been successfully updated.', 'success');

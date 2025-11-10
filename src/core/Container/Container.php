@@ -24,7 +24,7 @@ class Container
 
         if (isset($this->bindings[$name])) {
             $instance = $this->bindings[$name]($this);
-            $this->instances[] = $instance;
+            $this->instances[$name] = $instance;
     
             return $instance;
         }
@@ -43,12 +43,22 @@ class Container
 
         if ($constructor === null) {
             $instance = $class_reflection->newInstance();
-            $this->instances[] = $instance;
+            $this->instances[$name] = $instance;
     
             return $instance;
         }
 
-        $params = $constructor->getParameters();
+        $parent_class = $class_reflection->getParentClass();
+
+        if ($parent_class && $parent_class->getConstructor()) {
+            $params = array_merge(
+                $constructor->getParameters(),
+                $parent_class->getConstructor()->getParameters()
+            );
+        } else {
+            $params = $constructor->getParameters();
+        } 
+
         $dependencies = [];
 
         foreach ($params as $param) {
@@ -90,6 +100,34 @@ class Container
         }
 
         $instance = $class_reflection->newInstanceArgs($dependencies);
+
+        $parent_class = $class_reflection->getParentClass();
+
+        if ($parent_class && $parent_class->getConstructor()) {
+            $parent_constructor = $parent_class->getConstructor();
+            $parent_params = $parent_constructor->getParameters();
+            $parent_dependencies = [];
+
+            foreach ($parent_params as $param) {
+                $type = $param->getType();
+
+                if ($type instanceof ReflectionNamedType && ! $type->isBuiltin()) {
+                    $dependency_class_name = $type->getName();
+                    if ($dependency_class_name === self::class) {
+                        $parent_dependencies[] = $this;
+                    } else {
+                        $parent_dependencies[] = $this->get($dependency_class_name);
+                    }
+                } elseif ($param->isDefaultValueAvailable()) {
+                    $parent_dependencies[] = $param->getDefaultValue();
+                } else {
+                    throw new Exception("Cannot autowire parent dependency \${$param->getName()} in {$parent_class->getName()}");
+                }
+            }
+
+            $parent_constructor->invokeArgs($instance, $parent_dependencies);
+        }
+
         $this->instances[$name] = $instance;
 
         return $instance;
