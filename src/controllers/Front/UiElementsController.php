@@ -4,7 +4,7 @@ namespace Controllers\Front;
 
 use Controllers\BaseController;
 
-class UiElements extends BaseController
+class UiElementsController extends BaseController
 {
 
     public function subscribtionPopup()

@@ -6,7 +6,7 @@ use Controllers\BaseController;
 use Core\Utils\ExportToXlsx;
 use Models\NewsletterModel;
 
-class Export extends BaseController
+class ExportController extends BaseController
 {
     public function __construct(
         protected NewsletterModel $newsletterModel

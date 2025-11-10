@@ -4,7 +4,7 @@ namespace Controllers;
 
 use Controllers\BaseController;
 
-class Errors extends BaseController
+class ErrorsController extends BaseController
 {
 
     public function error404()

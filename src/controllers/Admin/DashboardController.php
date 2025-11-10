@@ -4,7 +4,7 @@ namespace Controllers\Admin;
 
 use Controllers\BaseController;
 
-class Dashboard extends BaseController
+class DashboardController extends BaseController
 {
     public function index()
     {

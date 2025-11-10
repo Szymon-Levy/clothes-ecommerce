@@ -6,7 +6,7 @@ use Controllers\BaseController;
 use Core\Validation\Validation;
 use Models\ContactModel;
 
-class Contact extends BaseController
+class ContactController extends BaseController
 {
     public function __construct(
         protected ContactModel $contactModel

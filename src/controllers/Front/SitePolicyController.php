@@ -4,7 +4,7 @@ namespace Controllers\Front;
 
 use Controllers\BaseController;
 
-class SitePolicy extends BaseController
+class SitePolicyController extends BaseController
 {
 
     public function privacyPolicy()

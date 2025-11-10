@@ -6,7 +6,7 @@ use Controllers\BaseController;
 use Core\Validation\Validation;
 use Models\NewsletterModel;
 
-class Newsletter extends BaseController
+class NewsletterController extends BaseController
 {
     public function __construct(
         protected NewsletterModel $newsletterModel
