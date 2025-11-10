@@ -5,7 +5,7 @@ namespace Models;
 use Models\BaseModel;
 use Core\Utils\Email;
 
-class Contact extends BaseModel
+class ContactModel extends BaseModel
 {
     private function saveMessage(string $name, string $email, string $subject, string $message)
     {

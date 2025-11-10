@@ -4,7 +4,7 @@ namespace Controllers\Front;
 
 use Controllers\BaseController;
 use Core\Validation\Validation;
-use Models\Newsletter as NewsletterModel;
+use Models\NewsletterModel;
 
 class Newsletter extends BaseController
 {

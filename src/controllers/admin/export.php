@@ -4,12 +4,12 @@ namespace Controllers\Admin;
 
 use Controllers\BaseController;
 use Core\Utils\ExportToXlsx;
-use Models\Newsletter;
+use Models\NewsletterModel;
 
 class Export extends BaseController
 {
     public function __construct(
-        protected Newsletter $newsletterModel
+        protected NewsletterModel $newsletterModel
     ){}
 
     private function getDataBySource(string $data_source)

@@ -4,7 +4,7 @@ namespace Controllers\Front;
 
 use Controllers\BaseController;
 use Core\Validation\Validation;
-use Models\Contact as ContactModel;
+use Models\ContactModel;
 
 class Contact extends BaseController
 {
