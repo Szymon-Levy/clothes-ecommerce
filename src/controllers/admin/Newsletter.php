@@ -1,6 +1,6 @@
 <?php
 
-namespace Controllers\admin;
+namespace Controllers\Admin;
 
 use Controllers\BaseController;
 use Core\Validation\Validation;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Controllers\front;
+namespace Controllers\Front;
 
 use Controllers\BaseController;
 use Core\Validation\Validation;

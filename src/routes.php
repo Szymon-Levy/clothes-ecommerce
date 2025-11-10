@@ -2,14 +2,14 @@
 
 use Core\Routing\Router;
 use Controllers\Errors;
-use Controllers\front\Home;
-use Controllers\front\Contact;
-use Controllers\front\Newsletter as FrontNewsletter;
-use Controllers\front\UiElements;
-use Controllers\front\SitePolicy;
-use Controllers\admin\Newsletter as AdminNewsletter;
-use Controllers\admin\Dashboard;
-use Controllers\admin\Export;
+use Controllers\Front\Home;
+use Controllers\Front\Contact;
+use Controllers\Front\Newsletter as FrontNewsletter;
+use Controllers\Front\UiElements;
+use Controllers\Front\SitePolicy;
+use Controllers\Admin\Newsletter as AdminNewsletter;
+use Controllers\Admin\Dashboard;
+use Controllers\Admin\Export;
 
 return function (Router $router) {
     // ERRORS
