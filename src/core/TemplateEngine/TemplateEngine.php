@@ -9,15 +9,35 @@ use Twig\Environment;
 class TemplateEngine
 {
     protected Environment $engine;
+    protected string $viewsDir;
+    protected string $cacheDir;
 
     public function __construct(
         protected Config $config,
         protected Session $session
     )
     {
-        $twigLoader = new \Twig\Loader\FilesystemLoader(dirname(__DIR__, 2) . '/views');
+        $this->viewsDir = dirname(__DIR__, 2) . '/views';
+        $this->cacheDir = dirname(__DIR__, 3). '/var/cache';
+        
+        $this->initEngine();
+    }
 
-        $twigSettings['cache'] = dirname(__DIR__, 3). '/var/cache';
+    public function render(string $path, array $data = [])
+    {
+        return $this->engine()->render($path, $data);
+    }
+
+    public function addGlobalVariable(string $name, $value)
+    {
+        $this->engine()->addGlobal($name, $value);
+    }
+
+    protected function initEngine()
+    {
+        $twigLoader = new \Twig\Loader\FilesystemLoader($this->viewsDir);
+
+        $twigSettings['cache'] = $this->cacheDir;
         $twigSettings['debug'] = $this->config->system('dev');
         $twigSettings['strict_variables'] = false;
 
@@ -35,12 +55,7 @@ class TemplateEngine
         $this->extendTwig();
     }
 
-    public function render(string $path, array $data = [])
-    {
-        return $this->engine()->render($path, $data);
-    }
-
-    public function engine()
+    protected function engine()
     {
         return $this->engine;
     }

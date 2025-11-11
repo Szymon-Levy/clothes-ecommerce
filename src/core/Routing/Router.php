@@ -175,6 +175,6 @@ class Router
     {
         $this->urlParts = explode('/', trim($uri, '/'));
 
-        $this->templateEngine->engine()->addGlobal('url_parts', $this->urlParts());
+        $this->templateEngine->addGlobalVariable('url_parts', $this->urlParts());
     }
 }
