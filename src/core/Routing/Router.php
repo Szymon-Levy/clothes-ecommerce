@@ -112,16 +112,11 @@ class Router
         http_response_code(500);
         error_log($e);
 
-        if ($this->config->system('dev')) {
-            echo "<h1>Application error</h1>";
-            echo "<p><strong>Message:</strong> {$e->getMessage()}</p>";
-            echo "<p><strong>File:</strong> {$e->getFile()}</p>";
-            echo "<p><strong>Line:</strong> {$e->getLine()}</p>";
-            echo "<p><strong>Type:</strong> " . get_class($e) . "</p>";
-            echo "<pre>{$e->getTraceAsString()}</pre>";
-        } else {
-            echo "Server error!";
-        }
+        [$class, $method] = $this->errorHandlers[500];
+        
+        $controller = $this->container->get($class);
+
+        return $controller->{$method}($e);
     }
 
     public function redirect($path)

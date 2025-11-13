@@ -10,9 +10,23 @@ class ErrorsController extends BaseController
     public function error404()
     {
         $data = [
-            'page_404' => true,
+            'error_page' => true,
         ];
 
-        echo $this->renderView('front/404.html.twig', $data);
+        $this->renderView('front/404.html.twig', $data);
+    }
+
+    public function error500(\Throwable $e)
+    {
+        $data = [
+            'error_page' => true,
+            'error_message' => $e->getMessage(),
+            'error_file' => $e->getFile(),
+            'error_line' => $e->getLine(),
+            'error_type' => get_class($e),
+            'error_trace' => preg_split('/\s*#\s*/', trim($e->getTraceAsString()), -1, PREG_SPLIT_NO_EMPTY),
+        ];
+
+        $this->renderView('front/500.html.twig', $data);
     }
 }

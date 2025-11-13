@@ -1540,20 +1540,20 @@ body {
 }
 
 /*----------------------------------*\
-  #PAGE 404
+  #ERROR PAGE
 \*----------------------------------*/
 
-.page-404 {
+.error-page {
     display: flex;
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    background-image: url("../../images/404-bg.jpg");
+    background-image: url("../../images/error-bg.jpg");
     background-size: cover;
     background-position: center;
 }
 
-.page-404::before {
+.error-page::before {
     content: "";
     position: absolute;
     left: 0;
@@ -1565,24 +1565,67 @@ body {
     z-index: 1;
 }
 
-.page-404__content {
+.error-page__content {
     position: relative;
     text-align: center;
     z-index: 2;
 }
 
-.page-404__title {
+.error-page__title {
     margin-bottom: .1em;
 }
 
-.page-404__title,
-.page-404__text {
+.error-page__title,
+.error-page__text {
     color: var(--color-white);
 }
 
-.page-404__text {
+.error-page__text {
     margin-bottom: 1.4em;
     font-size: 1.4rem;
+}
+
+.error-debug {
+    font-family: monospace;
+}
+
+.error-debug__top,
+.error-debug__trace {
+    padding: var(--block-text-space-400);
+}
+
+.error-debug__top {
+    display: flex;
+    flex-direction: column;
+    row-gap: .8rem;
+    background-color: rgb(173, 50, 50);
+    font-size: var(--fs-heading-h4);
+    color: var(--color-white);
+}
+
+.error-debug__error--line {
+    display: inline-flex;
+    align-items: center;
+    column-gap: .3rem;
+}
+
+.error-debug__trace__title,
+.error-debug__error__title {
+    font-size: var(--fs-heading-h3);
+}
+
+.error-debug__trace__title {
+    margin-bottom: 1rem;
+}
+
+.error-debug__trace__table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.error-debug__trace__table td {
+    padding: .6rem 1rem;
+    border: .0625rem solid var(--color-input-border);
 }
 
 /*----------------------------------*\

@@ -26,7 +26,7 @@
 	</head>
 
 	<body {% if home_page %} class="home-page" {% endif %}>
-		{% if not page_404 %}
+		{% if not error_page %}
 			<!-- PRELOADER -->
 			<div class="preloader js-preloader"></div>
 
@@ -53,7 +53,7 @@
 				{% include 'front/includes/message.html.twig' %}
 			{% endif %}
 
-			{% if not page_404 %}
+			{% if not error_page %}
 				<!-- NAV -->
 				{% include 'front/includes/offcanvas.html.twig' %}
 
@@ -68,7 +68,7 @@
 
 			{% block content %}{% endblock %}
 
-			{% if not page_404 %}
+			{% if not error_page %}
 				<!-- FOOTER -->
 				{% include 'front/includes/footer.html.twig' %}
 			{% endif %}

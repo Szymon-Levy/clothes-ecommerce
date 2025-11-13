@@ -13,7 +13,7 @@ class UiElementsController extends BaseController
             'wrapper_class' => 'subscribtion-popup animate'
         ];
 
-        echo $this->renderView('ui_elements/subscribtion_popup.html.twig', $data);
+        $this->renderView('ui_elements/subscribtion_popup.html.twig', $data);
     }
 
     public function videoPopup()
@@ -24,6 +24,6 @@ class UiElementsController extends BaseController
             'video_type' => $_POST['video_type'] ?? null
         ];
 
-        echo $this->renderView('ui_elements/video_popup.html.twig', $data);
+        $this->renderView('ui_elements/video_popup.html.twig', $data);
     }
 }

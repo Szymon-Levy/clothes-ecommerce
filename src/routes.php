@@ -14,6 +14,7 @@ use Controllers\Admin\ExportController;
 return function (Router $router) {
     // ERRORS
     $router->errorHandler(404, [ErrorsController::class, 'error404']);
+    $router->errorHandler(500, [ErrorsController::class, 'error500']);
 
     // FRONT
     $router->add('GET', '/', [HomeController::class, 'index']);

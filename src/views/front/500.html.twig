@@ -1,0 +1,52 @@
+{% extends 'front/base.html.twig' %}
+
+{% block title %}Page not found{% endblock %}
+
+{% block content %}
+
+    {% if config.system.dev %}
+        <div class="error-debug">
+            <div class="error-debug__top">
+                <div class="error-debug__error">
+                    <h5 class="error-debug__error__title">Message:</h5>
+                    <div class="error-debug__error__value">{{ error_message }}</div>
+                </div>
+
+                <div class="error-debug__error">
+                    <h5 class="error-debug__error__title">File:</h5>
+                    <div class="error-debug__error__value">{{ error_file }}</div>
+                </div>
+
+                <div class="error-debug__error error-debug__error--line">
+                    <h5 class="error-debug__error__title">Line:</h5>
+                    <div class="error-debug__error__value">{{ error_line }}</div>
+                </div>
+
+                <div class="error-debug__error error-debug__error--line">
+                    <h5 class="error-debug__error__title">Type:</h5>
+                    <div class="error-debug__error__value">{{ error_type }}</div>
+                </div>
+            </div>
+
+            <div class="error-debug__trace">
+                <h5 class="error-debug__trace__title">Trace:</h5>
+
+                <table class="error-debug__trace__table">
+                    {% for trace in error_trace %}
+                        <tr>
+                            <td class="error-debug__trace__list__item"># {{ trace }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    {% else %}
+        <section class="error-page">
+            <div class="error-page__content">
+                <h1 class="error-page__title heading heading--primary heading--h1">Error 500</h1>
+                <p class="error-page__text">Internal server error</p>
+            </div>
+        </section>
+    {% endif %}
+
+{% endblock %}
