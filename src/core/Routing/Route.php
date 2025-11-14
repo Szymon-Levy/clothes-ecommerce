@@ -29,6 +29,11 @@ class Route
         return $this->path;
     }
 
+    public function handler()
+    {
+        return $this->handler;
+    }
+
     public function matches(string $method, string $path): bool
     {
         if ($this->method === $method && $this->normalisePath($this->path) === $this->normalisePath($path)) {
@@ -84,23 +89,6 @@ class Route
         $path = preg_replace('/[\/]{2,}/', '/', $path);
 
         return $path;
-    }
-
-    public function dispatch(Container $container)
-    {
-        if (is_array($this->handler)) {
-            [$class, $method] = $this->handler;
-
-            if (is_string($class)) {
-                $controller = $container->get($class);
-
-                return $controller->{$method}();
-            }
-
-            return $class->{$method}();
-        }
-
-        return call_user_func($this->handler);
     }
 
     public function parameters(): array

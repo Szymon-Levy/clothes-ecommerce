@@ -54,7 +54,7 @@ class Router
             $this->current = $matching;
 
             try {
-                return $matching->dispatch($this->container);
+                return $this->resolveController($matching->handler());
             } catch (\Throwable $e) {
                 $this->dispatchError($e);
             }
@@ -70,35 +70,6 @@ class Router
     public function errorHandler(int $code, array $handler)
     {
         $this->errorHandlers[$code] = $handler;
-    }
-
-    public function dispatchNotAllowed()
-    {
-        $this->errorHandlers[400] ??= fn() => 'not allowed';
-        return $this->errorHandlers[400]();
-    }
-
-    public function dispatchNotFound()
-    {
-        http_response_code(404);
-
-        [$class, $method] = $this->errorHandlers[404];
-        
-        $controller = $this->container->get($class);
-
-        return $controller->{$method}();
-    }
-
-    public function dispatchError(\Throwable $e)
-    {
-        http_response_code(500);
-        error_log($e);
-
-        [$class, $method] = $this->errorHandlers[500];
-        
-        $controller = $this->container->get($class);
-
-        return $controller->{$method}($e);
     }
 
     public function redirect($path)
@@ -155,6 +126,23 @@ class Router
         $this->templateEngine->addGlobalVariable('url_parts', $this->urlParts());
     }
 
+    protected function resolveController($handler, $param = null)
+    {
+        if (is_array($handler)) {
+            [$class, $method] = $handler;
+
+            if (is_string($class)) {
+                $controller = $this->container->get($class);
+
+                return $controller->{$method}($param);
+            }
+
+            return $class->{$method}($param);
+        }
+
+        return call_user_func($handler, $param);
+    }
+
     protected function paths(): array
     {
         $paths = [];
@@ -181,5 +169,33 @@ class Router
     {
         $route = $this->routes[] = new Route($method, $path, $handler);
         return $route;
+    }
+
+    protected function dispatchNotAllowed()
+    {
+        http_response_code(400);
+
+        $this->errorHandlers[400] ??= function() {echo '400 Bad Request';};
+
+        $this->resolveController($this->errorHandlers[400]);
+    }
+
+    protected function dispatchNotFound()
+    {
+        http_response_code(404);
+
+        $this->errorHandlers[404] ??= function() {echo '404 Not Found';};
+
+        $this->resolveController($this->errorHandlers[404]);
+    }
+
+    protected function dispatchError(\Throwable $e)
+    {
+        http_response_code(500);
+        error_log($e);
+
+        $this->errorHandlers[500] ??= function() {echo '500 Internal Server Error';};
+
+        $this->resolveController($this->errorHandlers[500], $e);
     }
 }
