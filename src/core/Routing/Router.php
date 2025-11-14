@@ -20,10 +20,14 @@ class Router
         protected Config $config
     ){}
 
-    public function add(string $method, string $path, $handler): Route
+    public function get(string $path, $handler)
     {
-        $route = $this->routes[] = new Route($method, $path, $handler);
-        return $route;
+        return $this->add('GET', $path, $handler);
+    }
+
+    public function post(string $path, $handler)
+    {
+        return $this->add('POST', $path, $handler);
     }
 
     public function dispatch()
@@ -61,28 +65,6 @@ class Router
         }
 
         return $this->dispatchNotFound();
-    }
-
-    private function paths(): array
-    {
-        $paths = [];
-
-        foreach ($this->routes as $route) {
-            $paths[] = $route->path();
-        }
-
-        return $paths;
-    }
-
-    private function match(string $method, string $path): ?Route
-    {
-        foreach ($this->routes as $route) {
-            if ($route->matches($method, $path)) {
-                return $route;
-            }
-        }
-
-        return null;
     }
 
     public function errorHandler(int $code, array $handler)
@@ -171,5 +153,33 @@ class Router
         $this->urlParts = explode('/', trim($uri, '/'));
 
         $this->templateEngine->addGlobalVariable('url_parts', $this->urlParts());
+    }
+
+    protected function paths(): array
+    {
+        $paths = [];
+
+        foreach ($this->routes as $route) {
+            $paths[] = $route->path();
+        }
+
+        return $paths;
+    }
+
+    protected function match(string $method, string $path): ?Route
+    {
+        foreach ($this->routes as $route) {
+            if ($route->matches($method, $path)) {
+                return $route;
+            }
+        }
+
+        return null;
+    }
+
+    protected function add(string $method, string $path, $handler): Route
+    {
+        $route = $this->routes[] = new Route($method, $path, $handler);
+        return $route;
     }
 }

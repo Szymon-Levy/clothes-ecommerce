@@ -17,30 +17,30 @@ return function (Router $router) {
     $router->errorHandler(500, [ErrorsController::class, 'error500']);
 
     // FRONT
-    $router->add('GET', '/', [HomeController::class, 'index']);
+    $router->get('/', [HomeController::class, 'index']);
 
-    $router->add('POST', '/ajax/newsletter-subscribe', [FrontNewsletterController::class, 'subscribe']);
-    $router->add('GET', '/confirm-subscribtion/{token}', [FrontNewsletterController::class, 'confirmSubscribtion']);
-    $router->add('GET', '/delete-subscribtion/{token}', [FrontNewsletterController::class, 'deleteSubscribtion']);
+    $router->post('/ajax/newsletter-subscribe', [FrontNewsletterController::class, 'subscribe']);
+    $router->get('/confirm-subscribtion/{token}', [FrontNewsletterController::class, 'confirmSubscribtion']);
+    $router->get('/delete-subscribtion/{token}', [FrontNewsletterController::class, 'deleteSubscribtion']);
 
-    $router->add('GET', '/contact', [ContactController::class, 'index']);
-    $router->add('POST', '/ajax/contact-send-message', [ContactController::class, 'sendMessage']);
+    $router->get('/contact', [ContactController::class, 'index']);
+    $router->post('/ajax/contact-send-message', [ContactController::class, 'sendMessage']);
 
-    $router->add('GET', '/privacy-policy', [SitePolicyController::class, 'privacyPolicy']);
-    $router->add('GET', '/terms-and-conditions', [SitePolicyController::class, 'termsAndConditions']);
+    $router->get('/privacy-policy', [SitePolicyController::class, 'privacyPolicy']);
+    $router->get('/terms-and-conditions', [SitePolicyController::class, 'termsAndConditions']);
 
     // UI ELEMENTS
-    $router->add('POST', '/ui_elements/subscribtion_popup', [UiElementsController::class, 'subscribtionPopup']);
-    $router->add('POST', '/ui_elements/video_popup', [UiElementsController::class, 'videoPopup']);
+    $router->post('/ui_elements/subscribtion_popup', [UiElementsController::class, 'subscribtionPopup']);
+    $router->post('/ui_elements/video_popup', [UiElementsController::class, 'videoPopup']);
 
     // ADMIN
-    $router->add('GET', '/admin', [DashboardController::class, 'index']);
-    $router->add('GET', '/admin/export/{data}', [ExportController::class, 'export']);
+    $router->get('/admin', [DashboardController::class, 'index']);
+    $router->get('/admin/export/{data}', [ExportController::class, 'export']);
 
-    $router->add('GET', '/admin/newsletter', [AdminNewsletterController::class, 'index']);
-    $router->add('GET', '/admin/newsletter/add-subscriber', [AdminNewsletterController::class, 'addSubscriber']);
-    $router->add('GET', '/admin/newsletter/edit-subscriber/{id}', [AdminNewsletterController::class, 'editSubscriber']);
-    $router->add('POST', '/admin/ajax/add-subscriber', [AdminNewsletterController::class, 'addSubscriberToDB']);
-    $router->add('POST', '/admin/ajax/delete-subscribers', [AdminNewsletterController::class, 'deleteSubscribers']);
-    $router->add('POST', '/admin/ajax/edit-subscriber', [AdminNewsletterController::class, 'editSubscriberInDB']);
+    $router->get('/admin/newsletter', [AdminNewsletterController::class, 'index']);
+    $router->get('/admin/newsletter/add-subscriber', [AdminNewsletterController::class, 'addSubscriber']);
+    $router->get('/admin/newsletter/edit-subscriber/{id}', [AdminNewsletterController::class, 'editSubscriber']);
+    $router->post('/admin/ajax/add-subscriber', [AdminNewsletterController::class, 'addSubscriberToDB']);
+    $router->post('/admin/ajax/delete-subscribers', [AdminNewsletterController::class, 'deleteSubscribers']);
+    $router->post('/admin/ajax/edit-subscriber', [AdminNewsletterController::class, 'editSubscriberInDB']);
 };
