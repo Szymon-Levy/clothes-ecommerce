@@ -56,7 +56,7 @@ class Router
             try {
                 return $this->resolveController($matching->handler());
             } catch (\Throwable $e) {
-                $this->dispatchError($e);
+                return $this->dispatchError($e);
             }
         }
 
@@ -189,7 +189,7 @@ class Router
         $this->resolveController($this->errorHandlers[404]);
     }
 
-    protected function dispatchError(\Throwable $e)
+    public function dispatchError(\Throwable $e)
     {
         http_response_code(500);
         error_log($e);

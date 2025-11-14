@@ -12,4 +12,9 @@ $router = $container->get(\Core\Routing\Router::class);
 
 $routes = require_once $appRoot . '/src/routes.php';
 $routes($router);
-$router->dispatch();
+
+try {
+    $router->dispatch();
+} catch (\Throwable $e) {
+    $router->dispatchError($e);
+}

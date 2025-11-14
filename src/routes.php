@@ -13,6 +13,7 @@ use Controllers\Admin\ExportController;
 
 return function (Router $router) {
     // ERRORS
+    $router->errorHandler(400, [ErrorsController::class, 'error400']);
     $router->errorHandler(404, [ErrorsController::class, 'error404']);
     $router->errorHandler(500, [ErrorsController::class, 'error500']);
 
