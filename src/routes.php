@@ -35,7 +35,7 @@ return function (Router $router) {
     $router->post('/ui_elements/video_popup', [UiElementsController::class, 'videoPopup']);
 
     // ADMIN
-    $router->group('/admin', function($router) {
+    $router->middleware(['admin'])->group('/admin', function($router) {
         $router->get('', [DashboardController::class, 'index']);
         
         $router->get('/export/{data}', [ExportController::class, 'export']);

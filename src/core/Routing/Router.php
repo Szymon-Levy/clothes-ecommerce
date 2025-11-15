@@ -14,6 +14,7 @@ class Router
     protected Route $current;
     protected array $urlParts;
     protected string $groupPathPrefix = '';
+    protected array $groupMiddlewares = [];
 
     public function __construct(
         protected Container $container,
@@ -38,6 +39,18 @@ class Router
         $handler($this);
 
         $this->groupPathPrefix = '';
+        $this->groupMiddlewares = [];
+    }
+
+    public function middleware(array|string $names)
+    {
+        if (is_string($names)) {
+            $names = (Array) $names;
+        }
+
+        $this->groupMiddlewares = $names;
+
+        return $this;
     }
 
     public function dispatch()
@@ -179,7 +192,12 @@ class Router
     {
         $path = $this->groupPathPrefix . $path;
 
-        $route = $this->routes[] = new Route($method, $path, $handler);
+        $route = $this->routes[] = new Route($method, $path, $handler, $this->groupMiddlewares);
+
+        if ($this->groupPathPrefix === '') {
+            $this->groupMiddlewares = [];
+        }
+
         return $route;
     }
 

@@ -2,21 +2,21 @@
 
 namespace Core\Routing;
 
-use Core\Container\Container;
-
 class Route
 {
     protected string $method;
     protected string $path;
     protected $handler;
+    protected array $middlewares;
     protected array $parameters = [];
     protected string $name = '';
 
-    public function __construct(string $method, string $path, $handler)
+    public function __construct(string $method, string $path, $handler, $middlewares = [])
     {
         $this->method = $method;
         $this->path = $path;
         $this->handler = $handler;
+        $this->middlewares = $middlewares;
     }
 
     public function method(): string
