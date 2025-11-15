@@ -46,10 +46,10 @@ class Config
 
     protected function getConfigFromFiles()
     {
-        $configFilesDir = array_diff(scandir($this->configDir), array('..', '.'));
+        $configFilesDir = array_diff(scandir($this->configDir), array('..', '.', 'settings'));
 
         foreach($configFilesDir as $fileName) {
-            if (in_array($fileName, $this->excludes)) {
+            if (in_array($fileName, $this->excludes) || str_contains($fileName, 'example')) {
                 continue;
             }
             
