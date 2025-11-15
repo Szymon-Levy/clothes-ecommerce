@@ -13,6 +13,7 @@ class Router
     protected array $errorHandlers = [];
     protected Route $current;
     protected array $urlParts;
+    protected string $groupPathPrefix = '';
 
     public function __construct(
         protected Container $container,
@@ -28,6 +29,15 @@ class Router
     public function post(string $path, $handler)
     {
         return $this->add('POST', $path, $handler);
+    }
+
+    public function group(string $pathPrefix, callable $handler)
+    {
+        $this->groupPathPrefix = $pathPrefix;
+
+        $handler($this);
+
+        $this->groupPathPrefix = '';
     }
 
     public function dispatch()
@@ -167,6 +177,8 @@ class Router
 
     protected function add(string $method, string $path, $handler): Route
     {
+        $path = $this->groupPathPrefix . $path;
+
         $route = $this->routes[] = new Route($method, $path, $handler);
         return $route;
     }

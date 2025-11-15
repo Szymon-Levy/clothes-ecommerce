@@ -35,13 +35,16 @@ return function (Router $router) {
     $router->post('/ui_elements/video_popup', [UiElementsController::class, 'videoPopup']);
 
     // ADMIN
-    $router->get('/admin', [DashboardController::class, 'index']);
-    $router->get('/admin/export/{data}', [ExportController::class, 'export']);
-
-    $router->get('/admin/newsletter', [AdminNewsletterController::class, 'index']);
-    $router->get('/admin/newsletter/add-subscriber', [AdminNewsletterController::class, 'addSubscriber']);
-    $router->get('/admin/newsletter/edit-subscriber/{id}', [AdminNewsletterController::class, 'editSubscriber']);
-    $router->post('/admin/ajax/add-subscriber', [AdminNewsletterController::class, 'addSubscriberToDB']);
-    $router->post('/admin/ajax/delete-subscribers', [AdminNewsletterController::class, 'deleteSubscribers']);
-    $router->post('/admin/ajax/edit-subscriber', [AdminNewsletterController::class, 'editSubscriberInDB']);
+    $router->group('/admin', function($router) {
+        $router->get('', [DashboardController::class, 'index']);
+        
+        $router->get('/export/{data}', [ExportController::class, 'export']);
+        
+        $router->get('/newsletter', [AdminNewsletterController::class, 'index']);
+        $router->get('/newsletter/add-subscriber', [AdminNewsletterController::class, 'addSubscriber']);
+        $router->get('/newsletter/edit-subscriber/{id}', [AdminNewsletterController::class, 'editSubscriber']);
+        $router->post('/ajax/add-subscriber', [AdminNewsletterController::class, 'addSubscriberToDB']);
+        $router->post('/ajax/delete-subscribers', [AdminNewsletterController::class, 'deleteSubscribers']);
+        $router->post('/ajax/edit-subscriber', [AdminNewsletterController::class, 'editSubscriberInDB']);
+    });
 };
