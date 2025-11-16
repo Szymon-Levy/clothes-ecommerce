@@ -28,9 +28,19 @@ class Request
         $this->files = $_FILES;
     }
 
-    public function get(string $name, mixed $default = null)
+    public function get(string $name, mixed $default = null, bool $lowercase = true)
     {
-        return $this->getParams[$name] ?? $default;
+        if (isset($this->getParams[$name])) {
+            $param = trim($this->getParams[$name]);
+
+            if ($lowercase) {
+                return strtolower($param);
+            }
+            
+            return $param;
+        }
+
+        return $default;
     }
 
     public function post(string $name, mixed $default = null)

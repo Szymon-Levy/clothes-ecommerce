@@ -14,10 +14,10 @@ class NewsletterController extends BaseController
 
     public function index()
     {
-        $keyword = trim($_GET['keyword'] ?? '');
-        $orderBy = trim($_GET['orderby'] ?? '');
-        $sort = trim($_GET['sort'] ?? 'a');
-        $page = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
+        $keyword = $this->request->get('keyword', '', false);
+        $orderBy = $this->request->get('orderby', '');
+        $sort = $this->request->get('sort', 'a');
+        $page = filter_var($this->request->get('page'), FILTER_VALIDATE_INT) ?: 1;
 
         $data = [
             'page_title' => 'Subscribers List',
