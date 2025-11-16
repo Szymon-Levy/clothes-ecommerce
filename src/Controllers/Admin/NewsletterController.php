@@ -47,7 +47,7 @@ class NewsletterController extends BaseController
 
     public function editSubscriber()
     {
-        $id = $this->router->current()->parameters()['id'] ?? '';
+        $id = $this->request->routeParam('id');
 
         if ($id === '' || filter_var($id, FILTER_VALIDATE_INT) === false) {
             $this->utils->showAdminMessage('Wrong user id.', 'error');

@@ -6,12 +6,11 @@ class Route
 {
     protected string $method;
     protected string $path;
-    protected $handler;
+    protected mixed $handler;
     protected array $middlewares;
     protected array $parameters = [];
-    protected string $name = '';
 
-    public function __construct(string $method, string $path, $handler, $middlewares = [])
+    public function __construct(string $method, string $path, mixed $handler, $middlewares = [])
     {
         $this->method = $method;
         $this->path = $path;
@@ -41,6 +40,7 @@ class Route
         }
 
         $parameterNames = [];
+
         $pattern = $this->normalisePath($this->path);
 
         $pattern = preg_replace_callback(
@@ -82,7 +82,7 @@ class Route
         return false;
     }
 
-    private function normalisePath(string $path): string
+    protected function normalisePath(string $path): string
     {
         $path = trim($path, '/');
         $path = "/{$path}/";
@@ -94,15 +94,5 @@ class Route
     public function parameters(): array
     {
         return $this->parameters;
-    }
-
-    public function name(string $name = ''): mixed
-    {
-        if ($name) {
-            $this->name = $name;
-            return $this;
-        }
-
-        return $this->name;
     }
 }

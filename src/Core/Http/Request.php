@@ -9,6 +9,7 @@ class Request
     protected array $getParams = [];
     protected array $postParams = [];
     protected array $files = [];
+    protected array $routeParams = [];
 
     public function __construct()
     {
@@ -51,6 +52,16 @@ class Request
     public function file(string $name)
     {
         return $this->files[$name] ?? null;
+    }
+
+    public function routeParam(string $name)
+    {
+        return $this->routeParams[$name] ?? null;
+    }
+
+    public function setRouteParams(array $params)
+    {
+        $this->routeParams = $params;
     }
 
     public function method()

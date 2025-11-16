@@ -6,13 +6,11 @@ use Core\Config\Config;
 use Core\Container\Container;
 use Core\Http\Request;
 use Core\TemplateEngine\TemplateEngine;
-use Exception;
 
 class Router
 {
     protected array $routes = [];
     protected array $errorHandlers = [];
-    protected Route $current;
     protected array $urlParts;
     protected string $groupPathPrefix = '';
     protected array $groupMiddlewares = [];
@@ -65,7 +63,7 @@ class Router
         if ($matching) {
             $this->passUrpPartsToTwig($uri);
 
-            $this->current = $matching;
+            $this->request->setRouteParams($matching->parameters());
 
             try {
                 return $this->resolveController($matching->handler());
@@ -97,37 +95,6 @@ class Router
         );
 
         exit;
-    }
-
-    public function current(): ?Route
-    {
-        return $this->current;
-    }
-
-    public function route(string $name, array $parameters): string
-    {
-        foreach ($this->routes as $route) {
-            if ($route->name() === $name) {
-                $finds = [];
-                $replaces = [];
-
-                foreach ($parameters as $key => $value) {
-                    array_push($finds, "{{$key}}");
-                    array_push($replaces, $value);
-
-                    array_push($finds, "{{$key}?}");
-                    array_push($replaces, $value);
-                }
-
-                $path = $route->path();
-                $path = str_replace($finds, $replaces, $path);
-                $path = preg_replace('#{[^}]+}#', '', $path);
-
-                return $path;
-            }
-        }
-
-        throw new Exception('no route with that name');
     }
 
     public function urlParts(): array

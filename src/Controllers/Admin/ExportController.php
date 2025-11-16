@@ -25,7 +25,7 @@ class ExportController extends BaseController
 
     public function export()
     {
-        $dataSource = $this->router->current()->parameters()['data'] ?? '';
+        $dataSource = $this->request->routeParam('data');
 
         $data = $this->getDataBySource($dataSource);
 

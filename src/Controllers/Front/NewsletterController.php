@@ -61,11 +61,7 @@ class NewsletterController extends BaseController
 
     public function confirmSubscribtion()
     {
-        $token = $this->router->current()->parameters()['token'] ?? '';
-
-        if (!$token) {
-            $this->router->redirect('');
-        }
+        $token = $this->request->routeParam('token');
 
         $dbResponse = $this->newsletterModel->confirmSubscribtion($token);
 
@@ -86,11 +82,7 @@ class NewsletterController extends BaseController
 
     public function deleteSubscribtion()
     {
-        $token = $this->router->current()->parameters()['token'] ?? '';
-
-        if (!$token) {
-            $this->router->redirect('');
-        }
+        $token = $this->request->routeParam('token');
 
         $dbResponse = $this->newsletterModel->deleteSubscribtion($token);
 
