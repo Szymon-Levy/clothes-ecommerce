@@ -4,6 +4,7 @@ namespace Core\Routing;
 
 use Core\Config\Config;
 use Core\Container\Container;
+use Core\Http\Request;
 use Core\TemplateEngine\TemplateEngine;
 use Exception;
 
@@ -18,6 +19,7 @@ class Router
 
     public function __construct(
         protected Container $container,
+        protected Request $request,
         protected TemplateEngine $templateEngine,
         protected Config $config
     ){}
@@ -55,24 +57,13 @@ class Router
 
     public function dispatch()
     {
-        $paths = $this->paths();
+        $uri = $this->request->uri();
+        $method = $this->request->method();
 
-        $requestMethod = $_SERVER['REQUEST_METHOD'] ?? 'GET';
-
-        $uri = $_SERVER['REQUEST_URI'] ?? '/';
-        $uri = parse_url($uri, PHP_URL_PATH);
-        $base = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/');
-
-        if ($base !== '' && str_starts_with($uri, $base)) {
-            $uri = substr($uri, strlen($base));
-        }
-
-        $requestPath = $uri ?: '/';
-
-        $matching = $this->match($requestMethod, $requestPath);
+        $matching = $this->match($method, $uri);
 
         if ($matching) {
-            $this->passUrpPartsToTwig($requestPath);
+            $this->passUrpPartsToTwig($uri);
 
             $this->current = $matching;
 
@@ -83,7 +74,9 @@ class Router
             }
         }
 
-        if (in_array($requestPath, $paths)) {
+        $paths = $this->paths();
+
+        if (in_array($uri, $paths)) {
             return $this->dispatchNotAllowed();
         }
 

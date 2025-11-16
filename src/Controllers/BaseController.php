@@ -4,6 +4,7 @@ namespace Controllers;
 
 use Core\Config\Config;
 use Core\Http\Csrf;
+use Core\Http\Request;
 use Core\Http\Session;
 use Core\Routing\Router;
 use Core\TemplateEngine\TemplateEngine;
@@ -17,7 +18,8 @@ abstract class BaseController
         protected Utils $utils,
         protected Csrf $csrf,
         protected Config $config,
-        protected TemplateEngine $templateEngine
+        protected TemplateEngine $templateEngine,
+        protected Request $request
     ){}
 
     protected function renderView(string $path, array $data = [])
