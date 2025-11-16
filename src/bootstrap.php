@@ -18,9 +18,11 @@ $container = new Core\Container\Container();
 
 // Database
 $container->set(Core\Database\DataBase::class, function($c) {
-    $dsn = $c->get(Core\Config\Config::class)->database('dsn');
-    $user = $c->get(Core\Config\Config::class)->database('user');
-    $password = $c->get(Core\Config\Config::class)->database('password');
+    $config = $c->get(Core\Config\Config::class)->database();
+    
+    extract($config);
+
+    $dsn = "{$type}:host={$host};dbname={$dbName};port={$port};charset={$characterEncoding}";
     
     return new Core\Database\DataBase($dsn, $user, $password);
 });
