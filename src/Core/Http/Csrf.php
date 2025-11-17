@@ -19,7 +19,7 @@ class Csrf
         }
     }
 
-    private function generateToken()
+    protected function generateToken()
     {
         return bin2hex(random_bytes(32));
     }

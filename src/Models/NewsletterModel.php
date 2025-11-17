@@ -135,7 +135,7 @@ class NewsletterModel extends BaseModel
         return $deletedCount;
     }
 
-    private function assignToken(string $subscriberId, string $tokenRoleId)
+    protected function assignToken(string $subscriberId, string $tokenRoleId)
     {
         $arguments['subscriber_id'] = $subscriberId;
         $arguments['token_role_id'] = $tokenRoleId;
@@ -160,7 +160,7 @@ class NewsletterModel extends BaseModel
         } while (true);
     }
 
-    private function deleteTokens(string $subscriberId)
+    protected function deleteTokens(string $subscriberId)
     {
         $arguments['subscriber_id'] = $subscriberId;
 
@@ -188,7 +188,7 @@ class NewsletterModel extends BaseModel
         return $this->database->SQL($sql, $arguments)->fetch();
     }
 
-    private function getSubscriberByToken(string $token, string $tokenRoleId)
+    protected function getSubscriberByToken(string $token, string $tokenRoleId)
     {
         $arguments['token'] = $token;
         $arguments['token_role_id'] = $tokenRoleId;
@@ -210,7 +210,7 @@ class NewsletterModel extends BaseModel
         return $this->database->SQL($sql, $arguments)->fetch();
     }
 
-    private function activateSubscribtion(int|string $subscriberId)
+    protected function activateSubscribtion(int|string $subscriberId)
     {
         $sql = '
             UPDATE newsletter_subscribers 
@@ -221,7 +221,7 @@ class NewsletterModel extends BaseModel
         $this->database->SQL($sql, ['subscriber_id' => $subscriberId]);
     }
 
-    private function desactivateSubscribtion(int|string $subscriberId)
+    protected function desactivateSubscribtion(int|string $subscriberId)
     {
         $sql = '
             UPDATE newsletter_subscribers 

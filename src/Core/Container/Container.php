@@ -8,8 +8,8 @@ use ReflectionNamedType;
 
 class Container
 {
-    private array $bindings = [];
-    private array $instances = [];
+    protected array $bindings = [];
+    protected array $instances = [];
 
     public function set(string $name, callable $resolver):void
     {

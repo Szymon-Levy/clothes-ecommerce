@@ -12,7 +12,7 @@ class ExportController extends BaseController
         protected NewsletterModel $newsletterModel
     ){}
 
-    private function getDataBySource(string $dataSource)
+    protected function getDataBySource(string $dataSource)
     {
         switch ($dataSource) {
             case 'newsletter-subscribers':

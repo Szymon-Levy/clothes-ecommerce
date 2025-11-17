@@ -28,7 +28,7 @@ class ExportToXlsx
         $this->outputData[] = $data['headings'];
     }
 
-    private function prepareOutputData()
+    protected function prepareOutputData()
     {
         if ($this->data['db_data'] !== false) {
             foreach ($this->data['db_data'] as $row) {
@@ -43,7 +43,7 @@ class ExportToXlsx
         }
     }
 
-    private function styleWorksheet()
+    protected function styleWorksheet()
     {
         $this->sheet->setTitle('Exported data');
 

@@ -10,7 +10,7 @@ use Core\Http\Csrf;
 class Application
 {
     protected Container $container;
-    private static $instances = [];
+    protected static $instances = [];
 
     protected function __construct()
     {

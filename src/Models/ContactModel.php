@@ -7,7 +7,7 @@ use Core\Utils\Email;
 
 class ContactModel extends BaseModel
 {
-    private function saveMessage(string $name, string $email, string $subject, string $message)
+    protected function saveMessage(string $name, string $email, string $subject, string $message)
     {
         $arguments['sender_name'] = $name;
         $arguments['email'] = $email;
