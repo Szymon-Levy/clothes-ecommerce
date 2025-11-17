@@ -20,8 +20,8 @@ class UiElementsController extends BaseController
     {
         $data = [
             'wrapper_class' => 'popup--video',
-            'video_name' => $_POST['video_name'] ?? null,
-            'video_type' => $_POST['video_type'] ?? null
+            'video_name' => $this->request->post('video_name', null),
+            'video_type' => $this->request->post('video_type', null)
         ];
 
         $this->renderView('ui_elements/video_popup.html.twig', $data);

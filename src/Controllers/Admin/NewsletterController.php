@@ -15,9 +15,13 @@ class NewsletterController extends BaseController
     public function index()
     {
         $keyword = $this->request->get('keyword', '', false);
-        $orderBy = $this->request->get('orderby', '');
+        $orderBy = $this->request->get('orderby');
         $sort = $this->request->get('sort', 'a');
-        $page = filter_var($this->request->get('page'), FILTER_VALIDATE_INT) ?: 1;
+        $page = filter_var(
+            $this->request->get('page'), 
+            FILTER_VALIDATE_INT, 
+            ['options' => ['min_range' => 1]]
+        ) ?: 1;
 
         $data = [
             'page_title' => 'Subscribers List',
@@ -82,8 +86,8 @@ class NewsletterController extends BaseController
         $this->formSecurity();
 
         // post data
-        $name = trim($_POST['name'] ?? '');
-        $email = trim($_POST['email'] ?? '');
+        $name = $this->request->post('name');
+        $email = $this->request->post('email');
 
         // validation
         $response = [];
@@ -129,7 +133,7 @@ class NewsletterController extends BaseController
         $response = [];
 
         // post data
-        $ids = isset($_POST['ids']) ? $_POST['ids'] :  '';
+        $ids = $this->request->post('ids');
         $ids = json_decode($ids);
 
         if (!$ids) {
@@ -158,9 +162,9 @@ class NewsletterController extends BaseController
         $this->formSecurity();
 
         // post data
-        $id = trim($_POST['id'] ?? '');
-        $name = trim($_POST['name'] ?? '');
-        $email = trim($_POST['email'] ?? '');
+        $id = $this->request->post('id');
+        $name = $this->request->post('name');
+        $email = $this->request->post('email');
 
         // validation
         $response = [];

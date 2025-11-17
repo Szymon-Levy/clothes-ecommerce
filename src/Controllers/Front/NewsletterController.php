@@ -17,9 +17,9 @@ class NewsletterController extends BaseController
         $this->formSecurity();
 
         // post data
-        $name = trim($_POST['name'] ?? '');
-        $email = trim($_POST['email'] ?? '');
-        $policy = isset($_POST['policy']) ? trim($_POST['policy']) : null;
+        $name = $this->request->post('name');
+        $email = $this->request->post('email');
+        $policy = $this->request->post('policy', null);
 
         // validation
         $response = [];

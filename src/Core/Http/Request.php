@@ -29,7 +29,7 @@ class Request
         $this->files = $_FILES;
     }
 
-    public function get(string $name, mixed $default = null, bool $lowercase = true)
+    public function get(string $name, mixed $default = '', bool $lowercase = true)
     {
         if (isset($this->getParams[$name])) {
             $param = trim($this->getParams[$name]);
@@ -44,7 +44,7 @@ class Request
         return $default;
     }
 
-    public function post(string $name, mixed $default = null)
+    public function post(string $name, mixed $default = '')
     {
         return $this->postParams[$name] ?? $default;
     }

@@ -27,11 +27,11 @@ class ContactController extends BaseController
         $this->formSecurity();
 
         // post data
-        $name = trim($_POST['name'] ?? '');
-        $email = trim($_POST['email'] ?? '');
-        $subject = trim($_POST['subject'] ?? '');
-        $message = trim($_POST['message'] ?? '');
-        $policy = isset($_POST['policy']) ? trim($_POST['policy']) : null;
+        $name = $this->request->post('name');
+        $email = $this->request->post('email');
+        $subject = $this->request->post('subject');
+        $message = $this->request->post('message');
+        $policy = $this->request->post('policy', null);
 
         // validation
         $response = [];
