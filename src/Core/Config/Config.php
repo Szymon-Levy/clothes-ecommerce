@@ -8,7 +8,7 @@ class Config
 {
     protected string $configDir;
     protected array $config = [];
-    protected array $excludes = ['main.config.php'];
+    protected array $excludes = [];
 
     public function __construct()
     {

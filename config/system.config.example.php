@@ -1,10 +1,9 @@
 <?php
 
-include dirname(__DIR__) . '/config/main.config.php';
 include dirname(__DIR__) . '/config/settings/server.php';
 
 return ['system', [
-        'dev' => $dev,
+        'dev' => true,
         'doc_root' => $docRoot,
         'is_local' => $isLocal,
         'dev_domain' => 'http://localhost',

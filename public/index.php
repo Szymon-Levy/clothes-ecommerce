@@ -1,8 +1,7 @@
 <?php
 
-use Core\Application\Application;
+require_once dirname(__DIR__) . '/vendor/autoload.php';
 
-include '../src/bootstrap.php';
+$application = Core\Application\Application::getInstance();
 
-$application = Application::getInstance();
 $application->run();
