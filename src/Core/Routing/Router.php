@@ -81,7 +81,7 @@ class Router
     public function redirect($path)
     {
         header(
-            "Location: " . $this->config->system()['doc_root'] . $path,
+            "Location: " . $this->config->system('doc_root') . trim($path, '/'),
             $replace = true,
             $code = 301
         );

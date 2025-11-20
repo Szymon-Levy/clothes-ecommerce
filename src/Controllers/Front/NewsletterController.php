@@ -77,7 +77,7 @@ class NewsletterController extends BaseController
             $this->utils->showUserMessage('A problem with sending the message to the specified email occured, check if the email address is correct and try again!', 'error');
         }
 
-        $this->router->redirect('');
+        $this->router->redirect('/');
     }
 
     public function deleteSubscribtion()
@@ -92,6 +92,6 @@ class NewsletterController extends BaseController
             $this->utils->showUserMessage('Invalid token. Try again.', 'error');
         }
 
-        $this->router->redirect('');
+        $this->router->redirect('/');
     }
 }
