@@ -3,7 +3,6 @@
 namespace Core\Routing;
 
 use Core\Config\Config;
-use Core\Container\Container;
 use Core\Http\Request;
 use Core\Routing\Exceptions\MethodNotAllowedException;
 use Core\Routing\Exceptions\RouteNotFoundException;
@@ -18,7 +17,6 @@ class Router
     protected array $groupMiddlewares = [];
 
     public function __construct(
-        protected Container $container,
         protected Request $request,
         protected TemplateEngine $templateEngine,
         protected Config $config,
