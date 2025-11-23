@@ -7,5 +7,5 @@ $isLocal = in_array($_SERVER['SERVER_NAME'], [
 ]);
 
 // upload files directory
-$publicDirName = basename(dirname($_SERVER['SCRIPT_FILENAME']));
-$uploadsDir = dirname(__DIR__) . DIRECTORY_SEPARATOR . $publicDirName . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR;
+$publicDir = dirname($_SERVER['SCRIPT_FILENAME']);
+$uploadsDir = $publicDir . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR;
