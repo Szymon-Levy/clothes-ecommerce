@@ -17,7 +17,7 @@ class Request
         $this->method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
 
         // Uri
-        $this->uri = $this->getUri();
+        $this->uri = $_SERVER['REQUEST_URI'] ?? '/';
 
         // Get params
         $this->getParams = $_GET;
@@ -72,18 +72,5 @@ class Request
     public function uri()
     {
         return $this->uri;
-    }
-
-    protected function getUri()
-    {
-        $uri = $_SERVER['REQUEST_URI'] ?? '/';
-        $uri = parse_url($uri, PHP_URL_PATH);
-        $base = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/');
-
-        if ($base !== '' && str_starts_with($uri, $base)) {
-            $uri = substr($uri, strlen($base));
-        }
-
-        return $uri ?: '/';
     }
 }
