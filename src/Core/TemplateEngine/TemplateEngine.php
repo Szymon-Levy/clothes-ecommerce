@@ -109,7 +109,7 @@ class TemplateEngine
                 <div style="opacity: 0; position: absolute; top: 0; left: 0; height: 0; width: 0; z-index: -1;">
                     <label>
                         leave this field blank to prove your humanity
-                        <input type="text" name="website" value="" autocomplete="off" tabindex="-1" />
+                        <input type="text" name="website" value="" autocomplete="new-password" tabindex="-1" />
                     </label>
                 </div>
             ';

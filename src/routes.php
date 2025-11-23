@@ -14,12 +14,12 @@ return function (Router $router) {
     // FRONT
     $router->get('/', [HomeController::class, 'index']);
 
-    $router->post('/ajax/newsletter-subscribe', [FrontNewsletterController::class, 'subscribe']);
+    $router->post('/newsletter/subscriber/add', [FrontNewsletterController::class, 'subscribe']);
     $router->get('/confirm-subscribtion/{token}', [FrontNewsletterController::class, 'confirmSubscribtion']);
     $router->get('/delete-subscribtion/{token}', [FrontNewsletterController::class, 'deleteSubscribtion']);
 
     $router->get('/contact', [ContactController::class, 'index']);
-    $router->post('/ajax/contact-send-message', [ContactController::class, 'sendMessage']);
+    $router->post('/contact/send-message', [ContactController::class, 'sendMessage']);
 
     $router->get('/privacy-policy', [SitePolicyController::class, 'privacyPolicy']);
     $router->get('/terms-and-conditions', [SitePolicyController::class, 'termsAndConditions']);
@@ -37,8 +37,8 @@ return function (Router $router) {
         $router->get('/newsletter', [AdminNewsletterController::class, 'index']);
         $router->get('/newsletter/add-subscriber', [AdminNewsletterController::class, 'addSubscriber']);
         $router->get('/newsletter/edit-subscriber/{id}', [AdminNewsletterController::class, 'editSubscriber']);
-        $router->post('/ajax/add-subscriber', [AdminNewsletterController::class, 'addSubscriberToDB']);
-        $router->post('/ajax/delete-subscribers', [AdminNewsletterController::class, 'deleteSubscribers']);
-        $router->post('/ajax/edit-subscriber', [AdminNewsletterController::class, 'editSubscriberInDB']);
+        $router->post('/newsletter/subscriber/add', [AdminNewsletterController::class, 'addSubscriberToDB']);
+        $router->post('/newsletter/subscribers/delete', [AdminNewsletterController::class, 'deleteSubscribers']);
+        $router->post('/newsletter/subscribers/update', [AdminNewsletterController::class, 'editSubscriberInDB']);
     });
 };

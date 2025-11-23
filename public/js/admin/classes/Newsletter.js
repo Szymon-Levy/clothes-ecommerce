@@ -62,7 +62,7 @@ class Newsletter {
 
     async sendAddSubscriberRequest() {
         try {
-            const request = await fetch('/admin/ajax/add-subscriber', {
+            const request = await fetch('/admin/newsletter/subscriber/add', {
                 method: 'POST',
                 body: this.formData
             })
@@ -145,7 +145,7 @@ class Newsletter {
 
     async sendEditSubscriberRequest() {
         try {
-            const request = await fetch('/admin/ajax/edit-subscriber', {
+            const request = await fetch('/admin/newsletter/subscribers/update', {
                 method: 'POST',
                 body: this.formData
             })
@@ -210,7 +210,7 @@ class Newsletter {
         let success = false
 
         try {
-            const request = await fetch('/admin/ajax/delete-subscribers', {
+            const request = await fetch('/admin/newsletter/subscribers/delete', {
                 method: 'POST',
                 body: this.deleteSubscribersForm.formData
             })

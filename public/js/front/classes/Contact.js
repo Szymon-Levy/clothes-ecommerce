@@ -85,7 +85,7 @@ class Contact {
 
     async sendContactRequest() {
         try {
-            const request = await fetch('/ajax/contact-send-message', {
+            const request = await fetch('/contact/send-message', {
                 method: 'POST',
                 body: this.formData
             })
