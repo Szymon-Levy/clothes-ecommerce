@@ -17,7 +17,7 @@ class Request
         $this->method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
 
         // Uri
-        $this->uri = $_SERVER['REQUEST_URI'] ?? '/';
+        $this->uri = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH);
 
         // Get params
         $this->getParams = $_GET;

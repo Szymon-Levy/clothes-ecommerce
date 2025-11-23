@@ -114,7 +114,7 @@ class NewsletterController extends BaseController
         if ($dbResponse == '200') {
             $this->utils->showAdminMessage($name . ' has been successfully added to the subscriber list.', 'success');
             $response['success'] = true;
-            $response['path'] = 'admin/newsletter';
+            $response['path'] = '/admin/newsletter';
         } else if ($dbResponse == '1062') {
             $response['error'] = 'This e-mail address has already been taken!';
         } else if ($dbResponse == 'email_error') {
@@ -197,7 +197,7 @@ class NewsletterController extends BaseController
         if ($dbResponse == '200') {
             $this->utils->showAdminMessage($name . ' has been successfully updated.', 'success');
             $response['success'] = true;
-            $response['path'] = 'admin/newsletter';
+            $response['path'] = '/admin/newsletter';
         } else if ($dbResponse == 'subscriber_not_found') {
             $response['error'] = 'Subscriber with given id doesn\'t exist!';
         } else if ($dbResponse == '1062') {

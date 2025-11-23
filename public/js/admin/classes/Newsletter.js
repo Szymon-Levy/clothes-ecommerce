@@ -62,7 +62,7 @@ class Newsletter {
 
     async sendAddSubscriberRequest() {
         try {
-            const request = await fetch(docRoot + 'admin/ajax/add-subscriber', {
+            const request = await fetch('/admin/ajax/add-subscriber', {
                 method: 'POST',
                 body: this.formData
             })
@@ -78,7 +78,7 @@ class Newsletter {
         this.clearFormErrors()
 
         if (this.response.hasOwnProperty('success')) {
-            location.href = docRoot + this.response.path
+            location.href = this.response.path
         }
         else if (this.response.hasOwnProperty('error')) {
             uiController.showAlert(this.response.error, 'error')
@@ -145,7 +145,7 @@ class Newsletter {
 
     async sendEditSubscriberRequest() {
         try {
-            const request = await fetch(docRoot + 'admin/ajax/edit-subscriber', {
+            const request = await fetch('/admin/ajax/edit-subscriber', {
                 method: 'POST',
                 body: this.formData
             })
@@ -162,7 +162,7 @@ class Newsletter {
         this.clearFormErrors()
 
         if (this.response.hasOwnProperty('success')) {
-            location.href = docRoot + this.response.path
+            location.href = this.response.path
         }
         else if (this.response.hasOwnProperty('error')) {
             uiController.showAlert(this.response.error, 'error')
@@ -210,7 +210,7 @@ class Newsletter {
         let success = false
 
         try {
-            const request = await fetch(docRoot + 'admin/ajax/delete-subscribers', {
+            const request = await fetch('/admin/ajax/delete-subscribers', {
                 method: 'POST',
                 body: this.deleteSubscribersForm.formData
             })

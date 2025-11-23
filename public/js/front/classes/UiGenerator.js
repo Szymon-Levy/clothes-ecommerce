@@ -30,7 +30,7 @@ class UiGenerator {
         }
 
         try {
-            const request = await fetch(docRoot + 'ui_elements/' + elementUrl, {
+            const request = await fetch('/ui_elements/' + elementUrl, {
                 method: 'POST',
                 body: this.getFormdataParameters()
             })

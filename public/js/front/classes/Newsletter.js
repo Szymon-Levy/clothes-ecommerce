@@ -70,7 +70,7 @@ class Newsletter {
 
     async sendSubscribtionRequest() {
         try {
-            const request = await fetch(docRoot + 'ajax/newsletter-subscribe', {
+            const request = await fetch('/ajax/newsletter-subscribe', {
                 method: 'POST',
                 body: this.formData
             })
