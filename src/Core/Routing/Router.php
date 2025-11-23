@@ -80,8 +80,10 @@ class Router
 
     public function redirect($path)
     {
+        $path = '/' . ltrim($path, '/');
+
         header(
-            "Location: " . $this->config->system('doc_root') . trim($path, '/'),
+            "Location: " . $path,
             $replace = true,
             $code = 301
         );

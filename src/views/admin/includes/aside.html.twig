@@ -1,8 +1,6 @@
-{% set doc_root = config.system.doc_root %}
-
 <aside class="aside js-aside">
 	<div class="aside__top">
-		<a href="{{ doc_root }}admin" class="aside__logo">
+		<a href="/admin" class="aside__logo">
 			<img src="{{ assets('images/admin/logo/logo.png') }}" alt="NomisCMS logo">
 			NomisCMS
 		</a>
@@ -16,7 +14,7 @@
 		<!-- dashboard -->
 		<ul class="aside__nav__menu">
 			<li class="aside__nav__menu__item">
-				<a href="{{ doc_root }}admin" class="aside__nav__menu__item__title {{ pageActiveStatus('', url_parts[1]) }}">
+				<a href="/admin" class="aside__nav__menu__item__title {{ pageActiveStatus('', url_parts[1]) }}">
 					<i class="ri-dashboard-3-line" aria-hidden="true"></i>
 					Dashboard
 				</a>
@@ -35,7 +33,7 @@
 
 				<ul class="aside__nav__menu__item__links">
 					<li>
-						<a href="{{ doc_root }}admin/users" class="aside__nav__menu__item__links__item">Users list</a>
+						<a href="/admin/users" class="aside__nav__menu__item__links__item">Users list</a>
 					</li>
 
 					<li>
@@ -107,11 +105,11 @@
 
 				<ul class="aside__nav__menu__item__links">
 					<li>
-						<a href="{{ doc_root }}admin/newsletter" class="aside__nav__menu__item__links__item {% if url_parts[1] == 'newsletter' and not url_parts[2] is defined %}active{% endif %}">Subscribers list</a>
+						<a href="/admin/newsletter" class="aside__nav__menu__item__links__item {% if url_parts[1] == 'newsletter' and not url_parts[2] is defined %}active{% endif %}">Subscribers list</a>
 					</li>
 
 					<li>
-						<a href="{{ doc_root }}admin/newsletter/add-subscriber" class="aside__nav__menu__item__links__item {% if url_parts[1] == 'newsletter' and url_parts[2] == 'add-subscriber' %}active{% endif %}">Add subscriber</a>
+						<a href="/admin/newsletter/add-subscriber" class="aside__nav__menu__item__links__item {% if url_parts[1] == 'newsletter' and url_parts[2] == 'add-subscriber' %}active{% endif %}">Add subscriber</a>
 					</li>
 
 					<li>
@@ -126,7 +124,7 @@
 		</ul>
 	</nav>
 
-	<a href="{{ doc_root }}" class="aside__frontpage-btn btn btn--full" target="_blank">
+	<a href="/" class="aside__frontpage-btn btn btn--full" target="_blank">
 		<i class="ri-home-line" aria-hidden="true"></i>
 		front page
 	</a>

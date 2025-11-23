@@ -63,11 +63,13 @@ class TemplateEngine
     protected function extendTwig()
     {
         $assets = new \Twig\TwigFunction('assets', function (string $filePath) {
+            $filePath = ltrim($filePath, '/');
+
             if (file_exists($filePath)) {
                 $filePath .= '?v=' . filemtime($filePath);
             }
     
-            return $this->config->system('doc_root') . $filePath;
+            return '/' . $filePath;
         });
     
         $this->engine->addFunction($assets);
@@ -84,7 +86,7 @@ class TemplateEngine
 
                 if (file_exists($filePath)) {
                     $filePath .= '?v=' . filemtime($filePath);
-                    $fullPath = $this->config->system('doc_root') . $filePath;
+                    $fullPath = '/' . $filePath;
                     echo '<script src="' . $fullPath . '" defer type="module"></script>';
                 }
             }

@@ -7,10 +7,9 @@
 {% block content %}
 
 	{% set admin_pagination = config.system.admin_pagination %}
-	{% set doc_root = config.system.doc_root %}
 
 	<div class="app-content__panel__top">
-		<form class="app-content__panel__top__search-form form" action="{{ doc_root }}admin/newsletter">
+		<form class="app-content__panel__top__search-form form" action="/admin/newsletter">
 			{% if sort == 'd' %}
 				<input type="hidden" name="sort" value="d">
 			{% endif %}
@@ -37,7 +36,7 @@
 				{% set query_params = query_params | merge({ sort: 'd' }) %}
 			{% endif %}
 
-			{% set url = doc_root ~ 'admin/newsletter?' ~ query_params | url_encode %}
+			{% set url = '/admin/newsletter?' ~ query_params | url_encode %}
 
 			<a href="{{ url }}" class="btn app-content__panel__top__buttons__date">
 				<i class="ri-calendar-2-line" aria-hidden="true"></i>
@@ -51,22 +50,22 @@
 				{% endif %}
 			</a>
 
-			<a href="{{ doc_root }}admin/newsletter/add-subscriber" class="btn btn--full">
+			<a href="/admin/newsletter/add-subscriber" class="btn btn--full">
 				<i class="ri-add-line" aria-hidden="true"></i>
 				Add new
 			</a>
 
-			<button href="{{ doc_root }}admin/newsletter" class="btn btn--full app-content__panel__top__buttons__delete js-delete-selected" data-deletion-content="subscriber">
+			<button href="/admin/newsletter" class="btn btn--full app-content__panel__top__buttons__delete js-delete-selected" data-deletion-content="subscriber">
 				<i class="ri-delete-bin-line" aria-hidden="true"></i>
 				Delete selected
 			</button>
 
-			<a href="{{ doc_root }}admin/export/newsletter-subscribers" class="btn btn--full excel" target="_blank">
+			<a href="/admin/export/newsletter-subscribers" class="btn btn--full excel" target="_blank">
 				<i class="ri-file-excel-2-line" aria-hidden="true"></i>
 				Export to Excel
 			</a>
 
-			<a href="{{ doc_root }}admin/newsletter" class="btn app-content__panel__top__buttons__refresh">
+			<a href="/admin/newsletter" class="btn app-content__panel__top__buttons__refresh">
 				<i class="ri-refresh-line" aria-hidden="true"></i>
 				<span class="visually-hidden">Refresh</span>
 			</a>
@@ -85,7 +84,7 @@
 				</div>
 			</div>
 
-			<form action="{{ doc_root }}admin/newsletter" class="sort-columns-mobile js-sort-columns-mobile-form">
+			<form action="/admin/newsletter" class="sort-columns-mobile js-sort-columns-mobile-form">
 				{% if keyword %}
 					<input type="hidden" name="keyword" value="{{ keyword }}">
 				{% endif %}
@@ -137,9 +136,9 @@
 							{% endif %}
 
 							{% if query_params %}
-								{% set url = doc_root ~ 'admin/newsletter?' ~ query_params | url_encode %}
+								{% set url = '/admin/newsletter?' ~ query_params | url_encode %}
 							{% else %}
-								{% set url = doc_root ~ 'admin/newsletter' %}
+								{% set url = '/admin/newsletter' %}
 							{% endif %}
 
 							<a href="{{ url }}" class="order {% if order_by == '' or order_by == 'id' %}order--selected{% endif %}">Id
@@ -162,7 +161,7 @@
 								{% set query_params = query_params | merge({ sort: 'd' }) %}
 							{% endif %}
 
-							{% set url = doc_root ~ 'admin/newsletter?' ~ query_params | url_encode %}
+							{% set url = '/admin/newsletter?' ~ query_params | url_encode %}
 
 							<a href="{{ url }}" class="order {% if order_by == 'name' %}order--selected{% endif %}">Name
 
@@ -184,7 +183,7 @@
 								{% set query_params = query_params | merge({ sort: 'd' }) %}
 							{% endif %}
 
-							{% set url = doc_root ~ 'admin/newsletter?' ~ query_params | url_encode %}
+							{% set url = '/admin/newsletter?' ~ query_params | url_encode %}
 
 							<a href="{{ url }}" class="order {% if order_by == 'email' %}order--selected{% endif %}">Email
 
@@ -206,7 +205,7 @@
 								{% set query_params = query_params | merge({ sort: 'd' }) %}
 							{% endif %}
 
-							{% set url = doc_root ~ 'admin/newsletter?' ~ query_params | url_encode %}
+							{% set url = '/admin/newsletter?' ~ query_params | url_encode %}
 
 							<a href="{{ url }}" class="order {% if order_by == 'is_active' %}order--selected{% endif %}">Activity
 
@@ -228,7 +227,7 @@
 								{% set query_params = query_params | merge({ sort: 'd' }) %}
 							{% endif %}
 
-							{% set url = doc_root ~ 'admin/newsletter?' ~ query_params | url_encode %}
+							{% set url = '/admin/newsletter?' ~ query_params | url_encode %}
 
 							<a href="{{ url }}" class="order {% if order_by == 'created_at' %}order--selected{% endif %}">Created at
 
@@ -264,7 +263,7 @@
 							<td data-label="Created at">{{ subscriber.created_at|date() }}</td>
 							<td data-label="Actions">
 								<div class="table__actions">
-									<a class="table__actions__btn table__actions__btn--edit" href="{{ doc_root }}admin/newsletter/edit-subscriber/{{ subscriber.id }}">
+									<a class="table__actions__btn table__actions__btn--edit" href="/admin/newsletter/edit-subscriber/{{ subscriber.id }}">
 										<i class="ri-edit-line" aria-hidden="true"></i>
 										<span class="visually-hidden">Edit item</span>
 									</a>
@@ -317,7 +316,7 @@
 				<ul class="app-content__panel__bottom__pagination">
 					{% if page > 1 %}
 						<li>
-							<a class="app-content__panel__bottom__pagination__button app-content__panel__bottom__pagination__button--first" href="{{ doc_root }}admin/newsletter{% if pagination_params %}?{% endif %}{{ pagination_params }}">
+							<a class="app-content__panel__bottom__pagination__button app-content__panel__bottom__pagination__button--first" href="/admin/newsletter{% if pagination_params %}?{% endif %}{{ pagination_params }}">
 								<i class="ri-skip-left-line" aria-hidden="true"></i>
 							</a>
 						</li>
@@ -326,14 +325,14 @@
 					{% for i in 1..pages %}
 
 						<li>
-							<a class="app-content__panel__bottom__pagination__button {% if page == i %}active{% endif %}" href="{{ doc_root }}admin/newsletter?page={{ i }}{% if pagination_params %}&{% endif %}{{ pagination_params }}">{{ i }}</a>
+							<a class="app-content__panel__bottom__pagination__button {% if page == i %}active{% endif %}" href="/admin/newsletter?page={{ i }}{% if pagination_params %}&{% endif %}{{ pagination_params }}">{{ i }}</a>
 						</li>
 
 					{% endfor %}
 
 					{% if page < pages %}
 						<li>
-							<a class="app-content__panel__bottom__pagination__button app-content__panel__bottom__pagination__button--last" href="{{ doc_root }}admin/newsletter?page={{ pages }}{% if pagination_params %}&{% endif %}{{ pagination_params }}">
+							<a class="app-content__panel__bottom__pagination__button app-content__panel__bottom__pagination__button--last" href="/admin/newsletter?page={{ pages }}{% if pagination_params %}&{% endif %}{{ pagination_params }}">
 								<i class="ri-skip-right-line" aria-hidden="true"></i>
 							</a>
 						</li>

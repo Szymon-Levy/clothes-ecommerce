@@ -1,4 +1,4 @@
-{% set domain = config.system.prod_domain %}
+{% set prod_domain = config.system.prod_domain %}
 
 <!DOCTYPE html>
 <html>
@@ -18,8 +18,8 @@
 						<table width="100%" style="border-spacing: 0;">
 							<tr>
 								<td style="padding: 40px 0 20px; text-align: center;" align="center">
-									<a href="{{ domain }}">
-										<img src="{{ domain }}/images/email/logo.png" width="110" style="border: 0;" alt="{{ config.shop.name }}">
+									<a href="{{ prod_domain }}">
+										<img src="{{ prod_domain }}/images/email/logo.png" width="110" style="border: 0;" alt="{{ config.shop.name }}">
 									</a>
 								</td>
 							</tr>
@@ -50,8 +50,8 @@
 
 							<tr>
 								<td style="padding: 30px 0 0; text-align: center;" align="center">
-									<a href="{{ (config.system.is_local ? config.system.dev_domain ~ config.system.doc_root : config.system.prod_domain ~ '/') }}confirm-subscribtion/{{ token }}">
-										<img src="{{ domain }}/images/email/btn-activate-subscribtion.png" width="181" style="border: 0; max-width: 181px;" alt="Activate subscribtion">
+									<a href="{{ (config.system.is_local ? config.system.dev_domain : prod_domain) }}/confirm-subscribtion/{{ token }}">
+										<img src="{{ prod_domain }}/images/email/btn-activate-subscribtion.png" width="181" style="border: 0; max-width: 181px;" alt="Activate subscribtion">
 									</a>
 								</td>
 							</tr> <!-- button -->
@@ -78,7 +78,7 @@
 
 							<tr>
 								<td style="padding: 50px 0 0; text-align: center;" align="center">
-									<img src="{{ domain }}/images/email/email.jpg" width="600" style="display: block; border: 0; max-width: 100%;" alt="Shining envelope">
+									<img src="{{ prod_domain }}/images/email/email.jpg" width="600" style="display: block; border: 0; max-width: 100%;" alt="Shining envelope">
 								</td>
 							</tr> <!-- image -->
 						</table>
@@ -92,23 +92,23 @@
 							<tr>
 								<td style="padding: 20px 0 0; text-align: center;" align="center">
 									<a href="https://www.facebook.com/" style="padding: 0 5px; display: inline-block;">
-										<img src="{{ domain }}/images/email/facebook.png" width="30" style="border: 0;" alt="facebook icon">
+										<img src="{{ prod_domain }}/images/email/facebook.png" width="30" style="border: 0;" alt="facebook icon">
 									</a>
 
 									<a href="https://www.instagram.com/" style="padding: 0 5px; display: inline-block;">
-										<img src="{{ domain }}/images/email/instagram.png" width="30" style="border: 0;" alt="instagram icon">
+										<img src="{{ prod_domain }}/images/email/instagram.png" width="30" style="border: 0;" alt="instagram icon">
 									</a>
 
 									<a href="https://www.tiktok.com/" style="padding: 0 5px; display: inline-block;">
-										<img src="{{ domain }}/images/email/tiktok.png" width="30" style="border: 0;" alt="tiktok icon">
+										<img src="{{ prod_domain }}/images/email/tiktok.png" width="30" style="border: 0;" alt="tiktok icon">
 									</a>
 
 									<a href="https://www.linkedin.com/" style="padding: 0 5px; display: inline-block;">
-										<img src="{{ domain }}/images/email/linkedin.png" width="30" style="border: 0;" alt="linkedin icon">
+										<img src="{{ prod_domain }}/images/email/linkedin.png" width="30" style="border: 0;" alt="linkedin icon">
 									</a>
 
 									<p style="margin: 0; padding: 10px 0 0;">
-										<a href="{{ domain }}" style="font-size: 16px; color: #000; text-decoration: none;">
+										<a href="{{ prod_domain }}" style="font-size: 16px; color: #000; text-decoration: none;">
 											www.clothes-ecommerce.com.pl
 										</a>
 									</p>

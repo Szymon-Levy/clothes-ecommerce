@@ -1,18 +1,16 @@
-{% set doc_root = config.system.doc_root %}
-
 <div class="page-title">
 	<div class="container">
 		<div class="row">
 			<ul class="breadcrumbs">
 				<li>
-					<a href="{{ doc_root }}">Home</a>
+					<a href="/">Home</a>
 				</li>
 
 				{% for page in url_parts %}
 					{% if not loop.first %}
 						<li>
 							<a 
-                                href="{{ doc_root ~ url_parts|map(page => page|e('url'))|join('/') }}" 
+                                href="/{{ url_parts|map(page => page|e('url'))|join('/') }}" 
                                 {% if loop.last %} class="active" {% endif %}
                             >
                                     {{ page|replace({'-': ' '}) }}
@@ -20,7 +18,7 @@
 						</li>
 					{% else %}
 						<li>
-							<a href="{{ doc_root }}{{ page|e('url') }}" {% if loop.last %} class="active" {% endif %}>{{ page|replace({'-': ' '}) }}</a>
+							<a href="/{{ page|e('url') }}" {% if loop.last %} class="active" {% endif %}>{{ page|replace({'-': ' '}) }}</a>
 						</li>
 					{% endif %}
 				{% endfor %}
