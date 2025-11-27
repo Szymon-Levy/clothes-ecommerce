@@ -2,7 +2,6 @@
 
 namespace Core\Routing;
 
-use Core\Config\Config;
 use Core\Http\Request;
 use Core\Routing\Exceptions\MethodNotAllowedException;
 use Core\Routing\Exceptions\RouteNotFoundException;
@@ -11,45 +10,48 @@ use Core\TemplateEngine\TemplateEngine;
 class Router
 {
     protected array $routes = [];
-    protected array $errorHandlers = [];
     protected array $urlParts;
-    protected string $groupPathPrefix = '';
-    protected array $groupMiddlewares = [];
+    protected array $groupMiddlewareStack = [];
+    protected string $groupPrefix = '';
+    protected array $nextMiddleware = [];
 
     public function __construct(
         protected Request $request,
-        protected TemplateEngine $templateEngine,
-        protected Config $config,
-        protected Dispatcher $dispatcher
+        protected TemplateEngine $templateEngine
     ){}
 
-    public function get(string $path, $handler)
+    public function get(string $path, callable|array $handler): Route
     {
-        return $this->add('GET', $path, $handler);
+        return $this->addRoute('GET', $path, $handler);
     }
 
-    public function post(string $path, $handler)
+    public function post(string $path, callable|array $handler): Route
     {
-        return $this->add('POST', $path, $handler);
+        return $this->addRoute('POST', $path, $handler);
     }
 
-    public function group(string $pathPrefix, callable $handler)
+    public function group(string $pathPrefix, callable $handler): void
     {
-        $this->groupPathPrefix = $pathPrefix;
+        $previousPrefix = $this->groupPrefix;
+        $previousGroupMiddleware = $this->groupMiddlewareStack;
+
+        $this->groupPrefix .= $pathPrefix;
+        
+        if (!empty($this->nextMiddleware)) {
+            $this->groupMiddlewareStack = array_merge($this->groupMiddlewareStack, $this->nextMiddleware);
+            $this->nextMiddleware = [];
+        }
 
         $handler($this);
 
-        $this->groupPathPrefix = '';
-        $this->groupMiddlewares = [];
+        $this->groupPrefix = $previousPrefix;
+        $this->groupMiddlewareStack = $previousGroupMiddleware;
     }
 
-    public function middleware(array|string $names)
+    public function middleware(array|string $middleware): self
     {
-        if (is_string($names)) {
-            $names = (Array) $names;
-        }
-
-        $this->groupMiddlewares = $names;
+        $middleware = (array) $middleware;
+        $this->nextMiddleware = array_merge($this->nextMiddleware, $middleware);
 
         return $this;
     }
@@ -62,6 +64,8 @@ class Router
         $matching = $this->match($method, $uri);
 
         if ($matching) {
+            echo '<pre>';
+            print_r($matching); die;
             $this->passUrlPartsToTwig($uri);
 
             $this->request->setRouteParams($matching->parameters());
@@ -125,15 +129,16 @@ class Router
         return null;
     }
 
-    protected function add(string $method, string $path, $handler): Route
+    protected function addRoute(string $method, string $path, $handler): Route
     {
-        $path = $this->groupPathPrefix . $path;
+        $fullPath = $this->groupPrefix . $path;
 
-        $route = $this->routes[] = new Route($method, $path, $handler, $this->groupMiddlewares);
+        $finalMiddleware = array_merge($this->groupMiddlewareStack, $this->nextMiddleware);
 
-        if ($this->groupPathPrefix === '') {
-            $this->groupMiddlewares = [];
-        }
+        $route = new Route($method, $fullPath, $handler, $finalMiddleware);
+        $this->routes[] = $route;
+
+        $this->nextMiddleware = [];
 
         return $route;
     }

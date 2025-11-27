@@ -7,7 +7,7 @@ class Route
     protected string $method;
     protected string $path;
     protected mixed $handler;
-    protected array $middlewares;
+    protected array $middlewares = [];
     protected array $parameters = [];
 
     public function __construct(string $method, string $path, mixed $handler, $middlewares = [])
@@ -26,6 +26,11 @@ class Route
     public function path(): string
     {
         return $this->path;
+    }
+
+    public function middlewares(): array
+    {
+        return $this->middlewares;
     }
 
     public function handler()
