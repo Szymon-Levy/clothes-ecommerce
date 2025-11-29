@@ -9,7 +9,8 @@
         "psr-4": {
             "Core\\": "src/Core/",
             "Models\\": "src/Models/",
-            "Controllers\\": "src/Controllers/"
+            "Controllers\\": "src/Controllers/",
+            "Middlewares\\": "src/Middlewares/"
         }
     }
 }
