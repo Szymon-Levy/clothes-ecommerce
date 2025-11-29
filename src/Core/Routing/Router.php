@@ -56,7 +56,7 @@ class Router
         return $this;
     }
 
-    public function dispatch()
+    public function matchRoute()
     {
         $uri = $this->request->uri();
         $method = $this->request->method();
@@ -64,8 +64,8 @@ class Router
         $matching = $this->match($method, $uri);
 
         if ($matching) {
-            echo '<pre>';
-            print_r($matching); die;
+            // echo '<pre>';
+            // print_r($matching);
             $this->passUrlPartsToTwig($uri);
 
             $this->request->setRouteParams($matching->parameters());
@@ -73,13 +73,22 @@ class Router
             return $matching;
         }
 
-        $paths = $this->paths();
-
-        if (in_array($uri, $paths)) {
+        if ($this->checkIfRouteExistsForOtherMethod($uri)) {
             throw new MethodNotAllowedException("Method {$method} not allowed on {$uri}");
         }
 
         throw new RouteNotFoundException("Route {$uri} not found");
+    }
+
+    protected function checkIfRouteExistsForOtherMethod(string $uri): bool
+    {
+        foreach ($this->routes as $route) {
+            if ($route->matchesPath($uri)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public function redirect($path)
@@ -107,17 +116,6 @@ class Router
         $this->templateEngine->addGlobalVariable('url_parts', $this->urlParts());
     }
 
-    protected function paths(): array
-    {
-        $paths = [];
-
-        foreach ($this->routes as $route) {
-            $paths[] = $route->path();
-        }
-
-        return $paths;
-    }
-
     protected function match(string $method, string $path): ?Route
     {
         foreach ($this->routes as $route) {
@@ -132,6 +130,7 @@ class Router
     protected function addRoute(string $method, string $path, $handler): Route
     {
         $fullPath = $this->groupPrefix . $path;
+        $fullPath = '/' . trim($fullPath, '/');
 
         $finalMiddleware = array_merge($this->groupMiddlewareStack, $this->nextMiddleware);
 
