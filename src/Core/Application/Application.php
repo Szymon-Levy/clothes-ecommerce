@@ -10,6 +10,7 @@ use Core\Http\Csrf;
 use Core\Routing\Dispatcher;
 use Core\Routing\Exceptions\MethodNotAllowedException;
 use Core\Routing\Exceptions\RouteNotFoundException;
+use Middlewares\Exceptions\CsrfException;
 
 class Application
 {
@@ -31,12 +32,15 @@ class Application
         $routes($router);
 
         try {
-            $route = $router->dispatch();
+            $route = $router->matchRoute();
+            
             $this->dispatcher->dispatch($route);
         } catch (RouteNotFoundException $e) {
             $this->handleError('404');
         } catch (MethodNotAllowedException $e) {
-            $this->handleError('400');
+            $this->handleError('405');
+        } catch (CsrfException $e) {
+            $this->handleError('403');
         } catch (\Throwable $e) {
             $this->handleError('500', $e);
         }

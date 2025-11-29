@@ -64,8 +64,6 @@ class Router
         $matching = $this->match($method, $uri);
 
         if ($matching) {
-            // echo '<pre>';
-            // print_r($matching);
             $this->passUrlPartsToTwig($uri);
 
             $this->request->setRouteParams($matching->parameters());

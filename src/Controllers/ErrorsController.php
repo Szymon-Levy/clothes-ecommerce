@@ -6,13 +6,13 @@ use Controllers\BaseController;
 
 class ErrorsController extends BaseController
 {
-    public function error400()
+    public function error403()
     {
         $data = [
             'error_page' => true,
         ];
 
-        $this->renderView('front/errors/400.html.twig', $data);
+        $this->renderView('front/errors/403.html.twig', $data);
     }
 
     public function error404()
@@ -22,6 +22,15 @@ class ErrorsController extends BaseController
         ];
 
         $this->renderView('front/errors/404.html.twig', $data);
+    }
+
+    public function error405()
+    {
+        $data = [
+            'error_page' => true,
+        ];
+
+        $this->renderView('front/errors/405.html.twig', $data);
     }
 
     public function error500(\Throwable $e)
