@@ -3,11 +3,13 @@
 namespace Core\Routing;
 
 use Core\Container\Container;
+use Core\Http\Request;
 
 class Dispatcher
 {
     public function __construct(
-        protected Container $container
+        protected Container $container,
+        protected Request $request
     ){}
 
     public function dispatch(Route $route)
@@ -15,9 +17,9 @@ class Dispatcher
         $handler = $route->handler();
         $middlewares = $route->middlewares();
 
-        $controller = fn($request) => $this->resolveController($handler, $request);
+        $controller = fn() => $this->resolveController($handler);
 
-        return $this->runMiddleware($middlewares, 0, $request = null, $controller);
+        return $this->runMiddleware($middlewares, 0, $this->request, $controller);
     }
 
     public function dispatchHandler(array $handler, ?\Throwable $e = null)
@@ -45,7 +47,7 @@ class Dispatcher
     protected function runMiddleware(array $middlewares, int $index, $request, callable $controller)
     {
         if ($index === count($middlewares)) {
-            return $controller($request);
+            return $controller();
         }
 
         $middlewareClass = $middlewares[$index];
