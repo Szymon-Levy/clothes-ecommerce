@@ -24,17 +24,4 @@ abstract class BaseController
     {
         echo $this->templateEngine->render($path, $data);
     }
-
-    protected function formSecurity(array $useOnly = [])
-    {
-        if (empty($useOnly) || in_array('bot', $useOnly)) {
-            $botError = $this->utils->isFormFilledByBot();
-
-            if ($botError) {
-                $response['error'] = $botError;
-                echo json_encode($response);
-                exit;
-            }
-        }
-    }
 }
