@@ -14,7 +14,7 @@ class NewsletterController extends BaseController
 
     public function subscribe()
     {
-        $this->formSecurity();
+        $this->formSecurity(['bot']);
 
         // post data
         $name = $this->request->post('name');

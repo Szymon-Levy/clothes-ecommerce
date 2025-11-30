@@ -2,28 +2,17 @@
 
 namespace Core\Utils;
 
-use Core\Http\Csrf;
 use Core\Http\Session;
 
 class Utils
 {
     public function __construct(
-        protected Session $session,
-        protected Csrf $csrf
+        protected Session $session
     ){}
 
     public function generateToken()
     {
         return bin2hex(random_bytes(16));
-    }
-
-    public function isCsrfIncorrect()
-    {
-        if (!isset($_POST['csrf']) || !$this->csrf->validateToken($_POST['csrf'])) {
-            return 'Operation not allowed, refresh the page and try again!';
-        }
-
-        return false;
     }
 
     public function isFormFilledByBot()

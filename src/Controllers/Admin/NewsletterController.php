@@ -83,7 +83,7 @@ class NewsletterController extends BaseController
 
     public function addSubscriberToDB()
     {
-        $this->formSecurity();
+        $this->formSecurity(['bot']);
 
         // post data
         $name = $this->request->post('name');
@@ -127,8 +127,6 @@ class NewsletterController extends BaseController
 
     public function deleteSubscribers()
     {
-        $this->formSecurity(['csrf']);
-
         // response
         $response = [];
 
@@ -159,7 +157,7 @@ class NewsletterController extends BaseController
 
     public function editSubscriberInDB()
     {
-        $this->formSecurity();
+        $this->formSecurity(['bot']);
 
         // post data
         $id = $this->request->post('id');

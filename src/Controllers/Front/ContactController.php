@@ -24,7 +24,7 @@ class ContactController extends BaseController
 
     public function sendMessage()
     {
-        $this->formSecurity();
+        $this->formSecurity(['bot']);
 
         // post data
         $name = $this->request->post('name');

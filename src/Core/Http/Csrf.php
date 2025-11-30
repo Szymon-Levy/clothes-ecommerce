@@ -31,7 +31,7 @@ class Csrf
         }
     }
 
-    public function validateToken(string $requestToken)
+    public function checkIfTokenValid(string $requestToken)
     {
         return hash_equals($this->token, $requestToken);
     }
