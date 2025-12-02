@@ -7,15 +7,17 @@ use Core\Config\Config;
 use Core\Container\Container;
 use Core\Database\DataBase;
 use Core\Http\Csrf;
+use Core\Http\Response\AbstractResponse;
+use Core\Http\Response\HtmlResponse;
 use Core\Routing\Dispatcher;
 use Core\Routing\Exceptions\MethodNotAllowedException;
 use Core\Routing\Exceptions\RouteNotFoundException;
-use Middlewares\Exceptions\CsrfException;
 
 class Application
 {
     protected Container $container;
     protected Dispatcher $dispatcher;
+    protected ?AbstractResponse $response = null;
     protected static $instances = [];
 
     protected function __construct()
@@ -28,21 +30,32 @@ class Application
         $router = $this->container->get(\Core\Routing\Router::class);
 
         $routes = require_once dirname(__DIR__, 2) . '/routes.php';
-
         $routes($router);
 
         try {
             $route = $router->matchRoute();
-            
-            $this->dispatcher->dispatch($route);
+            $result = $this->dispatcher->dispatch($route);
+
+            if (!$result instanceof AbstractResponse) {
+                $this->response = $this->handleError(
+                    '500', 
+                    new \Exception('Invalid return type. AbstractResponse expected.')
+                );
+            } else {
+                $this->response = $result;
+            }
         } catch (RouteNotFoundException $e) {
-            $this->handleError('404');
+            $this->response = $this->handleError('404');
         } catch (MethodNotAllowedException $e) {
-            $this->handleError('405');
-        } catch (CsrfException $e) {
-            $this->handleError('403');
+            $this->response = $this->handleError('405');
         } catch (\Throwable $e) {
-            $this->handleError('500', $e);
+            $this->response = $this->handleError('500', $e);
+        }
+
+        if ($this->response instanceof AbstractResponse) {
+            $this->response->send();
+        } else {
+            (new HtmlResponse('Internal Server error', 500))->send();
         }
     }
 
@@ -71,22 +84,17 @@ class Application
 
     protected function __clone(){}
 
-    public function __wakeup()
-    {
-        throw new \Exception("Cannot unserialize a singleton.");
-    }
+    public function __wakeup() {throw new \Exception("Cannot unserialize a singleton.");}
 
     protected function handleError(string $code, ?\Throwable $e = null)
     {
-        http_response_code($code);
-
         if ($code == '500') {
             error_log($e);
         }
 
         $handler = [ErrorsController::class, "error{$code}"];
 
-        $this->dispatcher->dispatchHandler($handler, $e);
+        return $this->dispatcher->dispatchHandler($handler, $e);
     }
 
     public static function getInstance(): Application

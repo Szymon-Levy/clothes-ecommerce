@@ -4,6 +4,7 @@ namespace Core\Routing;
 
 use Core\Container\Container;
 use Core\Http\Request;
+use Core\Http\Response\AbstractResponse;
 
 class Dispatcher
 {
@@ -24,7 +25,7 @@ class Dispatcher
 
     public function dispatchHandler(array $handler, ?\Throwable $e = null)
     {
-        $this->resolveController($handler, $e);
+        return $this->resolveController($handler, $e);
     }
 
     protected function resolveController($handler, $param = null)
