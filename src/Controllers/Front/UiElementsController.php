@@ -3,6 +3,7 @@
 namespace Controllers\Front;
 
 use Controllers\BaseController;
+use Core\Http\Response\HtmlResponse;
 
 class UiElementsController extends BaseController
 {
@@ -13,7 +14,9 @@ class UiElementsController extends BaseController
             'wrapper_class' => 'subscribtion-popup animate'
         ];
 
-        $this->renderView('ui_elements/subscribtion_popup.html.twig', $data);
+        return new HtmlResponse(
+            $this->view('ui_elements/subscribtion_popup.html.twig', $data)
+        );
     }
 
     public function videoPopup()
@@ -24,6 +27,8 @@ class UiElementsController extends BaseController
             'video_type' => $this->request->post('video_type', null)
         ];
 
-        $this->renderView('ui_elements/video_popup.html.twig', $data);
+        return new HtmlResponse(
+            $this->view('ui_elements/video_popup.html.twig', $data)
+        );
     }
 }

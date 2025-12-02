@@ -3,6 +3,7 @@
 namespace Controllers\Front;
 
 use Controllers\BaseController;
+use Core\Http\Response\HtmlResponse;
 
 class HomeController extends BaseController
 {
@@ -14,6 +15,9 @@ class HomeController extends BaseController
             'page_js' => 'home'
         ];
 
-        $this->renderView('front/index.html.twig', $data);
+        return new HtmlResponse(
+            $this->view('front/index.html.twig', 
+            $data)
+        );
     }
 }

@@ -20,8 +20,8 @@ abstract class BaseController
         protected Request $request
     ){}
 
-    protected function renderView(string $path, array $data = [])
+    protected function view(string $path, array $data = [])
     {
-        echo $this->templateEngine->render($path, $data);
+        return $this->templateEngine->render($path, $data);
     }
 }

@@ -3,6 +3,7 @@
 namespace Controllers\Admin;
 
 use Controllers\BaseController;
+use Core\Http\Response\HtmlResponse;
 use Core\Validation\Validation;
 use Models\NewsletterModel;
 
@@ -35,7 +36,9 @@ class NewsletterController extends BaseController
             'page_js' => 'newsletter'
         ];
 
-        $this->renderView('admin/newsletter/index.html.twig', $data);
+        return new HtmlResponse(
+            $this->view('admin/newsletter/index.html.twig', $data)
+        );
     }
 
     public function addSubscriber()
@@ -46,7 +49,9 @@ class NewsletterController extends BaseController
             'page_js' => 'newsletter'
         ];
 
-        $this->renderView('admin/newsletter/add-subscriber.html.twig', $data);
+        return new HtmlResponse(
+            $this->view('admin/newsletter/add-subscriber.html.twig', $data)
+        );
     }
 
     public function editSubscriber()
@@ -78,7 +83,9 @@ class NewsletterController extends BaseController
             'url_parts' => $urlParts
         ];
 
-        $this->renderView('admin/newsletter/edit-subscriber.html.twig', $data);
+        return new HtmlResponse(
+            $this->view('admin/newsletter/edit-subscriber.html.twig', $data)
+        );
     }
 
     public function addSubscriberToDB()

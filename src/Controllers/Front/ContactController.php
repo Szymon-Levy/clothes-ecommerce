@@ -3,6 +3,7 @@
 namespace Controllers\Front;
 
 use Controllers\BaseController;
+use Core\Http\Response\HtmlResponse;
 use Core\Validation\Validation;
 use Models\ContactModel;
 
@@ -19,7 +20,9 @@ class ContactController extends BaseController
             'page_js' => 'contact'
         ];
 
-        $this->renderView('front/contact.html.twig', $data);
+        return new HtmlResponse(
+            $this->view('front/contact.html.twig', $data)
+        );
     }
 
     public function sendMessage()

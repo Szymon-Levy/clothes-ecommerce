@@ -3,6 +3,7 @@
 namespace Controllers\Admin;
 
 use Controllers\BaseController;
+use Core\Http\Response\HtmlResponse;
 
 class DashboardController extends BaseController
 {
@@ -12,6 +13,8 @@ class DashboardController extends BaseController
             'page_title' => 'Dashboard'
         ];
 
-        $this->renderView('admin/dashboard.html.twig', $data);
+        return new HtmlResponse(
+            $this->view('admin/dashboard.html.twig', $data)
+        );
     }
 }

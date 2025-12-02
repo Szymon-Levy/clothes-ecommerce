@@ -3,6 +3,7 @@
 namespace Controllers\Front;
 
 use Controllers\BaseController;
+use Core\Http\Response\HtmlResponse;
 
 class SitePolicyController extends BaseController
 {
@@ -13,7 +14,9 @@ class SitePolicyController extends BaseController
             'page_title' => 'Privacy policy'
         ];
 
-        $this->renderView('front/privacy-policy.html.twig', $data);
+        return new HtmlResponse(
+            $this->view('front/privacy-policy.html.twig', $data)
+        );
     }
 
     public function termsAndConditions()
@@ -22,6 +25,8 @@ class SitePolicyController extends BaseController
             'page_title' => 'Terms and conditions'
         ];
 
-        $this->renderView('front/terms-and-conditions.html.twig', $data);
+        return new HtmlResponse(
+            $this->view('front/terms-and-conditions.html.twig', $data)
+        );
     }
 }

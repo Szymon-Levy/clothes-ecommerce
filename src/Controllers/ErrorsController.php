@@ -3,25 +3,20 @@
 namespace Controllers;
 
 use Controllers\BaseController;
+use Core\Http\Response\HtmlResponse;
 
 class ErrorsController extends BaseController
 {
-    public function error403()
-    {
-        $data = [
-            'error_page' => true,
-        ];
-
-        $this->renderView('front/errors/403.html.twig', $data);
-    }
-
     public function error404()
     {
         $data = [
             'error_page' => true,
         ];
 
-        $this->renderView('front/errors/404.html.twig', $data);
+        return new HtmlResponse(
+            $this->view('front/errors/404.html.twig', $data), 
+            404
+        );
     }
 
     public function error405()
@@ -30,7 +25,10 @@ class ErrorsController extends BaseController
             'error_page' => true,
         ];
 
-        $this->renderView('front/errors/405.html.twig', $data);
+        return new HtmlResponse(
+            $this->view('front/errors/405.html.twig', $data), 
+            405
+        );
     }
 
     public function error500(\Throwable $e)
@@ -44,6 +42,9 @@ class ErrorsController extends BaseController
             'error_trace' => preg_split('/\s*#\s*/', trim($e->getTraceAsString()), -1, PREG_SPLIT_NO_EMPTY),
         ];
 
-        $this->renderView('front/errors/500.html.twig', $data);
+        return new HtmlResponse(
+            $this->view('front/errors/500.html.twig', $data), 
+            500
+        );
     }
 }
