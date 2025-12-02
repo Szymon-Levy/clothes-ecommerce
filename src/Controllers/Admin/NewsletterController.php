@@ -4,6 +4,7 @@ namespace Controllers\Admin;
 
 use Controllers\BaseController;
 use Core\Http\Response\HtmlResponse;
+use Core\Http\Response\RedirectResponse;
 use Core\Validation\Validation;
 use Models\NewsletterModel;
 
@@ -60,7 +61,7 @@ class NewsletterController extends BaseController
 
         if ($id === '' || filter_var($id, FILTER_VALIDATE_INT) === false) {
             $this->utils->showAdminMessage('Wrong user id.', 'error');
-            $this->router->redirect('admin/newsletter');
+            return new RedirectResponse('admin/newsletter');
             exit;
         }
 
@@ -68,7 +69,7 @@ class NewsletterController extends BaseController
 
         if (!$subscriber) {
             $this->utils->showAdminMessage('User with given id doesn\'t exists.', 'error');
-            $this->router->redirect('admin/newsletter');
+            return new RedirectResponse('admin/newsletter');
             exit;
         }
 

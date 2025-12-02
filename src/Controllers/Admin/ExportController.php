@@ -3,6 +3,7 @@
 namespace Controllers\Admin;
 
 use Controllers\BaseController;
+use Core\Http\Response\RedirectResponse;
 use Core\Utils\ExportToXlsx;
 use Models\NewsletterModel;
 
@@ -31,7 +32,7 @@ class ExportController extends BaseController
 
         if ($data === false) {
             $this->utils->showAdminMessage('Unknown data source.', 'error');
-            $this->router->redirect('admin/newsletter');
+            return new RedirectResponse('admin/newsletter');
         }
 
         $export = new ExportToXlsx($data);

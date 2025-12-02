@@ -3,6 +3,7 @@
 namespace Controllers\Front;
 
 use Controllers\BaseController;
+use Core\Http\Response\RedirectResponse;
 use Core\Validation\Validation;
 use Models\NewsletterModel;
 
@@ -75,7 +76,7 @@ class NewsletterController extends BaseController
             $this->utils->showUserMessage('A problem with sending the message to the specified email occured, check if the email address is correct and try again!', 'error');
         }
 
-        $this->router->redirect('/');
+        return new RedirectResponse();
     }
 
     public function deleteSubscribtion()
@@ -90,6 +91,6 @@ class NewsletterController extends BaseController
             $this->utils->showUserMessage('Invalid token. Try again.', 'error');
         }
 
-        $this->router->redirect('/');
+        return new RedirectResponse();
     }
 }
