@@ -89,19 +89,6 @@ class Router
         return false;
     }
 
-    public function redirect($path)
-    {
-        $path = '/' . ltrim($path, '/');
-
-        header(
-            "Location: " . $path,
-            $replace = true,
-            $code = 301
-        );
-
-        exit;
-    }
-
     public function urlParts(): array
     {
         return $this->urlParts;
