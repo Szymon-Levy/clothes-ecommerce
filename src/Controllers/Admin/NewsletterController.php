@@ -4,6 +4,7 @@ namespace Controllers\Admin;
 
 use Controllers\BaseController;
 use Core\Http\Response\HtmlResponse;
+use Core\Http\Response\JsonResponse;
 use Core\Http\Response\RedirectResponse;
 use Core\Validation\Validation;
 use Models\NewsletterModel;
@@ -110,8 +111,7 @@ class NewsletterController extends BaseController
         }
 
         if (!empty($response)) {
-            echo json_encode($response);
-            exit();
+            return new JsonResponse($response);
         }
 
         // add subscriber
@@ -127,8 +127,7 @@ class NewsletterController extends BaseController
             $response['error'] = 'A problem with sending the message to the specified email occured, check if the email address is correct and try again!';
         }
 
-        echo json_encode($response);
-        exit();
+        return new JsonResponse($response);
     }
 
     public function deleteSubscribers()
@@ -142,8 +141,8 @@ class NewsletterController extends BaseController
 
         if (!$ids) {
             $response['error'] = 'Incorrect data passed.';
-            echo json_encode($response);
-            exit();
+            
+            return new JsonResponse($response);
         }
 
         $count = $this->newsletterModel->deleteSubscribers($ids);
@@ -152,13 +151,11 @@ class NewsletterController extends BaseController
             $response['count'] = $count;
             $subscriber = 'subscriber' . ($count > 1 ? 's' : '');
             $response['success'] = "$count $subscriber has been successfully removed from subscribers list.";
-            echo json_encode($response);
-            exit();
         } else {
             $response['info'] = "No subscriber with the given id was found.";
-            echo json_encode($response);
-            exit();
         }
+
+        return new JsonResponse($response);
     }
 
     public function editSubscriberInDB()
@@ -176,8 +173,8 @@ class NewsletterController extends BaseController
 
         if (empty($id)) {
             $response['error'] = 'Id cannot be empty!';
-            echo json_encode($response);
-            exit();
+            
+            return new JsonResponse($response);
         }
 
         if ($nameError) {
@@ -189,8 +186,7 @@ class NewsletterController extends BaseController
         }
 
         if (!empty($response)) {
-            echo json_encode($response);
-            exit();
+            return new JsonResponse($response);
         }
 
         // edit subscriber
@@ -208,7 +204,6 @@ class NewsletterController extends BaseController
             $response['error'] = 'A problem with sending the message to the specified email occured, check if the email address is correct and try again!';
         }
 
-        echo json_encode($response);
-        exit();
+        return new JsonResponse($response);
     }
 }

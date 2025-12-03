@@ -4,6 +4,7 @@ namespace Controllers\Front;
 
 use Controllers\BaseController;
 use Core\Http\Response\HtmlResponse;
+use Core\Http\Response\JsonResponse;
 use Core\Validation\Validation;
 use Models\ContactModel;
 
@@ -72,8 +73,7 @@ class ContactController extends BaseController
 
         
         if (!empty($response)) {
-            echo json_encode($response);
-            exit();
+            return new JsonResponse($response);
         }
         
         // save email data in database and send copy
@@ -85,7 +85,6 @@ class ContactController extends BaseController
             $response['error'] = 'A problem with sending the message to the specified email occured, check if the email address is correct and try again!';
         }
 
-        echo json_encode($response);
-        exit();
+        return new JsonResponse($response);
     }
 }

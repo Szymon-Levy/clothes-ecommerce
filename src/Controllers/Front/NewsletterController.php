@@ -3,6 +3,7 @@
 namespace Controllers\Front;
 
 use Controllers\BaseController;
+use Core\Http\Response\JsonResponse;
 use Core\Http\Response\RedirectResponse;
 use Core\Validation\Validation;
 use Models\NewsletterModel;
@@ -34,13 +35,12 @@ class NewsletterController extends BaseController
             $response['email'] = $emailError;
         }
 
-        if (!$policy) {
+        if (! $policy) {
             $response['policy'] = 'Accepting privacy policy is required!';
         }
 
-        if (!empty($response)) {
-            echo json_encode($response);
-            exit();
+        if (! empty($response)) {
+            return new JsonResponse($response);
         }
 
         // add subscriber
@@ -54,8 +54,7 @@ class NewsletterController extends BaseController
             $response['error'] = 'A problem with sending the message to the specified email occured, check if the email address is correct and try again!';
         }
 
-        echo json_encode($response);
-        exit();
+        return new JsonResponse($response);
     }
 
     public function confirmSubscribtion()
