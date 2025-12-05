@@ -4,6 +4,7 @@ namespace Core\Container;
 
 use Exception;
 use ReflectionClass;
+use ReflectionMethod;
 use ReflectionNamedType;
 
 class Container
@@ -131,5 +132,43 @@ class Container
         $this->instances[$name] = $instance;
 
         return $instance;
+    }
+
+    public function call(object $instance, string $methodName, array $extraParams = [])
+    {
+        $methodReflection = new ReflectionMethod($instance, $methodName);
+        $params = $methodReflection->getParameters();
+        $dependencies = [];
+
+        foreach ($params as $param) {
+            $name = $param->getName();
+            $type = $param->getType();
+
+            if (array_key_exists($name, $extraParams)) {
+                $dependencies[] = $extraParams[$name];
+                continue; 
+            }
+
+            if ($type instanceof ReflectionNamedType && ! $type->isBuiltin()) {
+                $dependencyClassName = $type->getName();
+                
+                if ($dependencyClassName === self::class) {
+                    $dependencies[] = $this;
+                } else {
+                    $dependencies[] = $this->get($dependencyClassName);
+                }
+                
+                continue;
+            } 
+                        
+            if ($param->isDefaultValueAvailable()) {
+                $dependencies[] = $param->getDefaultValue();
+                continue;
+            }
+
+            throw new Exception("Cannot resolve required parameter \${$name} for method {$methodName} in " . get_class($instance));
+        }
+        
+        return $methodReflection->invokeArgs($instance, $dependencies);
     }
 }

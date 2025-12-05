@@ -23,12 +23,12 @@ class Dispatcher
         return $this->runMiddleware($middlewares, 0, $this->request, $controller);
     }
 
-    public function dispatchHandler(array $handler, ?\Throwable $e = null)
+    public function dispatchHandler(array $handler, array $params = [])
     {
-        return $this->resolveController($handler, $e);
+        return $this->resolveController($handler, $params);
     }
 
-    protected function resolveController($handler, $param = null)
+    protected function resolveController($handler, array $params = [])
     {
         if (is_array($handler)) {
             [$class, $method] = $handler;
@@ -36,13 +36,13 @@ class Dispatcher
             if (is_string($class)) {
                 $controller = $this->container->get($class);
 
-                return $controller->{$method}($param);
+                return $this->container->call($controller, $method, $params);
             }
 
-            return $class->{$method}($param);
+            return $class->{$method}($params);
         }
 
-        return call_user_func($handler, $param);
+        return call_user_func_array($handler, $params);
     }
 
     protected function runMiddleware(array $middlewares, int $index, $request, callable $controller)

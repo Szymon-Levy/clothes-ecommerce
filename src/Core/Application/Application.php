@@ -94,7 +94,7 @@ class Application
 
         $handler = [ErrorsController::class, "error{$code}"];
 
-        return $this->dispatcher->dispatchHandler($handler, $e);
+        return $this->dispatcher->dispatchHandler($handler, ['e' => $e]);
     }
 
     public static function getInstance(): Application
