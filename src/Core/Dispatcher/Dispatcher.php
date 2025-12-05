@@ -1,10 +1,10 @@
 <?php
 
-namespace Core\Routing;
+namespace Core\Dispatcher;
 
 use Core\Container\Container;
 use Core\Http\Request;
-use Core\Http\Response\AbstractResponse;
+use Core\Routing\Route;
 
 class Dispatcher
 {

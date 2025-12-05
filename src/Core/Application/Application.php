@@ -6,10 +6,10 @@ use Controllers\ErrorsController;
 use Core\Config\Config;
 use Core\Container\Container;
 use Core\Database\DataBase;
+use Core\Dispatcher\Dispatcher;
 use Core\Http\Csrf;
 use Core\Http\Response\AbstractResponse;
 use Core\Http\Response\HtmlResponse;
-use Core\Routing\Dispatcher;
 use Core\Routing\Exceptions\MethodNotAllowedException;
 use Core\Routing\Exceptions\RouteNotFoundException;
 
@@ -76,7 +76,7 @@ class Application
         });
 
         // Dispatcher
-        $this->dispatcher = $this->container->get(\Core\Routing\Dispatcher::class);
+        $this->dispatcher = $this->container->get(Dispatcher::class);
 
         // Csrf
         $this->container->get(Csrf::class)->setInCookie();
