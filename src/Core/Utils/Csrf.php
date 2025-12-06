@@ -1,6 +1,8 @@
 <?php
 
-namespace Core\Http;
+namespace Core\Utils;
+
+use Core\Http\Session;
 
 class Csrf
 {

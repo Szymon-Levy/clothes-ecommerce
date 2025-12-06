@@ -3,7 +3,7 @@
 namespace Core\Utils;
 
 
-class Utils
+class Helpers
 {
     public function generateToken()
     {

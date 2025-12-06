@@ -3,9 +3,9 @@
 namespace Middlewares;
 
 use Closure;
-use Core\Http\Csrf;
 use Core\Http\Request;
 use Core\Http\Response\HtmlResponse;
+use Core\Utils\Csrf;
 
 class CsrfMiddleware
 {

@@ -146,7 +146,7 @@ class NewsletterModel extends BaseModel
         ';
 
         do {
-            $token = $this->utils->generateToken();
+            $token = $this->helpers->generateToken();
             $arguments['token'] = $token;
 
             try {

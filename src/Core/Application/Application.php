@@ -7,11 +7,11 @@ use Core\Config\Config;
 use Core\Container\Container;
 use Core\Database\DataBase;
 use Core\Dispatcher\Dispatcher;
-use Core\Http\Csrf;
 use Core\Http\Response\AbstractResponse;
 use Core\Http\Response\HtmlResponse;
 use Core\Routing\Exceptions\MethodNotAllowedException;
 use Core\Routing\Exceptions\RouteNotFoundException;
+use Core\Utils\Csrf;
 
 class Application
 {
