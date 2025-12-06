@@ -1,8 +1,8 @@
 <?php
 
-namespace Controllers;
+namespace App\Controllers;
 
-use Controllers\BaseController;
+use App\Controllers\BaseController;
 use Core\Http\Response\HtmlResponse;
 
 class ErrorsController extends BaseController

@@ -4,7 +4,7 @@ namespace Core\Dispatcher;
 
 use Core\Container\Container;
 use Core\Http\Request;
-use Core\Routing\Route;
+use Core\Router\Route;
 
 class Dispatcher
 {

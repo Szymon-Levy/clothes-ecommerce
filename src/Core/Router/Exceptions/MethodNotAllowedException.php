@@ -1,5 +1,5 @@
 <?php
 
-namespace Core\Routing\Exceptions;
+namespace Core\Router\Exceptions;
 
 class MethodNotAllowedException extends \Exception {}

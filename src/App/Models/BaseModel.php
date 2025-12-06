@@ -1,6 +1,6 @@
 <?php
 
-namespace Models;
+namespace App\Models;
 
 use Core\Config\Config;
 use Core\Database\DataBase;

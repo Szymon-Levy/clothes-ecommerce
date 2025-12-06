@@ -1,14 +1,14 @@
 <?php
 
-namespace Controllers\Admin;
+namespace App\Controllers\Admin;
 
-use Controllers\BaseController;
+use App\Controllers\BaseController;
 use Core\Http\Response\HtmlResponse;
 use Core\Http\Response\JsonResponse;
 use Core\Http\Response\RedirectResponse;
 use Core\Utils\FlashMessage\FlashMessageAdmin;
 use Core\Validation\Validation;
-use Models\NewsletterModel;
+use App\Models\NewsletterModel;
 
 class NewsletterController extends BaseController
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace Core\Routing;
+namespace Core\Router;
 
 use Core\Http\Request;
-use Core\Routing\Exceptions\MethodNotAllowedException;
-use Core\Routing\Exceptions\RouteNotFoundException;
+use Core\Router\Exceptions\MethodNotAllowedException;
+use Core\Router\Exceptions\RouteNotFoundException;
 use Core\TemplateEngine\TemplateEngine;
 
 class Router

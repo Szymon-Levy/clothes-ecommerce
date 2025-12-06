@@ -1,6 +1,6 @@
 <?php
 
-namespace Controllers;
+namespace App\Controllers;
 
 use Core\Http\Request;
 use Core\TemplateEngine\TemplateEngine;

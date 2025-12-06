@@ -1,8 +1,8 @@
 <?php
 
-namespace Controllers\Front;
+namespace App\Controllers\Front;
 
-use Controllers\BaseController;
+use App\Controllers\BaseController;
 use Core\Http\Response\HtmlResponse;
 
 class SitePolicyController extends BaseController

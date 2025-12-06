@@ -1,8 +1,8 @@
 <?php
 
-namespace Controllers\Admin;
+namespace App\Controllers\Admin;
 
-use Controllers\BaseController;
+use App\Controllers\BaseController;
 use Core\Http\Response\HtmlResponse;
 
 class DashboardController extends BaseController

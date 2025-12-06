@@ -2,15 +2,16 @@
 
 namespace Core\Application;
 
-use Controllers\ErrorsController;
+use App\Controllers\ErrorsController;
 use Core\Config\Config;
 use Core\Container\Container;
 use Core\Database\DataBase;
 use Core\Dispatcher\Dispatcher;
 use Core\Http\Response\AbstractResponse;
 use Core\Http\Response\HtmlResponse;
-use Core\Routing\Exceptions\MethodNotAllowedException;
-use Core\Routing\Exceptions\RouteNotFoundException;
+use Core\Router\Exceptions\MethodNotAllowedException;
+use Core\Router\Exceptions\RouteNotFoundException;
+use Core\Router\Router;
 use Core\Utils\Csrf;
 
 class Application
@@ -27,9 +28,9 @@ class Application
 
     public function run()
     {
-        $router = $this->container->get(\Core\Routing\Router::class);
+        $router = $this->container->get(Router::class);
 
-        $routes = require_once dirname(__DIR__, 2) . '/routes.php';
+        $routes = require_once dirname(__DIR__, 2) . '/routes/routes.php';
         $routes($router);
 
         try {

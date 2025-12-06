@@ -1,8 +1,7 @@
 <?php
 
-namespace Models;
+namespace App\Models;
 
-use Models\BaseModel;
 use Core\Utils\Email;
 
 class NewsletterModel extends BaseModel

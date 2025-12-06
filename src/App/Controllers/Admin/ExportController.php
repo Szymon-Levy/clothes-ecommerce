@@ -1,12 +1,12 @@
 <?php
 
-namespace Controllers\Admin;
+namespace App\Controllers\Admin;
 
-use Controllers\BaseController;
+use App\Controllers\BaseController;
 use Core\Http\Response\RedirectResponse;
 use Core\Utils\ExportToXlsx;
 use Core\Utils\FlashMessage\FlashMessageAdmin;
-use Models\NewsletterModel;
+use App\Models\NewsletterModel;
 
 class ExportController extends BaseController
 {

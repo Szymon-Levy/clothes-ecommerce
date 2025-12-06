@@ -1,16 +1,16 @@
 <?php
 
-use Core\Routing\Router;
-use Controllers\Front\HomeController;
-use Controllers\Front\ContactController;
-use Controllers\Front\NewsletterController as FrontNewsletterController;
-use Controllers\Front\UiElementsController;
-use Controllers\Front\SitePolicyController;
-use Controllers\Admin\NewsletterController as AdminNewsletterController;
-use Controllers\Admin\DashboardController;
-use Controllers\Admin\ExportController;
-use Middlewares\CsrfMiddleware;
-use Middlewares\HoneypotMiddleware;
+use Core\Router\Router;
+use App\Controllers\Front\HomeController;
+use App\Controllers\Front\ContactController;
+use App\Controllers\Front\NewsletterController as FrontNewsletterController;
+use App\Controllers\Front\UiElementsController;
+use App\Controllers\Front\SitePolicyController;
+use App\Controllers\Admin\NewsletterController as AdminNewsletterController;
+use App\Controllers\Admin\DashboardController;
+use App\Controllers\Admin\ExportController;
+use App\Middlewares\CsrfMiddleware;
+use App\Middlewares\HoneypotMiddleware;
 
 return function (Router $router) {
     // FRONT
