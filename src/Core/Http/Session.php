@@ -51,7 +51,7 @@ class Session
     public function getTwigVariables()
     {
         $data = [
-            'user_message' => $this->flash('user_message'),
+            'front_message' => $this->flash('front_message'),
             'admin_message' => $this->flash('admin_message')
         ];
 

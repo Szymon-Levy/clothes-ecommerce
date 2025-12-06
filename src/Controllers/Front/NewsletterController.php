@@ -5,6 +5,7 @@ namespace Controllers\Front;
 use Controllers\BaseController;
 use Core\Http\Response\JsonResponse;
 use Core\Http\Response\RedirectResponse;
+use Core\Utils\FlashMessage\FlashMessageFront;
 use Core\Validation\Validation;
 use Models\NewsletterModel;
 
@@ -57,38 +58,51 @@ class NewsletterController extends BaseController
         return new JsonResponse($response);
     }
 
-    public function confirmSubscribtion()
+    public function confirmSubscribtion(FlashMessageFront $flashMessageFront)
     {
         $token = $this->request->routeParam('token');
 
         $dbResponse = $this->newsletterModel->confirmSubscribtion($token);
 
+        $message = '';
+        $status = 'error';
+
         if ($dbResponse == '200') {
-            $this->utils->showUserMessage('Your subscription has been activated. Please check your inbox for further information.', 'success');
+            $message = 'Your subscription has been activated. Please check your inbox for further information.';
+            $status = 'success';
         } else if ($dbResponse == 'subscriber_not_found') {
-            $this->utils->showUserMessage('Invalid token. Try again.', 'error');
+            $message = 'Invalid token. Try again.';
         } else if ($dbResponse == 'already_confirmed') {
-            $this->utils->showUserMessage('Your subscription has already been activated.', 'info');
+            $message = 'Your subscription has already been activated.';
+            $status = 'info';
         } else if ($dbResponse == 'token_expired') {
-            $this->utils->showUserMessage('Your activation token has expired and Your subscribtion has been deleted. Join us again and hurry up with the activation!', 'error');
+            $message = 'Your activation token has expired and Your subscribtion has been deleted. Join us again and hurry up with the activation!';
         } else if ($dbResponse == 'email_error') {
-            $this->utils->showUserMessage('A problem with sending the message to the specified email occured, check if the email address is correct and try again!', 'error');
+            $message = 'A problem with sending the message to the specified email occured, check if the email address is correct and try again!';
         }
+
+        $flashMessageFront->{$status}($message);
 
         return new RedirectResponse();
     }
 
-    public function deleteSubscribtion()
+    public function deleteSubscribtion(FlashMessageFront $flashMessageFront)
     {
         $token = $this->request->routeParam('token');
 
         $dbResponse = $this->newsletterModel->deleteSubscribtion($token);
 
+        $message = '';
+        $status = 'success';
+
         if ($dbResponse == '200') {
-            $this->utils->showUserMessage('We’re reaching out to confirm that you have successfully unsubscribed from our newsletter. If this was a mistake or you change your mind, you can always re-subscribe.', 'success');
+            $message = 'We’re reaching out to confirm that you have successfully unsubscribed from our newsletter. If this was a mistake or you change your mind, you can always re-subscribe.';
         } else if ($dbResponse == 'subscriber_not_found') {
-            $this->utils->showUserMessage('Invalid token. Try again.', 'error');
+            $message = 'Invalid token. Try again.';
+            $status = 'error';
         }
+
+        $flashMessageFront->{$status}($message);
 
         return new RedirectResponse();
     }

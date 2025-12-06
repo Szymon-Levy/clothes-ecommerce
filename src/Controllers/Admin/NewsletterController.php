@@ -6,6 +6,7 @@ use Controllers\BaseController;
 use Core\Http\Response\HtmlResponse;
 use Core\Http\Response\JsonResponse;
 use Core\Http\Response\RedirectResponse;
+use Core\Utils\FlashMessage\FlashMessageAdmin;
 use Core\Validation\Validation;
 use Models\NewsletterModel;
 
@@ -56,22 +57,22 @@ class NewsletterController extends BaseController
         );
     }
 
-    public function editSubscriber()
+    public function editSubscriber(FlashMessageAdmin $flashMessageAdmin)
     {
         $id = $this->request->routeParam('id');
 
         if ($id === '' || filter_var($id, FILTER_VALIDATE_INT) === false) {
-            $this->utils->showAdminMessage('Wrong user id.', 'error');
+            $flashMessageAdmin->error('Wrong user id.');
+
             return new RedirectResponse('admin/newsletter');
-            exit;
         }
 
         $subscriber = $this->newsletterModel->getSubscriberById($id);
 
         if (!$subscriber) {
-            $this->utils->showAdminMessage('User with given id doesn\'t exists.', 'error');
+            $flashMessageAdmin->error('User with given id doesn\'t exists.');
+
             return new RedirectResponse('admin/newsletter');
-            exit;
         }
 
         $urlParts = $this->router->urlParts();
@@ -90,7 +91,7 @@ class NewsletterController extends BaseController
         );
     }
 
-    public function addSubscriberToDB()
+    public function addSubscriberToDB(FlashMessageAdmin $flashMessageAdmin)
     {
         // post data
         $name = $this->request->post('name');
@@ -118,7 +119,8 @@ class NewsletterController extends BaseController
         $dbResponse = $this->newsletterModel->addSubscriber($name, $email);
 
         if ($dbResponse == '200') {
-            $this->utils->showAdminMessage($name . ' has been successfully added to the subscriber list.', 'success');
+            $flashMessageAdmin->success($name . ' has been successfully added to the subscriber list.');
+
             $response['success'] = true;
             $response['path'] = '/admin/newsletter';
         } else if ($dbResponse == '1062') {
@@ -158,7 +160,7 @@ class NewsletterController extends BaseController
         return new JsonResponse($response);
     }
 
-    public function editSubscriberInDB()
+    public function editSubscriberInDB(FlashMessageAdmin $flashMessageAdmin)
     {
         // post data
         $id = $this->request->post('id');
@@ -193,7 +195,8 @@ class NewsletterController extends BaseController
         $dbResponse = $this->newsletterModel->editSubscriber($id, $name, $email);
 
         if ($dbResponse == '200') {
-            $this->utils->showAdminMessage($name . ' has been successfully updated.', 'success');
+            $flashMessageAdmin->success($name . ' has been successfully updated.');
+
             $response['success'] = true;
             $response['path'] = '/admin/newsletter';
         } else if ($dbResponse == 'subscriber_not_found') {

@@ -4,12 +4,10 @@ namespace Controllers;
 
 use Core\Http\Request;
 use Core\TemplateEngine\TemplateEngine;
-use Core\Utils\Utils;
 
 abstract class BaseController
 {
     public function __construct(
-        protected Utils $utils,
         protected TemplateEngine $templateEngine,
         protected Request $request
     ){}
