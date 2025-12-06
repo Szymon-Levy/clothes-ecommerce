@@ -1,7 +1,7 @@
-<div class="message message--{{ session.admin_message.status }} js-message">
+<div class="message message--{{ session.flash_message.status }} js-message">
 	<button class="message__close js-message-close" aria-label="Close message bar">
 		<i class="ri-close-line" aria-hidden="true"></i>
 	</button>
 
-	<p>{{ session.admin_message.content }}</p>
+	<p>{{ session.flash_message.content }}</p>
 </div>

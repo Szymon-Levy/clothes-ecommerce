@@ -37,7 +37,7 @@
 					{% include 'admin/includes/header.html.twig' %}
 
 					<div class="app-content">
-						{% if session.admin_message %}
+						{% if session.flash_message and session.flash_message.type == 'admin' %}
 							<!-- MESSAGES -->
 							{% include 'admin/includes/message.html.twig' %}
 						{% endif %}

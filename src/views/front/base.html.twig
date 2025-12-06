@@ -47,7 +47,7 @@
 			class="body-wrapper">
 
 			<!-- MESSAGES -->
-			{% if session.front_message %}
+			{% if session.flash_message and session.flash_message.type == 'front' %}
 				{% include 'front/includes/message.html.twig' %}
 			{% endif %}
 

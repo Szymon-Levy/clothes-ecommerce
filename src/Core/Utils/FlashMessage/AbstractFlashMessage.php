@@ -55,8 +55,12 @@ abstract class AbstractFlashMessage
     protected function save(): void
     {
         $this->session->flash(
-            $this->type . '_message', 
-            ['content' => $this->content, 'status' => $this->status]
+            'flash_message', 
+            [
+                'type' => $this->type,
+                'content' => $this->content, 
+                'status' => $this->status
+            ]
         );
     }
 }
