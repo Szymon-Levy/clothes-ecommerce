@@ -2,7 +2,6 @@
 
 namespace Core\Utils;
 
-
 class Helpers
 {
     public function generateToken()
