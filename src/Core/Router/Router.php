@@ -5,7 +5,6 @@ namespace Core\Router;
 use Core\Http\Request;
 use Core\Router\Exceptions\MethodNotAllowedException;
 use Core\Router\Exceptions\RouteNotFoundException;
-use Core\TemplateEngine\TemplateEngine;
 
 class Router
 {
@@ -16,8 +15,7 @@ class Router
     protected array $nextMiddleware = [];
 
     public function __construct(
-        protected Request $request,
-        protected TemplateEngine $templateEngine
+        protected Request $request
     ){}
 
     public function get(string $path, callable|array $handler): Route
@@ -64,8 +62,6 @@ class Router
         $matching = $this->match($method, $uri);
 
         if ($matching) {
-            $this->passUrlPartsToTwig($uri);
-
             $this->request->setRouteParams($matching->parameters());
 
             return $matching;
@@ -87,18 +83,6 @@ class Router
         }
 
         return false;
-    }
-
-    public function urlParts(): array
-    {
-        return $this->urlParts;
-    }
-
-    public function passUrlPartsToTwig(string $uri)
-    {
-        $this->urlParts = explode('/', trim($uri, '/'));
-
-        $this->templateEngine->addGlobalVariable('url_parts', $this->urlParts());
     }
 
     protected function match(string $method, string $path): ?Route
