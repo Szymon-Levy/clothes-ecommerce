@@ -3,25 +3,20 @@
 		<div class="row">
 			<ul class="breadcrumbs">
 				<li>
-					<a href="/">Home</a>
+					<a class="breadcrumbs__item breadcrumbs__item--link" href="/">Home</a>
 				</li>
 
-				{% for page in url_parts %}
-					{% if not loop.first %}
-						<li>
-							<a 
-                                href="/{{ url_parts|map(page => page|e('url'))|join('/') }}" 
-                                {% if loop.last %} class="active" {% endif %}
-                            >
-                                    {{ page|replace({'-': ' '}) }}
-                            </a>
+                {% for crumb in breadcrumbs %}
+                    {% if not loop.last %}
+                        <li>
+							<a class="breadcrumbs__item breadcrumbs__item--link" href="{{ crumb.url }}" >{{ crumb.name }}</a>
 						</li>
-					{% else %}
-						<li>
-							<a href="/{{ page|e('url') }}" {% if loop.last %} class="active" {% endif %}>{{ page|replace({'-': ' '}) }}</a>
+                    {% else %}
+                        <li>
+							<span class="breadcrumbs__item breadcrumbs__item--text active">{{ crumb.name }}</span>
 						</li>
-					{% endif %}
-				{% endfor %}
+                    {% endif %}
+                {% endfor %}
 			</ul>
             
 			<h1 class="breadcrumbs__heading heading heading--h1 heading--primary" data-anim-fade-in-right>{{ page_title }}</h1>

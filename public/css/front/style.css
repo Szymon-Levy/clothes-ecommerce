@@ -941,25 +941,25 @@ body {
     margin-bottom: .625rem;
 }
 
-.breadcrumbs a {
+.breadcrumbs__item {
     display: inline-flex;
     color: var(--color-black);
     font-size: .875rem;
     text-transform: uppercase;
 }
 
-.breadcrumbs a::after {
+.breadcrumbs__item::after {
     content: ">";
     margin: 0 8px;
 }
 
-.breadcrumbs li:last-child a::after {
+.breadcrumbs li:last-child .breadcrumbs__item::after {
     content: "";
 }
 
-.breadcrumbs a:hover,
-.breadcrumbs a:focus-visible,
-.breadcrumbs a.active {
+.breadcrumbs__item--link:hover,
+.breadcrumbs__item--link:focus-visible,
+.breadcrumbs__item.active {
     color: var(--color-accent);
 }
 

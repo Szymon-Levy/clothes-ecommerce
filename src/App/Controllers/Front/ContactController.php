@@ -21,6 +21,8 @@ class ContactController extends BaseController
             'page_js' => 'contact'
         ];
 
+        $this->templateUrlPathManager->saveData();
+
         return new HtmlResponse(
             $this->view('front/contact.html.twig', $data)
         );

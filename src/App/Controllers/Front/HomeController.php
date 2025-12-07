@@ -15,6 +15,8 @@ class HomeController extends BaseController
             'page_js' => 'home'
         ];
 
+        $this->templateUrlPathManager->saveData();
+
         return new HtmlResponse(
             $this->view('front/index.html.twig', 
             $data)

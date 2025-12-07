@@ -14,6 +14,8 @@ class SitePolicyController extends BaseController
             'page_title' => 'Privacy policy'
         ];
 
+        $this->templateUrlPathManager->saveData();
+
         return new HtmlResponse(
             $this->view('front/privacy-policy.html.twig', $data)
         );
@@ -24,6 +26,8 @@ class SitePolicyController extends BaseController
         $data = [
             'page_title' => 'Terms and conditions'
         ];
+
+        $this->templateUrlPathManager->saveData();
 
         return new HtmlResponse(
             $this->view('front/terms-and-conditions.html.twig', $data)
