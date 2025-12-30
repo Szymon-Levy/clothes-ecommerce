@@ -17,7 +17,7 @@ class UrlSegments
         return new self($segments);
     }
 
-    public function segments(): array
+    public function get(): array
     {
         return $this->segments;
     }
