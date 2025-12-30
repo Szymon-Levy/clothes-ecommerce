@@ -9,7 +9,6 @@ use Core\Router\Exceptions\RouteNotFoundException;
 class Router
 {
     protected array $routes = [];
-    protected array $urlParts;
     protected array $groupMiddlewareStack = [];
     protected string $groupPrefix = '';
     protected array $nextMiddleware = [];

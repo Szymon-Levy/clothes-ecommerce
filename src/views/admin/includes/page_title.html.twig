@@ -24,36 +24,15 @@
             </div>
             
             <ul class="breadcrumbs">
-                <li>
-                    {% if url_parts|length == 1 %}
-                        <span>Dashboard</span>
-                    {% else %}
-                        <a href="/admin">Dashboard</a>
-                    {% endif %}
-                </li>
-
-                {% set count = 1 %}
-
-                {% for page in url_parts %}
-
-                    {% if page != 'admin' %}
-
-                        {% set title = page|replace({'-': ' '})|capitalize %}
-                        
+                {% for crumb in breadcrumbs %}
+                    {% if not loop.last %}
                         <li>
-                            {% if not loop.last %}
-                                <a 
-                                    href="/{% for page2 in url_parts %}{% if loop.index0 <= count %}{{ page2|e('url') }}{% endif %}{% if not loop.last %}/{% endif %}{% endfor %}" 
-                                    {% if loop.last %}class="active"{% endif %}
-                                >
-                                    {{ title }}
-                                </a>
-                            {% else %}
-                                <span>{{ title }}</span>
-                            {% endif %}
-                        </li>
-                        
-                        {% set count = count + 1 %}
+							<a href="{{ crumb.url }}" >{{ crumb.name }}</a>
+						</li>
+                    {% else %}
+                        <li>
+							<span>{{ crumb.name }}</span>
+						</li>
                     {% endif %}
                 {% endfor %}
             </ul>

@@ -4,14 +4,12 @@ namespace App\Controllers;
 
 use Core\Http\Request;
 use Core\TemplateEngine\TemplateEngine;
-use Core\Utils\TemplateUrlPathManager;
 
 abstract class BaseController
 {
     public function __construct(
-        protected TemplateEngine $templateEngine,
-        protected Request $request,
-        protected TemplateUrlPathManager $templateUrlPathManager
+        private TemplateEngine $templateEngine,
+        protected Request $request
     ){}
 
     protected function view(string $path, array $data = [])

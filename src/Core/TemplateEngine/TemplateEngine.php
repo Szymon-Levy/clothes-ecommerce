@@ -94,8 +94,8 @@ class TemplateEngine
 
         $this->engine->addFunction($loadPageJs);
 
-        $pageActiveStatus = new \Twig\TwigFunction('pageActiveStatus', function (string $currentPage, string|null $urlPart) {
-            if ($currentPage == $urlPart) {
+        $pageActiveStatus = new \Twig\TwigFunction('pageActiveStatus', function (string $currentPage, string|null $urlSegment) {
+            if ($currentPage == $urlSegment) {
                 return 'active';
             }
             

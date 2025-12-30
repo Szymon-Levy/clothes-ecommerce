@@ -4,17 +4,22 @@ namespace App\Controllers\Front;
 
 use App\Controllers\BaseController;
 use Core\Http\Response\HtmlResponse;
+use Core\ValueObjects\Breadcrumbs;
+use Core\ValueObjects\UrlSegments;
 
 class SitePolicyController extends BaseController
 {
 
     public function privacyPolicy()
     {
-        $data = [
-            'page_title' => 'Privacy policy'
-        ];
+        $urlSegments = UrlSegments::fromUri($this->request->uri())->get();
+        $breadcrumbs = Breadcrumbs::fromSegments($urlSegments)->get();
 
-        $this->templateUrlPathManager->saveData();
+        $data = [
+            'page_title' => 'Privacy policy',
+            'url_segments' => $urlSegments,
+            'breadcrumbs' => $breadcrumbs
+        ];
 
         return new HtmlResponse(
             $this->view('front/privacy-policy.html.twig', $data)
@@ -23,11 +28,14 @@ class SitePolicyController extends BaseController
 
     public function termsAndConditions()
     {
-        $data = [
-            'page_title' => 'Terms and conditions'
-        ];
+        $urlSegments = UrlSegments::fromUri($this->request->uri())->get();
+        $breadcrumbs = Breadcrumbs::fromSegments($urlSegments)->get();
 
-        $this->templateUrlPathManager->saveData();
+        $data = [
+            'page_title' => 'Terms and conditions',
+            'url_segments' => $urlSegments,
+            'breadcrumbs' => $breadcrumbs
+        ];
 
         return new HtmlResponse(
             $this->view('front/terms-and-conditions.html.twig', $data)

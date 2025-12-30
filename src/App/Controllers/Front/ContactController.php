@@ -7,6 +7,8 @@ use Core\Http\Response\HtmlResponse;
 use Core\Http\Response\JsonResponse;
 use Core\Validation\Validation;
 use App\Models\ContactModel;
+use Core\ValueObjects\Breadcrumbs;
+use Core\ValueObjects\UrlSegments;
 
 class ContactController extends BaseController
 {
@@ -16,12 +18,15 @@ class ContactController extends BaseController
 
     public function index()
     {
+        $urlSegments = UrlSegments::fromUri($this->request->uri())->get();
+        $breadcrumbs = Breadcrumbs::fromSegments($urlSegments)->get();
+
         $data = [
             'page_title' => 'Contact',
-            'page_js' => 'contact'
+            'page_js' => 'contact',
+            'url_segments' => $urlSegments,
+            'breadcrumbs' => $breadcrumbs
         ];
-
-        $this->templateUrlPathManager->saveData();
 
         return new HtmlResponse(
             $this->view('front/contact.html.twig', $data)

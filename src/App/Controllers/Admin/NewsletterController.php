@@ -9,6 +9,8 @@ use Core\Http\Response\RedirectResponse;
 use Core\Utils\FlashMessage\FlashMessageAdmin;
 use Core\Validation\Validation;
 use App\Models\NewsletterModel;
+use Core\ValueObjects\Breadcrumbs;
+use Core\ValueObjects\UrlSegments;
 
 class NewsletterController extends BaseController
 {
@@ -27,6 +29,12 @@ class NewsletterController extends BaseController
             ['options' => ['min_range' => 1]]
         ) ?: 1;
 
+        $urlSegments = UrlSegments::fromUri($this->request->uri())->get();
+
+        $breadcrumbs = Breadcrumbs::fromSegments($urlSegments)
+            ->editAtPosition(0, ['name' => 'Dashboard'])
+            ->get();
+
         $data = [
             'page_title' => 'Subscribers List',
             'subscribers' => $this->newsletterModel->getSubscribersTable($keyword, $orderBy, $page, $sort),
@@ -36,7 +44,9 @@ class NewsletterController extends BaseController
             'page' => $page,
             'order_by' => $orderBy,
             'sort' => ($sort == 'd') ? $sort : 'a',
-            'page_js' => 'newsletter'
+            'page_js' => 'newsletter',
+            'url_segments' => $urlSegments,
+            'breadcrumbs' => $breadcrumbs
         ];
 
         return new HtmlResponse(
@@ -46,10 +56,18 @@ class NewsletterController extends BaseController
 
     public function addSubscriber()
     {
+        $urlSegments = UrlSegments::fromUri($this->request->uri())->get();
+
+        $breadcrumbs = Breadcrumbs::fromSegments($urlSegments)
+            ->editAtPosition(0, ['name' => 'Dashboard'])
+            ->get();
+
         $data = [
             'page_title' => 'Add Subscriber',
             'previous_page_path' => 'admin/newsletter',
-            'page_js' => 'newsletter'
+            'page_js' => 'newsletter',
+            'url_segments' => $urlSegments,
+            'breadcrumbs' => $breadcrumbs
         ];
 
         return new HtmlResponse(
@@ -75,15 +93,21 @@ class NewsletterController extends BaseController
             return new RedirectResponse('admin/newsletter');
         }
 
-        $urlParts = $this->router->urlParts();
-        array_pop($urlParts);
+        $urlSegments = UrlSegments::fromUri($this->request->uri())
+            ->cutLast()
+            ->get();
+
+        $breadcrumbs = Breadcrumbs::fromSegments($urlSegments)
+            ->editAtPosition(0, ['name' => 'Dashboard'])
+            ->get();
 
         $data = [
             'subscriber' => $subscriber,
             'page_title' => 'Edit Subscriber',
             'previous_page_path' => 'admin/newsletter',
             'page_js' => 'newsletter',
-            'url_parts' => $urlParts
+            'url_segments' => $urlSegments,
+            'breadcrumbs' => $breadcrumbs
         ];
 
         return new HtmlResponse(
