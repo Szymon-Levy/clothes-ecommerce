@@ -33,12 +33,10 @@ class UiController {
         this.$preloader = document.querySelector('.js-preloader')
         if (!this.$preloader) return
 
-        this.showPreloader()
+        this.animatePreloader()
     }
 
-    showPreloader() {
-        this.$preloader.style.display = 'block'
-
+    animatePreloader() {
         setTimeout(() => {
             this.$preloader.classList.add('active')
         }, 50)
