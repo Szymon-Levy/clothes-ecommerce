@@ -17,8 +17,8 @@ class TemplateEngineExtension extends AbstractExtension
         return [
             new TwigFunction('assets', [$this, 'assets']),
             new TwigFunction('loadPageJs', [$this, 'loadPageJs'], ['is_safe' => ['html']]),
-            new TwigFunction('pageActiveStatus', [$this, 'pageActiveStatus']),
             new TwigFunction('honeypot', [$this, 'honeypot'], ['is_safe' => ['html']]),
+            new TwigFunction('setActive', [$this, 'setActive']),
         ];
     }
 
@@ -54,15 +54,6 @@ class TemplateEngineExtension extends AbstractExtension
         return null;
     }
 
-    public function pageActiveStatus(string $currentPage, ?string $urlSegment): string
-    {
-        if ($currentPage == $urlSegment) {
-            return 'active';
-        }
-        
-        return '';
-    }
-
     public function honeypot(): string
     {
         return '
@@ -76,5 +67,24 @@ class TemplateEngineExtension extends AbstractExtension
                 style="position:absolute; left:-9999px; width:1px; height:1px;"
             />
         ';
+    }
+
+    public function setActive(string $pattern, string $className = 'active'): string
+    {
+        $routeName = $this->request->getAttribute('route_name');
+
+        if (str_contains($pattern, '*')) {
+            $prefix = rtrim($pattern, '*');
+
+            if (str_starts_with($routeName, $prefix)) {
+                return $className;
+            }
+        }
+
+        if ($routeName === $pattern) {
+            return $className;
+        }
+
+        return '';
     }
 }

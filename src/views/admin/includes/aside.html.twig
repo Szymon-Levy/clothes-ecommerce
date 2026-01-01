@@ -14,7 +14,7 @@
 		<!-- dashboard -->
 		<ul class="aside__nav__menu">
 			<li class="aside__nav__menu__item">
-				<a href="/admin" class="aside__nav__menu__item__title {{ pageActiveStatus('', url_segments[1]) }}">
+				<a href="/admin" class="aside__nav__menu__item__title {{ setActive('admin-dashboard') }}">
 					<i class="ri-dashboard-3-line" aria-hidden="true"></i>
 					Dashboard
 				</a>
@@ -26,14 +26,14 @@
 
 		<ul class="aside__nav__menu">
 			<li class="aside__nav__menu__item">
-				<div class="aside__nav__menu__item__title aside__nav__menu__item__title--arrow js-aside-nav-menu-item-title {{ pageActiveStatus('users', url_segments[1]) }}">
+				<div class="aside__nav__menu__item__title aside__nav__menu__item__title--arrow js-aside-nav-menu-item-title">
 					<i class="ri-group-line" aria-hidden="true"></i>
 					Users
 				</div>
 
 				<ul class="aside__nav__menu__item__links">
 					<li>
-						<a href="/admin/users" class="aside__nav__menu__item__links__item">Users list</a>
+						<a href="" class="aside__nav__menu__item__links__item">Users list</a>
 					</li>
 
 					<li>
@@ -98,18 +98,18 @@
 			</li>
 
 			<li class="aside__nav__menu__item">
-				<div class="aside__nav__menu__item__title aside__nav__menu__item__title--arrow js-aside-nav-menu-item-title {{ pageActiveStatus('newsletter', url_segments[1]) }}">
+				<div class="aside__nav__menu__item__title aside__nav__menu__item__title--arrow js-aside-nav-menu-item-title {{ setActive('admin-newsletter.*') }}">
 					<i class="ri-mail-send-line" aria-hidden="true"></i>
 					Newsletter
 				</div>
 
 				<ul class="aside__nav__menu__item__links">
 					<li>
-						<a href="/admin/newsletter" class="aside__nav__menu__item__links__item {% if url_segments[1] == 'newsletter' and not url_segments[2] is defined %}active{% endif %}">Subscribers list</a>
+						<a href="/admin/newsletter" class="aside__nav__menu__item__links__item {{ setActive('admin-newsletter.index') }}">Subscribers list</a>
 					</li>
 
 					<li>
-						<a href="/admin/newsletter/add-subscriber" class="aside__nav__menu__item__links__item {% if url_segments[1] == 'newsletter' and url_segments[2] == 'add-subscriber' %}active{% endif %}">Add subscriber</a>
+						<a href="/admin/newsletter/add-subscriber" class="aside__nav__menu__item__links__item {{ setActive('admin-newsletter.addSubscriber') }}">Add subscriber</a>
 					</li>
 
 					<li>

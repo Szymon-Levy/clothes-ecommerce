@@ -9,6 +9,7 @@ class Route
     protected mixed $handler;
     protected array $middlewares = [];
     protected array $parameters = [];
+    protected string $name = '';
 
     public function __construct(string $method, string $path, mixed $handler, $middlewares = [])
     {
@@ -78,5 +79,14 @@ class Route
     public function parameters(): array
     {
         return $this->parameters;
+    }
+
+    public function name(?string $name = null)
+    {
+        if (is_null($name)) {
+            return $this->name;
+        }
+        
+        $this->name = $name;
     }
 }

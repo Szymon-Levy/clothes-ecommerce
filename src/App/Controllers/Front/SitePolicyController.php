@@ -17,7 +17,6 @@ class SitePolicyController extends BaseController
 
         $data = [
             'page_title' => 'Privacy policy',
-            'url_segments' => $urlSegments,
             'breadcrumbs' => $breadcrumbs
         ];
 
@@ -33,7 +32,6 @@ class SitePolicyController extends BaseController
 
         $data = [
             'page_title' => 'Terms and conditions',
-            'url_segments' => $urlSegments,
             'breadcrumbs' => $breadcrumbs
         ];
 

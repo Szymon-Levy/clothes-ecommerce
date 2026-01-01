@@ -10,6 +10,7 @@ class Request
     protected array $postParams = [];
     protected array $files = [];
     protected array $routeParams = [];
+    protected array $attributes = [];
 
     public function __construct()
     {
@@ -72,5 +73,15 @@ class Request
     public function uri()
     {
         return $this->uri;
+    }
+
+    public function setAttribute(string $name, mixed $value): void
+    {
+        $this->attributes[$name] = $value;
+    }
+
+    public function getAttribute(string $name, mixed $default = '')
+    {
+        return $this->attributes[$name] ?? $default;
     }
 }

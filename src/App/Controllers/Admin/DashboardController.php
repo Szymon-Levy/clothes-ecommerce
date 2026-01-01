@@ -19,7 +19,6 @@ class DashboardController extends BaseController
 
         $data = [
             'page_title' => 'Dashboard',
-            'url_segments' => $urlSegments,
             'breadcrumbs' => $breadcrumbs
         ];
 

@@ -14,7 +14,7 @@ use App\Middlewares\HoneypotMiddleware;
 
 return function (Router $router) {
     // FRONT
-    $router->get('/', [HomeController::class, 'index']);
+    $router->get('/', [HomeController::class, 'index'])->name('home');
 
     $router->middleware([CsrfMiddleware::class, HoneypotMiddleware::class])
         ->post('/newsletter/subscriber/add', [FrontNewsletterController::class, 'subscribe']);
@@ -23,14 +23,14 @@ return function (Router $router) {
 
     $router->get('/delete-subscribtion/{token}', [FrontNewsletterController::class, 'deleteSubscribtion']);
 
-    $router->get('/contact', [ContactController::class, 'index']);
+    $router->get('/contact', [ContactController::class, 'index'])->name('contact');
 
     $router->middleware([CsrfMiddleware::class, HoneypotMiddleware::class])
         ->post('/contact/send-message', [ContactController::class, 'sendMessage']);
 
-    $router->get('/privacy-policy', [SitePolicyController::class, 'privacyPolicy']);
+    $router->get('/privacy-policy', [SitePolicyController::class, 'privacyPolicy'])->name('privacyPolicy');
 
-    $router->get('/terms-and-conditions', [SitePolicyController::class, 'termsAndConditions']);
+    $router->get('/terms-and-conditions', [SitePolicyController::class, 'termsAndConditions'])->name('termsAndConditions');
 
     // UI ELEMENTS
     $router->post('/ui_elements/subscribtion_popup', [UiElementsController::class, 'subscribtionPopup']);
@@ -38,15 +38,15 @@ return function (Router $router) {
 
     // ADMIN
     $router->group('/admin', function($router) {
-        $router->get('', [DashboardController::class, 'index']);
+        $router->get('', [DashboardController::class, 'index'])->name('admin-dashboard');
         
         $router->get('/export/{data}', [ExportController::class, 'export']);
         
-        $router->get('/newsletter', [AdminNewsletterController::class, 'index']);
+        $router->get('/newsletter', [AdminNewsletterController::class, 'index'])->name('admin-newsletter.index');
 
-        $router->get('/newsletter/add-subscriber', [AdminNewsletterController::class, 'addSubscriber']);
+        $router->get('/newsletter/add-subscriber', [AdminNewsletterController::class, 'addSubscriber'])->name('admin-newsletter.addSubscriber');
 
-        $router->get('/newsletter/edit-subscriber/{id}', [AdminNewsletterController::class, 'editSubscriber']);
+        $router->get('/newsletter/edit-subscriber/{id}', [AdminNewsletterController::class, 'editSubscriber'])->name('admin-newsletter.editSubscriber');
 
         $router->middleware([CsrfMiddleware::class, HoneypotMiddleware::class])
             ->post('/newsletter/subscriber/add', [AdminNewsletterController::class, 'addSubscriberToDB']);

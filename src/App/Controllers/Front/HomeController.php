@@ -18,7 +18,6 @@ class HomeController extends BaseController
         $data = [
             'home_page' => true,
             'page_js' => 'home',
-            'url_segments' => $urlSegments,
             'breadcrumbs' => $breadcrumbs
         ];
 

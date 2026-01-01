@@ -45,7 +45,6 @@ class NewsletterController extends BaseController
             'order_by' => $orderBy,
             'sort' => ($sort == 'd') ? $sort : 'a',
             'page_js' => 'newsletter',
-            'url_segments' => $urlSegments,
             'breadcrumbs' => $breadcrumbs
         ];
 
@@ -66,7 +65,6 @@ class NewsletterController extends BaseController
             'page_title' => 'Add Subscriber',
             'previous_page_path' => 'admin/newsletter',
             'page_js' => 'newsletter',
-            'url_segments' => $urlSegments,
             'breadcrumbs' => $breadcrumbs
         ];
 
@@ -106,7 +104,6 @@ class NewsletterController extends BaseController
             'page_title' => 'Edit Subscriber',
             'previous_page_path' => 'admin/newsletter',
             'page_js' => 'newsletter',
-            'url_segments' => $urlSegments,
             'breadcrumbs' => $breadcrumbs
         ];
 

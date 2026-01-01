@@ -62,6 +62,7 @@ class Router
 
         if ($matching) {
             $this->request->setRouteParams($matching->parameters());
+            $this->request->setAttribute('route_name', $matching->name());
 
             return $matching;
         }

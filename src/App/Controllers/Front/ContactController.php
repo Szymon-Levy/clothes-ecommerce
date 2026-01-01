@@ -24,7 +24,6 @@ class ContactController extends BaseController
         $data = [
             'page_title' => 'Contact',
             'page_js' => 'contact',
-            'url_segments' => $urlSegments,
             'breadcrumbs' => $breadcrumbs
         ];
 
