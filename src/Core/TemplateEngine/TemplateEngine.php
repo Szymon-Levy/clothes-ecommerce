@@ -14,7 +14,8 @@ class TemplateEngine
 
     public function __construct(
         protected Config $config,
-        protected Session $session
+        protected Session $session,
+        protected TemplateEngineExtension $templateEngineExtension
     )
     {
         $this->viewsDir = dirname(__DIR__, 2) . '/views';
@@ -41,7 +42,7 @@ class TemplateEngine
         $twigSettings['debug'] = $this->config->system('dev');
         $twigSettings['strict_variables'] = false;
 
-        $twig = new \Twig\Environment($twigLoader, $twigSettings);
+        $twig = new Environment($twigLoader, $twigSettings);
 
         $twig->addGlobal('config', $this->config->all());
         $twig->addGlobal('session', $this->session->getTwigVariables());
@@ -62,60 +63,7 @@ class TemplateEngine
 
     protected function extendTwig()
     {
-        $assets = new \Twig\TwigFunction('assets', function (string $filePath) {
-            $filePath = ltrim($filePath, '/');
-
-            if (file_exists($filePath)) {
-                $filePath .= '?v=' . filemtime($filePath);
-            }
-    
-            return '/' . $filePath;
-        });
-    
-        $this->engine->addFunction($assets);
-
-        $loadPageJs = new \Twig\TwigFunction('loadPageJs', function (array|string $fileNames, string $source) {
-            if (is_string($fileNames)) {
-                $fileName = $fileNames;
-                $fileNames = [];
-                $fileNames[] = $fileName;
-            }
-
-            foreach ($fileNames as $fileName) {
-                $filePath = 'js/' . $source . '/pages/' . $fileName . '.js';
-
-                if (file_exists($filePath)) {
-                    $filePath .= '?v=' . filemtime($filePath);
-                    $fullPath = '/' . $filePath;
-                    echo '<script src="' . $fullPath . '" defer type="module"></script>';
-                }
-            }
-        });
-
-        $this->engine->addFunction($loadPageJs);
-
-        $pageActiveStatus = new \Twig\TwigFunction('pageActiveStatus', function (string $currentPage, string|null $urlSegment) {
-            if ($currentPage == $urlSegment) {
-                return 'active';
-            }
-            
-            return '';
-        });
-
-        $this->engine->addFunction($pageActiveStatus);
-
-        $honeypot = new \Twig\TwigFunction('honeypot', function () {
-            echo '
-                <div style="opacity: 0; position: absolute; top: 0; left: 0; height: 0; width: 0; z-index: -1;">
-                    <label>
-                        leave this field blank to prove your humanity
-                        <input type="text" name="website" value="" autocomplete="new-password" tabindex="-1" />
-                    </label>
-                </div>
-            ';
-        });
-
-        $this->engine->addFunction($honeypot);
+        $this->engine->addExtension($this->templateEngineExtension);
 
         $this->engine->getExtension(\Twig\Extension\CoreExtension::class)->setDateFormat('d/m/Y H:i', '%d days');
     }
