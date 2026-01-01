@@ -66,12 +66,15 @@ class TemplateEngineExtension extends AbstractExtension
     public function honeypot(): string
     {
         return '
-            <div style="opacity: 0; position: absolute; top: 0; left: 0; height: 0; width: 0; z-index: -1;">
-                <label>
-                    leave this field blank to prove your humanity
-                    <input type="text" name="website" value="" autocomplete="new-password" tabindex="-1" />
-                </label>
-            </div>
+            <input 
+                id="website" 
+                type="text" 
+                name="website" 
+                autocomplete="new-password" 
+                tabindex="-1"
+                readonly
+                style="position:absolute; left:-9999px; width:1px; height:1px;"
+            />
         ';
     }
 }
