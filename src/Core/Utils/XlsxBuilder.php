@@ -7,10 +7,9 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class ExportToXlsx
+class XlsxBuilder
 {
     protected array $data;
-    protected string $fileName;
     protected array $outputData = [];
     protected Spreadsheet $spreadsheet;
     protected Worksheet $sheet;
@@ -24,7 +23,6 @@ class ExportToXlsx
     public function __construct(array $data)
     {
         $this->data = $data;
-        $this->fileName = $data['file_name'] . '_' . date('d-m-Y-H-i-s');
         $this->outputData[] = $data['headings'];
     }
 
@@ -67,7 +65,7 @@ class ExportToXlsx
         }
     }
 
-    public function exportData()
+    public function generateXlsxContent(): string
     {
         $this->prepareOutputData();
 
@@ -77,14 +75,13 @@ class ExportToXlsx
 
         $this->styleWorksheet();
 
-        ob_end_clean();
-
-        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment;filename="' . $this->fileName . '.xlsx"');
-        header('Cache-Control: max-age=0');
+        ob_start();
 
         $writer = new Xlsx($this->spreadsheet);
         $writer->save('php://output');
-        exit;
+        
+        $content = ob_get_clean();
+
+        return $content;
     }
 }
