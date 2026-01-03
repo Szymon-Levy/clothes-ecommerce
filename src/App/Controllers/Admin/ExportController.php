@@ -6,30 +6,19 @@ use App\Controllers\BaseController;
 use Core\Http\Response\RedirectResponse;
 use Core\Utils\ExportToXlsx;
 use Core\Utils\FlashMessage\FlashMessageAdmin;
-use App\Models\NewsletterModel;
+use App\Services\ExportService;
 
 class ExportController extends BaseController
 {
     public function __construct(
-        protected NewsletterModel $newsletterModel
+        protected ExportService $exportService
     ){}
-
-    protected function getDataBySource(string $dataSource)
-    {
-        switch ($dataSource) {
-            case 'newsletter-subscribers':
-                return $this->newsletterModel->getSubscribersDataToExport();
-                break;
-            default:
-                return false;
-        }
-    }
 
     public function export(FlashMessageAdmin $flashMessageAdmin)
     {
         $dataSource = $this->request->routeParam('data');
 
-        $data = $this->getDataBySource($dataSource);
+        $data = $this->exportService->getData($dataSource);
 
         if ($data === false) {
             $flashMessageAdmin->error('Unknown data source.');

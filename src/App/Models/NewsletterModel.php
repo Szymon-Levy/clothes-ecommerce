@@ -342,12 +342,8 @@ class NewsletterModel extends BaseModel
         return $this->database->SQL($sql, $arguments)->fetchAll();
     }
 
-    public function getSubscribersDataToExport()
+    public function getSubscribersExportData()
     {
-        $data['file_name'] = 'newsletter-subscribers';
-        $data['headings'] = ['ID', 'SUBSCRIBER NAME', 'EMAIL', 'CREATED DATE', 'ACTIVITY STATUS'];
-        $data['db_columns'] = ['id', 'name', 'email', 'created_at', 'activity_status'];
-
         $sql = '
             SELECT
                 id,
@@ -362,7 +358,7 @@ class NewsletterModel extends BaseModel
             FROM newsletter_subscribers
             ORDER BY id;
         ';
-        $data['db_data'] = $this->database->SQL($sql)->fetchAll();
-        return $data;
+
+        return $this->database->SQL($sql)->fetchAll();
     }
 }
