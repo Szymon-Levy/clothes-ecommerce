@@ -39,7 +39,5 @@ class ExportController extends BaseController
 
         $export = new ExportToXlsx($data);
         $export->exportData();
-
-        echo '<script>window.self.close()</script>';
     }
 }
