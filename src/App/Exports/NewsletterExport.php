@@ -4,7 +4,7 @@ namespace App\Exports;
 
 use App\Models\NewsletterModel;
 
-class NewsletterExport
+final class NewsletterExport extends AbstractExport
 {
     public function __construct(
         protected NewsletterModel $newsletterModel
@@ -13,7 +13,7 @@ class NewsletterExport
     public function subscribersData()
     {
         $data = [
-            'file_name' => 'newsletter-subscribers',
+            'file_name' => $this->addDateToFileName('newsletter-subscribers'),
             'headings' => ['ID', 'SUBSCRIBER NAME', 'EMAIL', 'CREATED DATE', 'ACTIVITY STATUS'],
             'db_columns' => ['id', 'name', 'email', 'created_at', 'activity_status'],
             'db_data' => $this->newsletterModel->getSubscribersExportData()

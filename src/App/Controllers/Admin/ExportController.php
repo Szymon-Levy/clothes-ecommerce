@@ -4,9 +4,10 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 use Core\Http\Response\RedirectResponse;
-use Core\Utils\ExportToXlsx;
 use Core\Utils\FlashMessage\FlashMessageAdmin;
 use App\Services\ExportService;
+use Core\Http\Response\XlsxResponse;
+use Core\Utils\XlsxBuilder;
 
 class ExportController extends BaseController
 {
@@ -23,10 +24,15 @@ class ExportController extends BaseController
         if ($data === false) {
             $flashMessageAdmin->error('Unknown data source.');
 
-            return new RedirectResponse('admin/newsletter');
+            return new RedirectResponse('admin');
         }
 
-        $export = new ExportToXlsx($data);
-        $export->exportData();
+        $fileName = $data['file_name'];
+
+        $export = new XlsxBuilder($data);
+
+        $xlsxContent = $export->generateXlsxContent();
+
+        return new XlsxResponse($xlsxContent, $fileName);
     }
 }
