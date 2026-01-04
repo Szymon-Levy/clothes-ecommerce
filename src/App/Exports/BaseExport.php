@@ -2,10 +2,11 @@
 
 namespace App\Exports;
 
+use Core\Utils\Helpers;
+
 abstract class BaseExport
 {
-    protected function addDateToFileName(string $name): string
-    {
-        return $name . '_' . date('d-m-Y-H-i-s') . 'sex';
-    }
+    public function __construct(
+        protected Helpers $helpers
+    ){}
 }

@@ -13,7 +13,7 @@ final class NewsletterExport extends BaseExport
     public function subscribersData()
     {
         $data = [
-            'file_name' => $this->addDateToFileName('newsletter-subscribers'),
+            'file_name' => $this->helpers->safeFilename('newsletter-subscribers'),
             'headings' => ['ID', 'SUBSCRIBER NAME', 'EMAIL', 'CREATED DATE', 'ACTIVITY STATUS'],
             'db_columns' => ['id', 'name', 'email', 'created_at', 'activity_status'],
             'db_data' => $this->newsletterModel->getSubscribersExportData()
