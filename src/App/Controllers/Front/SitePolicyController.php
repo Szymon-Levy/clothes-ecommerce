@@ -7,7 +7,7 @@ use Core\Http\Response\HtmlResponse;
 use Core\ValueObjects\Breadcrumbs;
 use Core\ValueObjects\UrlSegments;
 
-class SitePolicyController extends BaseController
+final class SitePolicyController extends BaseController
 {
 
     public function privacyPolicy()

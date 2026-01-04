@@ -9,7 +9,7 @@ use Core\Utils\FlashMessage\FlashMessageFront;
 use Core\Validation\Validation;
 use App\Models\NewsletterModel;
 
-class NewsletterController extends BaseController
+final class NewsletterController extends BaseController
 {
     public function __construct(
         protected NewsletterModel $newsletterModel

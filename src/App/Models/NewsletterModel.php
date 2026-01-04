@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Core\Utils\Email;
 
-class NewsletterModel extends BaseModel
+final class NewsletterModel extends BaseModel
 {
     protected $allowedFilterColumns = ['id', 'name', 'email', 'is_active', 'created_at'];
     protected $resultsCount = 0;

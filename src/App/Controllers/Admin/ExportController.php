@@ -9,7 +9,7 @@ use App\Services\ExportService;
 use Core\Http\Response\XlsxResponse;
 use Core\Utils\XlsxBuilder;
 
-class ExportController extends BaseController
+final class ExportController extends BaseController
 {
     public function __construct(
         protected ExportService $exportService

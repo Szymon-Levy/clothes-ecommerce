@@ -5,7 +5,7 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use Core\Http\Response\HtmlResponse;
 
-class ErrorsController extends BaseController
+final class ErrorsController extends BaseController
 {
     public function error404()
     {

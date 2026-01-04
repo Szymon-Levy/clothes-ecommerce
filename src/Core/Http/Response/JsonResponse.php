@@ -2,7 +2,7 @@
 
 namespace Core\Http\Response;
 
-class JsonResponse extends AbstractResponse
+final class JsonResponse extends AbstractResponse
 {
     public function __construct(
         protected array $data,

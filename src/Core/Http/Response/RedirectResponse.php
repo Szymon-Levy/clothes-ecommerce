@@ -2,7 +2,7 @@
 
 namespace Core\Http\Response;
 
-class RedirectResponse extends AbstractResponse
+final class RedirectResponse extends AbstractResponse
 {
     public function __construct(
         protected string $url = '/',

@@ -10,7 +10,7 @@ use App\Models\ContactModel;
 use Core\ValueObjects\Breadcrumbs;
 use Core\ValueObjects\UrlSegments;
 
-class ContactController extends BaseController
+final class ContactController extends BaseController
 {
     public function __construct(
         protected ContactModel $contactModel

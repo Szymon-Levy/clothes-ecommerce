@@ -12,7 +12,7 @@ use App\Models\NewsletterModel;
 use Core\ValueObjects\Breadcrumbs;
 use Core\ValueObjects\UrlSegments;
 
-class NewsletterController extends BaseController
+final class NewsletterController extends BaseController
 {
     public function __construct(
         protected NewsletterModel $newsletterModel

@@ -7,7 +7,7 @@ use Core\Http\Response\HtmlResponse;
 use Core\ValueObjects\Breadcrumbs;
 use Core\ValueObjects\UrlSegments;
 
-class DashboardController extends BaseController
+final class DashboardController extends BaseController
 {
     public function index()
     {

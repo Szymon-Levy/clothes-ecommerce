@@ -4,7 +4,7 @@ namespace App\Exports;
 
 use App\Models\NewsletterModel;
 
-final class NewsletterExport extends AbstractExport
+final class NewsletterExport extends BaseExport
 {
     public function __construct(
         protected NewsletterModel $newsletterModel

@@ -2,7 +2,7 @@
 
 namespace App\Exports;
 
-abstract class AbstractExport
+abstract class BaseExport
 {
     protected function addDateToFileName(string $name): string
     {

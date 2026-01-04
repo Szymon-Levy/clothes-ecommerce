@@ -2,7 +2,7 @@
 
 namespace Core\Http\Response;
 
-class HtmlResponse extends AbstractResponse
+final class HtmlResponse extends AbstractResponse
 {
     public function __construct(
         protected string $content,

@@ -5,7 +5,7 @@ namespace App\Controllers\Front;
 use App\Controllers\BaseController;
 use Core\Http\Response\HtmlResponse;
 
-class UiElementsController extends BaseController
+final class UiElementsController extends BaseController
 {
 
     public function subscribtionPopup()
