@@ -8,7 +8,6 @@ use App\Controllers\Front\UiElementsController;
 use App\Controllers\Front\SitePolicyController;
 use App\Controllers\Admin\NewsletterController as AdminNewsletterController;
 use App\Controllers\Admin\DashboardController;
-use App\Controllers\Admin\ExportController;
 use App\Middlewares\CsrfMiddleware;
 use App\Middlewares\HoneypotMiddleware;
 
@@ -40,13 +39,13 @@ return function (Router $router) {
     $router->group('/admin', function($router) {
         $router->get('', [DashboardController::class, 'index'])->name('admin-dashboard');
         
-        $router->get('/export/{data}', [ExportController::class, 'export']);
-        
         $router->get('/newsletter', [AdminNewsletterController::class, 'index'])->name('admin-newsletter.index');
 
         $router->get('/newsletter/add-subscriber', [AdminNewsletterController::class, 'addSubscriber'])->name('admin-newsletter.addSubscriber');
 
         $router->get('/newsletter/edit-subscriber/{id}', [AdminNewsletterController::class, 'editSubscriber'])->name('admin-newsletter.editSubscriber');
+
+        $router->get('/newsletter/export-subscribers/', [AdminNewsletterController::class, 'exportSubscribers']);
 
         $router->middleware([CsrfMiddleware::class, HoneypotMiddleware::class])
             ->post('/newsletter/subscriber/add', [AdminNewsletterController::class, 'addSubscriberToDB']);
