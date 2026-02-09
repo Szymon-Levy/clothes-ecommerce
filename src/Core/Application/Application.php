@@ -26,12 +26,26 @@ class Application
         $this->initApp();
     }
 
+    protected function __clone(){}
+
+    public function __wakeup() {throw new \Exception("Cannot unserialize a singleton.");}
+
+    public static function getInstance(): Application
+    {
+        $class = static::class;
+
+        if(!isset(self::$instances[$class])) {
+            self::$instances[$class] = new static();
+        }
+
+        return self::$instances[$class];
+    }
+
     public function run()
     {
         $router = $this->container->get(Router::class);
 
-        $routes = require_once dirname(__DIR__, 2) . '/routes/routes.php';
-        $routes($router);
+        $this->loadRoutes($router);
 
         try {
             $route = $router->matchRoute();
@@ -83,10 +97,6 @@ class Application
         $this->container->get(Csrf::class)->setInCookie();
     }
 
-    protected function __clone(){}
-
-    public function __wakeup() {throw new \Exception("Cannot unserialize a singleton.");}
-
     protected function handleError(string $code, ?\Throwable $e = null)
     {
         if ($code == '500') {
@@ -98,14 +108,22 @@ class Application
         return $this->dispatcher->dispatchHandler($handler, ['e' => $e]);
     }
 
-    public static function getInstance(): Application
+    protected function loadRoutes(Router $router): void
     {
-        $class = static::class;
+        $dir = dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . 'routes';
 
-        if(!isset(self::$instances[$class])) {
-            self::$instances[$class] = new static();
+        $files = new \DirectoryIterator($dir);
+
+        foreach ($files as $file) {
+            if ($file->isDot() || $file->isDir() || $file->getExtension() !== 'php') {
+                continue;
+            }
+
+            $routeRegistration = require $file->getRealPath();
+
+            if (is_callable($routeRegistration)) {
+                $routeRegistration($router);
+            }
         }
-
-        return self::$instances[$class];
     }
 }
