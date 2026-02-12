@@ -3,6 +3,7 @@
 namespace App\Exports;
 
 use App\Models\NewsletterModel;
+use Core\ExcelExporter\DTO\ExportTableDTO;
 
 final class NewsletterExport extends BaseExport
 {
@@ -10,15 +11,19 @@ final class NewsletterExport extends BaseExport
         protected NewsletterModel $newsletterModel
     ){}
 
-    public function subscribersData()
+    public function subscribersData(): ExportTableDTO
     {
-        $data = [
-            'file_name' => $this->helpers->safeFilename('newsletter-subscribers'),
-            'headings' => ['ID', 'SUBSCRIBER NAME', 'EMAIL', 'CREATED DATE', 'ACTIVITY STATUS'],
-            'db_columns' => ['id', 'name', 'email', 'created_at', 'activity_status'],
-            'db_data' => $this->newsletterModel->getSubscribersExportData()
-        ];
+        $headers = ['ID', 'SUBSCRIBER NAME', 'EMAIL', 'CREATED DATE', 'ACTIVITY STATUS'];
 
-        return $data;
+        $columnsWhitelist = ['id', 'name', 'email', 'created_at', 'activity_status'];
+
+        $dbRows = $this->newsletterModel->getSubscribersExportData();
+
+        $mappedData = $this->exportTableMapper->map($columnsWhitelist, $dbRows);
+
+        return new ExportTableDTO(
+            headers: $headers,
+            rows: $mappedData
+        );
     }
 }

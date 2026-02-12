@@ -2,11 +2,11 @@
 
 namespace App\Exports;
 
-use Core\Utils\Helpers;
+use Core\ExcelExporter\Mapper\ExportTableMapper;
 
 abstract class BaseExport
 {
     public function __construct(
-        protected Helpers $helpers
+        protected ExportTableMapper $exportTableMapper
     ){}
 }
