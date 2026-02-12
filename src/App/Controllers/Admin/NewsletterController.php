@@ -3,19 +3,25 @@
 namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
+use App\Exports\NewsletterExport;
 use Core\Http\Response\HtmlResponse;
 use Core\Http\Response\JsonResponse;
 use Core\Http\Response\RedirectResponse;
 use Core\Utils\FlashMessage\FlashMessageAdmin;
 use Core\Validation\Validation;
 use App\Models\NewsletterModel;
+use App\Services\exportDataTableService;
+use Core\Http\Response\ResponseInterface;
+use Core\Http\Response\XlsxResponse;
 use Core\ValueObjects\Breadcrumbs;
 use Core\ValueObjects\UrlSegments;
 
 final class NewsletterController extends BaseController
 {
     public function __construct(
-        protected NewsletterModel $newsletterModel
+        protected NewsletterModel $newsletterModel,
+        protected NewsletterExport $newsletterExport,
+        protected exportDataTableService $exportDataTableService
     ){}
 
     public function index()
@@ -229,5 +235,16 @@ final class NewsletterController extends BaseController
         }
 
         return new JsonResponse($response);
+    }
+
+    public function exportSubscribers(): ResponseInterface
+    {
+        $fileName = $this->helpers->safeFilename('newsletter-subscribers');
+
+        $exportDataDTO = $this->newsletterExport->subscribersData();
+
+        $xlsxContent = $this->exportDataTableService->getXlsxContent($exportDataDTO, 'Subscribers');
+
+        return new XlsxResponse($xlsxContent, $fileName);
     }
 }
