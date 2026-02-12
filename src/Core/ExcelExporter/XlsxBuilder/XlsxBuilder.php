@@ -9,13 +9,6 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class XlsxBuilder
 {
-    protected array $styles = [
-        'font' => 'Aptos',
-        'bold_header' => true,
-        'header_background' => '155bda',
-        'header_color' => \PhpOffice\PhpSpreadsheet\Style\Color::COLOR_WHITE
-    ];
-
     public function __construct(
         protected PhpSpreadsheetFactory $phpSpreadsheetFactory,
         protected ExcelStylerInterface $styler
