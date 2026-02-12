@@ -7,8 +7,8 @@ use Core\Config\Config;
 use Core\Container\Container;
 use Core\Database\DataBase;
 use Core\Dispatcher\Dispatcher;
-use Core\Http\Response\AbstractResponse;
 use Core\Http\Response\HtmlResponse;
+use Core\Http\Response\ResponseInterface;
 use Core\Router\Exceptions\MethodNotAllowedException;
 use Core\Router\Exceptions\RouteNotFoundException;
 use Core\Router\Router;
@@ -18,7 +18,7 @@ class Application
 {
     protected Container $container;
     protected Dispatcher $dispatcher;
-    protected ?AbstractResponse $response = null;
+    protected ?ResponseInterface $response = null;
     protected static $instances = [];
 
     protected function __construct()
@@ -51,10 +51,10 @@ class Application
             $route = $router->matchRoute();
             $result = $this->dispatcher->dispatch($route);
 
-            if (!$result instanceof AbstractResponse) {
+            if (!$result instanceof ResponseInterface) {
                 $this->response = $this->handleError(
                     '500', 
-                    new \Exception('Invalid return type. AbstractResponse expected.')
+                    new \Exception('Invalid return type. ResponseInterface expected.')
                 );
             } else {
                 $this->response = $result;
@@ -67,7 +67,7 @@ class Application
             $this->response = $this->handleError('500', $e);
         }
 
-        if ($this->response instanceof AbstractResponse) {
+        if ($this->response instanceof ResponseInterface) {
             $this->response->send();
         } else {
             (new HtmlResponse('Internal Server error', 500))->send();

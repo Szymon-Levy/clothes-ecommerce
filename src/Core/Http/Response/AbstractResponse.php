@@ -2,7 +2,7 @@
 
 namespace Core\Http\Response;
 
-abstract class AbstractResponse
+abstract class AbstractResponse implements ResponseInterface
 {
     public function __construct(
         protected string $content = '',
