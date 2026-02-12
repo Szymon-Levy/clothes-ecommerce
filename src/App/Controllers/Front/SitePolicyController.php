@@ -4,13 +4,14 @@ namespace App\Controllers\Front;
 
 use App\Controllers\BaseController;
 use Core\Http\Response\HtmlResponse;
+use Core\Http\Response\ResponseInterface;
 use Core\ValueObjects\Breadcrumbs;
 use Core\ValueObjects\UrlSegments;
 
 final class SitePolicyController extends BaseController
 {
 
-    public function privacyPolicy()
+    public function privacyPolicy(): ResponseInterface
     {
         $urlSegments = UrlSegments::fromUri($this->request->uri())->get();
         $breadcrumbs = Breadcrumbs::fromSegments($urlSegments)->get();
@@ -25,7 +26,7 @@ final class SitePolicyController extends BaseController
         );
     }
 
-    public function termsAndConditions()
+    public function termsAndConditions(): ResponseInterface
     {
         $urlSegments = UrlSegments::fromUri($this->request->uri())->get();
         $breadcrumbs = Breadcrumbs::fromSegments($urlSegments)->get();

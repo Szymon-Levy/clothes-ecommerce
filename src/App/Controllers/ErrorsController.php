@@ -4,10 +4,11 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use Core\Http\Response\HtmlResponse;
+use Core\Http\Response\ResponseInterface;
 
 final class ErrorsController extends BaseController
 {
-    public function error404()
+    public function error404(): ResponseInterface
     {
         $data = [
             'error_page' => true,
@@ -19,7 +20,7 @@ final class ErrorsController extends BaseController
         );
     }
 
-    public function error405()
+    public function error405(): ResponseInterface
     {
         $data = [
             'error_page' => true,
@@ -31,7 +32,7 @@ final class ErrorsController extends BaseController
         );
     }
 
-    public function error500(\Throwable $e)
+    public function error500(\Throwable $e): ResponseInterface
     {
         $data = [
             'error_page' => true,

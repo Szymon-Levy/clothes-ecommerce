@@ -4,13 +4,14 @@ namespace App\Controllers\Front;
 
 use App\Controllers\BaseController;
 use Core\Http\Response\HtmlResponse;
+use Core\Http\Response\ResponseInterface;
 use Core\ValueObjects\Breadcrumbs;
 use Core\ValueObjects\UrlSegments;
 
 final class HomeController extends BaseController
 {
 
-    public function index()
+    public function index(): ResponseInterface
     {
         $urlSegments = UrlSegments::fromUri($this->request->uri())->get();
         $breadcrumbs = Breadcrumbs::fromSegments($urlSegments)->get();

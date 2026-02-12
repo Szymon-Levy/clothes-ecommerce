@@ -4,11 +4,12 @@ namespace App\Controllers\Front;
 
 use App\Controllers\BaseController;
 use Core\Http\Response\HtmlResponse;
+use Core\Http\Response\ResponseInterface;
 
 final class UiElementsController extends BaseController
 {
 
-    public function subscribtionPopup()
+    public function subscribtionPopup(): ResponseInterface
     {
         $data = [
             'wrapper_class' => 'subscribtion-popup animate'
@@ -19,7 +20,7 @@ final class UiElementsController extends BaseController
         );
     }
 
-    public function videoPopup()
+    public function videoPopup(): ResponseInterface
     {
         $data = [
             'wrapper_class' => 'popup--video',

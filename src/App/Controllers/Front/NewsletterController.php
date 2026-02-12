@@ -8,6 +8,7 @@ use Core\Http\Response\RedirectResponse;
 use Core\Utils\FlashMessage\FlashMessageFront;
 use Core\Validation\Validation;
 use App\Models\NewsletterModel;
+use Core\Http\Response\ResponseInterface;
 
 final class NewsletterController extends BaseController
 {
@@ -15,7 +16,7 @@ final class NewsletterController extends BaseController
         protected NewsletterModel $newsletterModel
     ){}
 
-    public function subscribe()
+    public function subscribe(): ResponseInterface
     {
         // post data
         $name = $this->request->post('name');
@@ -58,7 +59,7 @@ final class NewsletterController extends BaseController
         return new JsonResponse($response);
     }
 
-    public function confirmSubscribtion(FlashMessageFront $flashMessageFront)
+    public function confirmSubscribtion(FlashMessageFront $flashMessageFront): ResponseInterface
     {
         $token = $this->request->routeParam('token');
 
@@ -86,7 +87,7 @@ final class NewsletterController extends BaseController
         return new RedirectResponse();
     }
 
-    public function deleteSubscribtion(FlashMessageFront $flashMessageFront)
+    public function deleteSubscribtion(FlashMessageFront $flashMessageFront): ResponseInterface
     {
         $token = $this->request->routeParam('token');
 

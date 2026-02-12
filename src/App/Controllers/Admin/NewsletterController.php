@@ -24,7 +24,7 @@ final class NewsletterController extends BaseController
         protected exportDataTableService $exportDataTableService
     ){}
 
-    public function index()
+    public function index(): ResponseInterface
     {
         $keyword = $this->request->get('keyword', '', false);
         $orderBy = $this->request->get('orderby');
@@ -59,7 +59,7 @@ final class NewsletterController extends BaseController
         );
     }
 
-    public function addSubscriber()
+    public function addSubscriber(): ResponseInterface
     {
         $urlSegments = UrlSegments::fromUri($this->request->uri())->get();
 
@@ -79,7 +79,7 @@ final class NewsletterController extends BaseController
         );
     }
 
-    public function editSubscriber(FlashMessageAdmin $flashMessageAdmin)
+    public function editSubscriber(FlashMessageAdmin $flashMessageAdmin): ResponseInterface
     {
         $id = $this->request->routeParam('id');
 
@@ -118,7 +118,7 @@ final class NewsletterController extends BaseController
         );
     }
 
-    public function addSubscriberToDB(FlashMessageAdmin $flashMessageAdmin)
+    public function addSubscriberToDB(FlashMessageAdmin $flashMessageAdmin): ResponseInterface
     {
         // post data
         $name = $this->request->post('name');
@@ -159,7 +159,7 @@ final class NewsletterController extends BaseController
         return new JsonResponse($response);
     }
 
-    public function deleteSubscribers()
+    public function deleteSubscribers(): ResponseInterface
     {
         // response
         $response = [];
@@ -187,7 +187,7 @@ final class NewsletterController extends BaseController
         return new JsonResponse($response);
     }
 
-    public function editSubscriberInDB(FlashMessageAdmin $flashMessageAdmin)
+    public function editSubscriberInDB(FlashMessageAdmin $flashMessageAdmin): ResponseInterface
     {
         // post data
         $id = $this->request->post('id');

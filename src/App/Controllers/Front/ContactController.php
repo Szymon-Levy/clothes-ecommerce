@@ -7,6 +7,7 @@ use Core\Http\Response\HtmlResponse;
 use Core\Http\Response\JsonResponse;
 use Core\Validation\Validation;
 use App\Models\ContactModel;
+use Core\Http\Response\ResponseInterface;
 use Core\ValueObjects\Breadcrumbs;
 use Core\ValueObjects\UrlSegments;
 
@@ -16,7 +17,7 @@ final class ContactController extends BaseController
         protected ContactModel $contactModel
     ){}
 
-    public function index()
+    public function index(): ResponseInterface
     {
         $urlSegments = UrlSegments::fromUri($this->request->uri())->get();
         $breadcrumbs = Breadcrumbs::fromSegments($urlSegments)->get();
@@ -32,7 +33,7 @@ final class ContactController extends BaseController
         );
     }
 
-    public function sendMessage()
+    public function sendMessage(): ResponseInterface
     {
         // post data
         $name = $this->request->post('name');
