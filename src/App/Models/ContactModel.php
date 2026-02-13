@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Core\Utils\Email;
+use Core\Email\Email;
 
 final class ContactModel extends BaseModel
 {
@@ -34,7 +34,6 @@ final class ContactModel extends BaseModel
             'subject' => $subject,
             'message' => $message
         ];
-
         
         $emailBody = $this->templateEngine->render('email_templates/contact_message_copy.html.twig', $emailData);
         

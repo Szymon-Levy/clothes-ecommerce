@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Core\Utils\Email;
+use Core\Email\Email;
 
 final class NewsletterModel extends BaseModel
 {
