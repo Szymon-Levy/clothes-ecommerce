@@ -4,11 +4,6 @@ namespace Core\Utils;
 
 class Helpers
 {
-    public function generateToken()
-    {
-        return bin2hex(random_bytes(16));
-    }
-
     public function safeFilename(string $name, bool $withDate = true): string
     {
         $info = pathinfo($name);

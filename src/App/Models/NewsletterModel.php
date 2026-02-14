@@ -3,9 +3,15 @@
 namespace App\Models;
 
 use Core\Email\Email;
+use Core\Security\TokenGenerator;
 
 final class NewsletterModel extends BaseModel
 {
+    public function __construct(
+        protected TokenGenerator $tokenGenerator
+    ) {}
+
+
     protected $allowedFilterColumns = ['id', 'name', 'email', 'is_active', 'created_at'];
     protected $resultsCount = 0;
 
@@ -145,11 +151,13 @@ final class NewsletterModel extends BaseModel
         ';
 
         do {
-            $token = $this->helpers->generateToken();
+            $token = $this->tokenGenerator->generate();
+
             $arguments['token'] = $token;
 
             try {
                 $this->database->SQL($sql, $arguments);
+
                 return $token;
             } catch (\PDOException $e) {
                 if ($e->errorInfo[1] !== 1062) {
