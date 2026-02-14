@@ -11,6 +11,7 @@ use Core\Utils\FlashMessage\FlashMessageAdmin;
 use Core\Validation\Validation;
 use App\Models\NewsletterModel;
 use App\Services\exportDataTableService;
+use Core\FileSystem\FilenameSanitizer\FilenameSanitizer;
 use Core\Http\Response\ResponseInterface;
 use Core\Http\Response\XlsxResponse;
 use Core\ValueObjects\Breadcrumbs;
@@ -237,9 +238,9 @@ final class NewsletterController extends BaseController
         return new JsonResponse($response);
     }
 
-    public function exportSubscribers(): ResponseInterface
+    public function exportSubscribers(FilenameSanitizer $filenameSanitizer): ResponseInterface
     {
-        $fileName = $this->helpers->safeFilename('newsletter-subscribers');
+        $fileName = $filenameSanitizer->sanitize('newsletter-subscribers');
 
         $exportDataDTO = $this->newsletterExport->subscribersData();
 

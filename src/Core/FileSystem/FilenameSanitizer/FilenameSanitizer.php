@@ -1,10 +1,10 @@
 <?php
 
-namespace Core\Utils;
+namespace Core\FileSystem\FilenameSanitizer;
 
-class Helpers
+class FilenameSanitizer
 {
-    public function safeFilename(string $name, bool $withDate = true): string
+    public function sanitize(string $name, bool $withDate = true): string
     {
         $info = pathinfo($name);
         $ext  = isset($info['extension']) ? '.' . $info['extension'] : '';
