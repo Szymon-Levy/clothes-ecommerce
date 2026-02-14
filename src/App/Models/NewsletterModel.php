@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Core\Email\Email;
-use Core\Security\TokenGenerator;
+use Core\Security\TokenGenerator\TokenGenerator;
 
 final class NewsletterModel extends BaseModel
 {

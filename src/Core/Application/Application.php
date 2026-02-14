@@ -12,7 +12,7 @@ use Core\Http\Response\ResponseInterface;
 use Core\Router\Exceptions\MethodNotAllowedException;
 use Core\Router\Exceptions\RouteNotFoundException;
 use Core\Router\Router;
-use Core\Utils\Csrf;
+use Core\Security\Csrf\Csrf;
 
 class Application
 {

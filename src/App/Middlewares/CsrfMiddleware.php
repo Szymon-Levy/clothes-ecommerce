@@ -5,7 +5,7 @@ namespace App\Middlewares;
 use Closure;
 use Core\Http\Request;
 use Core\Http\Response\HtmlResponse;
-use Core\Utils\Csrf;
+use Core\Security\Csrf\Csrf;
 
 class CsrfMiddleware
 {

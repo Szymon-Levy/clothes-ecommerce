@@ -1,9 +1,9 @@
 <?php
 
-namespace Core\Utils;
+namespace Core\Security\Csrf;
 
 use Core\Http\Session;
-use Core\Security\TokenGenerator;
+use Core\Security\TokenGenerator\TokenGenerator;
 
 class Csrf
 {

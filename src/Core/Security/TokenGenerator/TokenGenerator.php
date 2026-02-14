@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\Security;
+namespace Core\Security\TokenGenerator;
 
 class TokenGenerator
 {
