@@ -35,25 +35,4 @@ class Session
     {
         session_destroy();
     }
-
-    public function flash(string $key, $value = null)
-    {
-        if ($value === null) {
-            $data = $this->get("flash_{$key}");
-            $this->remove("flash_{$key}");
-
-            return $data;
-        }
-
-        $this->set("flash_{$key}", $value);
-    }
-
-    public function getTwigVariables()
-    {
-        $data = [
-            'flash_message' => $this->flash('flash_message')
-        ];
-
-        return $data;
-    }
 }
