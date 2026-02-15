@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 use Core\Http\Flash\FlashService;
-use Core\Http\Request;
+use Core\Http\Request\Request;
 use Core\TemplateEngine\TemplateEngine;
 
 abstract class BaseController

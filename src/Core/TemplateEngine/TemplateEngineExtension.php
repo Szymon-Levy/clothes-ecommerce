@@ -4,7 +4,7 @@ namespace Core\TemplateEngine;
 
 use Core\Http\Flash\Enums\FlashScope;
 use Core\Http\Flash\FlashService;
-use Core\Http\Request;
+use Core\Http\Request\Request;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 

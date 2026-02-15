@@ -3,7 +3,7 @@
 namespace Core\Dispatcher;
 
 use Core\Container\Container;
-use Core\Http\Request;
+use Core\Http\Request\Request;
 use Core\Router\Route;
 
 class Dispatcher

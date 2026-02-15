@@ -2,7 +2,7 @@
 
 namespace Core\Router;
 
-use Core\Http\Request;
+use Core\Http\Request\Request;
 use Core\Router\Exceptions\MethodNotAllowedException;
 use Core\Router\Exceptions\RouteNotFoundException;
 

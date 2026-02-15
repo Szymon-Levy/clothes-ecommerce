@@ -3,7 +3,7 @@
 namespace App\Middlewares;
 
 use Closure;
-use Core\Http\Request;
+use Core\Http\Request\Request;
 use Core\Http\Response\JsonResponse;
 
 class HoneypotMiddleware
