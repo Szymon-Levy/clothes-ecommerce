@@ -7,7 +7,6 @@ use App\Exports\NewsletterExport;
 use Core\Http\Response\HtmlResponse;
 use Core\Http\Response\JsonResponse;
 use Core\Http\Response\RedirectResponse;
-use Core\Utils\FlashMessage\FlashMessageAdmin;
 use Core\Validation\Validation;
 use App\Models\NewsletterModel;
 use App\Services\ExportDataTableService;
@@ -80,12 +79,12 @@ final class NewsletterController extends BaseController
         );
     }
 
-    public function editSubscriber(FlashMessageAdmin $flashMessageAdmin): ResponseInterface
+    public function editSubscriber(): ResponseInterface
     {
         $id = $this->request->routeParam('id');
 
         if ($id === '' || filter_var($id, FILTER_VALIDATE_INT) === false) {
-            $flashMessageAdmin->error('Wrong user id.');
+            $this->flash->admin()->error('Wrong user id.');
 
             return new RedirectResponse('admin/newsletter');
         }
@@ -93,7 +92,7 @@ final class NewsletterController extends BaseController
         $subscriber = $this->newsletterModel->getSubscriberById($id);
 
         if (!$subscriber) {
-            $flashMessageAdmin->error('User with given id doesn\'t exists.');
+            $this->flash->admin()->error('User with given id doesn\'t exists.');
 
             return new RedirectResponse('admin/newsletter');
         }
@@ -119,7 +118,7 @@ final class NewsletterController extends BaseController
         );
     }
 
-    public function addSubscriberToDB(FlashMessageAdmin $flashMessageAdmin): ResponseInterface
+    public function addSubscriberToDB(): ResponseInterface
     {
         // post data
         $name = $this->request->post('name');
@@ -147,7 +146,7 @@ final class NewsletterController extends BaseController
         $dbResponse = $this->newsletterModel->addSubscriber($name, $email);
 
         if ($dbResponse == '200') {
-            $flashMessageAdmin->success($name . ' has been successfully added to the subscriber list.');
+            $this->flash->admin()->success($name . ' has been successfully added to the subscriber list.');
 
             $response['success'] = true;
             $response['path'] = '/admin/newsletter';
@@ -188,7 +187,7 @@ final class NewsletterController extends BaseController
         return new JsonResponse($response);
     }
 
-    public function editSubscriberInDB(FlashMessageAdmin $flashMessageAdmin): ResponseInterface
+    public function editSubscriberInDB(): ResponseInterface
     {
         // post data
         $id = $this->request->post('id');
@@ -223,7 +222,7 @@ final class NewsletterController extends BaseController
         $dbResponse = $this->newsletterModel->editSubscriber($id, $name, $email);
 
         if ($dbResponse == '200') {
-            $flashMessageAdmin->success($name . ' has been successfully updated.');
+            $this->flash->admin()->success($name . ' has been successfully updated.');
 
             $response['success'] = true;
             $response['path'] = '/admin/newsletter';

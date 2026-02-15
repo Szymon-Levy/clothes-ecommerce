@@ -5,7 +5,6 @@ namespace App\Controllers\Front;
 use App\Controllers\BaseController;
 use Core\Http\Response\JsonResponse;
 use Core\Http\Response\RedirectResponse;
-use Core\Utils\FlashMessage\FlashMessageFront;
 use Core\Validation\Validation;
 use App\Models\NewsletterModel;
 use Core\Http\Response\ResponseInterface;
@@ -59,7 +58,7 @@ final class NewsletterController extends BaseController
         return new JsonResponse($response);
     }
 
-    public function confirmSubscribtion(FlashMessageFront $flashMessageFront): ResponseInterface
+    public function confirmSubscribtion(): ResponseInterface
     {
         $token = $this->request->routeParam('token');
 
@@ -82,12 +81,12 @@ final class NewsletterController extends BaseController
             $message = 'A problem with sending the message to the specified email occured, check if the email address is correct and try again!';
         }
 
-        $flashMessageFront->{$status}($message);
+        $this->flash->front()->{$status}($message);
 
         return new RedirectResponse();
     }
 
-    public function deleteSubscribtion(FlashMessageFront $flashMessageFront): ResponseInterface
+    public function deleteSubscribtion(): ResponseInterface
     {
         $token = $this->request->routeParam('token');
 
@@ -103,7 +102,7 @@ final class NewsletterController extends BaseController
             $status = 'error';
         }
 
-        $flashMessageFront->{$status}($message);
+        $this->flash->front()->{$status}($message);
 
         return new RedirectResponse();
     }
