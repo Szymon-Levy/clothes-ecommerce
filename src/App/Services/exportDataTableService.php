@@ -5,7 +5,7 @@ namespace App\Services;
 use Core\ExcelExporter\DTO\ExportTableDTO;
 use Core\ExcelExporter\XlsxBuilder\XlsxBuilderFactory;
 
-class exportDataTableService
+class ExportDataTableService
 {
     public function __construct(
         protected XlsxBuilderFactory $xlsxBuilderFactory

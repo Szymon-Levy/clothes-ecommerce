@@ -10,7 +10,7 @@ use Core\Http\Response\RedirectResponse;
 use Core\Utils\FlashMessage\FlashMessageAdmin;
 use Core\Validation\Validation;
 use App\Models\NewsletterModel;
-use App\Services\exportDataTableService;
+use App\Services\ExportDataTableService;
 use Core\FileSystem\FilenameSanitizer\FilenameSanitizer;
 use Core\Http\Response\ResponseInterface;
 use Core\Http\Response\XlsxResponse;
@@ -22,7 +22,7 @@ final class NewsletterController extends BaseController
     public function __construct(
         protected NewsletterModel $newsletterModel,
         protected NewsletterExport $newsletterExport,
-        protected exportDataTableService $exportDataTableService
+        protected ExportDataTableService $exportDataTableService
     ){}
 
     public function index(): ResponseInterface
