@@ -2,6 +2,8 @@
 
 namespace Core\TemplateEngine;
 
+use Core\Http\Flash\Enums\FlashScope;
+use Core\Http\Flash\FlashService;
 use Core\Http\Request;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
@@ -9,7 +11,8 @@ use Twig\TwigFunction;
 class TemplateEngineExtension extends AbstractExtension
 {
     public function __construct(
-        protected Request $request
+        protected Request $request,
+        protected FlashService $flashService
     ){}
 
     public function getFunctions()
@@ -19,6 +22,9 @@ class TemplateEngineExtension extends AbstractExtension
             new TwigFunction('loadPageJs', [$this, 'loadPageJs'], ['is_safe' => ['html']]),
             new TwigFunction('honeypot', [$this, 'honeypot'], ['is_safe' => ['html']]),
             new TwigFunction('setActive', [$this, 'setActive']),
+            new TwigFunction('getMessage', function(string $scope) {
+                return $this->flashService->take(FlashScope::from($scope));
+            })
         ];
     }
 
