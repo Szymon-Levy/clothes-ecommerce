@@ -2,7 +2,7 @@
 
 namespace Core\Security\Csrf;
 
-use Core\Http\Session;
+use Core\Http\Session\Session;
 use Core\Security\TokenGenerator\TokenGenerator;
 
 class Csrf

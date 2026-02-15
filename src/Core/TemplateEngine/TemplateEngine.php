@@ -3,7 +3,7 @@
 namespace Core\TemplateEngine;
 
 use Core\Config\Config;
-use Core\Http\Session;
+use Core\Http\Session\Session;
 use Twig\Environment;
 
 class TemplateEngine
