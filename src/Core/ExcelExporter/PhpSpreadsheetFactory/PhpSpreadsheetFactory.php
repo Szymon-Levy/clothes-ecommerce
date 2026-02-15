@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\Factories;
+namespace Core\ExcelExporter\PhpSpreadsheetFactory;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;

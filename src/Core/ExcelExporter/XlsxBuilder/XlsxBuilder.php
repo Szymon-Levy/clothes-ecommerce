@@ -3,8 +3,8 @@
 namespace Core\ExcelExporter\XlsxBuilder;
 
 use Core\ExcelExporter\DTO\ExportTableDTO;
+use Core\ExcelExporter\PhpSpreadsheetFactory\PhpSpreadsheetFactory;
 use Core\ExcelExporter\Styler\ExcelStylerInterface;
-use Core\Factories\PhpSpreadsheetFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class XlsxBuilder

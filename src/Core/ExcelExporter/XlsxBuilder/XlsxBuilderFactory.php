@@ -1,9 +1,9 @@
 <?php
 
-namespace Core\Factories;
+namespace Core\ExcelExporter\XlsxBuilder;
 
+use Core\ExcelExporter\PhpSpreadsheetFactory\PhpSpreadsheetFactory;
 use Core\ExcelExporter\Styler\ExcelBrandStyler;
-use Core\ExcelExporter\XlsxBuilder\XlsxBuilder;
 
 class XlsxBuilderFactory
 {
