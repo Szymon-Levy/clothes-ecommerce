@@ -37,8 +37,10 @@
 					{% include 'admin/includes/header.html.twig' %}
 
 					<div class="app-content">
-						{% if session.flash_message and session.flash_message.type == 'admin' %}
-							<!-- MESSAGES -->
+						<!-- MESSAGE -->
+                        {% set message = getMessage('admin') %}
+
+						{% if message is not empty %}
 							{% include 'admin/includes/message.html.twig' %}
 						{% endif %}
 

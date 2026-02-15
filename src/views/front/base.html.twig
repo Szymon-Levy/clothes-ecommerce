@@ -47,10 +47,12 @@
 		<main
 			class="body-wrapper">
 
-			<!-- MESSAGES -->
-			{% if session.flash_message and session.flash_message.type == 'front' %}
-				{% include 'front/includes/message.html.twig' %}
-			{% endif %}
+			<!-- MESSAGE -->
+            {% set message = getMessage('front') %}
+
+            {% if message is not empty %}
+                {% include 'front/includes/message.html.twig' %}
+            {% endif %}
 
 			{% if not error_page %}
 				<!-- NAV -->
