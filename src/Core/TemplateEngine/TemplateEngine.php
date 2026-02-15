@@ -3,7 +3,6 @@
 namespace Core\TemplateEngine;
 
 use Core\Config\Config;
-use Core\Http\Session\Session;
 use Twig\Environment;
 
 class TemplateEngine
@@ -14,7 +13,6 @@ class TemplateEngine
 
     public function __construct(
         protected Config $config,
-        protected Session $session,
         protected TemplateEngineExtension $templateEngineExtension
     )
     {
@@ -45,7 +43,6 @@ class TemplateEngine
         $twig = new Environment($twigLoader, $twigSettings);
 
         $twig->addGlobal('config', $this->config->all());
-        $twig->addGlobal('session', $this->session->getTwigVariables());
 
         if ($this->config->system('dev') === true) {
             $twig->addExtension(new \Twig\Extension\DebugExtension());
